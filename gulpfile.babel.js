@@ -35,7 +35,8 @@ gulp.task('hmr', require('./gulpTasks/devServer/hmr')(gulp, plugins))
 gulp.task('nodemon', require('./gulpTasks/devServer/nodemon')(gulp, plugins))
 
 // misc
-gulp.task('exampleFiles', require('./gulpTasks/misc/exampleFiles')(gulp, plugins))
+gulp.task('exampleDbFile', require('./gulpTasks/misc/exampleDbFile')(gulp, plugins))
+gulp.task('exampleEnvFile', require('./gulpTasks/misc/exampleEnvFile')(gulp, plugins))
 
 // build for development
 gulp.task('startDevServer',
@@ -44,7 +45,8 @@ gulp.task('startDevServer',
             'logs',
             'resetDistContents',
             'lintFullSource',
-            'exampleFiles'
+            'exampleDbFile',
+            'exampleEnvFile'
         ),
         'hmr',
         gulp.parallel(
@@ -67,7 +69,8 @@ gulp.task('productionBuild',
             'logs',
             'resetDistContents',
             'lintFullSource',
-            'exampleFiles'
+            'exampleDbFile',
+            'exampleEnvFile'
         ),
         gulp.parallel(
             'hbs',
