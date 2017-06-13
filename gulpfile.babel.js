@@ -1,6 +1,9 @@
+import dotenv from 'dotenv'
 import gulp from 'gulp'
 import gulpLoadPlugins from 'gulp-load-plugins'
+import open from 'open'
 
+dotenv.config()
 const plugins = gulpLoadPlugins({
     lazy: true,
     camelize: true
@@ -33,6 +36,10 @@ gulp.task('uglifyServerCode', require('./gulpTasks/optimize/uglifyServerCode')(g
 // development services
 gulp.task('hmr', require('./gulpTasks/devServer/hmr')(gulp, plugins))
 gulp.task('nodemon', require('./gulpTasks/devServer/nodemon')(gulp, plugins))
+gulp.task('startBrowser', (done) => {
+    open(`${process.env.DEV_HOST}:${process.env.PORT}/${process.env.SYS_REF}`)
+    return done()
+})
 
 // misc
 gulp.task('exampleDbFile', require('./gulpTasks/misc/exampleDbFile')(gulp, plugins))
@@ -55,6 +62,7 @@ gulp.task('startDevServer',
             'favicon',
             'images',
         ),
+        'startBrowser',
         gulp.series(
             'transpileServerCode',
             'nodemon'

@@ -1,9 +1,6 @@
 // import browserSync from 'browser-sync'
 import chalk from 'chalk'
-import dotenv from 'dotenv'
 import path from 'path'
-
-dotenv.config()
 
 const nodemonOptions = {
     env: {
