@@ -32,8 +32,10 @@
                 <a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a>
             </li>
         </ul>
-        <div class="testcontainer">
-            This is a test container
+        <div class="row">
+            <div class="large-6 columns"></div>
+            <div class="large-5 large-offset-1 columns"></div>
+            <a href="#" class="button expanded">test button</a>
         </div>
     </div>
 </template>
@@ -53,6 +55,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import 'foundation.scss';
 @import 'test.scss';
 
 #hello {

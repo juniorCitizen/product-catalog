@@ -10,9 +10,9 @@ dotenv.config()
 module.exports = (gulp, plugins) => {
     return () => {
         let transpile = browserify('./src/frontend/app.js', {
-                extensions: ['.js', '.vue'],
-                debug: process.env.NODE_ENV === 'production' ? false : true
-            })
+            extensions: ['.js', '.vue'],
+            debug: process.env.NODE_ENV === 'production' ? false : true
+        })
             .transform(envify)
             .plugin('vueify/plugins/extract-css', {
                 out: './dist/client/app.css'

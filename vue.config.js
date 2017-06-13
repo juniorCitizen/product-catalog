@@ -1,8 +1,9 @@
-// const dotenv = require('dotenv').config()
-
 module.exports = {
     sass: {
-        includePaths: ['./src/frontend/scss']
+        includePaths: [
+            './src/frontend/scss',
+            './node_modules/foundation-sites/scss'
+        ]
     },
     babel: {
         babelrc: true,
