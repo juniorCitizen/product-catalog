@@ -34,13 +34,17 @@ gulp.task('uglifyServerCode', require('./gulpTasks/optimize/uglifyServerCode')(g
 gulp.task('hmr', require('./gulpTasks/devServer/hmr')(gulp, plugins))
 gulp.task('nodemon', require('./gulpTasks/devServer/nodemon')(gulp, plugins))
 
+// misc
+gulp.task('exampleFiles', require('./gulpTasks/misc/exampleFiles')(gulp, plugins))
+
 // build for development
 gulp.task('startDevServer',
     gulp.series(
         gulp.parallel(
             'logs',
             'resetDistContents',
-            'lintFullSource'
+            'lintFullSource',
+            'exampleFiles'
         ),
         'hmr',
         gulp.parallel(
@@ -62,7 +66,8 @@ gulp.task('productionBuild',
         gulp.parallel(
             'logs',
             'resetDistContents',
-            'lintFullSource'
+            'lintFullSource',
+            'exampleFiles'
         ),
         gulp.parallel(
             'hbs',

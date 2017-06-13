@@ -51,9 +51,9 @@
         "cross-env": "^5.0.1",
         "del": "^3.0.0",
         "envify": "^4.0.0",
-        "eslint": "^3.19.0",
+        "eslint": "^4.0.0",
         "eslint-config-standard": "^10.2.1",
-        "eslint-plugin-html": "^2.0.3",
+        "eslint-plugin-html": "^3.0.0",
         "eslint-plugin-import": "^2.3.0",
         "eslint-plugin-node": "^5.0.0",
         "eslint-plugin-promise": "^3.5.0",
@@ -63,7 +63,7 @@
         "gulp-autoprefixer": "^4.0.0",
         "gulp-babel": "^6.1.2",
         "gulp-csso": "^3.0.0",
-        "gulp-eslint": "^3.0.1",
+        "gulp-eslint": "^4.0.0",
         "gulp-if": "^2.0.2",
         "gulp-load-plugins": "^1.5.0",
         "gulp-nodemon": "^2.2.1",
@@ -86,7 +86,6 @@
         "watchify": "^3.9.0"
     },
     "scripts": {
-        "install": "npm install",
         "dev": "gulp startDevServer",
         "build": "gulp productionBuild"
     }
