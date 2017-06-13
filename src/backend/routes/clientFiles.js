@@ -55,4 +55,6 @@ router.route('/app.css')
     .patch(notImplemented)
     .delete(notImplemented)
 
+// TODO add a route for source maps (due to sourcemap isn't actually working, it's not implemented)
+
 module.exports = router

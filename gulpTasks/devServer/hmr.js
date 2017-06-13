@@ -27,8 +27,9 @@ module.exports = (gulp, plugins) => {
                 })
                 .pipe(sourceStream('app.js'))
                 .pipe(streamBuffer())
+                // TODO check if source map is actually working...
                 .pipe(plugins.sourcemaps.init({ loadMaps: true }))
-                .pipe(plugins.sourcemaps.write('./sourcemaps'))
+                .pipe(plugins.sourcemaps.write('./dist/sourcemaps'))
                 .pipe(gulp.dest('./dist/client'))
         }
     }
