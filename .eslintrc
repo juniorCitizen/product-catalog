@@ -15,6 +15,7 @@
     "env": {
         "browser": true,
         "node": true,
+        "jquery": true,
         "commonjs": true,
         "es6": true,
         "jasmine": true

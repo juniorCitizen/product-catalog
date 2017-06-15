@@ -49,8 +49,8 @@ main.use('/', require('./routes/clientFiles.js')) // serve static client files
 
 // custom request postprocessing middlewares
 console.log(chalk.bold.blue('loading custom post-processing middleware...'))
-main.use(require('./middlewares/postprocessing/fallThrough.js')) // catch requests that falls through all avail handlers
-main.use(require('./middlewares/postprocessing/lastResort.js')) // last resort
+app.use(require('./middlewares/postprocessing/fallThrough.js')) // catch requests that falls through all avail handlers
+// app.use(require('./middlewares/postprocessing/lastResort.js')) // last resort
 
 // // initializing system different system components
 // let initProcedures = []

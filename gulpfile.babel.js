@@ -17,7 +17,6 @@ gulp.task('resetDistContents', require('./gulpTasks/cleanup/resetDistContents')(
 gulp.task('hbs', require('./gulpTasks/assets/hbs')(gulp, plugins))
 gulp.task('favicon', require('./gulpTasks/assets/favicon')(gulp, plugins))
 gulp.task('images', require('./gulpTasks/assets/images')(gulp, plugins))
-gulp.task('vendorScripts', require('./gulpTasks/assets/vendorScripts')(gulp, plugins))
 
 // linting related tasks
 gulp.task('lintServerFiles', require('./gulpTasks/eslint/lintServerFiles')(gulp, plugins))
@@ -29,7 +28,7 @@ gulp.task('transpileClientCode', require('./gulpTasks/transpile/transpileClientC
 gulp.task('transpileServerCode', require('./gulpTasks/transpile/transpileServerCode')(gulp, plugins))
 
 // code optimizations
-gulp.task('minifyCSS', require('./gulpTasks/optimize/minifyCSS')(gulp, plugins))
+// gulp.task('optimizeCss', require('./gulpTasks/optimize/optimizeCss')(gulp, plugins))
 gulp.task('uglifyClientCode', require('./gulpTasks/optimize/uglifyClientCode')(gulp, plugins))
 gulp.task('uglifyServerCode', require('./gulpTasks/optimize/uglifyServerCode')(gulp, plugins))
 
@@ -59,8 +58,7 @@ gulp.task('startDevServer',
         gulp.parallel(
             'hbs',
             'favicon',
-            'images',
-            'vendorScripts'
+            'images'
         ),
         'startBrowser',
         gulp.series(
@@ -86,11 +84,10 @@ gulp.task('productionBuild',
             'images',
             gulp.series(
                 'transpileClientCode',
-                'vendorScripts',
-                gulp.parallel(
-                    'minifyCSS',
-                    'uglifyClientCode'
-                )
+                // gulp.parallel(
+                //     'optimizeCss',
+                'uglifyClientCode'
+                // )
             ),
             gulp.series(
                 'transpileServerCode',

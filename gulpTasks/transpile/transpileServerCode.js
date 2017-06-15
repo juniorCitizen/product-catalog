@@ -9,7 +9,7 @@ module.exports = (gulp, plugins) => {
         if (process.env.NODE_ENV !== 'production') {
             transpile
                 .pipe(plugins.sourcemaps.init({ loadMaps: true }))
-                .pipe(plugins.sourcemaps.write('./dist/sourcemaps'))
+                .pipe(plugins.sourcemaps.write('./'))
         }
         transpile.pipe(plugins.babel({
             presets: ['es2015', 'stage-2']

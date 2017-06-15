@@ -1,8 +1,9 @@
 module.exports = {
     sass: {
         includePaths: [
-            './src/frontend/scss',
-            './node_modules/foundation-sites/scss'
+            './src/frontend/assets/scss',
+            './bower_components/foundation-sites/scss',
+            './bower_components/motion-ui/src'
         ]
     },
     babel: {

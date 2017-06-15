@@ -16,11 +16,10 @@ router.route('/')
             statusCode: 200,
             reference: 'index.hbs',
             data: {
-                title: 'Gentry-Way Product Catalog',
+                title: 'Gentry-Way Co. Ltd',
                 host: eVars.HOST,
                 port: eVars.PORT,
-                sysRef: eVars.SYS_REF,
-                cssPlaceholder: eVars.NODE_ENV === 'production' ? './app.css' : ''
+                sysRef: eVars.SYS_REF
             }
         })
     })
@@ -42,58 +41,17 @@ router.route('/app.js')
     .patch(notImplemented)
     .delete(notImplemented)
 
-router.route('/app.css')
+router.route('/app.js.map')
     .get((request, response, next) => {
         return routerResponse.file({
             pendingResponse: response,
             statusCode: 200,
-            filePath: path.join(__dirname, '../../client/app.css')
+            filePath: path.join(__dirname, '../../client/app.js.map')
         })
     })
     .post(notImplemented)
     .put(notImplemented)
     .patch(notImplemented)
     .delete(notImplemented)
-
-router.route('/jquery.min.js')
-    .get((request, response, next) => {
-        return routerResponse.file({
-            pendingResponse: response,
-            statusCode: 200,
-            filePath: path.join(__dirname, '../../client/jquery.min.js')
-        })
-    })
-    .post(notImplemented)
-    .put(notImplemented)
-    .patch(notImplemented)
-    .delete(notImplemented)
-
-router.route('/foundation.min.js')
-    .get((request, response, next) => {
-        return routerResponse.file({
-            pendingResponse: response,
-            statusCode: 200,
-            filePath: path.join(__dirname, '../../client/foundation.min.js')
-        })
-    })
-    .post(notImplemented)
-    .put(notImplemented)
-    .patch(notImplemented)
-    .delete(notImplemented)
-
-router.route('/dist/sourcemaps/app.js.map')
-    .get((request, response, next) => {
-        return routerResponse.file({
-            pendingResponse: response,
-            statusCode: 200,
-            filePath: path.join(__dirname, '../../client/dist/sourcemaps/app.js.map')
-        })
-    })
-    .post(notImplemented)
-    .put(notImplemented)
-    .patch(notImplemented)
-    .delete(notImplemented)
-
-// TODO add a route for source maps (due to sourcemap isn't actually working, it's not implemented)
 
 module.exports = router
