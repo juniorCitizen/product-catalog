@@ -8,7 +8,7 @@ module.exports = (gulp, plugins) => {
         return gulp.src([
             'src/backend/**/*.js'
         ])
-            // .pipe(plugins.if(process.env.NODE_ENV === 'development', plugins.print()))
+            .pipe(plugins.if(process.env.NODE_ENV === 'development', plugins.print()))
             .pipe(plugins.eslint('./.eslintrc'))
             .pipe(plugins.eslint.format())
             .pipe(plugins.eslint.format('stylish', fs.createWriteStream('./eslint.log')))

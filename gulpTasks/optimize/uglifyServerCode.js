@@ -7,6 +7,6 @@ module.exports = (gulp, plugins) => {
             plugins.uglify(),
             gulp.dest('./dist/server')
         ],
-            callback)
+        callback)
     }
 }

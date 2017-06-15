@@ -1,11 +1,13 @@
 import del from 'del'
 import fs from 'fs'
 
+// remove the 'dist' directory if exists
 module.exports = (gulp, plugins) => {
     return (done) => {
         if (fs.existsSync('./dist')) {
-            del.sync('./dist/**')
+            return del('./dist/**')
+        } else {
+            return done()
         }
-        return done()
     }
 }

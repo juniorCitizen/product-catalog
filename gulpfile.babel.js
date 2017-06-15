@@ -10,13 +10,22 @@ const plugins = gulpLoadPlugins({
 })
 
 // clean up related tasks
-gulp.task('logs', require('./gulpTasks/cleanup/logs')(gulp, plugins))
-gulp.task('resetDistContents', require('./gulpTasks/cleanup/resetDistContents')(gulp, plugins))
+gulp.task('removeLogs', require('./gulpTasks/cleanup/removeLogs')(gulp, plugins))
+gulp.task('resetDist', require('./gulpTasks/cleanup/resetDist')(gulp, plugins))
+gulp.task('realignDistStructure', gulp.parallel(
+    'removeLogs',
+    'resetDist'
+))
 
 // asset preparations
 gulp.task('hbs', require('./gulpTasks/assets/hbs')(gulp, plugins))
 gulp.task('favicon', require('./gulpTasks/assets/favicon')(gulp, plugins))
 gulp.task('images', require('./gulpTasks/assets/images')(gulp, plugins))
+gulp.task('prepAssets', gulp.parallel(
+    'hbs',
+    'favicon',
+    'images'
+))
 
 // linting related tasks
 gulp.task('lintServerFiles', require('./gulpTasks/eslint/lintServerFiles')(gulp, plugins))
@@ -41,25 +50,25 @@ gulp.task('startBrowser', (done) => {
 })
 
 // misc
-gulp.task('exampleDbFile', require('./gulpTasks/misc/exampleDbFile')(gulp, plugins))
-gulp.task('exampleEnvFile', require('./gulpTasks/misc/exampleEnvFile')(gulp, plugins))
+gulp.task('saveExampleDb', require('./gulpTasks/misc/saveExampleDb')(gulp, plugins))
+gulp.task('saveExampleEnvConfig', require('./gulpTasks/misc/saveExampleEnvConfig')(gulp, plugins))
+gulp.task('saveExampleFiles', gulp.parallel(
+    'saveExampleDb',
+    'saveExampleEnvConfig'
+))
 
 // build for development
 gulp.task('startDevServer',
     gulp.series(
         gulp.parallel(
-            'logs',
-            'resetDistContents',
+            gulp.series(
+                'realignDistStructure',
+                'prepAssets'
+            ),
             'lintFullSource',
-            'exampleDbFile',
-            'exampleEnvFile'
+            'saveExampleFiles'
         ),
         'hmr',
-        gulp.parallel(
-            'hbs',
-            'favicon',
-            'images'
-        ),
         'startBrowser',
         gulp.series(
             'transpileServerCode',
@@ -72,16 +81,14 @@ gulp.task('startDevServer',
 gulp.task('productionBuild',
     gulp.series(
         gulp.parallel(
-            'logs',
-            'resetDistContents',
+            gulp.series(
+                'realignDistStructure',
+                'prepAssets'
+            ),
             'lintFullSource',
-            'exampleDbFile',
-            'exampleEnvFile'
+            'saveExampleFiles'
         ),
         gulp.parallel(
-            'hbs',
-            'favicon',
-            'images',
             gulp.series(
                 'transpileClientCode',
                 // gulp.parallel(
