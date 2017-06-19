@@ -10,11 +10,20 @@
                          width="100"
                          height="25">
                 </a>
-                <h6 class="title is-6 nav-item">
+                <h5 class="title is-5 nav-item">
                     <strong>
-                        <i>Gentry Way Co. Ltd.</i>
+                        <i>Gentry Way Co., Ltd.</i>
                     </strong>
-                </h6>
+                </h5>
+            </div>
+            <div class="nav-center">
+                <h2 class="nav-item title is-2">
+                    <i>
+                        <b>
+                            <u>{{ titleCaption }}</u>
+                        </b>
+                    </i>
+                </h2>
             </div>
             <right-nav-menu></right-nav-menu>
         </header>
@@ -35,7 +44,27 @@
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                currentView: 'currentView'
+            }),
+            titleCaption: function () {
+                let references = [{
+                    routeName: 'home',
+                    caption: ''
+                }, {
+                    routeName: 'products',
+                    caption: 'OUR PRODUCTS'
+                }, {
+                    routeName: 'contacts',
+                    caption: 'CONTACT US'
+                }, {
+                    routeName: 'admin',
+                    caption: ''
+                }]
+                return references.filter((reference) => {
+                    return reference.routeName === this.currentView
+                })[0].caption
+            }
         },
         methods: {
             ...mapMutations({}),

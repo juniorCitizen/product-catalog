@@ -31,7 +31,7 @@
                     viewName: 'contacts',
                     route: '/contacts'
                 }, {
-                    menuText: 'Login',
+                    menuText: 'Admin',
                     viewName: 'admin',
                     route: '/admin'
                 }]

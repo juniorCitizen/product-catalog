@@ -1,10 +1,10 @@
 <template>
-    <div class="container is-fluid">
-        <div id="app"
-             class="hero is-medium">
+    <div id="app"
+         class="container is-fluid">
+        <div class="hero is-fullheight">
             <nav-bar></nav-bar>
             <router-view></router-view>
-            <pageFooter></pageFooter>
+            <page-footer></page-footer>
         </div>
     </div>
 </template>
@@ -36,4 +36,8 @@
     }
 </script>
 
-<style></style>
+<style>
+    #app {
+        overflow: hidden;
+    }
+</style>

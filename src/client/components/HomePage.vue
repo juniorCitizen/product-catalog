@@ -3,7 +3,7 @@
         <div class="container has-text-centered">
             <h1 class="title is-1 is-spaced">
                 <strong class="content">
-                    <i>Gentry Way Co. Ltd.</i>
+                    <i>Gentry Way</i>
                 </strong>
             </h1>
             <h4 class="subtitle is-4">
@@ -15,6 +15,10 @@
                 <br>
                 <i>at afforadable pricing</i>
             </h4>
+            <router-link class="button is-primary is-success"
+                         to="/products">
+                <b>Click to See Our Products</b>
+            </router-link>
         </div>
     </div>
 </template>
