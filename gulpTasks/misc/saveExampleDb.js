@@ -1,8 +1,7 @@
 import del from 'del'
-import dotenv from 'dotenv'
 import fs from 'fs'
 
-dotenv.config()
+require('dotenv').config()
 
 const dbFile = `./${process.env.SYS_REF}.db`
 const exampleDbFile = './example.db'

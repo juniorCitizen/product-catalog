@@ -1,7 +1,10 @@
 module.exports = (gulp, plugins) => {
     return () => {
         return gulp
-            .src('./src/frontend/assets/images/*.png')
-            .pipe(gulp.dest('./dist/assets/images'))
+            .src([
+                './src/client/assets/images/**/*.png',
+                './src/client/assets/images/**/*.jpg'
+            ])
+            .pipe(gulp.dest('./dist/client/assets/images'))
     }
 }
