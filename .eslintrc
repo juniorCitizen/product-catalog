@@ -10,15 +10,15 @@
     "extends": [
         "plugin:import/recommended",
         "plugin:node/recommended",
-        "plugin:promise/recommended",
+        // "plugin:promise/recommended",
         "standard"
     ],
     "plugins": [
         "html",
         "import",
         "node",
-        "standard",
-        "promise"
+        // "promise",
+        "standard"
     ],
     "root": true,
     "parser": "babel-eslint",
@@ -104,7 +104,8 @@
         //     "error",
         //     "safe"
         // ],
-        // "import/default": "off",
+        // "promise/avoid-new": "off",
+        "import/default": "off",
         "import/unambiguous": "off",
         "node/exports-style": "off",
         "node/no-unpublished-require": "off",
