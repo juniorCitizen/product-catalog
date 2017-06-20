@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: { isUUID: 4 }
         },
-        photoTypeId: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
         displaySequence: {
             type: DataTypes.INTEGER,
             allowNull: true

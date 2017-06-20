@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             validate: { isUUID: 4 }
         },
         text: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true
         },
         createdAt: {

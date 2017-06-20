@@ -19,9 +19,53 @@ module.exports = { // connection object for sqlite database
         deletedAt: 'deletedAt'
     },
     // custom settings
-    resetDatabase: eVars.ENV !== 'production'
+    resetDatabase: eVars.ENV !== 'production',
+    defaultRecords: defaultRecords()
 }
 
 function chalkedMessage(textString) {
     console.log(chalk.green(textString))
+}
+
+function defaultRecords() {
+    return [{
+        modelName: 'Series',
+        records: [{
+            reference: 'Crutch',
+            displaySequence: 0
+        }, {
+            reference: 'Cane',
+            displaySequence: 1
+        }, {
+            reference: 'Forearm Crutch',
+            displaySequence: 2
+        }, {
+            reference: 'Quad Cane',
+            displaySequence: 3
+        }, {
+            reference: 'Bath Bench',
+            displaySequence: 4
+        }, {
+            reference: 'Aluminium Walker',
+            displaySequence: 5
+        }, {
+            reference: 'Commode Chair',
+            displaySequence: 6
+        }, {
+            reference: 'Bathroom safety',
+            displaySequence: 7
+        }, {
+            reference: 'Patient Aid / Medical Equipment',
+            displaySequence: 8
+        }, {
+            reference: 'Aluminium Wheelchair Ramp',
+            displaySequence: 9
+        }, {
+            reference: 'Rollator',
+            displaySequence: 10
+        }, {
+            reference: 'KAYE Walker',
+            displaySequence: 11
+        }]
+    }]
 }
