@@ -34,12 +34,12 @@ const app = express() // init express app
 console.log(chalk.blue('loading global middlewares...'))
 app.use(require('serve-favicon')('dist/client/favicon/favicon.ico'))
 
-const apiRouting = express.Router() // create an express router
-app.use(`/${eVars.SYS_REF}/api`, apiRouting) // adds system reference name to the endpoint paths globally
-apiRouting.use(cors()) // allowing cross origin requests
-apiRouting.use(morgan('dev')) // for debugging
-apiRouting.use(bodyParser.urlencoded({ extended: true })) // application/x-www-form-urlencoded
-apiRouting.use(bodyParser.json()) // application/json
+const apiRouter = express.Router() // create an express router
+app.use(`/${eVars.SYS_REF}/api`, apiRouter) // adds system reference name to the endpoint paths globally
+apiRouter.use(cors()) // allowing cross origin requests
+apiRouter.use(morgan('dev')) // for debugging
+apiRouter.use(bodyParser.urlencoded({ extended: true })) // application/x-www-form-urlencoded
+apiRouter.use(bodyParser.json()) // application/json
 
 // custom request preprocessing middlewares
 // console.log(chalk.blue('loading custom pre-processing middleware...'))
@@ -51,6 +51,7 @@ console.log(chalk.blue('setup routing and end-point handlers...'))
 app.use('/', express.static(path.join(__dirname, '../client'))) // serve static html
 
 // main.use('/', require('./routes/serverStatus.js')) // serves server status template
+apiRouter.use('/', require('./routes/api/series'))
 
 // custom request postprocessing middlewares
 // console.log(chalk.blue('loading custom post-processing middleware...'))
@@ -58,7 +59,7 @@ app.use('/', express.static(path.join(__dirname, '../client'))) // serve static 
 // app.use(require('./middlewares/postprocessing/lastResort.js')) // last resort
 
 // serve index.html on requests to missing routes on the root level
-app.use('/*', express.static(path.join(__dirname, '../client')))
+app.use('*', express.static(path.join(__dirname, '../client')))
 
 // initializing system different system components
 let initProcedures = []
