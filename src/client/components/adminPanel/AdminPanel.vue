@@ -1,11 +1,13 @@
 <template>
     <div class="hero-body">
         <div class="container">
-            <prod-series-selector></prod-series-selector>
+            <prod-series-selector @prodSerieChanged="recordProdSerieSelection($event)"></prod-series-selector>
             <div class="field">
                 <p class="control">
                     <input class="input"
                            type="text"
+                           name="prod-serie"
+                           v-model="prodCode"
                            placeholder="編號">
                 </p>
             </div>
@@ -13,17 +15,30 @@
                 <p class="control">
                     <input class="input"
                            type="text"
+                           name="prod-name"
+                           v-model="prodName"
                            placeholder="品名">
                 </p>
             </div>
             <div class="field">
                 <p class="control">
                     <textarea class="textarea"
+                              name="prod-desc"
+                              v-model="prodDesc"
                               placeholder="敘述"></textarea>
                 </p>
             </div>
-            <div class="field">
-                <input type="file">
+            <image-uploader :prodCode="prodCode"
+                            @imageUploaded="grabImageIdList($event)">
+            </image-uploader>
+            <div class="columns"
+                 v-if="imageIdList.length>0">
+                <div v-for="imageId in imageIdList"
+                     style="backgroundColor:red;"
+                     class="column">
+                    <!--<img :src=""-->
+                    <!--:alt="imageId">-->
+                </div>
             </div>
         </div>
     </div>
@@ -32,22 +47,37 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import ImageUploader from './ImageUploader.vue'
     import ProdSeriesSelector from './ProdSeriesSelector.vue'
 
     export default {
         name: 'adminPanel',
         components: {
+            ImageUploader,
             ProdSeriesSelector
         },
         data: function () {
-            return {}
+            return {
+                selectedSerie: 0,
+                prodCode: null,
+                prodName: null,
+                prodDesc: null,
+                imageIdList: []
+            }
         },
         computed: {
             ...mapGetters({})
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({}),
+            recordProdSerieSelection: function ($event) {
+                this.selectedSerie = $event
+            },
+            grabImageIdList: function ($event) {
+                this.imageIdList = null
+                this.imageIdList = $event
+            }
         }
     }
 </script>

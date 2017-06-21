@@ -10,6 +10,7 @@
     export default {
         name: 'newTemplate',
         components: {},
+        props: [],
         data: function () {
             return {}
         },

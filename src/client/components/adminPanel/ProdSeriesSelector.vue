@@ -2,7 +2,8 @@
     <div class="field">
         <p class="control">
             <span class="select">
-                <select v-model="selectedSerie">
+                <select v-model="selectedSerie"
+                        @change="prodSerieSelected()">
                     <option disabled
                             :value=0>
                         產品系列
@@ -37,7 +38,10 @@
             ...mapMutations({}),
             ...mapActions({
                 ajaxProdSeries: 'ajaxProdSeries'
-            })
+            }),
+            prodSerieSelected: function () {
+                this.$emit('prodSerieChanged', this.selectedSerie)
+            }
         },
         created: function () {
             this.ajaxProdSeries()

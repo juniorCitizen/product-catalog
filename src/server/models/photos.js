@@ -12,16 +12,24 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: { isUUID: 4 }
         },
-        displaySequence: {
+        originalName: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        encoding: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        mimetype: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        size: {
             type: DataTypes.INTEGER,
             allowNull: true
         },
         photoData: {
             type: DataTypes.BLOB,
-            allowNull: true
-        },
-        altCaption: {
-            type: DataTypes.STRING,
             allowNull: true
         },
         createdAt: {

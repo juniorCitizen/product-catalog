@@ -6,7 +6,7 @@ import routerResponse from '../../utilities/routerResponse'
 const router = express.Router()
 
 router
-    .route('/series')
+    .route('/')
     .get((req, res, next) => {
         return db.Series
             .findAll()

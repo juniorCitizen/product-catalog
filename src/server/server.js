@@ -51,7 +51,8 @@ console.log(chalk.blue('setup routing and end-point handlers...'))
 app.use('/', express.static(path.join(__dirname, '../client'))) // serve static html
 
 // main.use('/', require('./routes/serverStatus.js')) // serves server status template
-apiRouter.use('/', require('./routes/api/series'))
+apiRouter.use('/series', require('./routes/api/series'))
+apiRouter.use('/photoUpload', require('./routes/api/photos'))
 
 // custom request postprocessing middlewares
 // console.log(chalk.blue('loading custom post-processing middleware...'))
