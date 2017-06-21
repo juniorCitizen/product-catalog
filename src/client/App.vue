@@ -23,7 +23,7 @@
             NavBar,
             PageFooter
         },
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

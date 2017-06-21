@@ -14,7 +14,7 @@
     export default {
         name: 'productCatalog',
         components: {},
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

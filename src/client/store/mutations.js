@@ -1,19 +1,18 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
-
 export default {
     resetStore: resetStore,
+    updateProdSeries: updateProdSeries,
     switchView: switchView
 }
 
 function resetStore(state) {
-    // this.$router.push('home')
     state.currentView = 'home'
+    state.prodSeries = []
+}
+
+function updateProdSeries(state, payload) {
+    state.prodSeries = payload.prodSeries
 }
 
 function switchView(state, newView) {
-    // Vue.$router.push(newView)
     state.currentView = newView
 }

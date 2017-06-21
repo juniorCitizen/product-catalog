@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import actions from './actions.js'
-import getters from './getters.js'
-import mutations from './mutations.js'
+import actions from './actions'
+import getters from './getters'
+import mutations from './mutations'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     getters: getters,
     mutations: mutations,
     state: {
-        currentView: 'home'
+        currentView: 'home',
+        prodSeries: []
     }
 })
 

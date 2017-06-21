@@ -12,7 +12,7 @@
     export default {
         name: 'productDetails',
         components: {},
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

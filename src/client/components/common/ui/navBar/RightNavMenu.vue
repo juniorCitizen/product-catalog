@@ -16,7 +16,7 @@
     export default {
         name: 'right-nav-menu',
         components: {},
-        data: () => {
+        data: function () {
             return {
                 menuItems: [{
                     menuText: 'Home',

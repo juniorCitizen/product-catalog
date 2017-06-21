@@ -29,7 +29,7 @@
     export default {
         name: 'homePage',
         components: {},
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

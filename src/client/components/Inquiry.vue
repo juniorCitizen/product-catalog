@@ -12,7 +12,7 @@
     export default {
         name: 'inquiry',
         components: {},
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

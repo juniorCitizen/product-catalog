@@ -18,7 +18,7 @@
     export default {
         name: 'page-footer',
         components: {},
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

@@ -14,7 +14,7 @@
     export default {
         name: 'contactPage',
         components: {},
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

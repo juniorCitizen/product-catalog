@@ -40,7 +40,7 @@
         components: {
             RightNavMenu
         },
-        data: () => {
+        data: function () {
             return {}
         },
         computed: {

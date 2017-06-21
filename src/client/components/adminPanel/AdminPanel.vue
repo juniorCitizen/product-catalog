@@ -1,24 +1,7 @@
 <template>
     <div class="hero-body">
         <div class="container">
-            <div class="field">
-                <p class="control">
-                    <span class="select">
-                        <select>
-                            <option disabled
-                                    value="">
-                                產品系列
-                            </option>
-                            <option>With options</option>
-                            <option>With options</option>
-                            <option>With options</option>
-                            <option>With options</option>
-                            <option>With options</option>
-                            <option>With options</option>
-                        </select>
-                    </span>
-                </p>
-            </div>
+            <prod-series-selector></prod-series-selector>
             <div class="field">
                 <p class="control">
                     <input class="input"
@@ -49,10 +32,14 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import ProdSeriesSelector from './ProdSeriesSelector.vue'
+
     export default {
         name: 'adminPanel',
-        components: {},
-        data: () => {
+        components: {
+            ProdSeriesSelector
+        },
+        data: function () {
             return {}
         },
         computed: {
