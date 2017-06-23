@@ -39,7 +39,7 @@
                 }
                 let ajexOptions = {
                     method: 'post',
-                    url: 'http://localhost/productCatalog/api/photoUpload',
+                    url: 'http://localhost/productCatalog/api/photos',
                     data: uploadedImgData,
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }

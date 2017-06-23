@@ -1,7 +1,8 @@
 <template>
     <div class="hero-body">
         <div class="container">
-            <prod-series-selector @prodSerieChanged="recordProdSerieSelection($event)"></prod-series-selector>
+            <prod-series-selector @prodSerieChanged="recordProdSerieSelection($event)">
+            </prod-series-selector>
             <div class="field">
                 <p class="control">
                     <input class="input"
@@ -31,14 +32,29 @@
             <image-uploader :prodCode="prodCode"
                             @imageUploaded="grabImageIdList($event)">
             </image-uploader>
-            <div class="columns"
-                 v-if="imageIdList.length>0">
-                <div v-for="imageId in imageIdList"
-                     style="backgroundColor:red;"
-                     class="column">
-                    <!--<img :src=""-->
-                    <!--:alt="imageId">-->
+            <div class="field">
+                <br>
+                <div class="columns">
+                    <div class="column is-1">a</div>
+                    <div class="column is-1">b</div>
+                    <div class="column is-1">a</div>
+                    <div class="column is-1">b</div>
+                    <div class="column is-1">a</div>
+                    <div class="column is-1">b</div>
+                    <div class="column is-1">a</div>
+                    <div class="column is-1">b</div>
+                    <div class="column is-1">a</div>
                 </div>
+                <div class="columns">
+                    <div class="column is-1">a</div>
+                    <div class="column is-1">b</div>
+                    <div class="column is-1">a</div>
+                    <div class="column is-1">b</div>
+                    <div class="column is-1">a</div>
+                </div>
+                <!--<div v-for="imageId in imageIdList">-->
+                <!--<img :src="" :alt="imageId">-->
+                <!--</div>-->
             </div>
         </div>
     </div>

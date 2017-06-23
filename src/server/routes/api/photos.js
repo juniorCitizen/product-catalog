@@ -12,9 +12,32 @@ const router = express.Router()
 const upload = multer({ dest: path.resolve('./dist/client/upload/') })
 
 router
+    .get('/', retrievePhoto)
     .post('/', upload.array('prod-photo', null), processPhotoUploads)
 
 module.exports = router
+
+function retrievePhoto(req, res, next) {
+    let photoPath = null
+    return db.Photos
+        .find({ where: { id: req.query.photoId } })
+        .then((photo) => {
+            console.log(photo.dataValues)
+            photoPath = `./dist/client/temp/${photo.originalName}`
+            fs.createReadStream(photo.photoData).pipe(fs.createWriteStream(photoPath))
+            return res
+                .status(200)
+                .header('Content-Type: Image')
+                .sendFile(photoPath)
+                .end()
+        })
+        .catch((error) => {
+            return res.status(500).json(error).end()
+        })
+        .finally(() => {
+            del.sync(photoPath)
+        })
+}
 
 // deal with photo uploads and place inside the database
 function processPhotoUploads(req, res, next) {
