@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        mimetype: {
+        mimeType: {
             type: DataTypes.STRING,
             allowNull: true
         },

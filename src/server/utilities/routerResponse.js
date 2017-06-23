@@ -16,8 +16,9 @@ const cannedMessage = {
 }
 
 module.exports = {
-    template: templateResponse,
-    json: jsonResponse
+    image: imageResponse,
+    json: jsonResponse,
+    template: templateResponse
 }
 
 // requires an object argument
@@ -81,4 +82,11 @@ function jsonResponse(args) {
                 (args.message !== '')
             ) ? args.message : cannedMessage[args.pendingResponse.statusCode.toString()]
         }).end()
+}
+
+function imageResponse(args) {
+    return args.pendingResponse
+        .status(args.statusCode)
+        .type(args.mimeType)
+        .sendFile(args.imagePath)
 }

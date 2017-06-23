@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <div class="field">
-            <input type="file"
-                   name="prod-photo"
-                   :disabled="(prodCode === null) || (prodCode === '')"
-                   accept="image/*"
-                   @change="uploadImage($event)"
-                   multiple>
-        </div>
+    <div class="field">
+        <input type="file"
+               name="prod-photo"
+               :disabled="(prodCode === null) || (prodCode === '')"
+               accept="image/*"
+               @change="uploadImage($event)"
+               multiple>
     </div>
 </template>
 

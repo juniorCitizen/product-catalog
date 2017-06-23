@@ -32,30 +32,8 @@
             <image-uploader :prodCode="prodCode"
                             @imageUploaded="grabImageIdList($event)">
             </image-uploader>
-            <div class="field">
-                <br>
-                <div class="columns">
-                    <div class="column is-1">a</div>
-                    <div class="column is-1">b</div>
-                    <div class="column is-1">a</div>
-                    <div class="column is-1">b</div>
-                    <div class="column is-1">a</div>
-                    <div class="column is-1">b</div>
-                    <div class="column is-1">a</div>
-                    <div class="column is-1">b</div>
-                    <div class="column is-1">a</div>
-                </div>
-                <div class="columns">
-                    <div class="column is-1">a</div>
-                    <div class="column is-1">b</div>
-                    <div class="column is-1">a</div>
-                    <div class="column is-1">b</div>
-                    <div class="column is-1">a</div>
-                </div>
-                <!--<div v-for="imageId in imageIdList">-->
-                <!--<img :src="" :alt="imageId">-->
-                <!--</div>-->
-            </div>
+            <image-display v-if="imageIdList.length>0"
+                           :imageIdList="imageIdList"></image-display>
         </div>
     </div>
 </template>
@@ -63,12 +41,14 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import ImageDisplay from './ImageDisplay.vue'
     import ImageUploader from './ImageUploader.vue'
     import ProdSeriesSelector from './ProdSeriesSelector.vue'
 
     export default {
         name: 'adminPanel',
         components: {
+            ImageDisplay,
             ImageUploader,
             ProdSeriesSelector
         },
@@ -91,7 +71,6 @@
                 this.selectedSerie = $event
             },
             grabImageIdList: function ($event) {
-                this.imageIdList = null
                 this.imageIdList = $event
             }
         }

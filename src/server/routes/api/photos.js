@@ -18,24 +18,37 @@ router
 module.exports = router
 
 function retrievePhoto(req, res, next) {
-    let photoPath = null
+    let imagePath = null
     return db.Photos
         .find({ where: { id: req.query.photoId } })
         .then((photo) => {
-            console.log(photo.dataValues)
-            photoPath = `./dist/client/temp/${photo.originalName}`
-            fs.createReadStream(photo.photoData).pipe(fs.createWriteStream(photoPath))
-            return res
-                .status(200)
-                .header('Content-Type: Image')
-                .sendFile(photoPath)
-                .end()
+            if (photo === null) { // promise is rejected if the photoId does not exist
+                let error = new Error('image not found')
+                error.name = 'imageIdNotFound'
+                return Promise.reject(error)
+            }
+            // path to write the image file
+            imagePath = path.join(path.resolve('./dist/client/assets/images'), photo.id)
+            // extra the image from db and write into the file
+            fs.writeFileSync(imagePath, Buffer.from(photo.photoData))
+            return routerResponse.image({ // return photo to client
+                pendingResponse: res,
+                statusCode: 200,
+                mimeType: photo.mimeType,
+                imagePath: imagePath
+            })
         })
         .catch((error) => {
-            return res.status(500).json(error).end()
-        })
-        .finally(() => {
-            del.sync(photoPath)
+            console.log(error)
+            // return error object to the frontend
+            return routerResponse.json({
+                pendingResponse: res,
+                originalRequest: req,
+                statusCode: 500,
+                success: false,
+                error: error,
+                message: 'photo retrieval failure'
+            })
         })
 }
 
@@ -47,7 +60,7 @@ function processPhotoUploads(req, res, next) {
             db.Photos.create({ // sequelize insert query
                 originalName: file.originalname,
                 encoding: file.encoding,
-                mimetype: file.mimetype,
+                mimeType: file.mimetype,
                 size: file.size,
                 photoData: fs.readFileSync(file.path) // actual photo data is written to a blob field
             })
