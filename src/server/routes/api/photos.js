@@ -62,7 +62,7 @@ function processPhotoUploads(req, res, next) {
                 encoding: file.encoding,
                 mimeType: file.mimetype,
                 size: file.size,
-                photoData: fs.readFileSync(file.path) // actual photo data is written to a blob field
+                photoData: fs.readFileSync(file.path) // write photo data to the blob field
             })
         )
     })

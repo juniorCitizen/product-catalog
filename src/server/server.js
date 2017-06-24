@@ -2,7 +2,7 @@
 import bodyParser from 'body-parser'
 import chalk from 'chalk'
 import cors from 'cors'
-// import exphbs from 'express-handlebars'
+import exphbs from 'express-handlebars'
 import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
@@ -14,21 +14,21 @@ import db from './controllers/database'
 
 // setup Express framework and routing
 console.log(chalk.blue('loading Express framework...'))
-// export let serverStartTime = null // log server start time
+export let serverStartTime = null // log server start time
 const app = express() // init express app
 
 // Handlebars template engine setup
-// console.log(chalk.blue('setup Handlebars templating engine...'))
-// app.engine('.hbs', exphbs({
-//     defaultLayout: 'main',
-//     extname: '.hbs',
-//     layoutsDir: path.join(__dirname, '/views/layouts'),
-//     partialsDir: path.join(__dirname, '/views/partials')
-// }))
-// app.set('view engine', '.hbs')
-// app.set('views', path.join(__dirname, '/views'))
-// app.set('layouts', path.join(__dirname, '/views/layouts'))
-// app.set('partials', path.join(__dirname, '/views/partials'))
+console.log(chalk.blue('setup Handlebars templating engine...'))
+app.engine('.hbs', exphbs({
+    defaultLayout: 'main',
+    extname: '.hbs',
+    layoutsDir: path.join(__dirname, '/views/layouts'),
+    partialsDir: path.join(__dirname, '/views/partials')
+}))
+app.set('view engine', '.hbs')
+app.set('views', path.join(__dirname, '/views'))
+app.set('layouts', path.join(__dirname, '/views/layouts'))
+app.set('partials', path.join(__dirname, '/views/partials'))
 
 // global routing and middlewares
 console.log(chalk.blue('loading global middlewares...'))
