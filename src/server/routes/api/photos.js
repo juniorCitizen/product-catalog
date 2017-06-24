@@ -39,7 +39,6 @@ function retrievePhoto(req, res, next) {
             })
         })
         .catch((error) => {
-            console.log(error)
             // return error object to the frontend
             return routerResponse.json({
                 pendingResponse: res,

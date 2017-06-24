@@ -9,7 +9,8 @@
                         產品系列
                     </option>
                     <option v-for="prodSerie in prodSeries"
-                            :value="prodSerie.id">
+                            :value="prodSerie.id"
+                            :key="prodSerie.id">
                         {{ prodSerie.reference }} 系列
                     </option>
                 </select>

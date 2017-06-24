@@ -2,8 +2,10 @@
     <div class="field">
         <br>
         <div v-for="(row, rowIndex) in rows"
+             :key="rowIndex"
              class="columns">
             <div v-for="columnIndex in columnCount(rowIndex)"
+                 :key="columnIndex"
                  class="column is-1">
                 <img :src="'http://localhost/productCatalog/api/photos?photoId='+imageIdList[imageIdIndex(rowIndex, columnIndex)]"
                      :alt="imageIdList[imageIdIndex(rowIndex, columnIndex)]">
