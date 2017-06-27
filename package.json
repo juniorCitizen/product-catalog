@@ -19,7 +19,8 @@
   "browserify": {
     "transform": [
       "babelify",
-      "vueify"
+      "vueify",
+      "envify"
     ]
   },
   "dependencies": {
@@ -110,6 +111,6 @@
     "client:dev:browser": "gulp startBrowser",
     "dev": "cross-env NODE_ENV=development run-p client:dev:transpile:watch client:dev:html:watch server:dev:babel:watch server:dev:serve client:dev:browser",
     "lint": "gulp lintSource",
-    "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o dist/client/style/app.css ] -e src/app.js | uglifyjs -c warnings=false -m > dist/client/lib/app.js"
+    "build": "cross-env NODE_ENV=production browserify -p [ vueify/plugins/extract-css -o dist/client/style/app.css ] -e src/app.js | uglifyjs -c warnings=false -m > dist/client/lib/app.js"
   }
 }

@@ -1,6 +1,8 @@
 <template>
     <div class="field">
-        <input type="file"
+        <label class="label">上傳產品相關相片</label>
+        <input v-if="resetSwitch===null"
+               type="file"
                name="prod-photo"
                :disabled="(prodCode === null) || (prodCode === '')"
                accept="image/*"
@@ -16,10 +18,25 @@
     export default {
         name: 'image-uploader',
         components: {},
-        props: ['prodCode'],
+        props: [
+            'prodCode',
+            'masterImageIdList'
+        ],
+        watch: {
+            masterImageIdList: function (updatedMasterImageIdList) {
+                if (updatedMasterImageIdList.length === 0) {
+                    this.resetSwitch = 'reset'
+                    setTimeout(() => {
+                        this.resetSwitch = null
+                        this.imageIdList = []
+                    }, 1)
+                }
+            }
+        },
         data: function () {
             return {
-                imageIdList: []
+                imageIdList: [],
+                resetSwitch: null
             }
         },
         computed: {

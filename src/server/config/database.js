@@ -8,7 +8,7 @@ module.exports = { // connection object for sqlite database
     storage: path.join('./', `${eVars.SYS_REF}.db`), // path to database file
     // timezone: eVars.TIMEZONE, // unsupported by SQLite
     // control if database operations are output with verbose messages
-    logging: eVars.ENV === 'development' ? chalkedMessage : false,
+    logging: eVars.NODE_ENV === 'development' ? chalkedMessage : false,
     define: {
         underscored: false,
         freezeTableName: true,
@@ -19,7 +19,7 @@ module.exports = { // connection object for sqlite database
         deletedAt: 'deletedAt'
     },
     // custom settings
-    resetDatabase: eVars.ENV !== 'production',
+    resetDatabase: false, // eVars.NODE_ENV !== 'production',
     defaultRecords: defaultRecords()
 }
 

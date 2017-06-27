@@ -61,6 +61,13 @@ function initialize() {
                 )
             }
         })
+
+    db.Series.hasMany(db.Products, { constraints: true })
+    db.Products.hasMany(db.Photos, { constraints: true })
+    db.Products.hasOne(db.Descriptions, { constraints: true })
+    db.Descriptions.belongsTo(db.Products, { constraints: true, sourceKey: 'productId', targetKey: 'id' })
+    db.Photos.belongsTo(db.Products, { constraints: true, sourceKey: 'productId', targetKey: 'id' })
+
     return sequelize
         .authenticate() // verify database connection
         .then(() => {

@@ -36,8 +36,8 @@
     }
 </script>
 
-<style>
-    #app {
+<style lang="sass" scoped>
+    div.hero {
         overflow: hidden;
     }
 </style>

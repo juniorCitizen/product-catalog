@@ -1,13 +1,24 @@
 import axios from 'axios'
 
+import eVars from '../../server/config/environment'
+
 export default {
-    ajaxProdSeries: ajaxProdSeries
+    getProdSeriesList: getProdSeriesList,
+    getFullProdData: getFullProdData
 }
 
-function ajaxProdSeries(context) {
+function getFullProdData(context, serieId) {
     let ajaxOptions = {
         method: 'get',
-        url: 'http://localhost/productCatalog/api/series'
+        url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`
+    }
+    return axios(ajaxOptions)
+}
+
+function getProdSeriesList(context) {
+    let ajaxOptions = {
+        method: 'get',
+        url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/series`
     }
     return axios(ajaxOptions)
         .then((apiResponse) => {

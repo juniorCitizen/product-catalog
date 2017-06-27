@@ -65,9 +65,15 @@ function processPhotoUploads(req, res, next) {
             })
         )
     })
-    return Promise.all(dbQueries) // run the queries
+    // remove all rouge photo
+    return db.Photos.destroy({ where: { productId: null } })
+        .then(() => {
+            // run the photo insert queries
+            return Promise.all(dbQueries)
+        })
         .then((dbQueryResult) => {
-            req.files.forEach((file) => { // remove all the left over photos
+            // remove all the left over photos
+            req.files.forEach((file) => {
                 del.sync(file.path)
             })
             return routerResponse.json({ // return a successful photo upload

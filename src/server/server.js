@@ -53,6 +53,7 @@ app.use('/', express.static(path.join(__dirname, '../client'))) // serve static 
 // main.use('/', require('./routes/serverStatus.js')) // serves server status template
 apiRouter.use('/series', require('./routes/api/series'))
 apiRouter.use('/photos', require('./routes/api/photos'))
+apiRouter.use('/products', require('./routes/api/products'))
 
 // custom request postprocessing middlewares
 // console.log(chalk.blue('loading custom post-processing middleware...'))

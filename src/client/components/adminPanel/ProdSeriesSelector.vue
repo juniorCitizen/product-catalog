@@ -1,22 +1,20 @@
 <template>
-    <div class="field">
-        <p class="control">
-            <span class="select">
-                <select v-model="selectedSerie"
-                        @change="prodSerieSelected()">
-                    <option disabled
-                            :value=0>
-                        產品系列
-                    </option>
-                    <option v-for="prodSerie in prodSeries"
-                            :value="prodSerie.id"
-                            :key="prodSerie.id">
-                        {{ prodSerie.reference }} 系列
-                    </option>
-                </select>
-            </span>
-        </p>
-    </div>
+    <p class="control">
+        <span class="select">
+            <select v-model="selectedSerie"
+                    @change="prodSerieSelected()">
+                <option disabled
+                        :value="0">
+                    請選擇產品系列
+                </option>
+                <option v-for="prodSerie in prodSeries"
+                        :value="prodSerie.id"
+                        :key="prodSerie.id">
+                    {{ prodSerie.reference }} 系列
+                </option>
+            </select>
+        </span>
+    </p>
 </template>
 
 <script>
@@ -25,6 +23,14 @@
     export default {
         name: 'prod-series-selector',
         components: {},
+        props: ['masterSelectedSerie'],
+        watch: {
+            masterSelectedSerie: function (updatedMasterSelectedSerie) {
+                if (updatedMasterSelectedSerie === 0) {
+                    this.selectedSerie = 0
+                }
+            }
+        },
         data: function () {
             return {
                 selectedSerie: 0
@@ -38,14 +44,14 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({
-                ajaxProdSeries: 'ajaxProdSeries'
+                getProdSeriesList: 'getProdSeriesList'
             }),
             prodSerieSelected: function () {
                 this.$emit('prodSerieChanged', this.selectedSerie)
             }
         },
         created: function () {
-            this.ajaxProdSeries()
+            this.getProdSeriesList()
         }
     }
 </script>

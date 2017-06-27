@@ -7,7 +7,7 @@
             <div v-for="columnIndex in columnCount(rowIndex)"
                  :key="columnIndex"
                  class="column is-1">
-                <img :src="'http://localhost/productCatalog/api/photos?photoId='+imageIdList[imageIdIndex(rowIndex, columnIndex)]"
+                <img :src="`${host}:${port}/${sysRef}/api/photos?photoId=`+imageIdList[imageIdIndex(rowIndex, columnIndex)]"
                      :alt="imageIdList[imageIdIndex(rowIndex, columnIndex)]">
             </div>
         </div>
@@ -17,12 +17,18 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import eVars from '../../../server/config/environment'
+
     export default {
-        name: 'image-id-list',
+        name: 'image-display',
         components: {},
         props: ['imageIdList'],
         data: function () {
-            return {}
+            return {
+                host: eVars.HOST,
+                port: eVars.PORT,
+                sysRef: eVars.SYS_REF
+            }
         },
         computed: {
             ...mapGetters({}),

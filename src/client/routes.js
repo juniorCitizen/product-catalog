@@ -1,5 +1,5 @@
 import HomePage from './components/HomePage.vue'
-import ProductCatalog from './components/ProductCatalog.vue'
+import ProductCatalog from './components/productCatalog/ProductCatalog.vue'
 import ContactPage from './components/ContactPage.vue'
 import AdminPanel from './components/adminPanel/AdminPanel.vue'
 // import Inquiry from './components/Inquiry.vue'

@@ -7,6 +7,6 @@ module.exports = (gulp, plugins) => {
         setTimeout(() => {
             open(`${process.env.DEV_HOST}:${process.env.PORT}`)
             return done()
-        }, 18000)
+        }, 10000)
     }
 }

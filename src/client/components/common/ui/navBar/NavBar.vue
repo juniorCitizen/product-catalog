@@ -16,15 +16,6 @@
                     </strong>
                 </h5>
             </div>
-            <div class="nav-center">
-                <h2 class="nav-item title is-2">
-                    <i>
-                        <b>
-                            <u>{{ titleCaption }}</u>
-                        </b>
-                    </i>
-                </h2>
-            </div>
             <right-nav-menu></right-nav-menu>
         </header>
     </div>
@@ -46,25 +37,7 @@
         computed: {
             ...mapGetters({
                 currentView: 'currentView'
-            }),
-            titleCaption: function () {
-                let references = [{
-                    routeName: 'home',
-                    caption: ''
-                }, {
-                    routeName: 'products',
-                    caption: 'OUR PRODUCTS'
-                }, {
-                    routeName: 'contacts',
-                    caption: 'CONTACT US'
-                }, {
-                    routeName: 'admin',
-                    caption: ''
-                }]
-                return references.filter((reference) => {
-                    return reference.routeName === this.currentView
-                })[0].caption
-            }
+            })
         },
         methods: {
             ...mapMutations({}),

@@ -8,9 +8,8 @@ module.exports = (sequelize, DataTypes) => {
             validate: { isUUID: 4 }
         },
         serieId: {
-            type: DataTypes.UUID,
-            allowNull: true,
-            validate: { isUUID: 4 }
+            type: DataTypes.INTEGER,
+            allowNull: true
         },
         itemCode: {
             type: DataTypes.STRING,
