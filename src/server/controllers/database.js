@@ -9,7 +9,7 @@ import path from 'path'
 import Sequelize from 'sequelize' // requires the sequalize library
 
 import config from '../config/database'
-import eVars from '../config/environment'
+// import eVars from '../config/environment'
 
 // initialize sequelize database object
 const sequelize = new Sequelize(config)
@@ -34,8 +34,8 @@ function initialize() {
             // register models dynamically
             db[modelName] = require(path.join(path.resolve('./src/server/models'), fileName))(sequelize, Sequelize)
             // check if it's a development run
-            let initDbRecordset = null
-            if (eVars.NODE_ENV === 'development') {
+            let initDbRecordset = []
+            if (config.resetDatabase) { // if database is being resetted
                 // determin if a default record set are in place
                 initDbRecordset = config.defaultRecords.filter((recordset) => {
                     return recordset.modelName === modelName

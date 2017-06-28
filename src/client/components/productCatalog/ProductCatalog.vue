@@ -2,6 +2,10 @@
     <div class="hero-body">
         <div class="container has-text-centered"
              style="margin:auto;">
+            <h3 class="title is-3">
+                <i class="fa fa-check-circle-o"></i>
+                Check off items to receive more information
+            </h3>
             <div id="card-container">
                 <product-series-card v-for="seriesItem in prodSeries"
                                      :key="seriesItem.id"

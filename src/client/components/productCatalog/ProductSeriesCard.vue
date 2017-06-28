@@ -10,14 +10,13 @@
                     <span v-else>Item</span>
                 </i>
             </p>
-            <span v-if="productsInSeries>0"
-                  class="card-header-icon"
+            <span class="card-header-icon"
                   :class="{'is-active':activeItem, 'is-inactive':!activeItem}">
                 <span class="icon">
-                    <i v-if="!activeItem"
+                    <i v-show="!activeItem"
                        class="fa fa-angle-down"
                        @click="activate"></i>
-                    <i v-else
+                    <i v-show="activeItem"
                        class="fa fa-angle-up"
                        @click="deactivate"></i>
                 </span>

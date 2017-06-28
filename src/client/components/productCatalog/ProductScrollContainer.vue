@@ -1,11 +1,10 @@
 <template>
     <span class="column">
         <span class="columns">
-            <img v-for="item in itemsOnDisplay"
-                 :key="item"
-                 class="column is-4"
-                 :src="`${host}:${port}/${sysRef}/api/photos?photoId=${item.photos[0].id}`"
-                 alt="test">
+            <image-slide v-for="product in itemsOnDisplay"
+                         :key="product"
+                         :product="product">
+            </image-slide>
         </span>
     </span>
 </template>
@@ -13,18 +12,14 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import eVars from '../../../server/config/environment'
+    import ImageSlide from './ImageSlide.vue'
 
     export default {
         name: 'product-scroll-container',
-        components: {},
+        components: { ImageSlide },
         props: ['itemsOnDisplay'],
         data: function () {
-            return {
-                host: eVars.HOST,
-                port: eVars.PORT,
-                sysRef: eVars.SYS_REF
-            }
+            return {}
         },
         computed: {
             ...mapGetters({})
