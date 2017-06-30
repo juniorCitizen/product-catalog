@@ -1,6 +1,7 @@
 export default {
     currentView: currentView,
-    prodSeries: prodSeries
+    prodSeries: prodSeries,
+    interestedItems: interestedItems
 }
 
 function currentView(state) {
@@ -9,4 +10,8 @@ function currentView(state) {
 
 function prodSeries(state) {
     return state.prodSeries
+}
+
+function interestedItems(state) {
+    return state.interestedItems
 }

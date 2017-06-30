@@ -13,7 +13,8 @@ const store = new Vuex.Store({
     mutations: mutations,
     state: {
         currentView: 'home',
-        prodSeries: []
+        prodSeries: [],
+        interestedItems: []
     }
 })
 

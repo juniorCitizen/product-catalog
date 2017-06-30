@@ -3,14 +3,14 @@
         <div class="level columns">
             <span class="column is-narrow">
                 <i @click="scroll(-1)"
-                   class="fa fa-arrow-circle-left fa-3x"
-                   style="color:#126534;"></i>
+                   class="fa fa-arrow-circle-left fa-3x">
+                </i>
             </span>
-            <product-scroll-container :itemsOnDisplay="itemsOnDisplay"></product-scroll-container>
+            <primary-image-container :itemsOnDisplay="itemsOnDisplay"></primary-image-container>
             <span class="column is-narrow">
                 <i @click="scroll(1)"
-                   class="fa fa-arrow-circle-right fa-3x"
-                   style="color:#126534;"></i>
+                   class="fa fa-arrow-circle-right fa-3x">
+                </i>
             </span>
         </div>
     </div>
@@ -19,15 +19,15 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductScrollContainer from './ProductScrollContainer.vue'
+    import PrimaryImageContainer from './PrimaryImageContainer.vue'
 
     export default {
         name: 'product-scroller',
-        components: { ProductScrollContainer },
+        components: { PrimaryImageContainer },
         props: ['products'],
         data: function () {
             return {
-                onDisplayItemCount: 3,
+                onDisplayItemCount: 4,
                 currentIndex: 0
             }
         },
@@ -75,4 +75,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    i.fa {
+        color: #126534;
+    }
+</style>

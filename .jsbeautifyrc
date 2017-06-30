@@ -30,7 +30,7 @@
             "object", "output", "progress", "q", "ruby", "s",
             "samp", "script", "select", "small", "span", "strong",
             "sub", "sup", "svg", "template", "textarea",
-            "time", "u", "var", "video", "wbr", "text"
+            "time", "u", "var", "video", "wbr", "text", "p"
         ],
         "content_unformatted": ["pre"],
         "wrap_attributes": "force-aligned",

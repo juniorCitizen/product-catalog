@@ -24,7 +24,7 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductSeriesCard from './ProductSeriesCard.vue'
+    import ProductSeriesCard from './productSeriesCard/ProductSeriesCard.vue'
 
     export default {
         name: 'productCatalog',

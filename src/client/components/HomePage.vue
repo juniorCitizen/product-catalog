@@ -17,7 +17,7 @@
             </h4>
             <router-link class="button is-primary is-success"
                          to="/products">
-                <b>Click to See Our Products</b>
+                <b>CLICK TO SEE OUR PRODUCTS</b>
             </router-link>
         </div>
     </div>
