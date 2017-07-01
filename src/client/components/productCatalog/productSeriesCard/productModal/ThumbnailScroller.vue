@@ -72,10 +72,7 @@
                 }
             },
             switchPhoto: function ($event) {
-                this.$emit('switchPhoto', {
-                    photoId: $event.photoId,
-                    photoIndex: $event.photoIndex
-                })
+                this.$emit('switchPhoto', $event)
             }
         }
     }

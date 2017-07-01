@@ -85,7 +85,11 @@
                 this.$emit('itemSelection')
             },
             switchPhoto: function ($event) {
-                this.photoIndex = $event.photoIndex
+                this.product.photos.forEach((photo, photoIndex) => {
+                    if (photo.id === $event) {
+                        this.photoIndex = photoIndex
+                    }
+                })
             }
         }
     }

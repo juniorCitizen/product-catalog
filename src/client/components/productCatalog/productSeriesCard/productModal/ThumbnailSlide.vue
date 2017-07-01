@@ -4,7 +4,6 @@
              @click="switchPhoto">
             <span>
                 <img class="image"
-                     style="height:45px;"
                      :src="`${host}:${port}/${sysRef}/api/photos?photoId=${productPhoto.id}`">
             </span>
         </div>
@@ -19,7 +18,7 @@
     export default {
         name: 'thumbnail-slide',
         components: {},
-        props: ['productPhoto', 'photoIndex'],
+        props: ['productPhoto'],
         data: function () {
             return {
                 host: eVars.HOST,
@@ -34,10 +33,7 @@
             ...mapMutations({}),
             ...mapActions({}),
             switchPhoto: function () {
-                this.$emit('switchPhoto', {
-                    photoId: this.productPhoto.id,
-                    photoIndex: this.photoIndex
-                })
+                this.$emit('switchPhoto', this.productPhoto.id)
             }
         }
     }
@@ -47,5 +43,9 @@
     .thumbnail-container {
         border: 1px rgba(0, 0, 0, 0.3) solid;
         border-radius: 10px;
+    }
+
+    img.image {
+        height: 45px;
     }
 </style>

@@ -1,8 +1,7 @@
 <template>
     <span class="column columns is-marginless is-paddingless">
-        <thumbnail-slide v-for="(productPhoto, photoIndex) in itemsOnDisplay"
-                         :key="photoIndex"
-                         :photoIndex="photoIndex"
+        <thumbnail-slide v-for="productPhoto in itemsOnDisplay"
+                         :key="productPhoto"
                          :productPhoto="productPhoto"
                          @switchPhoto="switchPhoto($event)">
         </thumbnail-slide>
@@ -29,10 +28,7 @@
             ...mapMutations({}),
             ...mapActions({}),
             switchPhoto: function ($event) {
-                this.$emit('switchPhoto', {
-                    photoId: $event.photoId,
-                    photoIndex: $event.photoIndex
-                })
+                this.$emit('switchPhoto', $event)
             }
         }
     }
