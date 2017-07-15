@@ -3,7 +3,7 @@
         <div class="thumbnail-container is-marginless"
              @click="switchPhoto">
             <span>
-                <img class="image"
+                <img class="image slideing-left"
                      :src="`${host}:${port}/${sysRef}/api/photos?photoId=${productPhoto.id}`">
             </span>
         </div>
@@ -40,12 +40,28 @@
 </script>
 
 <style scoped>
-    .thumbnail-container {
-        border: 1px rgba(0, 0, 0, 0.3) solid;
-        border-radius: 10px;
+    img.image {
+        border: none;
+        border-radius: 12px;
+        height: 45px;
+        transition: transform 0.5s;
+        z-index: 0;
     }
 
-    img.image {
-        height: 45px;
+    img.image:hover {
+        transform: scale(1.4);
+    }
+
+    img.slideing-left {
+        animation: slide-left 0.5s;
+    }
+
+    @keyframes slide-left {
+        0% {
+            transform: translateX(0px);
+        }
+        100% {
+            transform: translateX(-20px);
+        }
     }
 </style>

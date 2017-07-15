@@ -1,6 +1,11 @@
 <template>
-    <span>
-        newTemplate
+    <span class="card-header-icon">
+        <span class="icon">
+            <i v-show="!activeItem"
+               class="fa fa-angle-down"></i>
+            <i v-show="activeItem"
+               class="fa fa-angle-up"></i>
+        </span>
     </span>
 </template>
 
@@ -8,9 +13,9 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'newTemplate',
+        name: 'series-indicator',
         components: {},
-        props: [],
+        props: ['activeItem'],
         data: function () {
             return {}
         },

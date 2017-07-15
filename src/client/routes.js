@@ -2,8 +2,6 @@ import HomePage from './components/HomePage.vue'
 import ProductCatalog from './components/productCatalog/ProductCatalog.vue'
 import ContactPage from './components/ContactPage.vue'
 import AdminPanel from './components/adminPanel/AdminPanel.vue'
-// import Inquiry from './components/Inquiry.vue'
-// import ProductDetails from './components/ProductDetails.vue'
 
 const routes = [{
     path: '/',
@@ -25,7 +23,5 @@ const routes = [{
     path: '*',
     redirect: '/'
 }]
-// { path: '/inquiry', name: 'inquiry', component: Inquiry },
-// { path: '/products/:productId', name: 'prodDetails', component: ProductDetails },
 
 export default routes

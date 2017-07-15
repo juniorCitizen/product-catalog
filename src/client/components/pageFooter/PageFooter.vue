@@ -5,8 +5,8 @@
             <div class="is-pulled-left column">
                 <router-link to="/contacts">Register</router-link> to receive our PDF catalog
             </div>
-            <div class="is-pulled-right has-text-right column">
-                © {{ new Date().getFullYear() }}
+            <div class="copy-right-notice is-pulled-right has-text-right column">
+                © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
             </div>
         </div>
     </div>
@@ -34,5 +34,9 @@
 <style scoped>
     #page-footer {
         padding: 5px;
+    }
+
+    div.copy-right-notice {
+        font-size: 8px;
     }
 </style>

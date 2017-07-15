@@ -2,16 +2,23 @@
     <div class="hero-body">
         <div class="container">
             <div class="field is-grouped">
-                <p v-if="readyToSubmit"
+                <p v-if="readyToSubmit && !isExistingRecord"
                    class="control">
                     <button class="button is-primary"
                             @click="submitProdData">
                         建立 {{ prodCode }} 資料
                     </button>
                 </p>
+                <p v-if="readyToSubmit && isExistingRecord"
+                   class="control">
+                    <button class="button is-primary"
+                            @click="submitProdData">
+                        修改 {{ prodCode }} 資料
+                    </button>
+                </p>
                 <p class="control">
                     <button class="button is-danger"
-                            @click="clearForm">
+                            @click="clearForm(0)">
                         清除資料
                     </button>
                 </p>
@@ -34,11 +41,15 @@
                 </p>
             </div>
             <prod-code-input :masterProdCode="prodCode"
-                             @prodCodeChanged="prodCode=$event"></prod-code-input>
+                             :masterSelectedSerie="selectedSerie"
+                             @itemCodeChanged="recordProdCodeInput($event)">
+            </prod-code-input>
             <prod-name-input :masterProdName="prodName"
-                             @prodNameChanged="prodName=$event"></prod-name-input>
+                             @prodNameChanged="prodName=$event">
+            </prod-name-input>
             <prod-desc-text :masterProdDesc="prodDesc"
-                            @prodDescChanged="prodDesc=$event"></prod-desc-text>
+                            @prodDescChanged="prodDesc=$event">
+            </prod-desc-text>
             <image-uploader :prodCode="prodCode"
                             :masterImageIdList="imageIdList"
                             @imageUploaded="grabImageIdList($event)">
@@ -64,7 +75,7 @@
     import ProdSeriesSelector from './ProdSeriesSelector.vue'
 
     export default {
-        name: 'adminPanel',
+        name: 'admin-panel',
         components: {
             ImageDisplay,
             ImageUploader,
@@ -75,11 +86,14 @@
         },
         data: function () {
             return {
+                isExistingRecord: false,
+                imageIdListUpdated: false,
                 selectedSerie: 0,
                 prodCode: null,
                 prodType: 'unselected',
                 prodName: null,
                 prodDesc: null,
+                fullProdData: [],
                 imageIdList: []
             }
         },
@@ -102,20 +116,50 @@
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({}),
+            ...mapActions({ getFullProdData: 'getFullProdData' }),
             recordProdSerieSelection: function ($event) {
                 this.selectedSerie = $event
+                this.clearForm($event)
+                if (this.prodCode !== null) {
+                    this.restoreExistingProductData()
+                }
+            },
+            recordProdCodeInput: function ($event) {
+                this.prodCode = $event
+                if (this.selectedSerie !== 0) {
+                    this.restoreExistingProductData()
+                }
+            },
+            restoreExistingProductData: function () {
+                let productsInSeries = this.fullProdData[this.selectedSerie - 1].products
+                let existingRecord = productsInSeries.filter((product) => {
+                    return product.itemCode === this.prodCode
+                })
+                if (existingRecord.length === 1) {
+                    this.prodType = existingRecord[0].type
+                    this.prodName = existingRecord[0].name
+                    this.prodDesc = existingRecord[0].description.text
+                    this.imageIdList = []
+                    existingRecord[0].photos.forEach((photo) => {
+                        this.imageIdList.push(photo.id)
+                    })
+                    this.isExistingRecord = true
+                    this.imageIdListUpdated = false
+                }
             },
             grabImageIdList: function ($event) {
                 this.imageIdList = $event
+                this.imageIdListUpdated = true
             },
-            clearForm: function () {
-                this.selectedSerie = 0
+            clearForm: function (series) {
+                this.selectedSerie = series
                 this.prodCode = null
                 this.prodType = 'unselected'
                 this.prodName = null
                 this.prodDesc = null
                 this.imageIdList = []
+                this.isExistingRecord = false
+                this.imageIdListUpdated = false
             },
             submitProdData: function () {
                 let ajaxOptions = {
@@ -133,14 +177,30 @@
                 axios(ajaxOptions)
                     .then((serverResponse) => {
                         alert('產品資料上傳成功')
-                        this.clearForm()
+                        this.clearForm(0)
+                        this.isExistingRecord = false
+                        this.imageIdListUpdated = false
                     })
                     .catch((error) => {
                         console.log(error)
                         alert('系統錯誤，產品資料上傳失敗')
-                        this.clearForm()
+                        this.clearForm(0)
+                        this.isExistingRecord = false
+                        this.imageIdListUpdated = false
                     })
             }
+        },
+        created: function () {
+            this.getFullProdData()
+                .then((apiResponse) => {
+                    this.fullProdData = apiResponse.data.data
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+        mounted: function () {
+            this.$emit('adminRouteActivated')
         }
     }
 </script>

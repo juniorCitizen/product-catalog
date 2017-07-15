@@ -1,25 +1,31 @@
 <template>
-    <div class="hero-body">
+    <div class="hero-body"
+         style="position: relative;">
         <div class="container has-text-centered">
             <h1 class="title is-1 is-spaced">
                 <strong class="content">
-                    <i>Gentry Way</i>
+                    <i>GENTRY WAY CO., LTD.</i>
                 </strong>
             </h1>
-            <h4 class="subtitle is-4">
-                <i>A manufacturer of practical</i>
+            <h3 class="motto subtitle is-3">
+                <i>Quality aluminium extrusion products</i>
                 <br>
-                <i>rehabilitation & recreational</i>
+                <i>for medical, rehabilitation and recreation industries</i>
                 <br>
-                <i>aluminium extrusion products</i>
+                <i>at affordable pricing!!!</i>
                 <br>
-                <i>at afforadable pricing</i>
-            </h4>
-            <router-link class="button is-primary is-success"
-                         to="/products">
-                <b>CLICK TO SEE OUR PRODUCTS</b>
-            </router-link>
+                <br>
+                <h5 class="subtitle is-5">
+                    <i>Manufactured in both Taiwan or China</i>
+                </h5>
+            </h3>
         </div>
+        <router-link class="button is-primary is-primary is-outlined"
+                     to="/products">
+            <b>
+                <i>CLICK TO SEE OUR PRODUCTS</i>
+            </b>
+        </router-link>
     </div>
 </template>
 
@@ -27,7 +33,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'homePage',
+        name: 'home-page',
         components: {},
         data: function () {
             return {}
@@ -38,8 +44,38 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({})
-        }
+        },
+        mounted: function () { }
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    h1 {
+        transform: rotate(-4deg) scale(1.2, 1.6) translate(0px, -20px);
+        color: darkgreen;
+    }
+
+    .motto {
+        transform: rotate(-4deg) translate(0px, 0px);
+    }
+
+    .button {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        border: 1px;
+    }
+
+    div.hero-body {
+        animation: animate 1s both;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: scale(0.5);
+        }
+        100% {
+            transform: scale(0.8);
+        }
+    }
+</style>

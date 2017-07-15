@@ -1,14 +1,14 @@
 <template>
     <div class="field">
         <br>
-        <div v-for="(row, rowIndex) in rows"
-             :key="rowIndex"
+        <div v-for="rowIndex in rows"
+             :key="rowIndex-1"
              class="columns">
-            <div v-for="columnIndex in columnCount(rowIndex)"
+            <div v-for="columnIndex in columnCount(rowIndex-1)"
                  :key="columnIndex"
                  class="column is-1">
-                <img :src="`${host}:${port}/${sysRef}/api/photos?photoId=`+imageIdList[imageIdIndex(rowIndex, columnIndex)]"
-                     :alt="imageIdList[imageIdIndex(rowIndex, columnIndex)]">
+                <img :src="`${host}:${port}/${sysRef}/api/photos?photoId=`+imageIdList[imageIdIndex(rowIndex-1, columnIndex)]"
+                     :alt="imageIdList[imageIdIndex(rowIndex-1, columnIndex)]">
             </div>
         </div>
     </div>

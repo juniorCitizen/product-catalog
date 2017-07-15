@@ -1,50 +1,5 @@
-import express from 'express'
-// import Promise from 'bluebird'
-
-import db from '../../controllers/database'
-import routerResponse from '../../utilities/routerResponse'
-
-const router = express.Router()
-
-router
-    .get('/', getProductData)
-    .post('/', insertProductRecord)
-
-module.exports = router
-
-function getProductData(req, res, next) {
-    let seriesQueryFilter = {
-        include: [{
-            model: db.Products,
-            include: [
-                { model: db.Descriptions },
-                { model: db.Photos, attributes: { exclude: ['photoData'] } }
-            ]
-        }]
-    }
-    return db.Series.findAll(seriesQueryFilter)
-        .then((productRecords) => {
-            return routerResponse.json({
-                pendingResponse: res,
-                originalRequest: req,
-                statusCode: 200,
-                success: true,
-                data: productRecords
-            })
-        })
-        .catch((error) => {
-            console.log(error)
-            // return error object to the frontend
-            return routerResponse.json({
-                pendingResponse: res,
-                originalRequest: req,
-                statusCode: 500,
-                success: false,
-                error: error,
-                message: 'product series data query failure'
-            })
-        })
-}
+import db from '../../../controllers/database'
+import routerResponse from '../../../utilities/routerResponse'
 
 function insertProductRecord(req, res, next) {
     return db.sequelize
@@ -63,7 +18,7 @@ function insertProductRecord(req, res, next) {
                         text: req.body.text
                     }, { transaction: trx })
                 })
-                // register photos for the product
+                // register photos to the product
                 .then((newDescriptionRecord) => {
                     return db.Photos.update({
                         productId: newDescriptionRecord.productId
@@ -103,3 +58,5 @@ function insertProductRecord(req, res, next) {
             })
         })
 }
+
+module.exports = insertProductRecord

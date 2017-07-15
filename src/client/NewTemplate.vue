@@ -8,7 +8,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'selection-modal',
+        name: 'new-template',
         components: {},
         props: [],
         data: function () {

@@ -19,6 +19,7 @@
         props: ['masterProdDesc'],
         watch: {
             masterProdDesc: function (updatedMasterProdDesc) {
+                this.prodDesc = updatedMasterProdDesc
                 if (updatedMasterProdDesc === null) {
                     this.prodDesc = null
                 }

@@ -1,7 +1,7 @@
 <template>
     <span class="column columns is-marginless is-paddingless">
-        <thumbnail-slide v-for="productPhoto in itemsOnDisplay"
-                         :key="productPhoto"
+        <thumbnail-slide v-for="(productPhoto, index) in itemsOnDisplay"
+                         :key="index"
                          :productPhoto="productPhoto"
                          @switchPhoto="switchPhoto($event)">
         </thumbnail-slide>

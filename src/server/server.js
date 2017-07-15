@@ -53,7 +53,7 @@ app.use('/', express.static(path.join(__dirname, '../client'))) // serve static 
 // main.use('/', require('./routes/serverStatus.js')) // serves server status template
 apiRouter.use('/series', require('./routes/api/series'))
 apiRouter.use('/photos', require('./routes/api/photos'))
-apiRouter.use('/products', require('./routes/api/products'))
+apiRouter.use('/products', require('./routes/api/products/products'))
 
 // custom request postprocessing middlewares
 // console.log(chalk.blue('loading custom post-processing middleware...'))
@@ -67,11 +67,6 @@ app.use('*', express.static(path.join(__dirname, '../client')))
 let initProcedures = []
 // prepare a list of initialization procedures
 initProcedures.push(db.initialize()) // initialize database.js module and data models
-// initProcedures.push(telegram.initialize()) // initialize a telegram bot for broadcasting
-// initProcedures.push(telegram.polling()) // start Bot polling mechanism
-// initProcedures.push(telegram.observeCommands(botCommands)) // load bot commands
-// initProcedures.push(telegram.observeEvents(botEvents)) // load bot events
-// initProcedures.push(broadcastSystem.initialize()) // start broadcasting
 // initialize each system sequentially
 Promise.each(initProcedures, (initProcedurePromise) => {
     return initProcedurePromise

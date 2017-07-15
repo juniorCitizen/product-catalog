@@ -12,7 +12,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'contactPage',
+        name: 'contact-page',
         components: {},
         data: function () {
             return {}

@@ -10,11 +10,9 @@
                          width="100"
                          height="25">
                 </a>
-                <h5 class="title is-5 nav-item">
-                    <strong>
-                        <i>Gentry Way Co., Ltd.</i>
-                    </strong>
-                </h5>
+                <h6 class="subtitle is-6 nav-item">
+                    <i>GENTRY WAY CO., LTD.</i>
+                </h6>
             </div>
             <right-nav-menu></right-nav-menu>
         </header>
@@ -28,6 +26,7 @@
 
     export default {
         name: 'nav-bar',
+        props: [],
         components: {
             RightNavMenu
         },

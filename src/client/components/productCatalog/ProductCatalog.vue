@@ -1,21 +1,18 @@
 <template>
     <div class="hero-body">
-        <div class="container has-text-centered"
-             style="margin:auto;">
-            <h3 class="title is-3">
+        <div class="container has-text-centered">
+            <h4 class="subtitle is-4">
                 <i class="fa fa-check-circle-o"></i>
-                Check off items to receive more information
-            </h3>
+                &nbsp;CHECK OFF FOR MORE INFORMATION
+            </h4>
             <div id="card-container">
-                <product-series-card v-for="seriesItem in prodSeries"
-                                     :key="seriesItem.id"
-                                     :activeItem="seriesItem.id === selectedSeries"
-                                     :seriesItem="seriesItem"
-                                     :productDataBySeries="filterProdDataBySeries(seriesItem.id)"
-                                     @deactivateSeriesCard="deactivateSeriesCard($event)"
-                                     @activateSeriesCard="activateSeriesCard($event)"
-                                     @cardSelected="processCardSelection($event)">
-                </product-series-card>
+                <product-series v-for="seriesItem in prodSeries"
+                                :key="seriesItem.id"
+                                :activeItem="seriesItem.id === selectedSeries"
+                                :productDataBySeries="filterProdDataBySeries(seriesItem.id)"
+                                :seriesItem="seriesItem"
+                                @seriesSelectionEvent="processSeriesSelection($event)">
+                </product-series>
             </div>
         </div>
     </div>
@@ -24,11 +21,11 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductSeriesCard from './productSeriesCard/ProductSeriesCard.vue'
+    import ProductSeries from './productSeries/ProductSeries.vue'
 
     export default {
-        name: 'productCatalog',
-        components: { ProductSeriesCard },
+        name: 'product-catalog',
+        components: { ProductSeries },
         data: function () {
             return {
                 selectedSeries: null,
@@ -56,15 +53,11 @@
                 getProdSeriesList: 'getProdSeriesList',
                 getFullProdData: 'getFullProdData'
             }),
-            deactivateSeriesCard: function ($event) {
-                this.selectedSeries = null
-            },
-            activateSeriesCard: function ($event) {
-                this.selectedSeries = $event
-            },
-            processCardSelection: function ($event) {
+            processSeriesSelection: function ($event) {
                 if (this.selectedSeries !== $event) {
                     this.selectedSeries = $event
+                } else {
+                    this.selectedSeries = null
                 }
             },
             filterProdDataBySeries: function (seriesId) {
@@ -91,6 +84,9 @@
         height: 530px;
         overflow: scroll;
         overflow-x: hidden;
+    }
+    div.container {
+        margin: auto;
     }
     ::-webkit-scrollbar {
         width: 0px;  /* remove scrollbar space */

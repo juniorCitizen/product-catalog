@@ -83,13 +83,21 @@
 <style scoped>
     .image-container {
         position: relative;
-        border: 1px rgba(0, 0, 0, 0.3) solid;
+        border: none;
+        /* border: 1px rgba(0, 0, 0, 0.3) solid; */
         border-radius: 10px;
     }
 
     img.image {
         height: 150px;
         margin: 3px;
+        border: none;
+        border-radius: 12px;
+        transition: transform 0.6s;
+    }
+
+    img.image:hover {
+        transform: scale(1.05);
     }
 
     h2 {

@@ -33,7 +33,7 @@
                 <a v-else
                    class="button is-success is-outlined"
                    @click="cancelItemSelection">
-                    Not interested
+                    Cancel selection
                 </a>
                 <a class="button is-success"
                    @click="closeModal">Go back</a>

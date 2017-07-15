@@ -6,6 +6,8 @@
             </i>
         </span>
         <thumbnail-container :itemsOnDisplay="itemsOnDisplay"
+                             :slideLeft="slideLeft"
+                             :slideRight="slideRight"
                              @switchPhoto="switchPhoto($event)">
         </thumbnail-container>
         <span class="column is-narrow">
@@ -28,7 +30,9 @@
         data: function () {
             return {
                 onDisplayItemCount: 6,
-                currentIndex: 0
+                currentIndex: 0,
+                scrollLeft: 0,
+                scrollRight: 0
             }
         },
         computed: {
@@ -56,18 +60,22 @@
             ...mapActions({}),
             scroll: function (direction) {
                 if (this.productPhotos.length > this.onDisplayItemCount) {
-                    if (direction > 0) {
+                    if (direction > 0) { // scroll left
+                        // this.scrollLeft = 1
                         if (this.currentIndex < (this.productPhotos.length - 1)) {
                             this.currentIndex = this.currentIndex + 1
                         } else {
                             this.currentIndex = 0
                         }
-                    } else {
+                        // this.scrollLeft = 0
+                    } else { // scroll right
+                        // this.scrollRight = 1
                         if (this.currentIndex > 1) {
                             this.currentIndex = this.currentIndex - 1
                         } else {
                             this.currentIndex = this.productPhotos.length - 1
                         }
+                        // this.scrollRight = 0
                     }
                 }
             },
@@ -81,5 +89,9 @@
 <style scoped>
     i.fa {
         color: #126534;
+    }
+
+    span {
+        z-index: 1;
     }
 </style>

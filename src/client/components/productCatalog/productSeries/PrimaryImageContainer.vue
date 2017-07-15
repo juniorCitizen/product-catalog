@@ -1,7 +1,7 @@
 <template>
     <span class="column columns is-marginless is-paddingless">
-        <primary-image-slide v-for="product in itemsOnDisplay"
-                             :key="product"
+        <primary-image-slide v-for="(product, index) in itemsOnDisplay"
+                             :key="index"
                              :product="product">
         </primary-image-slide>
     </span>

@@ -20,7 +20,7 @@ module.exports = router
 function retrievePhoto(req, res, next) {
     let imagePath = null
     return db.Photos
-        .find({ where: { id: req.query.photoId } })
+        .findById(req.query.photoId)
         .then((photo) => {
             if (photo === null) { // promise is rejected if the photoId does not exist
                 let error = new Error('image not found')
@@ -65,7 +65,7 @@ function processPhotoUploads(req, res, next) {
             })
         )
     })
-    // remove all rouge photo
+    // remove all unregistered photos
     return db.Photos.destroy({ where: { productId: null } })
         .then(() => {
             // run the photo insert queries

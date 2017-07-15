@@ -20,6 +20,7 @@
         props: ['masterProdName'],
         watch: {
             masterProdName: function (updatedMasterProdName) {
+                this.prodName = updatedMasterProdName
                 if (updatedMasterProdName === null) {
                     this.prodName = null
                 }

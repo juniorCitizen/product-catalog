@@ -1,8 +1,9 @@
 <template>
     <div class="nav-right nav-menu">
-        <a v-for="menuItem in menuItems"
+        <a v-for="(menuItem, index) in menuItems"
+           :key="index"
            class="nav-item is-tab"
-           :class="{ 'is-active': menuItem.viewName===currentView }">
+           :class="{ 'is-active': $route.name === menuItem.viewName }">
             <router-link :to="menuItem.route">
                 <b>{{ menuItem.menuText }}</b>
             </router-link>
@@ -16,6 +17,7 @@
     export default {
         name: 'right-nav-menu',
         components: {},
+        props: [],
         data: function () {
             return {
                 menuItems: [{
@@ -42,22 +44,21 @@
                 currentView: 'currentView'
             })
         },
-        mounted: function () {
-            this.currentView = this.$router.name
-        },
         watch: {
             '$route': function (to, from) {
-                this.switchView(to.name)
+                this.switchView(this.$route.name)
+                this.currentView = this.$route.name
             }
         },
         methods: {
             ...mapMutations({
                 switchView: 'switchView'
             }),
-            ...mapActions({}),
-            isCurrentView: function (view) {
-                return this.$router.name === view
-            }
+            ...mapActions({})
+        },
+        mounted: function () {
+            this.switchView(this.$route.name)
+            this.currentView = this.$route.name
         }
     }
 </script>

@@ -8,19 +8,19 @@ export default {
 }
 
 function getFullProdData(context, serieId) {
-    let ajaxOptions = {
+    let axiosOptions = {
         method: 'get',
         url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`
     }
-    return axios(ajaxOptions)
+    return axios(axiosOptions)
 }
 
 function getProdSeriesList(context) {
-    let ajaxOptions = {
+    let axiosOptions = {
         method: 'get',
         url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/series`
     }
-    return axios(ajaxOptions)
+    return axios(axiosOptions)
         .then((apiResponse) => {
             context.commit({
                 type: 'updateProdSeries',
