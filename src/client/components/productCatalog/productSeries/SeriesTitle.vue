@@ -33,4 +33,42 @@
     }
 </script>
 
-<style scoped></style>
+<style lang="sass" scoped>
+    @keyframes activate {
+        0% {
+            font-size: 14px;
+            margin: 5px 0px 5px 12px;
+            padding: 0px 0px 0px 0px;
+            color: #126534;
+        }
+        100% {
+            font-size: 30px;
+            margin: 1px 0px 1px 12px;
+            padding: 0px 0px 0px 0px;
+            color: #126534;
+        }
+    }
+
+    @keyframes deactivate {
+        0% {
+            font-size: 30px;
+            margin: 1px 0px 1px 12px;
+            padding: 0px 0px 0px 0px;
+            color: #126534;
+        }
+        100% {
+            font-size: 14px;
+            margin: 5px 0px 5px 12px;
+            padding: 0px 0px 0px 0px;
+            color: #126534;
+        }
+    }
+
+    p.card-header-title.is-active {
+        animation: activate 0.3s both;
+    }
+
+    p.card-header-title.is-inactive {
+        animation: deactivate 0.3s both;
+    }
+</style>

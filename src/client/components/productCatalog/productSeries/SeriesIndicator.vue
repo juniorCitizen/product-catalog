@@ -1,5 +1,6 @@
 <template>
-    <span class="card-header-icon">
+    <span class="card-header-icon"
+          :class="{'is-active':activeItem, 'is-inactive':!activeItem}">
         <span class="icon">
             <i v-show="!activeItem"
                class="fa fa-angle-down"></i>
@@ -29,4 +30,32 @@
     }
 </script>
 
-<style scoped></style>
+<style lang="sass" scoped>
+    @keyframes activate {
+        0% {
+            margin: 5px 12px 5px 0px;
+            padding: 0px 0px 0px 0px;
+        }
+        100% {
+            margin: 15px 0px 15px 0px;
+        }
+    }
+
+    @keyframes deactivate {
+        0% {
+            margin: 15px 0px 15px 0px;
+        }
+        100% {
+            margin: 5px 12px 5px 0px;
+            padding: 0px 0px 0px 0px;
+        }
+    }
+
+    span.card-header-icon.is-active {
+        animation: activate 0.3s both;
+    }
+
+    span.card-header-icon.is-inactive {
+        animation: deactivate 0.3s both;
+    }
+</style>

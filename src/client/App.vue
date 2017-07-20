@@ -2,7 +2,7 @@
     <div id="app"
          class="container is-fluid">
         <div class="hero is-fullheight">
-            <nav-bar :activeRouteName="activeRouteName"></nav-bar>
+            <navigation-bar :activeRouteName="activeRouteName"></navigation-bar>
             <router-view></router-view>
             <page-footer></page-footer>
         </div>
@@ -13,14 +13,14 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     import store from './store/store'
-    import NavBar from './components/navBar/NavBar.vue'
+    import NavigationBar from './components/NavigationBar/NavigationBar.vue'
     import PageFooter from './components/pageFooter/PageFooter.vue'
 
     export default {
         name: 'app',
         store: store,
         components: {
-            NavBar,
+            NavigationBar,
             PageFooter
         },
         data: function () {

@@ -70,9 +70,13 @@
         animation: animate 1s both;
     }
 
+    div.container {
+        transform: translate(20px);
+    }
+
     @keyframes animate {
         0% {
-            transform: scale(0.5);
+            transform: scale(0.6);
         }
         100% {
             transform: scale(0.8);

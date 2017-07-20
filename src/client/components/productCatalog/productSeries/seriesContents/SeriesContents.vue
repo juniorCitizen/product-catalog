@@ -1,19 +1,18 @@
 <template>
     <div class="card-content"
          :class="{show:activeItem, hide:!activeItem}">
-        <product-scroller :products="products">
-        </product-scroller>
+        <series-scroller :products="products"></series-scroller>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductScroller from './ProductScroller.vue'
+    import SeriesScroller from './SeriesScroller.vue'
 
     export default {
         name: 'series-contents',
-        components: { ProductScroller },
+        components: { SeriesScroller },
         props: ['activeItem', 'products'],
         data: function () {
             return {}
@@ -30,11 +29,11 @@
 
 <style scoped>
     div.card-content.show {
-        animation: slide-out 0.8s both;
+        animation: expand 0.6s both;
     }
 
     div.card-content.hide {
-        animation: slide-in 0.5s both;
+        animation: retract 0.6s both;
     }
 
     div.card-content {
@@ -42,9 +41,10 @@
         padding-top: 0px;
         padding-bottom: 0px;
         height: 0px;
+        border: none;
     }
 
-    @keyframes slide-out {
+    @keyframes expand {
         0% {
             padding-top: 0px;
             padding-bottom: 0px;
@@ -53,15 +53,15 @@
         100% {
             padding-top: 25px;
             padding-bottom: 25px;
-            height: 204px;
+            height: 300px;
         }
     }
 
-    @keyframes slide-in {
+    @keyframes retract {
         0% {
             padding-top: 25px;
             padding-bottom: 25px;
-            height: 204px;
+            height: 300px;
         }
         100% {
             padding-top: 0px;

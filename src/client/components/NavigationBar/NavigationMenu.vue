@@ -1,13 +1,16 @@
 <template>
-    <div class="nav-right nav-menu">
-        <a v-for="(menuItem, index) in menuItems"
-           :key="index"
-           class="nav-item is-tab"
-           :class="{ 'is-active': $route.name === menuItem.viewName }">
-            <router-link :to="menuItem.route">
-                <b>{{ menuItem.menuText }}</b>
-            </router-link>
-        </a>
+    <div class="navbar-end tabs is-right is-small">
+        <ul>
+            <li v-for="(menuItem, index) in menuItems"
+                :key="index"
+                style="padding:3px;"
+                class="navbar-item"
+                :class="{ 'is-active': $route.name === menuItem.viewName }">
+                <router-link :to="menuItem.route">
+                    <b>{{ menuItem.menuText }}</b>
+                </router-link>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -15,7 +18,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'right-nav-menu',
+        name: 'navigation-menu',
         components: {},
         props: [],
         data: function () {

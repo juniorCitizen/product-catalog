@@ -21,13 +21,13 @@
             <h2>
                 <span>{{ product.itemCode }}</span>
             </h2>
-            <product-modal :modalActiveStatus="modalActiveStatus"
-                           :product="product"
-                           :isInterestedItem="isInterestedItem"
-                           @closingModal="callProductModal"
-                           @itemSelection="selectInterestedItem"
-                           @cancelItemSelection="deselectUninterestedItem">
-            </product-modal>
+            <product-detail-modal :modalActiveStatus="modalActiveStatus"
+                                  :product="product"
+                                  :isInterestedItem="isInterestedItem"
+                                  @closingModal="callProductModal"
+                                  @itemSelection="selectInterestedItem"
+                                  @cancelItemSelection="deselectUninterestedItem">
+            </product-detail-modal>
         </div>
     </div>
 </template>
@@ -35,13 +35,13 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductModal from './productModal/ProductModal.vue'
+    import ProductDetailModal from './productDetailModal/ProductDetailModal.vue'
 
-    import eVars from '../../../../server/config/environment'
+    import eVars from '../../../../../../server/config/environment'
 
     export default {
         name: 'primary-image-slide',
-        components: { ProductModal },
+        components: { ProductDetailModal },
         props: ['product'],
         data: function () {
             return {
@@ -84,7 +84,6 @@
     .image-container {
         position: relative;
         border: none;
-        /* border: 1px rgba(0, 0, 0, 0.3) solid; */
         border-radius: 10px;
     }
 
