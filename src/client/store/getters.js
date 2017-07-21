@@ -1,6 +1,8 @@
 export default {
     currentView: currentView,
-    prodSeries: prodSeries,
+    productSeriesData: productSeriesData,
+    productCatalogData: productCatalogData,
+    activeProductSeriesId: activeProductSeriesId,
     interestedItems: interestedItems
 }
 
@@ -8,8 +10,16 @@ function currentView(state) {
     return state.currentView
 }
 
-function prodSeries(state) {
-    return state.prodSeries
+function productSeriesData(state) {
+    return state.productSeriesData
+}
+
+function productCatalogData(state) {
+    return state.productCatalogData
+}
+
+function activeProductSeriesId(state) {
+    return state.activeProductSeriesId
 }
 
 function interestedItems(state) {

@@ -31,12 +31,19 @@
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({
+                fetchProductSeriesData: 'fetchProductSeriesData',
+                fetchProductCatalogData: 'fetchProductCatalogData'
+            })
+        },
+        created: function () {
+            this.fetchProductSeriesData()
+            this.fetchProductCatalogData()
         }
     }
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
     div.hero {
         overflow: hidden;
     }

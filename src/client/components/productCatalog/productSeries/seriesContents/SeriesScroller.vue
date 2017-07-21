@@ -3,7 +3,7 @@
         <div class="level columns">
             <div class="column is-narrow">
                 <i class="fa fa-arrow-circle-left fa-3x"
-                   @click="activateSlideLeft">
+                   @click="activateSlideRight">
                 </i>
             </div>
             <product-slide-container :products="products"
@@ -13,7 +13,7 @@
             </product-slide-container>
             <div class="column is-narrow">
                 <i class="fa fa-arrow-circle-right fa-3x"
-                   @click="activateSlideRight">
+                   @click="activateSlideLeft">
                 </i>
             </div>
         </div>

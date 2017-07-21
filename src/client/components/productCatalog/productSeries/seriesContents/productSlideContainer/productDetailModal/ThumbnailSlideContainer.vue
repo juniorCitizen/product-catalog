@@ -4,6 +4,7 @@
                          :enlargedPhotoIndex="enlargedPhotoIndex"
                          :key="productPhoto.photoIndexInProduct"
                          :currentPhotoIndex="currentPhotoIndex"
+                         :displayCount="displayCount"
                          :productPhoto="productPhoto"
                          :slideLeft="slideLeft"
                          :slideRight="slideRight"

@@ -3,33 +3,45 @@ import axios from 'axios'
 import eVars from '../../server/config/environment'
 
 export default {
-    getProdSeriesList: getProdSeriesList,
-    getFullProdData: getFullProdData
+    fetchProductSeriesData: fetchProductSeriesData,
+    fetchProductCatalogData: fetchProductCatalogData
 }
 
-function getFullProdData(context, serieId) {
-    let axiosOptions = {
-        method: 'get',
-        url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`
-    }
-    return axios(axiosOptions)
-}
-
-function getProdSeriesList(context) {
+function fetchProductSeriesData(context) {
     let axiosOptions = {
         method: 'get',
         url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/series`
     }
-    return axios(axiosOptions)
+    axios(axiosOptions)
         .then((apiResponse) => {
             context.commit({
-                type: 'updateProdSeries',
-                prodSeries: apiResponse.data.data
+                type: 'registerProductSeriesData',
+                productSeriesData: apiResponse.data.data
             })
         }).catch((error) => {
             context.commit({
-                type: 'updateProdSeries',
-                prodSeries: []
+                type: 'registerProductSeriesData',
+                productSeriesData: []
+            })
+            console.log(error)
+        })
+}
+
+function fetchProductCatalogData(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`
+    }
+    axios(axiosOptions)
+        .then((apiResponse) => {
+            context.commit({
+                type: 'registerProductCatalogData',
+                productCatalogData: apiResponse.data.data
+            })
+        }).catch((error) => {
+            context.commit({
+                type: 'registerProductCatalogData',
+                productCatalogData: []
             })
             console.log(error)
         })

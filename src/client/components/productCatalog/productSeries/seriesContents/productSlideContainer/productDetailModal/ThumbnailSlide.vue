@@ -1,8 +1,8 @@
 <template>
-    <div class="slide-container column is-2 is-paddingless"
-         :class="{'slide-left': slideLeft, 'slide-right': slideRight}">
+    <div class="slide-container column is-paddingless"
+         :class="{'slide-left': slideLeft,'slide-right': slideRight,'is-2': displayCount===6,'is-3': displayCount===4,'is-4': displayCount===3}">
         <div class="thumbnail-container"
-             :class="{'glowing-border':onDisplay}"
+             :class="{'onDisplay':onDisplay}"
              @click="switchPhoto">
             <img class="image"
                  :src="productPhoto.imagePath">
@@ -17,6 +17,7 @@
         name: 'thumbnail-slide',
         components: {},
         props: [
+            'displayCount',
             'enlargedPhotoIndex',
             'productPhoto',
             'slideLeft',
@@ -42,8 +43,8 @@
 </script>
 
 <style scoped>
-    .glowing-border {
-        box-shadow: 0 0 20px blue;
+    .onDisplay {
+        box-shadow: 0px 0px 1px 1px lightgreen;
     }
 
     div.slide-container {
@@ -53,8 +54,8 @@
 
     div.thumbnail-container {
         border: none;
-        border-radius: 6px;
-        margin: 5%;
+        border-radius: 5px;
+        margin: 10%;
         overflow: visible;
     }
 

@@ -32,16 +32,21 @@
             }
         },
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                addItemOfInterest: 'addItemOfInterest',
+                removeItemOfInterest: 'removeItemOfInterest'
+            }),
             ...mapActions({}),
             closeModal: function () {
                 this.$emit('closingModal')
             },
             cancelItemSelection: function () {
-                this.$emit('cancelItemSelection')
+                this.removeItemOfInterest(this.product.id)
+                this.$emit('closingModal')
             },
             itemSelection: function () {
-                this.$emit('itemSelection')
+                this.addItemOfInterest(this.product.id)
+                this.$emit('closingModal')
             }
         }
     }

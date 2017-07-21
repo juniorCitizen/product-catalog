@@ -49,7 +49,7 @@
                         setTimeout(() => {
                             this.productList.splice(0, 1)
                             this.$emit('slidingAnimationCompleted')
-                        }, 330)
+                        }, 530)
                     }
                 }
             },
@@ -60,7 +60,7 @@
                         setTimeout(() => {
                             this.productList.splice(this.displayCount, 1)
                             this.$emit('slidingAnimationCompleted')
-                        }, 330)
+                        }, 530)
                     }
                 }
             }
@@ -129,7 +129,7 @@
     }
 
     div.slide-left {
-        animation: slideLeft 0.3s both;
+        animation: slideLeft 0.5s both;
     }
 
     @keyframes slideLeft {
@@ -142,7 +142,7 @@
     }
 
     div.slide-right {
-        animation: slideRight 0.3s both;
+        animation: slideRight 0.5s both;
     }
 
     @keyframes slideRight {
@@ -169,7 +169,7 @@
     }
 
     img.image:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     h2 {

@@ -1,6 +1,8 @@
 export default {
     resetStore: resetStore,
-    updateProdSeries: updateProdSeries,
+    registerProductSeriesData: registerProductSeriesData,
+    registerProductCatalogData: registerProductCatalogData,
+    setActiveProductSeries: setActiveProductSeries,
     switchView: switchView,
     addItemOfInterest: addItemOfInterest,
     removeItemOfInterest: removeItemOfInterest
@@ -8,12 +10,22 @@ export default {
 
 function resetStore(state) {
     state.currentView = 'home'
-    state.prodSeries = []
+    state.productSeriesData = []
+    state.completeProductData = []
+    state.activeProductSeriesId = 1
     state.interestedItems = []
 }
 
-function updateProdSeries(state, payload) {
-    state.prodSeries = payload.prodSeries
+function registerProductSeriesData(state, payload) {
+    state.productSeriesData = payload.productSeriesData
+}
+
+function registerProductCatalogData(state, payload) {
+    state.productCatalogData = payload.productCatalogData
+}
+
+function setActiveProductSeries(state, productSeriesId) {
+    state.activeProductSeriesId = productSeriesId
 }
 
 function switchView(state, newView) {

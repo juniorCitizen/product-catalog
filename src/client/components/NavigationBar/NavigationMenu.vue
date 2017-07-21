@@ -24,19 +24,19 @@
         data: function () {
             return {
                 menuItems: [{
-                    menuText: 'Home',
+                    menuText: 'HOME',
                     viewName: 'home',
                     route: '/'
                 }, {
-                    menuText: 'Catalog',
+                    menuText: 'CATALOG',
                     viewName: 'products',
                     route: '/products'
                 }, {
-                    menuText: 'Contact Us',
+                    menuText: 'CONTACT US',
                     viewName: 'contacts',
                     route: '/contacts'
                 }, {
-                    menuText: 'Admin',
+                    menuText: 'ADMIN',
                     viewName: 'admin',
                     route: '/admin'
                 }]

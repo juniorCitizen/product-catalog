@@ -1,6 +1,6 @@
 import HomePage from './components/HomePage.vue'
 import ProductCatalog from './components/productCatalog/ProductCatalog.vue'
-import ContactPage from './components/ContactPage.vue'
+import ContactPage from './components/contactPage/ContactPage.vue'
 import AdminPanel from './components/adminPanel/AdminPanel.vue'
 
 const routes = [{

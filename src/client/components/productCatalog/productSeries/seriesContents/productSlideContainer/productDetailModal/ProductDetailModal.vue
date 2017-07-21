@@ -35,10 +35,7 @@
             }
         },
         computed: {
-            ...mapGetters({ interestedItems: 'interestedItems' }),
-            isInterestedItem: function () {
-                return (this.interestedItems.indexOf(this.product.id) !== -1)
-            }
+            ...mapGetters({})
         },
         methods: {
             ...mapMutations({}),
@@ -47,7 +44,6 @@
                 this.$emit('closingModal')
             },
             switchPhoto: function ($event) {
-                console.log('got here')
                 this.enlargedPhotoIndex = $event
             }
         }

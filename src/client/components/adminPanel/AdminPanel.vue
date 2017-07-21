@@ -24,8 +24,8 @@
                 </p>
             </div>
             <div class="field is-grouped">
-                <prod-series-selector :masterSelectedSerie="selectedSerie"
-                                      @prodSerieChanged="recordProdSerieSelection($event)">
+                <prod-series-selector :masterSelectedSerie="selectedSeries"
+                                      @productSeriesSelectionChanged="recordProdSerieSelection($event)">
                 </prod-series-selector>
                 <p class="control">
                     <span class="select">
@@ -41,7 +41,7 @@
                 </p>
             </div>
             <prod-code-input :masterProdCode="prodCode"
-                             :masterSelectedSerie="selectedSerie"
+                             :masterSelectedSerie="selectedSeries"
                              @itemCodeChanged="recordProdCodeInput($event)">
             </prod-code-input>
             <prod-name-input :masterProdName="prodName"
@@ -88,7 +88,7 @@
             return {
                 isExistingRecord: false,
                 imageIdListUpdated: false,
-                selectedSerie: 0,
+                selectedSeries: 0,
                 prodCode: null,
                 prodType: 'unselected',
                 prodName: null,
@@ -101,7 +101,7 @@
             ...mapGetters({}),
             readyToSubmit: function () {
                 if (
-                    (this.selectedSerie === 0) ||
+                    (this.selectedSeries === 0) ||
                     (this.prodCode === null) ||
                     (this.prodType === 'unselected') ||
                     (this.prodName === null) ||
@@ -116,9 +116,9 @@
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({ getFullProdData: 'getFullProdData' }),
+            ...mapActions({ fetchCompleteProductData: 'fetchCompleteProductData' }),
             recordProdSerieSelection: function ($event) {
-                this.selectedSerie = $event
+                this.selectedSeries = $event
                 this.clearForm($event)
                 if (this.prodCode !== null) {
                     this.restoreExistingProductData()
@@ -126,12 +126,12 @@
             },
             recordProdCodeInput: function ($event) {
                 this.prodCode = $event
-                if (this.selectedSerie !== 0) {
+                if (this.selectedSeries !== 0) {
                     this.restoreExistingProductData()
                 }
             },
             restoreExistingProductData: function () {
-                let productsInSeries = this.fullProdData[this.selectedSerie - 1].products
+                let productsInSeries = this.fullProdData[this.selectedSeries - 1].products
                 let existingRecord = productsInSeries.filter((product) => {
                     return product.itemCode === this.prodCode
                 })
@@ -152,7 +152,7 @@
                 this.imageIdListUpdated = true
             },
             clearForm: function (series) {
-                this.selectedSerie = series
+                this.selectedSeries = series
                 this.prodCode = null
                 this.prodType = 'unselected'
                 this.prodName = null
@@ -166,7 +166,7 @@
                     method: 'post',
                     url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`,
                     data: {
-                        serieId: this.selectedSerie,
+                        serieId: this.selectedSeries,
                         type: this.prodType,
                         itemCode: this.prodCode,
                         name: this.prodName,
@@ -191,7 +191,7 @@
             }
         },
         created: function () {
-            this.getFullProdData()
+            this.fetchCompleteProductData()
                 .then((apiResponse) => {
                     this.fullProdData = apiResponse.data.data
                 })

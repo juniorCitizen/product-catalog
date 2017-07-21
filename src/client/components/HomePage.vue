@@ -4,7 +4,11 @@
         <div class="container has-text-centered">
             <h1 class="title is-1 is-spaced">
                 <strong class="content">
-                    <i>GENTRY WAY CO., LTD.</i>
+                    <i>Gentry Way Co., Ltd. &</i>
+                </strong>
+                <br>
+                <strong class="content">
+                    <i>Gentry Hardware Product Co., Ltd.</i>
                 </strong>
             </h1>
             <h3 class="motto subtitle is-3">
@@ -12,15 +16,15 @@
                 <br>
                 <i>for medical, rehabilitation and recreation industries</i>
                 <br>
-                <i>at affordable pricing!!!</i>
+                <i>at affordable prices !!!</i>
                 <br>
                 <br>
-                <h5 class="subtitle is-5">
-                    <i>Manufactured in both Taiwan or China</i>
-                </h5>
+                <h4 class="subtitle is-4">
+                    <i>Manufactured in Taiwan or China</i>
+                </h4>
             </h3>
         </div>
-        <router-link class="button is-primary is-primary is-outlined"
+        <router-link class="button is-success is-outlined"
                      to="/products">
             <b>
                 <i>CLICK TO SEE OUR PRODUCTS</i>
@@ -50,24 +54,26 @@
 </script>
 
 <style scoped>
-    h1 {
-        transform: rotate(-4deg) scale(1.2, 1.6) translate(0px, -20px);
+    .title {
+        transform: rotate(-4deg) scale(1.2, 1.6) translate(0px, -50px);
         color: darkgreen;
     }
 
     .motto {
-        transform: rotate(-4deg) translate(0px, 0px);
+        overflow: visible;
+        transform: rotate(-4deg) translate(0px, -50px);
     }
 
     .button {
+        transform: scale(2, 2);
         position: absolute;
-        bottom: 20px;
+        bottom: -40px;
         width: 100%;
-        border: 1px;
+        border: none;
     }
 
     div.hero-body {
-        animation: animate 1s both;
+        animation: animate 2s both;
     }
 
     div.container {

@@ -1,18 +1,12 @@
 <template>
     <div class="card">
-        <header class="card-header"
-                @click="seriesSelected">
-            <series-title :activeItem="activeItem"
-                          :seriesItem="seriesItem"
-                          :seriesProductCount="seriesProductCount">
-            </series-title>
-            <series-indicator v-if="seriesProductCount>0"
-                              :activeItem="activeItem">
-            </series-indicator>
-        </header>
-        <series-contents v-if="seriesProductCount>0"
-                         :activeItem="activeItem"
-                         :products="productDataBySeries.products">
+        <series-title :isActiveSeries="isActiveSeries"
+                      :productSeries="productSeries"
+                      :productCountInSeries="productCountInSeries">
+        </series-title>
+        <series-contents v-if="productCountInSeries > 0"
+                         :isActiveSeries="isActiveSeries"
+                         :products="productsInSeries.products">
         </series-contents>
     </div>
 </template>
@@ -20,7 +14,6 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import SeriesIndicator from './SeriesIndicator.vue'
     import SeriesTitle from './SeriesTitle.vue'
     import SeriesContents from './seriesContents/SeriesContents.vue'
 
@@ -28,22 +21,28 @@
         name: 'product-series',
         components: {
             SeriesContents,
-            SeriesIndicator,
             SeriesTitle
         },
-        props: [
-            'activeItem',
-            'seriesItem',
-            'productDataBySeries'
-        ],
+        props: ['productSeries'],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({}),
-            seriesProductCount: function () {
-                if (this.productDataBySeries) {
-                    return this.productDataBySeries.products.length
+            ...mapGetters({
+                activeProductSeriesId: 'activeProductSeriesId',
+                productCatalogData: 'productCatalogData'
+            }),
+            isActiveSeries: function () {
+                return this.productSeries.id === this.activeProductSeriesId
+            },
+            productsInSeries: function () {
+                return this.productCatalogData.filter((productCatalogDataInSeries) => {
+                    return productCatalogDataInSeries.id === this.productSeries.id
+                })[0]
+            },
+            productCountInSeries: function () {
+                if (this.productsInSeries) {
+                    return this.productsInSeries.products.length
                 } else {
                     return 0
                 }
@@ -51,10 +50,7 @@
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({}),
-            seriesSelected: function () {
-                this.$emit('seriesSelectionEvent', this.seriesItem.id)
-            }
+            ...mapActions({})
         }
     }
 </script>

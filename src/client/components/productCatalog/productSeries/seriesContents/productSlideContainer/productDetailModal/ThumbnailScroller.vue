@@ -2,7 +2,7 @@
     <div class="level columns">
         <div class="column is-narrow">
             <i class="fa fa-arrow-circle-left"
-               @click="activateSlideLeft">
+               @click="activateSlideRight">
             </i>
         </div>
         <thumbnail-slide-container :productPhotos="productPhotos"
@@ -15,7 +15,7 @@
         </thumbnail-slide-container>
         <div class="column is-narrow">
             <i class="fa fa-arrow-circle-right"
-               @click="activateSlideRight">
+               @click="activateSlideLeft">
             </i>
         </div>
     </div>
@@ -35,7 +35,7 @@
         ],
         data: function () {
             return {
-                displayCount: 6,
+                displayCount: 6, // possible value 3, 4, 6
                 slideLeft: false,
                 slideRight: false
             }
@@ -70,5 +70,13 @@
 <style scoped>
     i.fa {
         color: #126534;
+    }
+
+    div.level {
+        border: none;
+    }
+
+    div.column.is-narrow {
+        border: none;
     }
 </style>

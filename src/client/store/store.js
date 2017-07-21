@@ -13,7 +13,9 @@ const store = new Vuex.Store({
     mutations: mutations,
     state: {
         currentView: 'home',
-        prodSeries: [],
+        productSeriesData: [],
+        productCatalogData: [],
+        activeProductSeriesId: 1,
         interestedItems: []
     }
 })

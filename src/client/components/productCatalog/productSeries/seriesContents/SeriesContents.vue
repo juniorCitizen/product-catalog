@@ -1,6 +1,6 @@
 <template>
     <div class="card-content"
-         :class="{show:activeItem, hide:!activeItem}">
+         :class="{show:isActiveSeries, hide:!isActiveSeries}">
         <series-scroller :products="products"></series-scroller>
     </div>
 </template>
@@ -13,7 +13,10 @@
     export default {
         name: 'series-contents',
         components: { SeriesScroller },
-        props: ['activeItem', 'products'],
+        props: [
+            'isActiveSeries',
+            'products'
+        ],
         data: function () {
             return {}
         },

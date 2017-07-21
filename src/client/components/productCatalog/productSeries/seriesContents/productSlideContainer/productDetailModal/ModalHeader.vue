@@ -41,4 +41,12 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    header.modal-card-head {
+        border: none;
+    }
+
+    div.modal-card-title {
+        border: none;
+    }
+</style>
