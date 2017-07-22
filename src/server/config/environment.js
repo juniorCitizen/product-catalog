@@ -8,6 +8,11 @@ module.exports = (() => {
         PORT: process.env.PORT,
         PASS_PHRASE: process.env.PASS_PHRASE,
         VALIDATE: process.env.VALIDATE,
-        TIMEZONE: process.env.TIMEZONE
+        TIMEZONE: process.env.TIMEZONE,
+        ADMIN: process.env.ADMIN,
+        EMAIL_HOST: process.env.EMAIL_HOST,
+        EMAIL_PORT: process.env.EMAIL_PORT,
+        ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+        ADMIN_EMAIL_PASSWORD: process.env.ADMIN_EMAIL_PASSWORD
     }
 })()

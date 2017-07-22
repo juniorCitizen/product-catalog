@@ -50,7 +50,6 @@
         watch: {
             '$route': function (to, from) {
                 this.switchView(this.$route.name)
-                this.currentView = this.$route.name
             }
         },
         methods: {
@@ -61,7 +60,6 @@
         },
         mounted: function () {
             this.switchView(this.$route.name)
-            this.currentView = this.$route.name
         }
     }
 </script>
