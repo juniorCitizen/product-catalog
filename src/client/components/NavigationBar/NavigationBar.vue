@@ -3,7 +3,8 @@
         <header class="navbar">
             <div class="navbar-brand">
                 <a class="navbar-item"
-                   :href="hostUrl">
+                   :href="hostUrl"
+                   :disabled="ajaxRequestPending">
                     <img :src="logoUrl"
                          alt="Gentry Way Co., Ltd."
                          width="100"
@@ -54,7 +55,8 @@
         },
         computed: {
             ...mapGetters({
-                currentView: 'currentView'
+                currentView: 'currentView',
+                ajaxRequestPending: 'ajaxRequestPending'
             })
         },
         methods: {
@@ -68,6 +70,12 @@
 </script>
 
 <style scoped>
+    a[disabled],
+    a[disabled]:hover {
+        pointer-events: none;
+        color: #e1e1e1;
+    }
+
     i.company-name-gw {
         transform: scale(0.8) translate(-30%, 10%);
     }

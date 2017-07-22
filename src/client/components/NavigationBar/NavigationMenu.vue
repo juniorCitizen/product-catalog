@@ -6,7 +6,8 @@
                 style="padding:3px;"
                 class="navbar-item"
                 :class="{ 'is-active': $route.name === menuItem.viewName }">
-                <router-link :to="menuItem.route">
+                <router-link :to="menuItem.route"
+                             :disabled="ajaxRequestPending">
                     <b>{{ menuItem.menuText }}</b>
                 </router-link>
             </li>
@@ -44,7 +45,8 @@
         },
         computed: {
             ...mapGetters({
-                currentView: 'currentView'
+                currentView: 'currentView',
+                ajaxRequestPending: 'ajaxRequestPending'
             })
         },
         watch: {
@@ -64,4 +66,10 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    a[disabled],
+    a[disabled]:hover {
+        pointer-events: none;
+        color: #e1e1e1;
+    }
+</style>

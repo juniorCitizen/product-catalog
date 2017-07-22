@@ -1,80 +1,106 @@
 <template>
-    <div class="tile is-child is-parent is-vertical">
-        <h6 class="subtitle is-6 box notification is-success">
-            <b>REGISTER TO RECEIVE A PDF CATALOG BY EMAIL</b>
+    <div class="tile is-child is-7 is-parent is-vertical">
+        <h6 class="subtitle box notification is-success">
+            <b v-if="!alreadyRegistered">REGISTER TO RECEIVE A PDF CATALOG BY EMAIL</b>
+            <b v-else>
+                <div>REGISTRATION COMPLETED. THANK YOU!</div>
+                <br>
+                <br>
+                <div>YOUR PDF CATALOG WILL BE DELIVERED TO YOU SHORTLY</div>
+                <br>
+                <br>
+                <router-link to="/products">
+                    CONTINUE BROWSING OUR PRODUCT CATALOG
+                </router-link>
+            </b>
         </h6>
-        <div class="field">
-            <div class="control is-expanded">
-                <input class="input"
-                       :class="{'is-danger':(!company)&&(attemptToSend)}"
-                       type="text"
-                       v-model="company"
-                       placeholder="Company">
+        <template v-if="!alreadyRegistered">
+            <div class="field">
+                <div class="control is-expanded">
+                    <input class="input"
+                           :class="{'is-danger':(!company)&&(attemptToSend)}"
+                           type="text"
+                           v-model="company"
+                           :disabled="ajaxRequestPending"
+                           placeholder="Company">
+                </div>
+                <p v-if="(!company)&&(attemptToSend)"
+                   class="help is-danger">Company name is required</p>
             </div>
-            <p v-if="(!company)&&(attemptToSend)"
-               class="help is-danger">Company name is required</p>
-        </div>
-        <div class="field">
-            <div class="control is-expanded">
-                <input class="input"
-                       :class="{'is-danger':(!name)&&(attemptToSend)}"
-                       type="text"
-                       v-model="name"
-                       placeholder="Name">
+            <div class="field">
+                <div class="control is-expanded">
+                    <input class="input"
+                           :class="{'is-danger':(!name)&&(attemptToSend)}"
+                           type="text"
+                           v-model="name"
+                           :disabled="ajaxRequestPending"
+                           placeholder="Name">
+                </div>
+                <p v-if="(!name)&&(attemptToSend)"
+                   class="help is-danger">Your name is required</p>
             </div>
-            <p v-if="(!name)&&(attemptToSend)"
-               class="help is-danger">Your name is required</p>
-        </div>
-        <div class="field">
-            <div class="control is-expanded">
-                <input class="input"
-                       :class="{'is-danger':((!emailIsValid)||(!email))&&(attemptToSend)}"
-                       type="email"
-                       v-model="email"
-                       placeholder="Email">
+            <div class="field">
+                <div class="control is-expanded">
+                    <input class="input"
+                           :class="{'is-danger':((!emailIsValid)||(!email))&&(attemptToSend)}"
+                           type="email"
+                           v-model="email"
+                           :disabled="ajaxRequestPending"
+                           placeholder="Email">
+                </div>
+                <p v-if="(!emailIsValid)&&(attemptToSend)"
+                   class="help is-danger">This email address is invalid</p>
+                <p v-if="(!email)&&(attemptToSend)"
+                   class="help is-danger">Your email is required</p>
             </div>
-            <p v-if="(!emailIsValid)&&(attemptToSend)"
-               class="help is-danger">This email address is invalid</p>
-            <p v-if="(!email)&&(attemptToSend)"
-               class="help is-danger">Your email is required</p>
-        </div>
-        <div class="field">
-            <div class="control is-expanded">
-                <input class="input"
-                       :class="{'is-danger':(!country)&&(attemptToSend)}"
-                       type="text"
-                       v-model="country"
-                       placeholder="Country">
+            <div class="field">
+                <div class="control is-expanded">
+                    <input class="input"
+                           :class="{'is-danger':(!country)&&(attemptToSend)}"
+                           type="text"
+                           v-model="country"
+                           :disabled="ajaxRequestPending"
+                           placeholder="Country">
+                </div>
+                <p v-if="(!country)&&(attemptToSend)"
+                   class="help is-danger">Please let us know where you are from</p>
             </div>
-            <p v-if="(!country)&&(attemptToSend)"
-               class="help is-danger">Please let us know where you are from</p>
-        </div>
-        <div class="field">
-            <div class="control is-expanded">
-                <textarea class="textarea"
-                          v-model="comments"
-                          placeholder="Questions or comments">
-                </textarea>
+            <div class="field">
+                <div class="control is-expanded">
+                    <textarea class="textarea"
+                              v-model="comments"
+                              :disabled="ajaxRequestPending"
+                              placeholder="Questions or comments">
+                    </textarea>
+                </div>
             </div>
-        </div>
-        <div class="field">
-            <div class="control is-expanded is-hidden">
-                <input class="input"
-                       type="text"
-                       v-model="botPrevention"
-                       placeholder="DO NOT ENTER ANYTHING HERE">
+            <div class="field">
+                <div class="control is-expanded is-hidden">
+                    <input class="input"
+                           type="text"
+                           v-model="botPrevention"
+                           :disabled="ajaxRequestPending"
+                           placeholder="DO NOT ENTER ANYTHING HERE">
+                </div>
             </div>
-        </div>
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-success"
-                        @click="userRegistration">Register</button>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-success"
+                            :class="{'is-loading':attemptToSend && ajaxRequestPending}"
+                            :disabled="ajaxRequestPending"
+                            @click="userRegistration">Register</button>
+                </div>
+                <div class="control">
+                    <button class="button is-success is-outlined"
+                            :disabled="ajaxRequestPending"
+                            @click="resetForm">Cancel</button>
+                </div>
+                <p v-if="ajaxRequestPending"
+                   class="help is-danger">
+                    <b>Registration in progress...</b>
+                </p>
             </div>
-            <div class="control">
-                <button class="button is-success is-outlined"
-                        @click="resetForm">Cancel</button>
-            </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -88,17 +114,20 @@
         data: function () {
             return {
                 apiUrl: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/users`,
-                company: '',
-                name: '',
-                email: '',
-                country: '',
-                comments: '',
+                company: 'Gentry Way Co., Ltd.',
+                name: 'David Tsai',
+                email: 'david.tsai@gentry-way.com.tw',
+                country: 'Taiwan',
+                comments: 'I have some questions',
                 botPrevention: null,
                 attemptToSend: false
             }
         },
         computed: {
-            ...mapGetters({}),
+            ...mapGetters({
+                ajaxRequestPending: 'ajaxRequestPending',
+                alreadyRegistered: 'alreadyRegistered'
+            }),
             emailIsValid: function () {
                 if ((this.email === '') || (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(this.email))) {
                     return true
@@ -116,7 +145,10 @@
             }
         },
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                markRegisteredSession: 'markRegisteredSession',
+                setAjaxPendingState: 'setAjaxPendingState'
+            }),
             ...mapActions({}),
             resetForm: function () {
                 this.attemptToSend = false
@@ -142,14 +174,18 @@
                             botPrevention: this.botPrevention
                         }
                     }
+                    this.setAjaxPendingState(true)
                     this.$axios(submitOptions)
                         .then((apiResponse) => {
-                            console.log(apiResponse.data.data)
+                            this.markRegisteredSession()
+                            this.attemptToSend = false
                             this.resetForm()
+                            this.setAjaxPendingState(false)
                         })
                         .catch((error) => {
+                            this.attemptToSend = false
                             console.log(error)
-                            this.resetForm()
+                            this.setAjaxPendingState(false)
                         })
                 }
             }

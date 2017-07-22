@@ -16,7 +16,9 @@ const store = new Vuex.Store({
         productSeriesData: [],
         productCatalogData: [],
         activeProductSeriesId: 1,
-        interestedItems: []
+        interestedItems: [],
+        ajaxRequestPending: false,
+        alreadyRegistered: false
     }
 })
 

@@ -13,7 +13,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     import store from './store/store'
-    import NavigationBar from './components/NavigationBar/NavigationBar.vue'
+    import NavigationBar from './components/navigationBar/NavigationBar.vue'
     import PageFooter from './components/pageFooter/PageFooter.vue'
 
     export default {

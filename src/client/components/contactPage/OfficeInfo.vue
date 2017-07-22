@@ -51,7 +51,8 @@
                             v-for="(staffMember, index) in staff"
                             :key="index"
                             v-if="staffMember.country===officeInView.country">
-                            <a :href="mailToLink(staffMember.email)">
+                            <a :href="mailToLink(staffMember.email)"
+                               :disabled="ajaxRequestPending">
                                 <span class="name-text">{{ staffMember.name }}</span>
                                 <b>
                                     <span>( {{ staffMember.email }} )</span>
@@ -78,7 +79,9 @@
             }
         },
         computed: {
-            ...mapGetters({}),
+            ...mapGetters({
+                ajaxRequestPending: 'ajaxRequestPending'
+            }),
             officeInView: function () {
                 return this.offices.filter((office) => {
                     return office.country === this.selectedCountry
@@ -103,6 +106,12 @@
 </script>
 
 <style scoped>
+    a[disabled],
+    a[disabled]:hover {
+        pointer-events: none;
+        color: #e1e1e1;
+    }
+
     .title {
         text-transform: uppercase;
     }

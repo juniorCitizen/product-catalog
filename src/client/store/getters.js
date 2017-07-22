@@ -3,7 +3,9 @@ export default {
     productSeriesData: productSeriesData,
     productCatalogData: productCatalogData,
     activeProductSeriesId: activeProductSeriesId,
-    interestedItems: interestedItems
+    interestedItems: interestedItems,
+    ajaxRequestPending: ajaxRequestPending,
+    alreadyRegistered: alreadyRegistered
 }
 
 function currentView(state) {
@@ -24,4 +26,12 @@ function activeProductSeriesId(state) {
 
 function interestedItems(state) {
     return state.interestedItems
+}
+
+function ajaxRequestPending(state) {
+    return state.ajaxRequestPending
+}
+
+function alreadyRegistered(state) {
+    return state.alreadyRegistered
 }

@@ -3,9 +3,11 @@ export default {
     registerProductSeriesData: registerProductSeriesData,
     registerProductCatalogData: registerProductCatalogData,
     setActiveProductSeries: setActiveProductSeries,
-    switchView: switchView,
+    switchView: (state, newView) => { state.currentView = newView },
     addItemOfInterest: addItemOfInterest,
-    removeItemOfInterest: removeItemOfInterest
+    removeItemOfInterest: removeItemOfInterest,
+    setAjaxPendingState: (state, pendingState) => { state.ajaxRequestPending = pendingState },
+    markRegisteredSession: (state) => { state.alreadyRegistered = true }
 }
 
 function resetStore(state) {
@@ -14,6 +16,8 @@ function resetStore(state) {
     state.completeProductData = []
     state.activeProductSeriesId = 1
     state.interestedItems = []
+    state.ajaxRequestPending = false
+    state.alreadyRegistered = false
 }
 
 function registerProductSeriesData(state, payload) {
@@ -26,10 +30,6 @@ function registerProductCatalogData(state, payload) {
 
 function setActiveProductSeries(state, productSeriesId) {
     state.activeProductSeriesId = productSeriesId
-}
-
-function switchView(state, newView) {
-    state.currentView = newView
 }
 
 function addItemOfInterest(state, productId) {

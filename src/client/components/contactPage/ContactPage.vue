@@ -1,9 +1,9 @@
 <template>
     <div class="hero-body tile is-parent">
+        <registration-form></registration-form>
         <office-info :offices="offices"
                      :staff="staff">
         </office-info>
-        <registration-form></registration-form>
     </div>
 </template>
 
