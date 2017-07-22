@@ -87,12 +87,13 @@
         props: [],
         data: function () {
             return {
+                apiUrl: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/users`,
                 company: '',
                 name: '',
                 email: '',
                 country: '',
                 comments: '',
-                botPrevention: '',
+                botPrevention: null,
                 attemptToSend: false
             }
         },
@@ -103,22 +104,54 @@
                     return true
                 }
                 return false
+            },
+            readyToSubmit: function () {
+                return (
+                    (this.company.length > 0) &&
+                    (this.name.length > 0) &&
+                    (this.email.length > 0) &&
+                    (this.emailIsValid) &&
+                    (this.country.length > 0)
+                )
             }
         },
         methods: {
             ...mapMutations({}),
             ...mapActions({}),
-            userRegistration: function () {
-                this.attemptToSend = true
-            },
             resetForm: function () {
+                this.attemptToSend = false
                 this.company = ''
                 this.name = ''
                 this.email = ''
                 this.country = ''
                 this.comments = ''
-                this.botPrevention = ''
-                this.attemptToSend = false
+                this.botPrevention = null
+            },
+            userRegistration: function () {
+                this.attemptToSend = true
+                if ((this.readyToSubmit) && (this.botPrevention === null)) {
+                    let submitOptions = {
+                        method: 'post',
+                        url: this.apiUrl,
+                        data: {
+                            company: this.company,
+                            name: this.name,
+                            email: this.email,
+                            country: this.country,
+                            comments: this.comments.length === 0 ? null : this.comments,
+                            botPrevention: this.botPrevention
+                        }
+                    }
+                    this.$axios(submitOptions)
+                        .then((apiResponse) => {
+                            console.log(apiResponse.data.data)
+                            this.resetForm()
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                            this.resetForm()
+                        })
+                }
             }
         }
     }
