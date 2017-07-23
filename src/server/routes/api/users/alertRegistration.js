@@ -4,16 +4,15 @@ import emailTransporter from '../../../config/email'
 import eVars from '../../../config/environment'
 
 function alertRegistration(company, name, email, country, comments) {
-    let regTime = new Date()
     let emailOptions = {
         from: `"${eVars.ADMIN}" <${eVars.ADMIN_EMAIL}>`,
         to: [
             'david.tsai@gentry-way.com.tw',
             'david.tsai.gentry@gmail.com'
         ],
-        subject: '仲群維官方網站客戶註冊通知',
+        subject: '客戶註冊通知',
         html: `
-            網站於 ${regTime.getFullYear()}-${regTime.getMonth() + 1}-${regTime.getDate()} ${regTime.getHours()}:${regTime.getMinutes()} 接收到以下客戶註冊資訊:<br>
+            網站於 ${Date()} 接收到以下客戶註冊資訊:<br>
             <br>
             公司名稱: ${company}<br>
             姓名: ${name}<br>

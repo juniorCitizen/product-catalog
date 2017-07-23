@@ -1,4 +1,4 @@
-// import db from '../../controllers/database'
+import db from '../../../controllers/database'
 import routerResponse from '../../../utilities/routerResponse'
 import alertRegistration from './alertRegistration'
 import sendThankYou from './sendThankYou'
@@ -16,8 +16,18 @@ function userRegistration(req, res, next) {
         sendThankYou(req.body.name, req.body.email, req.body.comments),
         alertRegistration(req.body.company, req.body.name, req.body.email, req.body.country, req.body.comments)
     ]
-    Promise.all(emailMessages)
-        .then((response) => {
+    db.Registrations
+        .create({
+            company: req.body.company,
+            name: req.body.name,
+            email: req.body.email,
+            country: req.body.country,
+            comments: req.body.comments
+        })
+        .then(() => {
+            return Promise.all(emailMessages)
+        })
+        .then(() => {
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,
@@ -30,7 +40,8 @@ function userRegistration(req, res, next) {
                 pendingResponse: res,
                 originalRequest: req,
                 statusCode: 500,
-                success: false
+                success: false,
+                error: error
             })
         })
 }

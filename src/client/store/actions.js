@@ -4,7 +4,28 @@ import eVars from '../../server/config/environment'
 
 export default {
     fetchProductSeriesData: fetchProductSeriesData,
-    fetchProductCatalogData: fetchProductCatalogData
+    fetchProductCatalogData: fetchProductCatalogData,
+    fetchCountryData: fetchCountryData
+}
+
+function fetchCountryData(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: 'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;alpha3Code;flag;region'
+    }
+    axios(axiosOptions)
+        .then((apiResponse) => {
+            context.commit({
+                type: 'registerCountryData',
+                countryData: apiResponse.data
+            })
+        }).catch((error) => {
+            context.commit({
+                type: 'registerCountryData',
+                countryData: []
+            })
+            console.log(error)
+        })
 }
 
 function fetchProductSeriesData(context) {

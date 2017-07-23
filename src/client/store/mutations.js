@@ -7,7 +7,8 @@ export default {
     addItemOfInterest: addItemOfInterest,
     removeItemOfInterest: removeItemOfInterest,
     setAjaxPendingState: (state, pendingState) => { state.ajaxRequestPending = pendingState },
-    markRegisteredSession: (state) => { state.alreadyRegistered = true }
+    markRegisteredSession: markRegisteredSession,
+    registerCountryData: registerCountryData
 }
 
 function resetStore(state) {
@@ -17,7 +18,32 @@ function resetStore(state) {
     state.activeProductSeriesId = 1
     state.interestedItems = []
     state.ajaxRequestPending = false
+    state.countries = []
     state.alreadyRegistered = false
+    state.registeredUserInfo = {
+        company: '',
+        name: '',
+        email: '',
+        country: 'Country',
+        comments: ''
+    }
+}
+
+function registerCountryData(state, payload) {
+    state.countries = payload.countryData
+    state.countries.sort()
+    state.countries.sort()
+}
+
+function markRegisteredSession(state, payload) {
+    state.alreadyRegistered = true
+    state.registeredUserInfo = {
+        company: payload.company,
+        name: payload.name,
+        email: payload.email,
+        country: payload.country,
+        comments: payload.comments
+    }
 }
 
 function registerProductSeriesData(state, payload) {

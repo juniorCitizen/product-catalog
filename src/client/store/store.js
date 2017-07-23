@@ -18,7 +18,16 @@ const store = new Vuex.Store({
         activeProductSeriesId: 1,
         interestedItems: [],
         ajaxRequestPending: false,
-        alreadyRegistered: false
+        alreadyRegistered: false,
+        countries: [],
+        regions: ['All Regions', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
+        registeredUserInfo: {
+            company: '',
+            name: '',
+            email: '',
+            country: 'Country',
+            comments: ''
+        }
     }
 })
 

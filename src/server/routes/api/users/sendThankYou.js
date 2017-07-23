@@ -12,6 +12,7 @@ function sendThankYou(name, email, comments) {
     let confidentiality = `<br><br><div style="font-size:60%;">EMAIL CONFIDENTIALITY NOTICE: This email transmission and any attachments contained within may contain information that is confidential or otherwise exempt from disclosure under applicable law and is intended solely for the use of the individual(s) to whom it was intended to be addressed. If you have received this email by mistake, or you are not the intended recipient, any disclosure, dissemination, distribution, copying or other use or retention of this communication or its substance is prohibited. If you have received this communication in error, please immediately report to the author via email that you received this message by mistake and also permanently destroy printed copies and delete the original and all copies of this email and any attachments from your computer.</div>`
     let emailOptions = {
         from: `"${eVars.ADMIN}" <${eVars.ADMIN_EMAIL}>`,
+        replyTo: eVars.ADMIN_EMAIL,
         to: email,
         subject: 'Thank you message from Gentry Way',
         html: `${messageBodyPartA}${comments === null ? '' : prepedComments}${messageBodyPartB}${confidentiality}`,

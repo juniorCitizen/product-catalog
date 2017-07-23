@@ -33,12 +33,14 @@
             ...mapMutations({}),
             ...mapActions({
                 fetchProductSeriesData: 'fetchProductSeriesData',
-                fetchProductCatalogData: 'fetchProductCatalogData'
+                fetchProductCatalogData: 'fetchProductCatalogData',
+                fetchCountryData: 'fetchCountryData'
             })
         },
         created: function () {
             this.fetchProductSeriesData()
             this.fetchProductCatalogData()
+            this.fetchCountryData()
         }
     }
 </script>
