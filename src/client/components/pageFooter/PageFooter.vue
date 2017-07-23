@@ -1,13 +1,13 @@
 <template>
-    <div id="page-footer"
-         class="hero-foot">
+    <div class="hero-foot">
         <div class="columns">
             <div v-if="!alreadyRegistered"
-                 class="is-pulled-left column">
+                 class="message-notice column is-pulled-left">
                 <router-link to="/contacts"
                              :disabled="ajaxRequestPending">Register</router-link> to receive our PDF catalog
             </div>
-            <div class="copy-right-notice is-pulled-right has-text-right column">
+            <interest-controls></interest-controls>
+            <div class="copyright-notice column is-pulled-right has-text-right">
                 © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
             </div>
         </div>
@@ -17,9 +17,11 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import InterestControls from './InterestControls.vue'
+
     export default {
         name: 'page-footer',
-        components: {},
+        components: { InterestControls },
         data: function () {
             return {}
         },
@@ -43,11 +45,14 @@
         color: #e1e1e1;
     }
 
-    #page-footer {
-        padding: 5px;
+    div.message-notice {
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
-    div.copy-right-notice {
+    div.copyright-notice {
+        margin-top: auto;
         font-size: 8px;
+        margin-bottom: auto;
     }
 </style>

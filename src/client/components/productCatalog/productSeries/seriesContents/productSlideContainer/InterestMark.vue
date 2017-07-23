@@ -1,12 +1,12 @@
 <template>
     <a class="interest-mark">
         <i v-if="!isInterestedItem"
-           class="fa fa-check-circle-o fa-2x"
+           class="fa fa-check-circle-o fa-3x"
            style="color: gray;"
            @click="selectInterestedItem">
         </i>
         <i v-else
-           class="fa fa-check-circle fa-2x"
+           class="fa fa-check-circle fa-3x"
            style="color: green;"
            @click="deselectUninterestedItem">
         </i>
@@ -53,7 +53,13 @@
 </script>
 
 <style scoped>
+    i {
+        background-color: white;
+        border-radius: 100%;
+    }
+
     .interest-mark {
+
         position: absolute;
         top: 0px;
         right: 0px;

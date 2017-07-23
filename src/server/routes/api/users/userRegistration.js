@@ -1,7 +1,7 @@
 import db from '../../../controllers/database'
 import routerResponse from '../../../utilities/routerResponse'
-import alertRegistration from './alertRegistration'
-import sendThankYou from './sendThankYou'
+// import alertRegistration from './alertRegistration'
+// import sendThankYou from './sendThankYou'
 
 function userRegistration(req, res, next) {
     if (req.body.botPrevention !== null) {
@@ -12,30 +12,44 @@ function userRegistration(req, res, next) {
             success: false
         })
     }
-    let emailMessages = [
-        sendThankYou(req.body.name, req.body.email, req.body.comments),
-        alertRegistration(req.body.company, req.body.name, req.body.email, req.body.country, req.body.comments)
-    ]
+    // let emailMessages = [
+    //     sendThankYou(req.body.name, req.body.email, req.body.comments),
+    //     alertRegistration(req.body.company, req.body.name, req.body.email, req.body.country, req.body.comments)
+    // ]
     db.Registrations
         .create({
             company: req.body.company,
             name: req.body.name,
             email: req.body.email,
             country: req.body.country,
-            comments: req.body.comments
+            comments: req.body.comments,
+            noticeIssued: false,
+            thankYouSent: false
         })
-        .then(() => {
-            return Promise.all(emailMessages)
-        })
-        .then(() => {
+        .then((newRegistrationRecord) => {
+            // console.log(newRegistrationRecord.dataValues)
+            // res.newRegistrationRecord = newRegistrationRecord.dataValues
+            // return Promise.all(emailMessages)
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,
                 statusCode: 200,
-                success: true
+                success: true,
+                data: newRegistrationRecord
             })
         })
+        // .then((emailResponse) => {
+        //     console.log(emailResponse)
+        //     return routerResponse.json({
+        //         pendingResponse: res,
+        //         originalRequest: req,
+        //         statusCode: 200,
+        //         success: true,
+        //         data: res.newRegistrationRecord
+        //     })
+        // })
         .catch((error) => {
+            console.log(error)
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,

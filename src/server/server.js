@@ -11,6 +11,7 @@ import Promise from 'bluebird'
 // load custom modules
 import eVars from './config/environment'
 import db from './controllers/database'
+import emailBroadcastSystem from './controllers/broadcastSystems/email/emailBroadcastSystem.js'
 
 // setup Express framework and routing
 console.log(chalk.blue('loading Express framework...'))
@@ -68,6 +69,7 @@ app.use('*', express.static(path.join(__dirname, '../client')))
 let initProcedures = []
 // prepare a list of initialization procedures
 initProcedures.push(db.initialize()) // initialize database.js module and data models
+initProcedures.push(emailBroadcastSystem.initialize()) // initialize emailBroadcastSystem.js module
 // initialize each system sequentially
 Promise.each(initProcedures, (initProcedurePromise) => {
     return initProcedurePromise

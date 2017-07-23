@@ -131,9 +131,10 @@
                             :disabled="ajaxRequestPending"
                             @click="resetForm">Cancel</button>
                 </div>
-                <p v-if="ajaxRequestPending"
-                   class="help is-danger">
-                    <b>Registration in progress...</b>
+                <p v-if="statusMessage!==null"
+                   class="help is-danger"
+                   :class="{'is-info':statusMessage==='Registration in progress...','is-danger':statusMessage==='Registration failure...'}">
+                    <b>{{ statusMessage }}</b>
                 </p>
             </div>
         </template>
@@ -157,14 +158,19 @@
                 comments: '',
                 botPrevention: null,
                 attemptToSend: false,
-                regionFilter: 'All Regions'
+                regionFilter: 'All Regions',
+                statusMessage: null
             }
         },
         watch: {
             country: function (newCountrySelection) {
-                this.regionFilter = this.filteredCountryList.filter((country) => {
-                    return country.name === newCountrySelection
-                })[0].region
+                if (newCountrySelection === 'Country') {
+                    return 'All Regions'
+                } else {
+                    this.regionFilter = this.filteredCountryList.filter((country) => {
+                        return country.name === newCountrySelection
+                    })[0].region
+                }
             }
         },
         computed: {
@@ -226,6 +232,7 @@
             userRegistration: function () {
                 this.attemptToSend = true
                 if ((this.readyToSubmit) && (this.botPrevention === null)) {
+                    this.statusMessage = 'Registration in progress...'
                     let submitOptions = {
                         method: 'post',
                         url: this.apiUrl,
@@ -242,6 +249,7 @@
                     this.$axios(submitOptions)
                         .then((apiResponse) => {
                             this.markRegisteredSession({
+                                registrationId: apiResponse.data.data.id,
                                 company: this.company,
                                 name: this.name,
                                 email: this.email,
@@ -253,6 +261,7 @@
                             this.setAjaxPendingState(false)
                         })
                         .catch((error) => {
+                            this.statusMessage = 'Registration failure...'
                             this.attemptToSend = false
                             console.log(error)
                             this.setAjaxPendingState(false)

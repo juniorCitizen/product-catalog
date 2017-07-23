@@ -22,6 +22,7 @@ const store = new Vuex.Store({
         countries: [],
         regions: ['All Regions', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
         registeredUserInfo: {
+            registrationId: null,
             company: '',
             name: '',
             email: '',

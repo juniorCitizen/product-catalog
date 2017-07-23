@@ -36,21 +36,33 @@
     }
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
     div.hero-body {
         height: 530px;
         overflow: scroll;
         overflow-x: hidden;
     }
+
     div.container {
         margin: auto;
     }
-    ::-webkit-scrollbar {
-        width: 0px;  /* remove scrollbar space */
-        background: transparent;  /* optional: just make scrollbar invisible */
+
+     ::-webkit-scrollbar {
+        width: 0px;
+        /* remove scrollbar space */
+        background: transparent;
+        /* optional: just make scrollbar invisible */
     }
+
+
+
+
+
+
+
     /* optional: show position indicator in red */
-    ::-webkit-scrollbar-thumb {
+
+     ::-webkit-scrollbar-thumb {
         background: #FF0000;
     }
 </style>
