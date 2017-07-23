@@ -12,15 +12,15 @@
                 </strong>
             </h1>
             <h3 class="motto subtitle is-3">
-                <i>Quality aluminium extrusion products</i>
+                <i>Quality aluminium extrusion articles</i>
                 <br>
                 <i>for medical, rehabilitation and recreation industries</i>
                 <br>
-                <i>at affordable prices !!!</i>
+                <i>at competitive prices !!!</i>
                 <br>
                 <br>
                 <h4 class="subtitle is-4">
-                    <i>Manufactured in Taiwan or China</i>
+                    <i>Products available from Taiwan or China</i>
                 </h4>
             </h3>
         </div>
