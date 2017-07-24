@@ -7,5 +7,6 @@ export default {
     ajaxRequestPending: (state) => { return state.ajaxRequestPending },
     alreadyRegistered: (state) => { return state.alreadyRegistered },
     countries: (state) => { return state.countries },
-    regions: (state) => { return state.regions }
+    regions: (state) => { return state.regions },
+    registeredUserInfo: (state) => { return state.registeredUserInfo }
 }

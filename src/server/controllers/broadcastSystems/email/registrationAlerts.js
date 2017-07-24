@@ -18,7 +18,7 @@ function registrationAlerts(record) {
             電子郵件: ${record.email}<br>
             國家: ${record.country}<br>
             其他資訊: <br>
-            <p style="white-space:pre-wrap;">${record.comments === null ? '' : record.comments}</p>
+            <p style="white-space:pre-wrap;">${record.comments === null ? '客戶未表達其他問題或意見' : record.comments}</p>
             <br>
             請回應客戶聯繫並確認需求，謝謝<br>
             <br>

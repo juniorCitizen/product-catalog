@@ -37,7 +37,6 @@ function registerCountryData(state, payload) {
 }
 
 function markRegisteredSession(state, payload) {
-    console.log(payload)
     state.alreadyRegistered = true
     state.registeredUserInfo = {
         registrationId: payload.registrationId,
