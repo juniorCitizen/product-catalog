@@ -2,18 +2,18 @@
     <div class="hero-foot">
         <div class="columns">
             <template v-if="!alreadyRegistered">
-                <div class="message-notice column is-pulled-left">
+                <div class="message-notice column is-narrow is-pulled-left">
                     <router-link to="/contacts"
                                  :disabled="ajaxRequestPending">Register</router-link> to receive our PDF catalog
                 </div>
             </template>
             <template v-else>
-                <div class="message-notice column is-pulled-left">
+                <div class="message-notice column is-narrow is-pulled-left">
                     {{ registeredUserInfo.name }}, welcome to our website!
                 </div>
             </template>
             <interest-controls></interest-controls>
-            <div class="copyright-notice column is-pulled-right has-text-right">
+            <div class="copyright-notice column is-narrow is-pulled-right has-text-right">
                 © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
             </div>
         </div>

@@ -1,12 +1,12 @@
 <template>
     <div class="column has-text-centered"
          v-if="(interestedItems.length > 0) && (currentView === 'products')">
-        <button class="button is-small is-info">
-            <b>SUBMIT MY SELECTIONS</b>
+        <button class="button is-medium is-info is-outlined is-marginless">
+            <b>SUBMIT</b>&nbsp;Selection
         </button>
-        <button class="button is-small is-danger"
+        <button class="button is-medium is-danger is-outlined is-marginless"
                 @click="resetItemsOfInterest()">
-            <b>CLEAR SELECTIONS</b>
+            <b>CLEAR</b>&nbsp;Selection
         </button>
     </div>
 </template>
