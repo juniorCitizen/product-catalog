@@ -1,7 +1,8 @@
 <template>
     <div class="column has-text-centered"
          v-if="(interestedItems.length > 0) && (currentView === 'products')">
-        <button class="button is-medium is-info is-outlined is-marginless">
+        <button class="button is-medium is-info is-outlined is-marginless"
+                @click="$emit('submitInterestEventTriggered')">
             <b>SUBMIT</b>&nbsp;Selection
         </button>
         <button class="button is-medium is-danger is-outlined is-marginless"

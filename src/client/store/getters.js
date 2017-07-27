@@ -1,5 +1,6 @@
 export default {
     currentView: (state) => { return state.currentView },
+    mobileNavMode: (state) => { return state.mobileNavMode },
     productSeriesData: (state) => { return state.productSeriesData },
     productCatalogData: (state) => { return state.productCatalogData },
     activeProductSeriesId: (state) => { return state.activeProductSeriesId },

@@ -1,14 +1,15 @@
 <template>
-    <span>
-        newTemplate
-    </span>
+    <div class="column is-narrow"
+         :class="{'has-text-centered': isMobile}">
+        © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
+    </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'submit-interests',
+        name: 'copy-right-notice',
         components: {},
         props: [],
         data: function () {
@@ -24,4 +25,9 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    div {
+        font-size: 8px;
+        margin-bottom: 0px;
+    }
+</style>

@@ -1,42 +1,41 @@
 <template>
-    <div class="hero-foot">
-        <div class="columns">
-            <template v-if="!alreadyRegistered">
-                <div class="message-notice column is-narrow is-pulled-left">
-                    <router-link to="/contacts"
-                                 :disabled="ajaxRequestPending">Register</router-link> to receive our PDF catalog
-                </div>
-            </template>
-            <template v-else>
-                <div class="message-notice column is-narrow is-pulled-left">
-                    {{ registeredUserInfo.name }}, welcome to our website!
-                </div>
-            </template>
-            <interest-controls></interest-controls>
-            <div class="copyright-notice column is-narrow is-pulled-right has-text-right">
-                © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
-            </div>
-        </div>
+    <div class="hero-foot columns">
+        <registration-link v-if="!isMobile && !alreadyRegistered"></registration-link>
+        <div is="BlankSpacer"></div>
+        <registration-link v-if="isMobile && !alreadyRegistered"></registration-link>
+        <copy-right-notice></copy-right-notice>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import InterestControls from './InterestControls.vue'
+    import CopyRightNotice from './CopyRightNotice/CopyRightNotice.vue'
+    import RegistrationLink from './RegistrationLink/RegistrationLink.vue'
+
+    const BlankSpacer = {
+        name: 'blank-spacer',
+        template: `<div class="column"></div>`
+    }
+
+    const ImportantPlaceholder = {
+        name: 'important-placeholder',
+        template: `<div class="column">Important Placeholder</div>`
+    }
 
     export default {
         name: 'page-footer',
-        components: { InterestControls },
+        components: {
+            BlankSpacer,
+            CopyRightNotice,
+            ImportantPlaceholder,
+            RegistrationLink
+        },
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({
-                alreadyRegistered: 'alreadyRegistered',
-                ajaxRequestPending: 'ajaxRequestPending',
-                registeredUserInfo: 'registeredUserInfo'
-            })
+            ...mapGetters({ alreadyRegistered: 'alreadyRegistered' })
         },
         methods: {
             ...mapMutations({}),
@@ -50,11 +49,6 @@
     a[disabled]:hover {
         pointer-events: none;
         color: #e1e1e1;
-    }
-
-    div.message-notice {
-        margin-top: auto;
-        margin-bottom: auto;
     }
 
     div.copyright-notice {

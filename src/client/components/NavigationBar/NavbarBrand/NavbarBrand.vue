@@ -1,25 +1,23 @@
 <template>
-    <div class="hero-head">
-        <header class="navbar">
-            <navbar-brand></navbar-brand>
-            <navbar-menu></navbar-menu>
-        </header>
+    <div class="navbar-brand">
+        <company-logo></company-logo>
+        <navbar-burger></navbar-burger>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import NavbarBrand from './NavbarBrand/NavbarBrand.vue'
-    import NavbarMenu from './NavbarMenu/NavbarMenu.vue'
+    import CompanyLogo from './CompanyLogo/CompanyLogo.vue'
+    import NavbarBurger from './NavbarBurger/NavbarBurger.vue'
 
     export default {
-        name: 'navigation-bar',
-        props: [],
+        name: 'navbar-brand',
         components: {
-            NavbarBrand,
-            NavbarMenu
+            CompanyLogo,
+            NavbarBurger
         },
+        props: [],
         data: function () {
             return {}
         },

@@ -12,7 +12,7 @@
                         :key="index"
                         :class="{'is-active': office.country===selectedCountry}">
                         <a @click="selectedCountry=office.country">
-                            <b>{{ office.country }}</b>
+                            <b class="country-label">{{ office.country }}</b>
                         </a>
                     </li>
                 </ul>
@@ -110,6 +110,10 @@
     a[disabled]:hover {
         pointer-events: none;
         color: #e1e1e1;
+    }
+
+    b.country-label {
+        text-transform: uppercase;
     }
 
     .title {

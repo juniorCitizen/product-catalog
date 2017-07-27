@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     mutations: mutations,
     state: {
         currentView: 'home',
+        mobileNavMode: false,
         productSeriesData: [],
         productCatalogData: [],
         activeProductSeriesId: 1,
@@ -20,7 +21,7 @@ const store = new Vuex.Store({
         ajaxRequestPending: false,
         alreadyRegistered: false,
         countries: [],
-        regions: ['All Regions', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
+        regions: [],
         registeredUserInfo: {
             registrationId: null,
             company: '',

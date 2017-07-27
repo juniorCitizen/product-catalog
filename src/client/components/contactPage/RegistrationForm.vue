@@ -106,7 +106,7 @@
                     <textarea class="textarea"
                               v-model="comments"
                               :disabled="ajaxRequestPending"
-                              placeholder="Questions or comments">
+                              placeholder="Questions or additional comments">
                     </textarea>
                 </div>
             </div>
@@ -121,15 +121,15 @@
             </div>
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-success"
+                    <button class="button is-info"
                             :class="{'is-loading':attemptToSend && ajaxRequestPending}"
                             :disabled="ajaxRequestPending"
-                            @click="userRegistration">Register</button>
+                            @click="userRegistration">REGISTER</button>
                 </div>
                 <div class="control">
                     <button class="button is-success"
                             :disabled="ajaxRequestPending"
-                            @click="resetForm">Cancel</button>
+                            @click="resetForm">RESET FORM</button>
                 </div>
                 <p v-if="statusMessage!==null"
                    class="help is-danger"

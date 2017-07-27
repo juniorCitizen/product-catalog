@@ -11,7 +11,7 @@ import Promise from 'bluebird'
 // load custom modules
 import eVars from './config/environment'
 import db from './controllers/database'
-import emailBroadcastSystem from './controllers/broadcastSystems/email/emailBroadcastSystem.js'
+import emailBroadcastSystem from './controllers/broadcastSystems/email/emailBroadcastSystem'
 
 // setup Express framework and routing
 console.log(chalk.blue('loading Express framework...'))
@@ -56,6 +56,7 @@ apiRouter.use('/series', require('./routes/api/series'))
 apiRouter.use('/photos', require('./routes/api/photos'))
 apiRouter.use('/products', require('./routes/api/products/products'))
 apiRouter.use('/users', require('./routes/api/users/users'))
+apiRouter.use('/countries', require('./routes/api/countries'))
 
 // custom request postprocessing middlewares
 // console.log(chalk.blue('loading custom post-processing middleware...'))

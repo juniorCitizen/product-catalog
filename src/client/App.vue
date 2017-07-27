@@ -1,8 +1,8 @@
 <template>
     <div id="app"
-         class="container is-fluid">
-        <div class="hero is-fullheight">
-            <navigation-bar :activeRouteName="activeRouteName"></navigation-bar>
+         class="container">
+        <div class="hero">
+            <navigation-bar></navigation-bar>
             <router-view></router-view>
             <page-footer></page-footer>
         </div>
@@ -13,8 +13,9 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     import store from './store/store'
-    import NavigationBar from './components/navigationBar/NavigationBar.vue'
-    import PageFooter from './components/pageFooter/PageFooter.vue'
+
+    import NavigationBar from './components/NavigationBar/NavigationBar.vue'
+    import PageFooter from './components/PageFooter/PageFooter.vue'
 
     export default {
         name: 'app',
@@ -34,13 +35,15 @@
             ...mapActions({
                 fetchProductSeriesData: 'fetchProductSeriesData',
                 fetchProductCatalogData: 'fetchProductCatalogData',
-                fetchCountryData: 'fetchCountryData'
+                fetchCountryData: 'fetchCountryData',
+                fetchRegionData: 'fetchRegionData'
             })
         },
         created: function () {
             this.fetchProductSeriesData()
             this.fetchProductCatalogData()
             this.fetchCountryData()
+            this.fetchRegionData()
         }
     }
 </script>

@@ -28,7 +28,8 @@ function chalkedMessage(textString) {
 }
 
 function defaultRecords() {
-    return [{
+    const countries = require('world-countries/dist/countries.json')
+    const defaultRecords = [{
         modelName: 'Series',
         records: [{
             reference: 'Crutch',
@@ -52,20 +53,28 @@ function defaultRecords() {
             reference: 'Commode Chair',
             displaySequence: 6
         }, {
-            reference: 'Bathroom safety',
+            reference: 'Bathroom Safety',
             displaySequence: 7
         }, {
-            reference: 'Patient Aid / Medical Equipment',
+            reference: 'Patient Aid',
             displaySequence: 8
         }, {
-            reference: 'Aluminium Wheelchair Ramp',
+            reference: 'Rollator',
             displaySequence: 9
         }, {
-            reference: 'Rollator',
+            reference: 'Accessory',
             displaySequence: 10
-        }, {
-            reference: 'KAYE Walker',
-            displaySequence: 11
         }]
+    }, {
+        modelName: 'Countries',
+        records: []
     }]
+    countries.forEach((country) => {
+        defaultRecords[1].records.push({
+            alpha3Code: country.cca3,
+            name: country.name.common,
+            region: country.region === '' ? 'Other' : country.region
+        })
+    })
+    return defaultRecords
 }
