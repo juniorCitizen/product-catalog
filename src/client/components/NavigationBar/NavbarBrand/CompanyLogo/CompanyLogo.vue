@@ -5,8 +5,8 @@
         <img class="image"
              :src="logoUrl"
              alt="Company Logo"
-             width="100"
-             height="25">
+             :width="logoWidth"
+             :height="logoHeight">
     </a>
 </template>
 
@@ -24,7 +24,13 @@
             }
         },
         computed: {
-            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' })
+            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' }),
+            logoWidth: function () {
+                return this.isMobile ? 100 : 160
+            },
+            logoHeight: function () {
+                return this.isMobile ? 25 : 40
+            }
         },
         methods: {
             ...mapMutations({}),

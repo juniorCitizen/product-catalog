@@ -49,7 +49,5 @@
 </script>
 
 <style scoped>
-    div.hero {
-        overflow: hidden;
-    }
+    /* div.hero { overflow: hidden; } */
 </style>

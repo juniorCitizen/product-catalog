@@ -1,9 +1,12 @@
 <template>
-    <router-link class="button is-success"
-                 to="/products"
-                 :style="fontStyle">
-        CLICK TO SEE OUR PRODUCTS
-    </router-link>
+    <div class="column has-text-centered is-paddingless">
+        <router-link class="button is-fullwidth is-success"
+                     :class="{'is-outlined': !isMobile}"
+                     :style="fontStyle"
+                     to="/products">
+            CLICK TO SEE OUR PRODUCTS
+        </router-link>
+    </div>
 </template>
 
 <script>
@@ -19,15 +22,7 @@
         computed: {
             ...mapGetters({}),
             fontStyle: function () {
-                if (this.isLargeAndUp) {
-                    return { 'font-size': '90%' }
-                } else {
-                    return {
-                        'padding-top': '0px',
-                        'font-size': '75%',
-                        'padding-bottom': '0px'
-                    }
-                }
+                return this.isMobile ? { 'font-size': '80%' } : { 'font-size': '140%' }
             }
         },
         methods: {
@@ -38,13 +33,19 @@
 </script>
 
 <style scoped>
+    div.column {
+        border: none;
+    }
+
     .button {
+        border: none;
         font-weight: bolder;
         font-style: italic;
-        transform: scale(2, 2);
-        position: absolute;
-        bottom: -40px;
-        width: 100%;
-        border: none;
+        white-space: nowrap;
+    }
+
+    a[disabled],
+    a[disabled]:hover {
+        pointer-events: none;
     }
 </style>

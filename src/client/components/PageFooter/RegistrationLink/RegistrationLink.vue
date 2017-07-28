@@ -1,12 +1,13 @@
 <template>
-    <div class="column is-narrow"
-         :class="{'has-text-centered is-marginless is-paddingless': isMobile}"
-         :style="margins">
-        <router-link to="/contacts"
-                     :class="{'is-marginless is-paddingless': isMobile}"
-                     :disabled="ajaxRequestPending">
-            <b>REGISTER</b>
-        </router-link> to receive our PDF catalog
+    <div class="column is-narrow is-paddingless"
+         :class="{'has-text-left': !isMobile, 'has-text-centered': isMobile}">
+        <router-link class="button is-fullwidth is-info"
+                     :class="{'is-outlined': !isMobile}"
+                     :style="fontStyle"
+                     :disabled="ajaxRequestPending"
+                     to="/contacts">
+            Register for our product catalog
+        </router-link>
     </div>
 </template>
 
@@ -21,7 +22,16 @@
             return {}
         },
         computed: {
-            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' })
+            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' }),
+            fontStyle: function () {
+                return this.isMobile
+                    ? {
+                        'font-size': '80%',
+                        'text-transform': 'uppercase'
+                    } : {
+                        'font-size': '120%'
+                    }
+            }
         },
         methods: {
             ...mapMutations({}),
@@ -30,4 +40,20 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    div.column {
+        border: none;
+    }
+
+    .button {
+        border: none;
+        font-weight: bolder;
+        font-style: italic;
+        white-space: nowrap;
+    }
+
+    a[disabled],
+    a[disabled]:hover {
+        pointer-events: none;
+    }
+</style>

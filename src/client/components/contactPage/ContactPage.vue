@@ -31,7 +31,7 @@
                     website: `${this.$eVars.HOST}:${this.$eVars.PORT}`
                 }, {
                     title: 'China Location',
-                    companyName: 'Gentry Hardware Product Co., Ltd.',
+                    companyName: 'Gentry Hardware Products Co., Ltd.',
                     address: 'No. 158, Dong Cheng Road',
                     town: 'Dong Sheng Town',
                     city: 'Zhong Shan City',

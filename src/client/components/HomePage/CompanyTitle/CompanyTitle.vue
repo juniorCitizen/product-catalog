@@ -7,7 +7,7 @@
         </strong>
         <br>
         <strong class="china-site content">
-            <i>Gentry Hardware Product Co., Ltd.</i>
+            <i>Gentry Hardware Products Co., Ltd.</i>
         </strong>
     </h1>
 </template>
@@ -49,7 +49,7 @@
 
 <style scoped>
     .title {
-        padding-top: 5%;
+        /* padding-top: 5%; */
         color: darkgreen;
         /* transform: rotate(-4deg) scale(1.0, 1.0); */
         /* transform: rotate(-4deg) translate(0px, -50px); */

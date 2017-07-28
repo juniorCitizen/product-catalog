@@ -1,7 +1,7 @@
 <template>
     <div class="hero-foot columns">
         <registration-link v-if="!isMobile && !alreadyRegistered"></registration-link>
-        <div is="BlankSpacer"></div>
+        <catalog-link></catalog-link>
         <registration-link v-if="isMobile && !alreadyRegistered"></registration-link>
         <copy-right-notice></copy-right-notice>
     </div>
@@ -10,25 +10,15 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import CatalogLink from './CatalogLink/CatalogLink.vue'
     import CopyRightNotice from './CopyRightNotice/CopyRightNotice.vue'
     import RegistrationLink from './RegistrationLink/RegistrationLink.vue'
-
-    const BlankSpacer = {
-        name: 'blank-spacer',
-        template: `<div class="column"></div>`
-    }
-
-    const ImportantPlaceholder = {
-        name: 'important-placeholder',
-        template: `<div class="column">Important Placeholder</div>`
-    }
 
     export default {
         name: 'page-footer',
         components: {
-            BlankSpacer,
+            CatalogLink,
             CopyRightNotice,
-            ImportantPlaceholder,
             RegistrationLink
         },
         data: function () {
@@ -44,16 +34,4 @@
     }
 </script>
 
-<style scoped>
-    a[disabled],
-    a[disabled]:hover {
-        pointer-events: none;
-        color: #e1e1e1;
-    }
-
-    div.copyright-notice {
-        margin-top: auto;
-        font-size: 8px;
-        margin-bottom: auto;
-    }
-</style>
+<style scoped></style>

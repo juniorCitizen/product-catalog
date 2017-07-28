@@ -1,7 +1,9 @@
 <template>
     <div class="column is-narrow"
-         :class="{'has-text-centered': isMobile}">
-        © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
+         :class="{'has-text-right': !isMobile, 'has-text-centered is-paddingless': isMobile}">
+        <span class="">
+            © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
+        </span>
     </div>
 </template>
 
@@ -12,11 +14,13 @@
         name: 'copy-right-notice',
         components: {},
         props: [],
+        watch: {},
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({}),
+
         },
         methods: {
             ...mapMutations({}),
@@ -27,7 +31,11 @@
 
 <style scoped>
     div {
-        font-size: 8px;
-        margin-bottom: 0px;
+        border: none;
+    }
+
+    span {
+        border: none;
+        font-size: 75%;
     }
 </style>

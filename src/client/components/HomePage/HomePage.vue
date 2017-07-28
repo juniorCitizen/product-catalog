@@ -2,7 +2,7 @@
     <div class="hero-body">
         <div class="container has-text-centered">
             <companyTitle></companyTitle>
-            <br v-if="isLargeAndUp || isMediumAndDown">
+            <br v-if="isLargeAndUp || isMediumAndUp">
             <br v-if="isLargeAndUp">
             <motto-text></motto-text>
         </div>

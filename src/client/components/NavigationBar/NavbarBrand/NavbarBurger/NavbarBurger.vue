@@ -12,8 +12,6 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    // import
-
     export default {
         name: 'navbar-burger',
         components: {},
