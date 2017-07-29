@@ -1,11 +1,11 @@
 <template>
-    <div class="column has-text-centered is-paddingless">
-        <router-link class="button is-fullwidth is-success"
-                     :class="{'is-outlined': !isMobile}"
-                     :style="fontStyle"
-                     to="/products">
-            CLICK TO SEE OUR PRODUCTS
-        </router-link>
+    <div class="columns">
+        <div class="column has-text-centered is-paddingless">
+            <router-link class="button is-fullwidth is-success"
+                         to="/products">
+                BROWSER PRODUCT CATALOG
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -38,7 +38,7 @@
     }
 
     .button {
-        border: none;
+        font-size: 80%;
         font-weight: bolder;
         font-style: italic;
         white-space: nowrap;

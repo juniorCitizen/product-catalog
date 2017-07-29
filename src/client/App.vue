@@ -27,11 +27,23 @@
         data: function () {
             return {}
         },
+        watch: {
+            isTouch: function (isTouchStatus) {
+                this.switchMobileNavMode(false)
+            },
+            '$route': function (to, from) {
+                this.switchView(this.$route.name)
+                this.switchMobileNavMode(false)
+            }
+        },
         computed: {
             ...mapGetters({})
         },
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                switchMobileNavMode: 'switchMobileNavMode',
+                switchView: 'switchView'
+            }),
             ...mapActions({
                 fetchProductSeriesData: 'fetchProductSeriesData',
                 fetchProductCatalogData: 'fetchProductCatalogData',
@@ -44,6 +56,9 @@
             this.fetchProductCatalogData()
             this.fetchCountryData()
             this.fetchRegionData()
+        },
+        mounted: function () {
+            this.switchView(this.$route.name)
         }
     }
 </script>

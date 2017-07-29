@@ -1,3 +1,5 @@
+import { turnOnUserDataValidation } from './userData/userDataValidation'
+
 export default {
     resetStore: resetStore,
     registerProductSeriesData: registerProductSeriesData,
@@ -11,7 +13,10 @@ export default {
     removeItemOfInterest: removeItemOfInterest,
     resetItemsOfInterest: resetItemsOfInterest,
     setAjaxPendingState: (state, pendingState) => { state.ajaxRequestPending = pendingState },
-    markRegisteredSession: markRegisteredSession
+    markRegisteredSession: markRegisteredSession,
+    updateUserData: updateUserData,
+    resetUserData: resetUserData,
+    turnOnUserDataValidation: turnOnUserDataValidation
 }
 
 function resetStore(state) {
@@ -22,11 +27,23 @@ function resetStore(state) {
     state.activeProductSeriesId = 1
     state.interestedItems = []
     state.ajaxRequestPending = false
-    state.countries = []
     state.regions = []
-    state.alreadyRegistered = false
-    state.registeredUserInfo = {
+    state.countries = []
+    state.validatingUserData = false
+    // state.resettingUserData = false // pending deprecation
+    state.userData = {
+        id: null,
+        company: '',
+        name: '',
+        email: '',
+        region: 'All Regions',
+        country: 'Country',
+        comments: ''
+    }
+    state.alreadyRegistered = false // pending deprecation
+    state.registeredUserInfo = { // pending deprecation
         registrationId: null,
+        validation: false,
         company: '',
         name: '',
         email: '',
@@ -52,7 +69,14 @@ function registerRegionData(state, payload) {
 
 function registerCountryData(state, payload) {
     state.countries = payload.countryData
-    state.countries.sort()
+    state.countries.splice(0, 0, {
+        alpha3Code: null,
+        name: 'Country',
+        region: 'All Regions',
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null
+    })
 }
 
 function setActiveProductSeries(state, productSeriesId) {
@@ -76,13 +100,57 @@ function resetItemsOfInterest(state) {
 }
 
 function markRegisteredSession(state, payload) {
-    state.alreadyRegistered = true
-    state.registeredUserInfo = {
+    state.validatingUserData = false
+    // state.resettingUserData = false // pending deprecation
+    state.userData = {
+        id: payload.registrationId,
+        company: payload.company,
+        name: payload.name,
+        email: payload.email,
+        country: payload.country,
+        comments: payload.comments
+    }
+    state.alreadyRegistered = true // pending deprecation
+    state.registeredUserInfo = { // pending deprecation
         registrationId: payload.registrationId,
         company: payload.company,
         name: payload.name,
         email: payload.email,
         country: payload.country,
         comments: payload.comments
+    }
+}
+
+function updateUserData(state, payload) {
+    for (let attribute in payload) {
+        state.userData[attribute] = payload[attribute]
+    }
+    // pending deprecation ///////////////////////
+    for (let attribute in payload) {
+        state.registeredUserInfo[attribute] = payload[attribute]
+    }
+}
+
+function resetUserData(state) {
+    state.validatingUserData = false
+    // state.resettingUserData = false // pending deprecation
+    state.userData = {
+        id: null,
+        company: '',
+        name: '',
+        email: '',
+        region: 'All Regions',
+        country: 'Country',
+        comments: ''
+    }
+    state.alreadyRegistered = false // pending deprecation
+    state.registeredUserInfo = { // pending deprecation
+        registrationId: null,
+        validation: false,
+        company: '',
+        name: '',
+        email: '',
+        country: 'Country',
+        comments: ''
     }
 }

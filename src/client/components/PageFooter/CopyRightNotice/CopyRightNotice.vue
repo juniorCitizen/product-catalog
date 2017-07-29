@@ -1,9 +1,11 @@
 <template>
-    <div class="column is-narrow"
-         :class="{'has-text-right': !isMobile, 'has-text-centered is-paddingless': isMobile}">
-        <span class="">
-            © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
-        </span>
+    <div class="columns">
+        <div class="column"
+             :class="{'has-text-right': !isTouch, 'has-text-centered is-paddingless': isTouch}">
+            <span>
+                © Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.
+            </span>
+        </div>
     </div>
 </template>
 
@@ -19,7 +21,7 @@
             return {}
         },
         computed: {
-            ...mapGetters({}),
+            ...mapGetters({})
 
         },
         methods: {

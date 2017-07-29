@@ -17,10 +17,19 @@
         computed: {
             ...mapGetters({})
         },
+        watch: {},
         methods: {
             ...mapMutations({}),
             ...mapActions({})
-        }
+        },
+        beforeCreate: function () { },
+        created: function () { },
+        beforeMount: function () { },
+        mounted: function () { },
+        beforeUpdate: function () { },
+        updated: function () { },
+        beforeDestroy: function () { },
+        destroyed: function () { }
     }
 </script>
 

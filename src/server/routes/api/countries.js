@@ -8,7 +8,11 @@ const router = express.Router()
 router
     .get('/', (req, res, next) => {
         return db.Countries
-            .findAll()
+            .findAll({
+                order: [
+                    ['name']
+                ]
+            })
             .then((data) => {
                 return routerResponse.json({
                     pendingResponse: res,

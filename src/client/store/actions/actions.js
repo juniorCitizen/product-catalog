@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import eVars from '../../server/config/environment'
+import eVars from '../../../server/config/environment'
 
 export default {
     fetchProductSeriesData: fetchProductSeriesData,

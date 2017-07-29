@@ -1,8 +1,7 @@
 <template>
-    <div class="hero-foot columns">
-        <registration-link v-if="!isMobile && !alreadyRegistered"></registration-link>
-        <catalog-link></catalog-link>
-        <registration-link v-if="isMobile && !alreadyRegistered"></registration-link>
+    <div class="hero-foot">
+        <catalog-link v-if="isTouch && $route.name!=='products'"></catalog-link>
+        <registration-link v-if="isTouch && $route.name!=='register'"></registration-link>
         <copy-right-notice></copy-right-notice>
     </div>
 </template>

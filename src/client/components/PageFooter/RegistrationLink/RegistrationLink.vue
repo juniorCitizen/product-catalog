@@ -1,13 +1,12 @@
 <template>
-    <div class="column is-narrow is-paddingless"
-         :class="{'has-text-left': !isMobile, 'has-text-centered': isMobile}">
-        <router-link class="button is-fullwidth is-info"
-                     :class="{'is-outlined': !isMobile}"
-                     :style="fontStyle"
-                     :disabled="ajaxRequestPending"
-                     to="/contacts">
-            Register for our product catalog
-        </router-link>
+    <div class="columns">
+        <div class="column has-text-centered is-paddingless">
+            <router-link class="button is-fullwidth is-info"
+                         :disabled="ajaxRequestPending"
+                         to="/register">
+                REGISTER FOR PDF CATALOG
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -24,13 +23,7 @@
         computed: {
             ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' }),
             fontStyle: function () {
-                return this.isMobile
-                    ? {
-                        'font-size': '80%',
-                        'text-transform': 'uppercase'
-                    } : {
-                        'font-size': '120%'
-                    }
+                return this.isMobile ? { 'font-size': '80%' } : { 'font-size': '140%' }
             }
         },
         methods: {
@@ -46,7 +39,7 @@
     }
 
     .button {
-        border: none;
+        font-size: 80%;
         font-weight: bolder;
         font-style: italic;
         white-space: nowrap;

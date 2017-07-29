@@ -21,7 +21,7 @@
         <div class="tile is-parent is-vertical box">
             <div class="tile">
                 <h6 class="title is-6 box notification is-success">
-                    <b>{{ officeInView.companyName }}</b>
+                    <b>{{ officeInView.name }}</b>
                 </h6>
             </div>
             <br>
