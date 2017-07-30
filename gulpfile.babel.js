@@ -22,9 +22,11 @@ gulp.task('cssPlaceholder', require('./gulpTasks/assets/cssPlaceholder')(gulp, p
 gulp.task('index.html', require('./gulpTasks/assets/index.html')(gulp, plugins))
 gulp.task('favicon', require('./gulpTasks/assets/favicon')(gulp, plugins))
 gulp.task('images', require('./gulpTasks/assets/images')(gulp, plugins))
+gulp.task('flags', require('./gulpTasks/assets/flags')(gulp, plugins))
 gulp.task('prepAssets', gulp.parallel(
     'index.html',
     'images',
+    'flags',
     'favicon',
     'catalog'
 ))

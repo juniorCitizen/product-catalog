@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 
 import db from '../../controllers/database'
 import routerResponse from '../../utilities/routerResponse'
@@ -58,6 +59,14 @@ router
                     message: 'database access error'
                 })
             })
+    })
+    .get('/flags', (req, res, next) => {
+        return routerResponse.image({
+            pendingResponse: res,
+            statusCode: 200,
+            mimeType: 'image/svg+xml',
+            imagePath: path.resolve(`./dist/client/assets/images/flags/${req.query.country}.svg`)
+        })
     })
 
 module.exports = router

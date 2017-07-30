@@ -12,7 +12,7 @@
                 <i class="fa fa-building"></i>
             </span>
         </div>
-        <p v-if="validationFailure"
+        <p v-if="fieldEvalState.companyIsBlank"
            class="help is-danger">
             Please specify your company name
         </p>
@@ -35,11 +35,11 @@
             ...mapGetters({
                 ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
                 companyInStore: 'userCompany',
-                validationInEffect: 'validatingUserData'
+                fieldEvalState: 'fieldEvalState'
             }),
             dynamicInputClass: function () {
                 return {
-                    'is-danger': this.validationFailure,
+                    'is-danger': this.fieldEvalState.companyIsBlank,
                     'is-small': this.isTouch,
                     'is-medium': !this.isTouch
                 }
@@ -49,9 +49,6 @@
                     'is-small': this.isTouch,
                     'is-medium': !this.isTouch
                 }
-            },
-            validationFailure: function () {
-                return ((this.validationInEffect) && (!this.companyInStore))
             }
         },
         watch: {

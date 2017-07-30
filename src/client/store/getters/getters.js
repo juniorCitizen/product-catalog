@@ -7,8 +7,14 @@ import {
     userEmail,
     userRegion,
     userCountry,
-    userComments
+    userComments,
+    userBotPrevention
 } from './userData/userData'
+import {
+    fieldEvalState,
+    readyToRegister,
+    regCompletionFlag
+} from './formSubmit/regProcStates'
 
 export default {
     currentView: (state) => { return state.currentView },
@@ -17,13 +23,14 @@ export default {
     productCatalogData: (state) => { return state.productCatalogData },
     activeProductSeriesId: (state) => { return state.activeProductSeriesId },
     interestedItems: (state) => { return state.interestedItems },
-    ajaxRequestPending: (state) => { return state.ajaxRequestPending },
-    alreadyRegistered: (state) => { return state.alreadyRegistered },
+    officeLocationData: (state) => { return state.officeLocationData },
+    staffData: (state) => { return state.staffData },
+    routes: (state) => { return state.routes },
+    // region and country data set
     regions: regions,
     countries: countries,
     filteredCountryList: filteredCountryList,
-    validatingUserData: (state) => { return state.validatingUserData },
-    // resettingUserData: (state) => { return state.resettingUserData }, // pending deprecation
+    // user registration data
     userData: userData,
     userId: userId,
     userCompany: userCompany,
@@ -32,9 +39,17 @@ export default {
     userRegion: userRegion,
     userCountry: userCountry,
     userComments: userComments,
-    officeLocationData: (state) => { return state.officeLocationData },
-    staffData: (state) => { return state.staffData },
-    routes: (state) => { return state.routes },
-    // //////////////////////////////////////
-    registeredUserInfo: (state) => { return state.registeredUserInfo } // pending deprecation
+    userBotPrevention: userBotPrevention,
+    // registration processing and progrss states
+    validatingUserData: (state) => { return state.validatingUserData },
+    fieldEvalState: fieldEvalState,
+    readyToRegister: readyToRegister,
+    ajaxRequestPending: (state) => { return state.ajaxRequestPending },
+    regCompletionFlag: regCompletionFlag,
+    // //////////////////////////////////////////////////////////
+    // pending deprecation //////////////////////////////////////
+    // //////////////////////////////////////////////////////////
+    // resettingUserData: (state) => { return state.resettingUserData }, // pending deprecation
+    registeredUserInfo: (state) => { return state.registeredUserInfo }, // pending deprecation
+    alreadyRegistered: (state) => { return state.alreadyRegistered } // pending deprecation
 }

@@ -7,6 +7,7 @@ export function userId(state) {
 export function userCompany(state) {
     return state.userData.company
 }
+
 export function userName(state) {
     return state.userData.name
 }
@@ -22,4 +23,8 @@ export function userCountry(state) {
 
 export function userComments(state) {
     return state.userData.comments
+}
+
+export function userBotPrevention(state) {
+    return state.userData.botPrevention
 }

@@ -12,7 +12,7 @@
                 <i class="fa fa-user"></i>
             </span>
         </div>
-        <p v-if="validationFailure"
+        <p v-if="fieldEvalState.nameIsBlank"
            class="help is-danger">
             Your name is required
         </p>
@@ -34,12 +34,12 @@
         computed: {
             ...mapGetters({
                 ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
-                nameInStore: 'userName',
-                validationInEffect: 'validatingUserData'
+                fieldEvalState: 'fieldEvalState',
+                nameInStore: 'userName'
             }),
             dynamicInputClass: function () {
                 return {
-                    'is-danger': this.validationFailure,
+                    'is-danger': this.fieldEvalState.nameIsBlank,
                     'is-small': this.isTouch,
                     'is-medium': !this.isTouch
                 }
@@ -49,9 +49,6 @@
                     'is-small': this.isTouch,
                     'is-medium': !this.isTouch
                 }
-            },
-            validationFailure: function () {
-                return ((this.validationInEffect) && (!this.nameInStore))
             }
         },
         watch: {

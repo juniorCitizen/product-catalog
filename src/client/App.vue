@@ -1,6 +1,6 @@
 <template>
     <div id="app"
-         class="container">
+         class="container is-marginless">
         <div class="hero">
             <navigation-bar></navigation-bar>
             <router-view></router-view>
@@ -42,7 +42,8 @@
         methods: {
             ...mapMutations({
                 switchMobileNavMode: 'switchMobileNavMode',
-                switchView: 'switchView'
+                switchView: 'switchView',
+                updateUserData: 'updateUserData'
             }),
             ...mapActions({
                 fetchProductSeriesData: 'fetchProductSeriesData',
@@ -58,11 +59,23 @@
             this.fetchRegionData()
         },
         mounted: function () {
+            this.updateUserData({
+                company: 'Gentry Way Co., Ltd.',
+                name: 'Chia-Yu Tsai',
+                email: 'david.tsai@gentry-way.com.tw',
+                comments: `firstline
+第二行
+
+skipped to the fourthline`
+            })
             this.switchView(this.$route.name)
         }
     }
 </script>
 
 <style scoped>
-    /* div.hero { overflow: hidden; } */
+    /* div.container { overflow: show; } */
+
+
+    /* div.hero { border: 1px solid red; overflow: hidden; } */
 </style>

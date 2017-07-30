@@ -32,12 +32,10 @@
 </script>
 
 <style scoped>
-    div {
-        border: none;
-    }
+    /* div { border: 1px solid red; } */
 
     span {
-        border: none;
+        /* border: 1px solid red; */
         font-size: 75%;
     }
 </style>

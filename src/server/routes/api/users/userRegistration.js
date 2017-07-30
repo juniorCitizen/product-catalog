@@ -1,10 +1,8 @@
 import db from '../../../controllers/database'
 import routerResponse from '../../../utilities/routerResponse'
-// import alertRegistration from './alertRegistration'
-// import sendThankYou from './sendThankYou'
 
 function userRegistration(req, res, next) {
-    if (req.body.botPrevention !== null) {
+    if (req.body.botPrevention !== '') {
         return routerResponse.json({
             pendingResponse: res,
             originalRequest: req,
@@ -12,10 +10,6 @@ function userRegistration(req, res, next) {
             success: false
         })
     }
-    // let emailMessages = [
-    //     sendThankYou(req.body.name, req.body.email, req.body.comments),
-    //     alertRegistration(req.body.company, req.body.name, req.body.email, req.body.country, req.body.comments)
-    // ]
     db.Registrations
         .create({
             company: req.body.company,
@@ -27,9 +21,6 @@ function userRegistration(req, res, next) {
             thankYouSent: false
         })
         .then((newRegistrationRecord) => {
-            // console.log(newRegistrationRecord.dataValues)
-            // res.newRegistrationRecord = newRegistrationRecord.dataValues
-            // return Promise.all(emailMessages)
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,
@@ -38,16 +29,6 @@ function userRegistration(req, res, next) {
                 data: newRegistrationRecord
             })
         })
-        // .then((emailResponse) => {
-        //     console.log(emailResponse)
-        //     return routerResponse.json({
-        //         pendingResponse: res,
-        //         originalRequest: req,
-        //         statusCode: 200,
-        //         success: true,
-        //         data: res.newRegistrationRecord
-        //     })
-        // })
         .catch((error) => {
             console.log(error)
             return routerResponse.json({

@@ -6,7 +6,7 @@
                 <select v-model="country"
                         :disabled="ajaxRequestPending"
                         @change="emitCountrySelectionEvent">
-                    <option v-for="country in countries"
+                    <option v-for="country in filteredCountryList"
                             :key="country.name"
                             :value="country.name"
                             :disabled="country.name==='Country'">
@@ -16,7 +16,11 @@
             </div>
             <div class="icon is-left"
                  :class="dynamicIconClass">
-                <i class="fa fa-globe"></i>
+                <img v-if="flagApiUrl!==null"
+                     :width="flagSize"
+                     :src="flagApiUrl">
+                <i v-else
+                   class="fa fa-question-circle"></i>
             </div>
             <p v-if="validationFailure"
                class="help is-danger">
@@ -43,8 +47,10 @@
                 ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
                 regions: 'regions',
                 regionInStore: 'userRegion',
-                countries: 'filteredCountryList',
-                countryInStore: 'userCountry'
+                countries: 'countries',
+                filteredCountryList: 'filteredCountryList',
+                countryInStore: 'userCountry',
+                validationInEffect: 'validatingUserData'
             }),
             dynamicInputClass: function () {
                 return {
@@ -60,6 +66,19 @@
             },
             validationFailure: function () {
                 return ((this.validationInEffect) && (this.countryInStore === 'Country'))
+            },
+            flagApiUrl: function () {
+                if (this.countryInStore === this.countries[0].name) {
+                    return null
+                } else {
+                    let alpha3Code = this.countries.filter((country) => {
+                        return country.name === this.countryInStore
+                    })[0].alpha3Code
+                    return `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/countries/flags?country=${alpha3Code.toLowerCase()}`
+                }
+            },
+            flagSize: function () {
+                return this.isTouch ? '15px' : '30px'
             }
         },
         watch: {
@@ -86,7 +105,9 @@
         beforeCreate: function () { },
         created: function () { },
         beforeMount: function () { },
-        mounted: function () { },
+        mounted: function () {
+            this.country = this.countryInStore
+        },
         beforeUpdate: function () { },
         updated: function () { },
         beforeDestroy: function () { },

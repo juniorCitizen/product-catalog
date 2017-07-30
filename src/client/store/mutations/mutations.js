@@ -1,4 +1,12 @@
-import { turnOnUserDataValidation } from './userData/userDataValidation'
+import {
+    turnOnUserDataValidation,
+    turnOffUserDataValidation
+} from './userData/userDataValidation'
+import {
+    markRegisteredSession,
+    updateUserData,
+    resetUserData
+} from './userData/manipulateUserData'
 
 export default {
     resetStore: resetStore,
@@ -13,10 +21,11 @@ export default {
     removeItemOfInterest: removeItemOfInterest,
     resetItemsOfInterest: resetItemsOfInterest,
     setAjaxPendingState: (state, pendingState) => { state.ajaxRequestPending = pendingState },
-    markRegisteredSession: markRegisteredSession,
     updateUserData: updateUserData,
     resetUserData: resetUserData,
-    turnOnUserDataValidation: turnOnUserDataValidation
+    turnOnUserDataValidation: turnOnUserDataValidation,
+    turnOffUserDataValidation: turnOffUserDataValidation,
+    markRegisteredSession: markRegisteredSession // pending deprecation
 }
 
 function resetStore(state) {
@@ -26,11 +35,10 @@ function resetStore(state) {
     state.completeProductData = []
     state.activeProductSeriesId = 1
     state.interestedItems = []
-    state.ajaxRequestPending = false
     state.regions = []
     state.countries = []
     state.validatingUserData = false
-    // state.resettingUserData = false // pending deprecation
+    state.ajaxRequestPending = false
     state.userData = {
         id: null,
         company: '',
@@ -38,8 +46,17 @@ function resetStore(state) {
         email: '',
         region: 'All Regions',
         country: 'Country',
-        comments: ''
+        comments: '',
+        botPrevention: ''
     }
+    state.regProcStates = {
+        prior: true,
+        preping: false,
+        inProgress: false,
+        failure: false,
+        complete: false
+    }
+    // state.resettingUserData = false // pending deprecation
     state.alreadyRegistered = false // pending deprecation
     state.registeredUserInfo = { // pending deprecation
         registrationId: null,
@@ -97,60 +114,4 @@ function removeItemOfInterest(state, productId) {
 
 function resetItemsOfInterest(state) {
     state.interestedItems = []
-}
-
-function markRegisteredSession(state, payload) {
-    state.validatingUserData = false
-    // state.resettingUserData = false // pending deprecation
-    state.userData = {
-        id: payload.registrationId,
-        company: payload.company,
-        name: payload.name,
-        email: payload.email,
-        country: payload.country,
-        comments: payload.comments
-    }
-    state.alreadyRegistered = true // pending deprecation
-    state.registeredUserInfo = { // pending deprecation
-        registrationId: payload.registrationId,
-        company: payload.company,
-        name: payload.name,
-        email: payload.email,
-        country: payload.country,
-        comments: payload.comments
-    }
-}
-
-function updateUserData(state, payload) {
-    for (let attribute in payload) {
-        state.userData[attribute] = payload[attribute]
-    }
-    // pending deprecation ///////////////////////
-    for (let attribute in payload) {
-        state.registeredUserInfo[attribute] = payload[attribute]
-    }
-}
-
-function resetUserData(state) {
-    state.validatingUserData = false
-    // state.resettingUserData = false // pending deprecation
-    state.userData = {
-        id: null,
-        company: '',
-        name: '',
-        email: '',
-        region: 'All Regions',
-        country: 'Country',
-        comments: ''
-    }
-    state.alreadyRegistered = false // pending deprecation
-    state.registeredUserInfo = { // pending deprecation
-        registrationId: null,
-        validation: false,
-        company: '',
-        name: '',
-        email: '',
-        country: 'Country',
-        comments: ''
-    }
 }

@@ -15,17 +15,18 @@ const store = new Vuex.Store({
     getters: getters,
     mutations: mutations,
     state: {
+        // routing management
+        routes: routes,
         currentView: 'home',
         mobileNavMode: false,
         productSeriesData: [],
         productCatalogData: [],
         activeProductSeriesId: 1,
         interestedItems: [],
-        ajaxRequestPending: false,
         regions: [],
         countries: [],
         validatingUserData: false,
-        resettingUserData: false, // pending deprecation
+        ajaxRequestPending: false,
         userData: {
             id: null,
             company: '',
@@ -33,17 +34,8 @@ const store = new Vuex.Store({
             email: '',
             region: 'All Regions',
             country: 'Country',
-            comments: ''
-        },
-        alreadyRegistered: false, // pending deprecation
-        registeredUserInfo: { // pending deprecation
-            registrationId: null,
-            validation: false,
-            company: '',
-            name: '',
-            email: '',
-            country: 'Country',
-            comments: ''
+            comments: '',
+            botPrevention: ''
         },
         officeLocationData: [{
             title: 'Taiwan Office',
@@ -93,7 +85,20 @@ const store = new Vuex.Store({
             name: 'Johnson Wu',
             email: 'altecqc@msn.com'
         }],
-        routes: routes
+        // /////////////////////////////////////////////
+        // pending deprecation /////////////////////////
+        // /////////////////////////////////////////////
+        resettingUserData: false, // pending deprecation
+        alreadyRegistered: false, // pending deprecation
+        registeredUserInfo: { // pending deprecation
+            registrationId: null,
+            validation: false,
+            company: '',
+            name: '',
+            email: '',
+            country: 'Country',
+            comments: ''
+        }
     }
 })
 

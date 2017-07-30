@@ -12,11 +12,11 @@
                 <i class="fa fa-envelope"></i>
             </span>
         </div>
-        <p v-if="validationFailure&&!emptyInputField"
+        <p v-if="fieldEvalState.emailIsInvalid"
            class="help is-danger">
             This email address is invalid
         </p>
-        <p v-if="validationFailure&&emptyInputField"
+        <p v-if="fieldEvalState.emailIsBlank"
            class="help is-danger">
             Your email is required
         </p>
@@ -37,13 +37,13 @@
         },
         computed: {
             ...mapGetters({
+                fieldEvalState: 'fieldEvalState',
                 ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
-                emailInStore: 'userEmail',
-                validationInEffect: 'validatingUserData'
+                emailInStore: 'userEmail'
             }),
             dynamicInputClass: function () {
                 return {
-                    'is-danger': this.validationFailure,
+                    'is-danger': this.fieldEvalState.emailIsBlank || this.fieldEvalState.emailIsInvalid,
                     'is-small': this.isTouch,
                     'is-medium': !this.isTouch
                 }
@@ -53,18 +53,6 @@
                     'is-small': this.isTouch,
                     'is-medium': !this.isTouch
                 }
-            },
-            emailIsValid: function () {
-                return (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(this.emailInStore))
-            },
-            validationFailure: function () {
-                return (
-                    (this.validationInEffect && !this.emailInStore) ||
-                    (this.validationInEffect && !this.emailIsValid)
-                )
-            },
-            emptyInputField: function () {
-                return this.validationInEffect && !this.emailInStore
             }
         },
         watch: {

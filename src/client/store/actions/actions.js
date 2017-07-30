@@ -2,11 +2,14 @@ import axios from 'axios'
 
 import eVars from '../../../server/config/environment'
 
+import userRegistration from './userRegistration'
+
 export default {
     fetchProductSeriesData: fetchProductSeriesData,
     fetchProductCatalogData: fetchProductCatalogData,
     fetchCountryData: fetchCountryData,
-    fetchRegionData: fetchRegionData
+    fetchRegionData: fetchRegionData,
+    userRegistration: userRegistration
 }
 
 function fetchProductSeriesData(context) {

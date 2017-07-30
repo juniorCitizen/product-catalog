@@ -2,12 +2,14 @@
     <div class="field is-grouped">
         <div class="control">
             <button class="button is-info"
-                    @click="turnOnValidation">
+                    :style="dynamicButtonSize"
+                    @click="userRegistration">
                 REGISTER
             </button>
         </div>
         <div class="control">
             <button class="button is-success"
+                    :style="dynamicButtonSize"
                     @click="resetUserData">
                 RESET
             </button>
@@ -26,15 +28,22 @@
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({}),
+            dynamicButtonSize: function () {
+                if (this.isTouch) {
+                    return { 'font-size': '75%' }
+                } else {
+                    return { 'font-size': '130%' }
+                }
+            }
         },
         methods: {
             ...mapMutations({
-                resetUserData: 'resetUserData',
-                updateUserData: 'updateUserData',
-                turnOnValidation: 'turnOnUserDataValidation'
+                resetUserData: 'resetUserData'
             }),
-            ...mapActions({})
+            ...mapActions({
+                userRegistration: 'userRegistration'
+            })
         }
     }
 </script>
@@ -43,6 +52,5 @@
     button {
         font-style: italic;
         font-weight: bold;
-        /* font-size: 90%; */
     }
 </style>
