@@ -20,13 +20,18 @@
             return {}
         },
         computed: {
-            ...mapGetters({ mobileNavMode: 'mobileNavMode' })
+            ...mapGetters({
+                ajaxRequestPending: 'ajaxRequestPending',
+                mobileNavMode: 'mobileNavMode'
+            })
         },
         methods: {
             ...mapMutations({ switchMobileNavMode: 'switchMobileNavMode' }),
             ...mapActions({}),
             mobileNavToggle: function () {
-                this.switchMobileNavMode(!this.mobileNavMode)
+                if (!this.ajaxRequestPending) { // disable function if an ajax request is in process
+                    this.switchMobileNavMode(!this.mobileNavMode)
+                }
             }
         }
     }

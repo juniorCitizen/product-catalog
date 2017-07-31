@@ -1,10 +1,5 @@
 <template>
     <div class="tile is-child is-parent is-vertical is-5">
-        <div class="tile is-child">
-            <h6 class="subtitle is-6 box notification is-success">
-                <b>OUR CONTACT INFORMATION</b>
-            </h6>
-        </div>
         <div class="tile">
             <div class="tabs is-boxed">
                 <ul>

@@ -19,8 +19,9 @@ export default (context) => {
                 botPrevention: getters.userBotPrevention
             }
         }
-        context.commit('setAjaxPendingState', true)
+        context.commit('switchOffMobileNavMode')
         context.commit('turnOffUserDataValidation')
+        context.commit('setAjaxPendingState', true)
         axios(axiosOptions)
             .then((apiResponse) => {
                 let registrationRecord = apiResponse.data.data

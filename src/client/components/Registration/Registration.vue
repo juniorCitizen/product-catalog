@@ -1,21 +1,36 @@
 <template>
     <div class="hero-body"
          :style="dynamicStyle">
-        <h6 class="notification is-info has-text-centered is-paddingless">
+        <h6 v-if="!regCompletionFlag"
+            class="notification is-info has-text-centered"
+            :class="dynamicBannerSizing"
+            :style="responsiveBannerStyle">
             <b>
                 <i>REGISTER FOR OUR PDF CATALOG</i>
             </b>
         </h6>
-        <company-field></company-field>
-        <name-field></name-field>
-        <email-field></email-field>
-        <region-selector @regionSelected="regionSelectionEvent($event)">
-        </region-selector>
-        <country-selector @countrySelected="countrySelectionEvent($event)">
-        </country-selector>
-        <comments-field></comments-field>
-        <bot-prevention-field></bot-prevention-field>
-        <submit-controls></submit-controls>
+        <h6 v-else
+            class="notification is-info">
+            <b>
+                <i>THANK YOU, {{ userName.toUpperCase() }}.</i>
+                <br>
+                <i>REGISTRATION IS COMPLETED.</i>
+                <br>
+                <i>YOU WILL RECEIVE OUR PDF CATALOG SHORTLY...</i>
+            </b>
+        </h6>
+        <template v-if="!regCompletionFlag">
+            <company-field></company-field>
+            <name-field></name-field>
+            <email-field></email-field>
+            <region-selector @regionSelected="regionSelectionEvent($event)">
+            </region-selector>
+            <country-selector @countrySelected="countrySelectionEvent($event)">
+            </country-selector>
+            <comments-field></comments-field>
+            <bot-prevention-field></bot-prevention-field>
+            <submit-controls></submit-controls>
+        </template>
     </div>
 </template>
 
@@ -56,18 +71,30 @@
                 regionInStore: 'userRegion',
                 countries: 'countries',
                 filteredCountryList: 'filteredCountryList',
-                countryInStore: 'userCountry'
+                countryInStore: 'userCountry',
+                regCompletionFlag: 'regCompletionFlag',
+                userName: 'userName'
             }),
+            dynamicBannerSizing: function () {
+                return {
+                    'is-paddingless': this.isTouch,
+                    'is-size-4': !this.isTouch && !this.isFullhd,
+                    'is-size-1': this.isFullhd
+                }
+            },
             dynamicStyle: function () {
                 if (this.isTouch) {
                     return {
                         'padding-top': '5px',
                         'padding-bottom': '30px'
                     }
-                } else {
+                }
+            },
+            responsiveBannerStyle: function () {
+                if (!this.isTouch) {
                     return {
-                        'padding-top': 'auto',
-                        'padding-bottom': 'auto'
+                        'padding-top': '5px',
+                        'padding-bottom': '5px'
                     }
                 }
             }

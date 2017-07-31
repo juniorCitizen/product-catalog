@@ -44,7 +44,7 @@
         },
         computed: {
             ...mapGetters({
-                ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
+                ajaxRequestPending: 'ajaxRequestPending',
                 regions: 'regions',
                 regionInStore: 'userRegion',
                 countries: 'countries',

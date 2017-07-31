@@ -1,17 +1,26 @@
 <template>
     <div class="field is-grouped">
         <div class="control">
-            <button class="button is-info"
-                    :style="dynamicButtonSize"
+            <button class="button"
+                    :class="dynamicIconColoring"
+                    :style="dynamicButtonSizing"
+                    :disabled="ajaxRequestPending"
                     @click="userRegistration">
-                REGISTER
+                <span v-if="ajaxRequestPending"
+                      class="icon"
+                      :class="dynamicIconSizing">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                </span>
+                <span v-if="!ajaxRequestPending">REGISTER</span>
+                <span v-if="ajaxRequestPending">PROCESSING</span>
             </button>
         </div>
         <div class="control">
             <button class="button is-success"
-                    :style="dynamicButtonSize"
+                    :style="dynamicButtonSizing"
+                    :disabled="ajaxRequestPending"
                     @click="resetUserData">
-                RESET
+                <span>RESET</span>
             </button>
         </div>
     </div>
@@ -28,8 +37,16 @@
             return {}
         },
         computed: {
-            ...mapGetters({}),
-            dynamicButtonSize: function () {
+            ...mapGetters({
+                ajaxRequestPending: 'ajaxRequestPending'
+            }),
+            dynamicIconColoring: function () {
+                return { 'is-info': !this.ajaxRequestPending, 'is-danger': this.ajaxRequestPending }
+            },
+            dynamicIconSizing: function () {
+                return { 'is-small': this.isTouch, 'is-medium': !this.isTouch }
+            },
+            dynamicButtonSizing: function () {
                 if (this.isTouch) {
                     return { 'font-size': '75%' }
                 } else {

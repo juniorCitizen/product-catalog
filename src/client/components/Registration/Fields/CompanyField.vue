@@ -33,7 +33,7 @@
         },
         computed: {
             ...mapGetters({
-                ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
+                ajaxRequestPending: 'ajaxRequestPending',
                 companyInStore: 'userCompany',
                 fieldEvalState: 'fieldEvalState'
             }),

@@ -38,7 +38,7 @@
         computed: {
             ...mapGetters({
                 fieldEvalState: 'fieldEvalState',
-                ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
+                ajaxRequestPending: 'ajaxRequestPending',
                 emailInStore: 'userEmail'
             }),
             dynamicInputClass: function () {

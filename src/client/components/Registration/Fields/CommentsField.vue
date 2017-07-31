@@ -25,7 +25,7 @@
         },
         computed: {
             ...mapGetters({
-                ajaxRequestPending: 'ajaxRequestPending', // pending deprecation
+                ajaxRequestPending: 'ajaxRequestPending',
                 commentsInStore: 'userComments'
             }),
             dynamicInputClass: function () {

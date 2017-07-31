@@ -15,6 +15,7 @@ import {
     readyToRegister,
     regCompletionFlag
 } from './formSubmit/regProcStates'
+import { officeInfo, inViewOfficeId, inViewOfficeInfo, staffInfo } from './contactInfo/contactInfo'
 
 export default {
     currentView: (state) => { return state.currentView },
@@ -23,8 +24,6 @@ export default {
     productCatalogData: (state) => { return state.productCatalogData },
     activeProductSeriesId: (state) => { return state.activeProductSeriesId },
     interestedItems: (state) => { return state.interestedItems },
-    officeLocationData: (state) => { return state.officeLocationData },
-    staffData: (state) => { return state.staffData },
     routes: (state) => { return state.routes },
     // region and country data set
     regions: regions,
@@ -40,6 +39,11 @@ export default {
     userCountry: userCountry,
     userComments: userComments,
     userBotPrevention: userBotPrevention,
+    // contact information
+    inViewOfficeId: inViewOfficeId,
+    inViewOfficeInfo: inViewOfficeInfo,
+    officeInfo: officeInfo,
+    staffInfo: staffInfo,
     // registration processing and progrss states
     validatingUserData: (state) => { return state.validatingUserData },
     fieldEvalState: fieldEvalState,
@@ -51,5 +55,7 @@ export default {
     // //////////////////////////////////////////////////////////
     // resettingUserData: (state) => { return state.resettingUserData }, // pending deprecation
     registeredUserInfo: (state) => { return state.registeredUserInfo }, // pending deprecation
-    alreadyRegistered: (state) => { return state.alreadyRegistered } // pending deprecation
+    alreadyRegistered: (state) => { return state.alreadyRegistered }, // pending deprecation
+    officeLocationData: (state) => { return state.officeLocationData },
+    staffData: (state) => { return state.staffData }
 }

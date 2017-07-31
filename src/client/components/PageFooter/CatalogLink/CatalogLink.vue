@@ -2,8 +2,9 @@
     <div class="columns">
         <div class="column has-text-centered is-paddingless">
             <router-link class="button is-fullwidth is-success"
+                         :disabled="ajaxRequestPending"
                          to="/products">
-                BROWSER PRODUCT CATALOG
+                BROWSE OUR PRODUCT CATALOG
             </router-link>
         </div>
     </div>
@@ -20,7 +21,7 @@
             return {}
         },
         computed: {
-            ...mapGetters({}),
+            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' }),
             fontStyle: function () {
                 return this.isMobile ? { 'font-size': '80%' } : { 'font-size': '140%' }
             }

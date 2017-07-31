@@ -1,6 +1,6 @@
 <template>
     <div id="app"
-         class="container is-marginless">
+         class="container">
         <div class="hero">
             <navigation-bar></navigation-bar>
             <router-view></router-view>
@@ -42,8 +42,7 @@
         methods: {
             ...mapMutations({
                 switchMobileNavMode: 'switchMobileNavMode',
-                switchView: 'switchView',
-                updateUserData: 'updateUserData'
+                switchView: 'switchView'
             }),
             ...mapActions({
                 fetchProductSeriesData: 'fetchProductSeriesData',
@@ -59,15 +58,6 @@
             this.fetchRegionData()
         },
         mounted: function () {
-            this.updateUserData({
-                company: 'Gentry Way Co., Ltd.',
-                name: 'Chia-Yu Tsai',
-                email: 'david.tsai@gentry-way.com.tw',
-                comments: `firstline
-第二行
-
-skipped to the fourthline`
-            })
             this.switchView(this.$route.name)
         }
     }

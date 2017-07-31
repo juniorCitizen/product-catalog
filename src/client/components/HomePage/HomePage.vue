@@ -1,6 +1,7 @@
 <template>
     <div class="hero-body">
-        <div class="container has-text-centered">
+        <div class="container has-text-centered"
+             :style="dynamicPositionStyling">
             <companyTitle></companyTitle>
             <br v-if="isLargeAndUp || isMediumAndUp">
             <br v-if="isLargeAndUp">
@@ -25,7 +26,15 @@
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({}),
+            dynamicPositionStyling: function () {
+                if (this.isWidescreen) {
+                    return {
+                        'margin-top': '150px',
+                        'margin-bottom': '150px'
+                    }
+                }
+            }
         },
         methods: {
             ...mapMutations({}),
@@ -36,6 +45,8 @@
 </script>
 
 <style scoped>
+    /* div.container { border: 1px solid black; } */
+
     div.hero-body {
         animation: animate 0.8s both;
     }

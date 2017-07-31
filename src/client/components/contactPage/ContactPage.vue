@@ -1,32 +1,60 @@
 <template>
-    <div class="hero-body tile is-parent">
-        <registration-form></registration-form>
-        <office-info :offices="officeLocationData"
-                     :staff="staffData">
-        </office-info>
+    <div class="hero-body"
+         :style="dynamicStyle">
+        <div class="column">
+            <h1 class="notification is-success has-text-centered"
+                :class="dynamicBannerSizing"
+                :style="responsiveBannerStyle">
+                <b>
+                    <i>CONTACT INFORMATION</i>
+                </b>
+            </h1>
+        </div>
+        <office-tabs></office-tabs>
+        <information-area></information-area>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import RegistrationForm from './RegistrationForm/RegistrationForm.vue'
-    import ContactInfoControl from './ContactInfo/ContactInfo.vue'
+    import OfficeTabs from './OfficeTabs/OfficeTabs.vue'
+    import InformationArea from './InformationArea/InformationArea.vue'
 
     export default {
         name: 'contact-page',
         components: {
-            RegistrationForm,
-            ContactInfoControl
+            OfficeTabs,
+            InformationArea
         },
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({
-                officeLocationData: 'officeLocationData',
-                staffData: 'staffData'
-            })
+            ...mapGetters({}),
+            dynamicBannerSizing: function () {
+                return {
+                    'is-paddingless': this.isTouch,
+                    'is-size-4': !this.isTouch && !this.isFullhd,
+                    'is-size-3': this.isFullhd
+                }
+            },
+            dynamicStyle: function () {
+                if (this.isTouch) {
+                    return {
+                        'padding-top': '5px',
+                        'padding-bottom': '30px'
+                    }
+                }
+            },
+            responsiveBannerStyle: function () {
+                if (!this.isTouch) {
+                    return {
+                        'padding-top': '5px',
+                        'padding-bottom': '5px'
+                    }
+                }
+            }
         },
         methods: {
             ...mapMutations({}),

@@ -37,19 +37,19 @@ const store = new Vuex.Store({
             comments: '',
             botPrevention: ''
         },
+        // contact and service location info
+        inViewOfficeId: 0,
         officeLocationData: [{
-            title: 'Taiwan Office',
             name: 'Gentry Way Co., Ltd.',
             address: 'No. 152, Wufu Road',
             town: 'Yanshui District',
             city: 'Tainan City',
             state: null,
-            country: 'Taiwan R.O.C.',
+            country: 'Taiwan',
             telephone: '+886-(0)6-6529052',
             fax: '+886-(0)6-6527093',
             website: `${eVars.HOST}:${eVars.PORT}`
         }, {
-            title: 'China Office',
             name: 'Gentry Hardware Products Co., Ltd.',
             address: 'No. 158, Dong Cheng Road',
             town: 'Dong Sheng Town',
@@ -61,19 +61,19 @@ const store = new Vuex.Store({
             website: `${eVars.HOST}:${eVars.PORT}`
         }],
         staffData: [{
-            country: 'Taiwan R.O.C.',
+            country: 'Taiwan',
             name: 'General Service',
             email: 'gentry88@ms46.hinet.net'
         }, {
-            country: 'Taiwan R.O.C.',
+            country: 'Taiwan',
             name: 'David Tsai',
             email: 'david.tsai@gentry-way.com.tw'
         }, {
-            country: 'Taiwan R.O.C.',
+            country: 'Taiwan',
             name: 'Cathy Liu',
             email: 'cathy.liu@gentry-way.com.tw'
         }, {
-            country: 'Taiwan R.O.C.',
+            country: 'Taiwan',
             name: 'Candy Wu',
             email: 'candy.wu@gentry-way.com.tw'
         }, {

@@ -16,6 +16,8 @@ export default {
     registerCountryData: registerCountryData,
     switchView: (state, newView) => { state.currentView = newView },
     switchMobileNavMode: (state, mobileNavMode) => { state.mobileNavMode = mobileNavMode },
+    switchOffMobileNavMode: (state, mobileNavMode) => { state.mobileNavMode = false },
+    switchOnMobileNavMode: (state, mobileNavMode) => { state.mobileNavMode = true },
     setActiveProductSeries: setActiveProductSeries,
     addItemOfInterest: addItemOfInterest,
     removeItemOfInterest: removeItemOfInterest,
@@ -25,6 +27,11 @@ export default {
     resetUserData: resetUserData,
     turnOnUserDataValidation: turnOnUserDataValidation,
     turnOffUserDataValidation: turnOffUserDataValidation,
+    // office and contact information
+    switchInViewOfficeId: (state, officeId) => { state.inViewOfficeId = officeId },
+    // /////////////////////////////////
+    // pending deprecation /////////////
+    // /////////////////////////////////
     markRegisteredSession: markRegisteredSession // pending deprecation
 }
 
@@ -39,6 +46,7 @@ function resetStore(state) {
     state.countries = []
     state.validatingUserData = false
     state.ajaxRequestPending = false
+    state.inViewOfficeId = 0
     state.userData = {
         id: null,
         company: '',
