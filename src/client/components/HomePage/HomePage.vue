@@ -28,7 +28,11 @@
         computed: {
             ...mapGetters({}),
             dynamicPositionStyling: function () {
-                if (this.isWidescreen) {
+                if (this.isMobile) {
+                    return {
+                        'transform': 'translateY(-30px)'
+                    }
+                } else if (this.isWidescreen) {
                     return {
                         'margin-top': '150px',
                         'margin-bottom': '150px'
