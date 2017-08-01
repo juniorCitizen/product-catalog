@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: { isUUID: 4 }
         },
+        primaryImage: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
         originalName: {
             type: DataTypes.STRING,
             allowNull: true

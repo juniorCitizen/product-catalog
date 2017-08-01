@@ -1,15 +1,13 @@
 <template>
     <div class="hero-body"
          :style="dynamicStyle">
-        <div class="column">
-            <h1 class="notification is-success has-text-centered"
-                :class="dynamicBannerSizing"
-                :style="responsiveBannerStyle">
-                <b>
-                    <i>CONTACT INFORMATION</i>
-                </b>
-            </h1>
-        </div>
+        <h1 class="column notification is-success has-text-centered"
+            :class="dynamicBannerSizing"
+            :style="responsiveBannerStyle">
+            <b>
+                <i>CONTACT INFORMATION</i>
+            </b>
+        </h1>
         <office-tabs></office-tabs>
         <information-area></information-area>
     </div>
@@ -45,11 +43,17 @@
                         'padding-top': '5px',
                         'padding-bottom': '30px'
                     }
+                } else {
+                    return {
+                        'padding-top': '15px',
+                        'padding-bottom': '30px'
+                    }
                 }
             },
             responsiveBannerStyle: function () {
                 if (!this.isTouch) {
                     return {
+                        // 'border': '1px solid black',
                         'padding-top': '5px',
                         'padding-bottom': '5px'
                     }

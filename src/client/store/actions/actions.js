@@ -3,13 +3,15 @@ import axios from 'axios'
 import eVars from '../../../server/config/environment'
 
 import userRegistration from './userRegistration'
+import submitProductData from './submitProductData'
 
 export default {
     fetchProductSeriesData: fetchProductSeriesData,
     fetchProductCatalogData: fetchProductCatalogData,
     fetchCountryData: fetchCountryData,
     fetchRegionData: fetchRegionData,
-    userRegistration: userRegistration
+    userRegistration: userRegistration,
+    submitProductData: submitProductData
 }
 
 function fetchProductSeriesData(context) {

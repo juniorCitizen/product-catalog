@@ -1,14 +1,22 @@
 import express from 'express'
+import multer from 'multer'
+import path from 'path'
 
 import db from '../../../controllers/database'
 import routerResponse from '../../../utilities/routerResponse'
 
 const router = express.Router()
+const upload = multer({ dest: path.resolve('./dist/client/upload/') })
 
 router
     .get('/', require('./getProductData'))
     .get('/productCodes', getProductCodes)
-    .post('/', require('./insertProductRecord'))
+    .post('/',
+        upload.fields([
+            { name: 'primaryPhoto', maxCount: 1 },
+            { name: 'secondaryPhotos', maxCount: 30 }
+        ]),
+        require('./insertProductRecord'))
 
 module.exports = router
 

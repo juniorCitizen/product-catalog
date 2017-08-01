@@ -1,5 +1,6 @@
 <template>
-    <span :class="responseClasses">
+    <span :class="responseClasses"
+          :style="dynamicPaddingStyle">
         <b>
             <template v-if="isMobile">
                 <u>{{label}}</u>
@@ -25,6 +26,21 @@
                 return {
                     'column has-text-centered': this.isMobile,
                     'column is-2-desktop is-3-touch': !this.isMobile
+                }
+            },
+            dynamicPaddingStyle: function () {
+                if (this.isMobile) {
+                    return {
+                        // 'border': '1px solid black',
+                        'padding-top': '2px',
+                        'padding-bottom': '10px'
+                    }
+                } else if (!this.isWidescreen) {
+                    return {
+                        // 'border': '1px solid black',
+                        'padding-top': '2px',
+                        'padding-bottom': '2px'
+                    }
                 }
             }
         },

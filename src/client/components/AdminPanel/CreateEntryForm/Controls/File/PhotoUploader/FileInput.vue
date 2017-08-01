@@ -1,16 +1,20 @@
 <template>
-    <div>
-        New Template
-    </div>
+    <input type="file"
+           accept="image/*"
+           :multiple="multiple"
+           @change="fileSelectionHandler" />
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'file-input',
         components: {},
-        props: [],
+        props: {
+            value: FileList,
+            multiple: Boolean
+        },
         data: function () {
             return {}
         },
@@ -20,7 +24,10 @@
         watch: {},
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({}),
+            fileSelectionHandler(event) {
+                this.$emit('input', event.target.files)
+            }
         },
         beforeCreate: function () { },
         created: function () { },
@@ -33,4 +40,6 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+     input[type="file"] { display: none; }
+</style>

@@ -2,7 +2,7 @@ import HomePage from './components/HomePage/HomePage.vue'
 import ProductCatalog from './components/productCatalog/ProductCatalog.vue'
 import Registration from './components/Registration/Registration.vue'
 import ContactPage from './components/ContactPage/ContactPage.vue'
-import AdminPanel from './components/adminPanel/AdminPanel.vue'
+import AdminPanel from './components/AdminPanel/AdminPanel.vue'
 
 const routes = [{
     path: '/',

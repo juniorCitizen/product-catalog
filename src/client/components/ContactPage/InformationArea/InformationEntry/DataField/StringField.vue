@@ -32,12 +32,10 @@
                 }
             },
             responsiveStyle: function () {
-                if (this.isMobile) {
-                    return {
-                        // 'border': '1px solid red',
-                        'padding-top': '0px',
-                        'padding-bottom': '0px'
-                    }
+                return {
+                    // 'border': '1px solid black',
+                    'padding-top': '2px',
+                    'padding-bottom': '2px'
                 }
             }
         },
