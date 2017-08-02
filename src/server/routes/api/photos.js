@@ -9,7 +9,7 @@ import db from '../../controllers/database'
 import routerResponse from '../../utilities/routerResponse'
 
 const router = express.Router()
-const upload = multer({ dest: path.resolve('./dist/client/upload/') })
+const upload = multer({ dest: path.resolve('./dist/server/upload/') })
 
 router
     .get('/', retrievePhoto)

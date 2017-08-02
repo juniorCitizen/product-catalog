@@ -6,7 +6,7 @@ import db from '../../../controllers/database'
 import routerResponse from '../../../utilities/routerResponse'
 
 const router = express.Router()
-const upload = multer({ dest: path.resolve('./dist/client/upload/') })
+const upload = multer({ dest: path.resolve('./dist/server/upload/') })
 
 router
     .get('/', require('./getProductData'))
@@ -21,12 +21,12 @@ router
 module.exports = router
 
 function getProductCodes(req, res, next) {
-    let serieId = req.query.serieId
+    let seriesId = req.query.seriesId
     let itemCode = req.query.itemCode
     db.Products
         .findAll({
             where: {
-                serieId: serieId,
+                seriesId: seriesId,
                 itemCode: {
                     $like: `%${itemCode}%`
                 }

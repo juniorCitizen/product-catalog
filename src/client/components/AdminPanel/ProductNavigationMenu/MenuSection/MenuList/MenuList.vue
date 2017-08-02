@@ -1,29 +1,27 @@
 <template>
-    <div class="hero-body">
-        <div class="container columns">
-            <span class="column is-narrow">
-                <product-navigation-menu></product-navigation-menu>
-            </span>
-            <span class="column">
-                <create-entry-form></create-entry-form>
-            </span>
-        </div>
-    </div>
+    <ul class="menu-list">
+        <template v-for="menu in submenu">
+            <menu-list-item :key="menu.title"
+                            :title="menu.title">
+            </menu-list-item>
+            <menu-list v-if="menu.submenu"
+                       :key="menu.title"
+                       :submenu="menu.submenu">
+            </menu-list>
+        </template>
+    </ul>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductNavigationMenu from './ProductNavigationMenu/ProductNavigationMenu.vue'
-    import CreateEntryForm from './CreateEntryForm/CreateEntryForm.vue'
+    import MenuListItem from './MenuListItem/MenuListItem.vue'
+    import MenuList from './MenuList.vue'
 
     export default {
-        name: 'admin-panel',
-        components: {
-            CreateEntryForm,
-            ProductNavigationMenu
-        },
-        props: [],
+        name: 'menu-list',
+        components: { MenuList, MenuListItem },
+        props: ['submenu'],
         data: function () {
             return {}
         },

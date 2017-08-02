@@ -35,12 +35,16 @@
         watch: {},
         methods: {
             ...mapMutations({}),
-            ...mapActions({ submitProductDataAction: 'submitProductData' }),
+            ...mapActions({
+                fetchProductCatalogData: 'fetchProductCatalogData',
+                submitProductDataAction: 'submitProductData'
+            }),
             submitProductData(masterDataSet) {
                 this.submitProductDataAction(masterDataSet)
                     .then((apiResponse) => {
                         console.log(apiResponse.data)
                         this.$emit('clearForm')
+                        this.fetchProductCatalogData()
                     })
                     .catch((error) => {
                         console.log(error)

@@ -28,7 +28,11 @@ export default {
     turnOnUserDataValidation: turnOnUserDataValidation,
     turnOffUserDataValidation: turnOffUserDataValidation,
     // office and contact information
+    registerStaffContactInfo: (state, staffContactInfo) => { state.staffData = staffContactInfo },
+    registerServiceLocationData: (state, serviceLocationData) => { state.officeLocationData = serviceLocationData },
     switchInViewOfficeId: (state, officeId) => { state.inViewOfficeId = officeId },
+    // admin page menu
+    registerAdminMenu: (state, adminMenu) => { state.adminMenu = adminMenu },
     // /////////////////////////////////
     // pending deprecation /////////////
     // /////////////////////////////////
@@ -47,6 +51,9 @@ function resetStore(state) {
     state.validatingUserData = false
     state.ajaxRequestPending = false
     state.inViewOfficeId = 0
+    state.officeLocationData = []
+    state.staffData = []
+    state.adminMenu = []
     state.userData = {
         id: null,
         company: '',
@@ -56,13 +63,6 @@ function resetStore(state) {
         country: 'Country',
         comments: '',
         botPrevention: ''
-    }
-    state.regProcStates = {
-        prior: true,
-        preping: false,
-        inProgress: false,
-        failure: false,
-        complete: false
     }
     // state.resettingUserData = false // pending deprecation
     state.alreadyRegistered = false // pending deprecation

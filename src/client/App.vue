@@ -44,18 +44,10 @@
                 switchMobileNavMode: 'switchMobileNavMode',
                 switchView: 'switchView'
             }),
-            ...mapActions({
-                fetchProductSeriesData: 'fetchProductSeriesData',
-                fetchProductCatalogData: 'fetchProductCatalogData',
-                fetchCountryData: 'fetchCountryData',
-                fetchRegionData: 'fetchRegionData'
-            })
+            ...mapActions({ appInit: 'appInit' })
         },
         created: function () {
-            this.fetchProductSeriesData()
-            this.fetchProductCatalogData()
-            this.fetchCountryData()
-            this.fetchRegionData()
+            this.appInit()
         },
         mounted: function () {
             this.switchView(this.$route.name)

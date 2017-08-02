@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         name: {
-            singular: 'serie',
+            singular: 'series',
             plural: 'series'
         }
     })

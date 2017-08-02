@@ -44,7 +44,7 @@
                 }
                 if (this.readyToSuggest) {
                     let url = `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products/productCodes`
-                    let queryString = `?serieId=${this.masterSelectedSerie}&itemCode=${newItemCode}`
+                    let queryString = `?seriesId=${this.masterSelectedSerie}&itemCode=${newItemCode}`
                     let axiosOptions = {
                         method: 'get',
                         url: url + queryString

@@ -166,7 +166,7 @@
                     method: 'post',
                     url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`,
                     data: {
-                        serieId: this.selectedSeries,
+                        seriesId: this.selectedSeries,
                         type: this.prodType,
                         itemCode: this.prodCode,
                         name: this.prodName,

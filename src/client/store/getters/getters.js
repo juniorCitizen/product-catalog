@@ -50,6 +50,8 @@ export default {
     readyToRegister: readyToRegister,
     ajaxRequestPending: (state) => { return state.ajaxRequestPending },
     regCompletionFlag: regCompletionFlag,
+    // admin page vertical menu
+    adminMenu: (state) => { return state.adminMenu },
     // //////////////////////////////////////////////////////////
     // pending deprecation //////////////////////////////////////
     // //////////////////////////////////////////////////////////

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             validate: { isUUID: 4 }
         },
-        serieId: {
+        seriesId: {
             type: DataTypes.INTEGER,
             allowNull: true
         },
