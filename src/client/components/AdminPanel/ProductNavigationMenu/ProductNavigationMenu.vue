@@ -1,6 +1,6 @@
 <template>
     <aside class="menu box">
-        <template v-for="section in adminMenu">
+        <template v-for="section in adminMenuRoot">
             <menu-section-label :key="section.title"
                                 :title="section.title"
                                 @mouseoverEvent="processMouseoverEvent"
@@ -32,7 +32,7 @@
         },
         computed: {
             ...mapGetters({
-                adminMenu: 'adminMenu',
+                adminMenuRoot: 'adminMenuRoot',
                 productCatalogData: 'productCatalogData'
             })
         },

@@ -31,8 +31,6 @@ export default {
     registerStaffContactInfo: (state, staffContactInfo) => { state.staffData = staffContactInfo },
     registerServiceLocationData: (state, serviceLocationData) => { state.officeLocationData = serviceLocationData },
     switchInViewOfficeId: (state, officeId) => { state.inViewOfficeId = officeId },
-    // admin page menu
-    registerAdminMenu: (state, adminMenu) => { state.adminMenu = adminMenu },
     // /////////////////////////////////
     // pending deprecation /////////////
     // /////////////////////////////////
@@ -53,7 +51,19 @@ function resetStore(state) {
     state.inViewOfficeId = 0
     state.officeLocationData = []
     state.staffData = []
-    state.adminMenu = []
+    state.adminMenuRoot = [{
+        title: 'PRODUCT SERIES',
+        active: false,
+        hovering: false,
+        parent: null,
+        predecessor: null
+    }, {
+        title: 'PENDING',
+        active: false,
+        hovering: false,
+        parent: null,
+        predecessor: 0
+    }]
     state.userData = {
         id: null,
         company: '',

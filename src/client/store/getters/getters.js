@@ -51,7 +51,7 @@ export default {
     ajaxRequestPending: (state) => { return state.ajaxRequestPending },
     regCompletionFlag: regCompletionFlag,
     // admin page vertical menu
-    adminMenu: (state) => { return state.adminMenu },
+    adminMenuRoot: (state) => { return state.adminMenuRoot },
     // //////////////////////////////////////////////////////////
     // pending deprecation //////////////////////////////////////
     // //////////////////////////////////////////////////////////

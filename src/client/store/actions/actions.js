@@ -6,7 +6,6 @@ import userRegistration from './userRegistration'
 import submitProductData from './submitProductData'
 import serviceLocations from './serviceLocations'
 import staffContactInfo from './staffContactInfo'
-import { generateAdminMenu } from './adminMenu'
 
 const urlPrefix = `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}`
 
@@ -16,7 +15,6 @@ export default {
     fetchProductCatalogData: fetchProductCatalogData,
     fetchCountryData: fetchCountryData,
     fetchRegionData: fetchRegionData,
-    generateAdminMenu: generateAdminMenu,
     userRegistration: userRegistration,
     submitProductData: submitProductData
 }
@@ -54,7 +52,9 @@ function fetchCountryData(context) {
 }
 
 function appInit(context) {
-    context.dispatch('fetchProductSeriesData')
+    context.commit('registerStaffContactInfo', staffContactInfo)
+    context.commit('registerServiceLocationData', serviceLocations)
+    return context.dispatch('fetchProductSeriesData')
         .then((apiResponse) => {
             context.commit('registerProductSeriesData', { productSeriesData: apiResponse.data.data })
             return context.dispatch('fetchProductCatalogData')
@@ -69,20 +69,12 @@ function appInit(context) {
         })
         .then((apiResponse) => {
             context.commit('registerCountryData', { countryData: apiResponse.data.data })
-            context.commit('registerServiceLocationData', serviceLocations)
-            context.commit('registerStaffContactInfo', staffContactInfo)
-            return context.dispatch('generateAdminMenu')
-        })
-        .then((mockApiResponse) => {
-            context.commit('registerAdminMenu', mockApiResponse)
         })
         .catch((error) => {
             context.commit('registerProductSeriesData', { productSeriesData: [] })
             context.commit('registerProductCatalogData', { productCatalogData: [] })
             context.commit('registerRegionData', { regionData: [] })
             context.commit('registerCountryData', { countryData: [] })
-            context.commit('registerServiceLocationData', serviceLocations)
-            context.commit('registerStaffContactInfo', staffContactInfo)
             console.log(error)
         })
 }

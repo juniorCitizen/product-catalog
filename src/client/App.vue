@@ -32,12 +32,13 @@
                 this.switchMobileNavMode(false)
             },
             '$route': function (to, from) {
+                console.log(`watcher: ${this.$route.name}`)
                 this.switchView(this.$route.name)
                 this.switchMobileNavMode(false)
             }
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({ currentView: 'currentView' })
         },
         methods: {
             ...mapMutations({
@@ -46,11 +47,52 @@
             }),
             ...mapActions({ appInit: 'appInit' })
         },
+        beforeCreate: function () {
+            // console.log(`beforeCreate: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+
+        },
         created: function () {
             this.appInit()
+            // console.log(`created: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+
+        },
+        beforeMount: function () {
+            // console.log(`before mount: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
         },
         mounted: function () {
+            // console.log(`mounted: ${this.$route.name}`)
             this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+        },
+        beforeUpdate: function () {
+            // console.log(`beforeUpdate: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+
+        },
+        updated: function () {
+            // console.log(`updated: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+
+        },
+        beforeDestroy: function () {
+            // console.log(`beforeDestroy: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+
+        },
+        destroyed: function () {
+            // console.log(`destroyed: ${this.$route.name}`)
+            // this.switchView(this.$route.name)
+            // this.$router.push(this.$route.name)
+
         }
     }
 </script>

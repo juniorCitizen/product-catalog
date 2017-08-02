@@ -68,7 +68,7 @@
                 return ((this.validationInEffect) && (this.countryInStore === 'Country'))
             },
             flagApiUrl: function () {
-                if (this.countryInStore === this.countries[0].name) {
+                if (this.countryInStore === (this.countries[0] ? this.countries[0].name : 'Country')) {
                     return null
                 } else {
                     let alpha3Code = this.countries.filter((country) => {

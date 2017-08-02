@@ -21,11 +21,7 @@
         name: 'burger-menu',
         components: {},
         props: [],
-        watch: {
-            '$route': function (to, from) {
-                this.switchView(this.$route.name)
-            }
-        },
+        watch: {},
         data: function () {
             return {}
         },
@@ -38,17 +34,14 @@
         },
         methods: {
             ...mapMutations({
-                switchMobileNavMode: 'switchMobileNavMode',
-                switchView: 'switchView'
+                switchMobileNavMode: 'switchMobileNavMode'
             }),
             ...mapActions({}),
             mobileNavToggle: function () {
                 this.switchMobileNavMode(!this.mobileNavMode)
             }
         },
-        mounted: function () {
-            this.switchView(this.$route.name)
-        }
+        mounted: function () { }
     }
 </script>
 

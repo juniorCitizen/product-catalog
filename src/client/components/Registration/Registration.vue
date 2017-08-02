@@ -114,7 +114,7 @@
             },
             regionSelectionEvent: function (newRegion) {
                 this.region = newRegion
-                this.country = this.countries[0].name
+                this.country = this.countries[0] ? this.countries[0].name : 'Country'
                 this.updateUserData({
                     region: this.region,
                     country: this.country

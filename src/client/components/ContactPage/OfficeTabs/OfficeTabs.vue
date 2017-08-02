@@ -8,7 +8,7 @@
                     <a @click="switchInViewOfficeId(index)">
                         <span class="icon"
                               :class="dynamicIconClass">
-                            <img :src="flagImgUrl(office.country)">
+                            <flag-image :country="office.country"></flag-image>
                         </span>
                         <span>
                             <b>{{ office.country }}</b>
@@ -23,18 +23,20 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import FlagImage from './FlagImage.vue'
+
     export default {
         name: 'office-tabs',
-        components: {},
+        components: { FlagImage },
         props: [],
         data: function () {
             return {}
         },
         computed: {
             ...mapGetters({
-                countries: 'countries',
                 officeInfo: 'officeInfo',
-                inViewOfficeId: 'inViewOfficeId'
+                inViewOfficeId: 'inViewOfficeId',
+                initializationStatus: 'initializationStatus'
             }),
             dynamicIconClass: function () {
                 return {
@@ -46,13 +48,7 @@
         watch: {},
         methods: {
             ...mapMutations({ switchInViewOfficeId: 'switchInViewOfficeId' }),
-            ...mapActions({}),
-            flagImgUrl: function (countryName) {
-                let alpha3Code = this.countries.filter((country) => {
-                    return country.name === countryName
-                })[0].alpha3Code
-                return `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/countries/flags?country=${alpha3Code.toLowerCase()}`
-            }
+            ...mapActions({})
         },
         beforeCreate: function () { },
         created: function () { },

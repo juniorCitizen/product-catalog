@@ -2,7 +2,7 @@
     <li v-if="!((navRoute.name==='admin') && (isTouch))"
         class="navbar-item"
         :class="{'has-text-right': isTouch}">
-        <router-link :to="navRoute.name"
+        <router-link :to="navRoute.path"
                      :class="dynamicClasses"
                      :disabled="ajaxRequestPending">
             <b>{{ navRoute.menuText }}</b>
