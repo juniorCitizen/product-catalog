@@ -25,12 +25,12 @@
             ...mapGetters({})
         },
         watch: {
-            masterValue(masterValue) {
+            masterValue: function (masterValue) {
                 if (masterValue === 'reset') {
                     this.productCode = ''
                 }
             },
-            productCode(updatedProductCode) {
+            productCode: function (updatedProductCode) {
                 this.$emit('productCodeInput', updatedProductCode)
             }
         },

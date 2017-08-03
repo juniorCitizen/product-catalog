@@ -49,13 +49,13 @@
             })
         },
         watch: {
-            masterValue(masterValue) {
+            masterValue: function (masterValue) {
                 if (masterValue === 'reset') {
                     this.selectedIndex = 0
                     this.productType = 'unselected'
                 }
             },
-            selectedIndex(updatedIndex) {
+            selectedIndex: function (updatedIndex) {
                 this.$emit('productSeriesIdSelection', updatedIndex)
             },
             productType(updatedType) {

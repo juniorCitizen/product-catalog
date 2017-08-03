@@ -51,18 +51,16 @@ function resetStore(state) {
     state.inViewOfficeId = 0
     state.officeLocationData = []
     state.staffData = []
-    state.adminMenuRoot = [{
+    state.adminMenu = [{
         title: 'PRODUCT SERIES',
         active: false,
-        hovering: false,
-        parent: null,
-        predecessor: null
+        hover: false,
+        submenu: []
     }, {
         title: 'PENDING',
         active: false,
-        hovering: false,
-        parent: null,
-        predecessor: 0
+        hover: false,
+        submenu: []
     }]
     state.userData = {
         id: null,

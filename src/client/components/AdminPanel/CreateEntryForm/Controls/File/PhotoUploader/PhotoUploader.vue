@@ -41,7 +41,7 @@
             ...mapGetters({})
         },
         watch: {
-            masterValue(masterValue) {
+            masterValue: function (masterValue) {
                 if (masterValue === 'reset') {
                     this.files = null
                 }

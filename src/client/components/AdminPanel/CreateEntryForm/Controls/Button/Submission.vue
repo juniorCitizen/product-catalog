@@ -39,7 +39,7 @@
                 fetchProductCatalogData: 'fetchProductCatalogData',
                 submitProductDataAction: 'submitProductData'
             }),
-            submitProductData(masterDataSet) {
+            submitProductData: function (masterDataSet) {
                 this.submitProductDataAction(masterDataSet)
                     .then((apiResponse) => {
                         console.log(apiResponse.data)

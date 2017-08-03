@@ -34,10 +34,10 @@
         },
         computed: {
             ...mapGetters({}),
-            imageCount() {
+            imageCount: function () {
                 return this.imageList === null ? 0 : this.imageList.length
             },
-            rows() {
+            rows: function () {
                 return Math.ceil(this.imageCount / this.photoCellsPerRow.cellCount)
             }
         },
@@ -45,12 +45,12 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({}),
-            columnCount(rowIndex) {
+            columnCount: function (rowIndex) {
                 let preceedingCount = (rowIndex - 1) * this.photoCellsPerRow.cellCount
                 let itemCount = this.imageList.length - preceedingCount
                 return itemCount > this.photoCellsPerRow.cellCount ? this.photoCellsPerRow.cellCount : itemCount
             },
-            imageIndex(rowIndex, columnIndex) {
+            imageIndex: function (rowIndex, columnIndex) {
                 return ((rowIndex - 1) * this.photoCellsPerRow.cellCount) + (columnIndex - 1)
             }
         },

@@ -25,12 +25,12 @@
             ...mapGetters({})
         },
         watch: {
-            masterValue(masterValue) {
+            masterValue: function (masterValue) {
                 if (masterValue === 'reset') {
                     this.productName = ''
                 }
             },
-            productName(updatedProductName) {
+            productName: function (updatedProductName) {
                 this.$emit('productNameInput', updatedProductName)
             }
         },

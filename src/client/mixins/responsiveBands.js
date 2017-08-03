@@ -20,49 +20,49 @@ export default {
     // Media Query Helpers mixin. Use globally or per component
     mixin: {
         computed: {
-            isSmallAndDown() {
+            isSmallAndDown: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.smallAndDown)
             },
-            isMediumAndUp() {
+            isMediumAndUp: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.mediumAndUp)
             },
-            isMediumOnly() {
+            isMediumOnly: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.mediumOnly)
             },
-            isMediumAndDown() {
+            isMediumAndDown: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.mediumAndDown)
             },
-            isLargeAndUp() {
+            isLargeAndUp: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.largeAndUp)
             },
-            isExtraLargeAndUp() {
+            isExtraLargeAndUp: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.extraLargeAndUp)
             },
-            isMobile() {
+            isMobile: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.mobile)
             },
-            isTablet() {
+            isTablet: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.tablet)
             },
-            isTabletOnly() {
+            isTabletOnly: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.tabletOnly)
             },
-            isTouch() {
+            isTouch: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.touch)
             },
-            isDesktop() {
+            isDesktop: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.desktop)
             },
-            isDesktopOnly() {
+            isDesktopOnly: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.desktopOnly)
             },
-            isWidescreen() {
+            isWidescreen: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.widescreen)
             },
-            isWidescreenOnly() {
+            isWidescreenOnly: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.widescreenOnly)
             },
-            isFullhd() {
+            isFullhd: function () {
                 return this.$resize && this.$mq.expr(this.$mq.bands.fullhd)
             }
         }

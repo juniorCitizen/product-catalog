@@ -55,7 +55,7 @@
     }
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
     div.card {
         margin: 5px;
     }

@@ -75,7 +75,7 @@
         },
         computed: {
             ...mapGetters({}),
-            readyToSubmit() {
+            readyToSubmit: function () {
                 return (
                     !(this.productSeriesId === 0) &&
                     !(this.productType === 'unselected') &&
@@ -84,7 +84,7 @@
                     !((this.primaryPhoto === null) || (this.primaryPhoto === undefined))
                 )
             },
-            masterDataSet() {
+            masterDataSet: function () {
                 return {
                     productSeriesId: this.productSeriesId,
                     productType: this.productType,
@@ -100,7 +100,7 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({}),
-            resetData() {
+            resetData: function () {
                 this.productSeriesId = 'reset'
                 this.productType = 'reset'
                 this.productCode = 'reset'

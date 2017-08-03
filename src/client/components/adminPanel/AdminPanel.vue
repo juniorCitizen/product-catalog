@@ -2,7 +2,7 @@
     <div class="hero-body">
         <div class="container columns">
             <span class="column is-narrow">
-                <product-navigation-menu></product-navigation-menu>
+                <vertical-menu></vertical-menu>
             </span>
             <span class="column">
                 <create-entry-form></create-entry-form>
@@ -14,14 +14,14 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductNavigationMenu from './ProductNavigationMenu/ProductNavigationMenu.vue'
+    import VerticalMenu from './VerticalMenu/VerticalMenu.vue'
     import CreateEntryForm from './CreateEntryForm/CreateEntryForm.vue'
 
     export default {
         name: 'admin-panel',
         components: {
             CreateEntryForm,
-            ProductNavigationMenu
+            VerticalMenu
         },
         props: [],
         data: function () {

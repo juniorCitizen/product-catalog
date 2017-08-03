@@ -25,7 +25,7 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({}),
-            fileSelectionHandler(event) {
+            fileSelectionHandler: function (event) {
                 this.$emit('input', event.target.files)
             }
         },
@@ -41,5 +41,7 @@
 </script>
 
 <style scoped>
-     input[type="file"] { display: none; }
+    input[type="file"] {
+        display: none;
+    }
 </style>

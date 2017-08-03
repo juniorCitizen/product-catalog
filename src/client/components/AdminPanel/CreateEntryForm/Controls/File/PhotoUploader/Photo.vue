@@ -18,7 +18,7 @@
             ...mapGetters({})
         },
         watch: {
-            photoFile(updatedPhotoFile) {
+            photoFile: function (updatedPhotoFile) {
                 let fileReader = new FileReader()
                 fileReader.onload = (event) => {
                     this.src = event.target.result

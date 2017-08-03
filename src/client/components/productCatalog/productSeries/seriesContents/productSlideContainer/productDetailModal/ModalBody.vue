@@ -26,15 +26,13 @@
         ],
         data: function () {
             return {
-                host: this.$eVars.HOST,
-                port: this.$eVars.PORT,
-                sysRef: this.$eVars.SYS_REF
+                apiUrlPrefix: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}`
             }
         },
         computed: {
             ...mapGetters({}),
             photoSource: function () {
-                return `${this.host}:${this.port}/${this.sysRef}/api/photos?photoId=${this.product.photos[this.enlargedPhotoIndex].id}`
+                return `${this.apiUrlPrefix}/api/photos?photoId=${this.product.photos[this.enlargedPhotoIndex].id}`
             }
         },
         methods: {
