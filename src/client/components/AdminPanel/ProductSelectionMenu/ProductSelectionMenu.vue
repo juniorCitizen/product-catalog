@@ -6,10 +6,10 @@
                :key="arrayIndex">
                 <a>{{ section.title }}</a>
             </p>
-            <menu-list v-if="(section.submenu.length>0)&&section.active"
-                       :menu="section.submenu"
-                       :key="section.title">
-            </menu-list>
+            <product-series-menu v-if="(section.submenu.length>0)&&section.active"
+                                 :menu="section.submenu"
+                                 :key="section.title">
+            </product-series-menu>
         </template>
     </aside>
 </template>
@@ -17,11 +17,11 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import MenuList from './MenuSection/MenuList/MenuList.vue'
+    import ProductSeriesMenu from './ProductSeriesMenu.vue'
 
     export default {
-        name: 'vertical-menu',
-        components: { MenuList },
+        name: 'product-selection-menu',
+        components: { ProductSeriesMenu },
         props: [],
         data: function () {
             return {

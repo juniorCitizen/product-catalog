@@ -42,7 +42,7 @@
     import PhotoUploader from './Controls/File/PhotoUploader/PhotoUploader.vue'
 
     export default {
-        name: 'create-entry-form',
+        name: 'product-data-form',
         components: {
             ProductSeries,
             ProductCode,

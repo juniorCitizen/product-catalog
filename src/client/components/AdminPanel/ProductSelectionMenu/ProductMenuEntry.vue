@@ -1,29 +1,16 @@
 <template>
-    <div class="hero-body">
-        <div class="container columns">
-            <span class="column is-narrow">
-                <product-selection-menu></product-selection-menu>
-            </span>
-            <span class="column">
-                <product-data-form></product-data-form>
-            </span>
-        </div>
-    </div>
+    <li>
+        <a>{{ productData.title }}</a>
+    </li>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductSelectionMenu from './ProductSelectionMenu/ProductSelectionMenu.vue'
-    import ProductDataForm from './ProductDataForm/ProductDataForm.vue'
-
     export default {
-        name: 'admin-panel',
-        components: {
-            ProductDataForm,
-            ProductSelectionMenu
-        },
-        props: [],
+        name: 'product-menu-entry',
+        components: {},
+        props: ['productData'],
         data: function () {
             return {}
         },

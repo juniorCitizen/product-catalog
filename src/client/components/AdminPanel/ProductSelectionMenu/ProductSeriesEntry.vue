@@ -4,10 +4,11 @@
             {{ title }}
         </a>
         <ul v-if="displaySubmenu">
-            <li v-for="menuEntry in fullMenuObject.submenu"
-                :key="menuEntry.title">
-                <a>{{menuEntry.title}}</a>
-            </li>
+            <template v-for="menuEntry in fullMenuObject.submenu">
+                <product-menu-entry :productData="menuEntry"
+                                    :key="menuEntry.title">
+                </product-menu-entry>
+            </template>
         </ul>
     </li>
 </template>
@@ -15,9 +16,11 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import ProductMenuEntry from './ProductMenuEntry.vue'
+
     export default {
-        name: 'menu-list-item',
-        components: {},
+        name: 'product-series-entry',
+        components: { ProductMenuEntry },
         props: [
             'title',
             'arrayIndex',

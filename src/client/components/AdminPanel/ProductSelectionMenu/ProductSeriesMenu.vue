@@ -2,24 +2,24 @@
     <ul class="menu-list">
         <template v-for="(section,arrayIndex) in rootMenu">
             <template v-if="!childrenHasSubmenu">
-                <menu-list-item :title="section.title"
-                                :arrayIndex="arrayIndex"
-                                :section="null"
-                                @selectEvent="loadSubmenu($event)"
-                                :key="arrayIndex">
-                </menu-list-item>
-                <menu-list v-if="(section.submenu.length>0)&&section.active"
-                           :menu="section.submenu"
-                           :key="arrayIndex">
-                </menu-list>
+                <product-series-entry :title="section.title"
+                                      :arrayIndex="arrayIndex"
+                                      :section="null"
+                                      @selectEvent="loadSubmenu($event)"
+                                      :key="arrayIndex">
+                </product-series-entry>
+                <product-series-menu v-if="(section.submenu.length>0)&&section.active"
+                                     :menu="section.submenu"
+                                     :key="arrayIndex">
+                </product-series-menu>
             </template>
             <template v-else>
-                <menu-list-item :title="section.title"
-                                :arrayIndex="arrayIndex"
-                                :section="section"
-                                @selectEvent="loadSubmenu($event)"
-                                :key="arrayIndex">
-                </menu-list-item>
+                <product-series-entry :title="section.title"
+                                      :arrayIndex="arrayIndex"
+                                      :section="section"
+                                      @selectEvent="loadSubmenu($event)"
+                                      :key="arrayIndex">
+                </product-series-entry>
             </template>
         </template>
     </ul>
@@ -28,14 +28,14 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import MenuListItem from './MenuListItem/MenuListItem.vue'
-    import MenuList from './MenuList.vue'
+    import ProductSeriesEntry from './ProductSeriesEntry.vue'
+    import ProductSeriesMenu from './ProductSeriesMenu.vue'
 
     export default {
-        name: 'menu-list',
+        name: 'product-series-menu',
         components: {
-            MenuList,
-            MenuListItem
+            ProductSeriesMenu,
+            ProductSeriesEntry
         },
         props: ['menu'],
         data: function () {
