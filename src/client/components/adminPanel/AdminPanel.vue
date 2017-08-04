@@ -2,10 +2,12 @@
     <div class="hero-body">
         <div class="container columns">
             <span class="column is-narrow">
-                <product-selection-menu></product-selection-menu>
+                <product-selection-menu>
+                </product-selection-menu>
             </span>
             <span class="column">
-                <product-data-form></product-data-form>
+                <product-data-form :productToEdit="productToEdit">
+                </product-data-form>
             </span>
         </div>
     </div>
@@ -25,14 +27,16 @@
         },
         props: [],
         data: function () {
-            return {}
+            return {
+                productToEdit: null
+            }
         },
         computed: {
             ...mapGetters({})
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({ toggleProductEditMode: 'toggleProductEditMode' }),
             ...mapActions({})
         },
         beforeCreate: function () { },
@@ -42,7 +46,9 @@
         beforeUpdate: function () { },
         updated: function () { },
         beforeDestroy: function () { },
-        destroyed: function () { }
+        destroyed: function () {
+            this.toggleProductEditMode()
+        }
     }
 </script>
 

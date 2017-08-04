@@ -41,17 +41,12 @@ const store = new Vuex.Store({
         officeLocationData: [],
         staffData: [],
         // admin page vertical menu
-        adminMenu: [{
-            title: 'PRODUCT SERIES',
-            active: false,
-            hover: false,
-            submenu: []
-        }, {
-            title: 'PENDING',
-            active: false,
-            hover: false,
-            submenu: []
-        }],
+        adminMenu: [],
+        // product data edit mode related data
+        productEditMode: {
+            state: false,
+            productData: null
+        },
         // /////////////////////////////////////////////
         // pending deprecation /////////////////////////
         // /////////////////////////////////////////////

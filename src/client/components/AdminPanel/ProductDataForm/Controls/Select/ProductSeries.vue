@@ -45,7 +45,9 @@
         },
         computed: {
             ...mapGetters({
-                productSeriesData: 'productSeriesData'
+                productSeriesData: 'productSeriesData',
+                editingState: 'editingState',
+                dataInEditMode: 'dataInEditMode'
             })
         },
         watch: {
@@ -58,16 +60,22 @@
             selectedIndex: function (updatedIndex) {
                 this.$emit('productSeriesIdSelection', updatedIndex)
             },
-            productType(updatedType) {
+            productType: function (updatedType) {
                 this.$emit('productTypeSelection', updatedType)
+            },
+            dataInEditMode: function (newProductData) {
+                if (newProductData === null) {
+                    this.selectedIndex = 0
+                    this.productType = 'unselected'
+                } else {
+                    this.selectedIndex = newProductData.seriesId
+                    this.productType = newProductData.type
+                }
             }
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({ fetchProductSeriesData: 'fetchProductSeriesData' })
-        },
-        created: function () {
-            this.fetchProductSeriesData()
+            ...mapActions({})
         }
     }
 </script>

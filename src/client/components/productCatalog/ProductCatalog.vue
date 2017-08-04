@@ -1,6 +1,6 @@
 <template>
     <div class="hero-body">
-        <div class="container has-text-centered">
+        <div class="box has-text-centered">
             <h4 class="subtitle is-4">
                 <i class="fa fa-check-circle-o"></i>
                 &nbsp;SELECT FOR MORE INFORMATION
@@ -43,16 +43,17 @@
         overflow-x: hidden;
     }
 
-    div.container {
-        margin: auto;
-    }
-
      ::-webkit-scrollbar {
         width: 0px;
         /* remove scrollbar space */
         background: transparent;
         /* optional: just make scrollbar invisible */
     }
+
+
+
+
+
 
 
 

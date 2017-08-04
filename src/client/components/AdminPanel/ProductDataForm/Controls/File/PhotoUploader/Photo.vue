@@ -8,22 +8,30 @@
     export default {
         name: 'photo',
         components: {},
-        props: ['photoFile'],
+        props: [
+            'photoFile',
+            'revokeState'
+        ],
         data: function () {
             return {
-                src: null
+                src: null,
+                apiUrlPrefix: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/photos/streaming?photoId=`
             }
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({ editingState: 'editingState' })
         },
         watch: {
             photoFile: function (updatedPhotoFile) {
-                let fileReader = new FileReader()
-                fileReader.onload = (event) => {
-                    this.src = event.target.result
+                if (!this.editingState || (this.editingState && this.revokeState)) {
+                    let fileReader = new FileReader()
+                    fileReader.onload = (event) => {
+                        this.src = event.target.result
+                    }
+                    fileReader.readAsDataURL(updatedPhotoFile)
+                } else {
+                    this.src = `${this.apiUrlPrefix}${updatedPhotoFile.id}`
                 }
-                fileReader.readAsDataURL(updatedPhotoFile)
             }
         },
         methods: {
@@ -34,11 +42,15 @@
         created: function () { },
         beforeMount: function () { },
         mounted: function () {
-            let fileReader = new FileReader()
-            fileReader.onload = (event) => {
-                this.src = event.target.result
+            if (!this.editingState || (this.editingState && this.revokeState)) {
+                let fileReader = new FileReader()
+                fileReader.onload = (event) => {
+                    this.src = event.target.result
+                }
+                fileReader.readAsDataURL(this.photoFile)
+            } else {
+                this.src = `${this.apiUrlPrefix}${this.photoFile.id}`
             }
-            fileReader.readAsDataURL(this.photoFile)
         },
         beforeUpdate: function () { },
         updated: function () { },

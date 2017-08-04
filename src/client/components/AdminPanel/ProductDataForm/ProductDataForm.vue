@@ -1,7 +1,10 @@
 <template>
     <div class="box">
         <div class="box notification is-info has-text-centered">
-            <span class="title is-4">新 建 產 品 資 料</span>
+            <span v-if="!editingState"
+                  class="title is-4">新建產品資料</span>
+            <span v-else
+                  class="title is-4">修改【{{ dataInEditMode.itemCode }}】產品資料</span>
         </div>
         <submission :readyToSubmit="readyToSubmit"
                     :masterDataSet="masterDataSet"
@@ -60,7 +63,7 @@
                     multiple: false
                 },
                 secondaryImagesUploaderConfig: {
-                    emptyText: '選擇次要產品圖片',
+                    emptyText: '選擇次要產品圖片 (必選、兩張以上)',
                     loadedText: '重新選擇次要產品圖片',
                     multiple: true
                 },
@@ -74,7 +77,10 @@
             }
         },
         computed: {
-            ...mapGetters({}),
+            ...mapGetters({
+                editingState: 'editingState',
+                dataInEditMode: 'dataInEditMode'
+            }),
             readyToSubmit: function () {
                 return (
                     !(this.productSeriesId === 0) &&

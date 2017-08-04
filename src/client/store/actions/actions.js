@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Promise from 'bluebird'
 
 import eVars from '../../../server/config/environment'
 
@@ -6,6 +7,8 @@ import userRegistration from './userRegistration'
 import submitProductData from './submitProductData'
 import serviceLocations from './serviceLocations'
 import staffContactInfo from './staffContactInfo'
+import mockAdminMenuRoot from './mockAdminMenuRoot'
+import { refreshAdminMenuContent } from './adminMenu'
 
 const urlPrefix = `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}`
 
@@ -16,7 +19,8 @@ export default {
     fetchCountryData: fetchCountryData,
     fetchRegionData: fetchRegionData,
     userRegistration: userRegistration,
-    submitProductData: submitProductData
+    submitProductData: submitProductData,
+    refreshAdminMenuContent: refreshAdminMenuContent
 }
 
 function fetchProductSeriesData(context) {
@@ -54,7 +58,7 @@ function fetchCountryData(context) {
 function appInit(context) {
     context.commit('registerStaffContactInfo', staffContactInfo)
     context.commit('registerServiceLocationData', serviceLocations)
-    return context.dispatch('fetchProductSeriesData')
+    context.dispatch('fetchProductSeriesData')
         .then((apiResponse) => {
             context.commit('registerProductSeriesData', { productSeriesData: apiResponse.data.data })
             return context.dispatch('fetchProductCatalogData')
@@ -69,6 +73,12 @@ function appInit(context) {
         })
         .then((apiResponse) => {
             context.commit('registerCountryData', { countryData: apiResponse.data.data })
+            return Promise.resolve(mockAdminMenuRoot) // mock admin menu data
+        })
+        .then((mockAPIResponse) => {
+            context.commit('registerAdminProductMenu', {
+                adminMenuRootData: mockAPIResponse
+            })
         })
         .catch((error) => {
             context.commit('registerProductSeriesData', { productSeriesData: [] })

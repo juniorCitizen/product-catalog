@@ -37,14 +37,18 @@
             }
         },
         computed: {
-            ...mapGetters({ currentView: 'currentView' })
+            ...mapGetters({
+                currentView: 'currentView'
+            })
         },
         methods: {
             ...mapMutations({
                 switchMobileNavMode: 'switchMobileNavMode',
                 switchView: 'switchView'
             }),
-            ...mapActions({ appInit: 'appInit' })
+            ...mapActions({
+                appInit: 'appInit'
+            })
         },
         beforeCreate: function () { },
         created: function () {

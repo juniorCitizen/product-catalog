@@ -32,7 +32,7 @@
         computed: {
             ...mapGetters({}),
             photoSource: function () {
-                return `${this.apiUrlPrefix}/api/photos?photoId=${this.product.photos[this.enlargedPhotoIndex].id}`
+                return `${this.apiUrlPrefix}/api/photos/streaming?photoId=${this.product.photos[this.enlargedPhotoIndex].id}`
             }
         },
         methods: {

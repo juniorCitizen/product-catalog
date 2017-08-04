@@ -2,13 +2,22 @@
     <div class="field is-grouped">
         <p class="control">
             <button class="button is-info"
-                    :disabled="!readyToSubmit"
+                    :disabled="!readyToSubmit||ajaxRequestPending"
                     @click="submitProductData(masterDataSet)">
-                建立資料
+                <template v-if="ajaxRequestPending">
+                    <span class="icon">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </span>
+                    <span>資料傳輸中</span>
+                </template>
+                <template v-else>
+                    <span>建立資料</span>
+                </template>
             </button>
         </p>
         <p class="control">
             <button class="button is-info"
+                    :disabled="ajaxRequestPending"
                     @click="$emit('clearForm')">
                 清除表單
             </button>
@@ -30,25 +39,31 @@
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                ajaxRequestPending: 'ajaxRequestPending',
+                editingState: 'editingState'
+            })
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({ setAjaxPendingState: 'setAjaxPendingState' }),
             ...mapActions({
-                fetchProductCatalogData: 'fetchProductCatalogData',
+                refreshAdminMenuContent: 'refreshAdminMenuContent',
                 submitProductDataAction: 'submitProductData'
             }),
             submitProductData: function (masterDataSet) {
                 this.submitProductDataAction(masterDataSet)
                     .then((apiResponse) => {
-                        console.log(apiResponse.data)
+                        this.refreshAdminMenuContent()
+                        alert(`產品【${masterDataSet.productCode}】建立完成`)
                         this.$emit('clearForm')
-                        this.fetchProductCatalogData()
+                        this.setAjaxPendingState(false)
                     })
                     .catch((error) => {
                         console.log(error)
+                        alert('產品資料建立失敗!!!')
                         this.$emit('clearForm')
+                        this.setAjaxPendingState(false)
                     })
             }
         },

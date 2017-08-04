@@ -22,16 +22,26 @@
             }
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                editingState: 'editingState',
+                dataInEditMode: 'dataInEditMode'
+            })
         },
         watch: {
-            masterValue: function (masterValue) {
-                if (masterValue === 'reset') {
+            masterValue: function (newMasterValue) {
+                if (newMasterValue === 'reset') {
                     this.productCode = ''
                 }
             },
             productCode: function (updatedProductCode) {
                 this.$emit('productCodeInput', updatedProductCode)
+            },
+            dataInEditMode: function (newProductData) {
+                if (newProductData === null) {
+                    this.productCode = ''
+                } else {
+                    this.productCode = newProductData.itemCode
+                }
             }
         },
         methods: {

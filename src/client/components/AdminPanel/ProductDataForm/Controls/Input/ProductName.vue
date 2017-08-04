@@ -22,7 +22,10 @@
             }
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                editingState: 'editingState',
+                dataInEditMode: 'dataInEditMode'
+            })
         },
         watch: {
             masterValue: function (masterValue) {
@@ -32,6 +35,13 @@
             },
             productName: function (updatedProductName) {
                 this.$emit('productNameInput', updatedProductName)
+            },
+            dataInEditMode: function (newProductData) {
+                if (newProductData === null) {
+                    this.productName = ''
+                } else {
+                    this.productName = newProductData.name
+                }
             }
         },
         methods: {

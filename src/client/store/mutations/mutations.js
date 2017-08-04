@@ -8,6 +8,8 @@ import {
     resetUserData
 } from './userData/manipulateUserData'
 
+import { registerAdminProductMenu } from './adminMenu'
+
 export default {
     resetStore: resetStore,
     registerProductSeriesData: registerProductSeriesData,
@@ -31,10 +33,24 @@ export default {
     registerStaffContactInfo: (state, staffContactInfo) => { state.staffData = staffContactInfo },
     registerServiceLocationData: (state, serviceLocationData) => { state.officeLocationData = serviceLocationData },
     switchInViewOfficeId: (state, officeId) => { state.inViewOfficeId = officeId },
+    // admin page menu manipulation
+    registerAdminProductMenu: registerAdminProductMenu,
+    // product data edit mode related
+    toggleProductEditMode: toggleProductEditMode,
     // /////////////////////////////////
     // pending deprecation /////////////
     // /////////////////////////////////
     markRegisteredSession: markRegisteredSession // pending deprecation
+}
+
+function toggleProductEditMode(state, payload = null) {
+    if (payload === null) {
+        state.productEditMode.state = false
+        state.productEditMode.productData = null
+    } else {
+        state.productEditMode.state = true
+        state.productEditMode.productData = payload
+    }
 }
 
 function resetStore(state) {
@@ -51,17 +67,7 @@ function resetStore(state) {
     state.inViewOfficeId = 0
     state.officeLocationData = []
     state.staffData = []
-    state.adminMenu = [{
-        title: 'PRODUCT SERIES',
-        active: false,
-        hover: false,
-        submenu: []
-    }, {
-        title: 'PENDING',
-        active: false,
-        hover: false,
-        submenu: []
-    }]
+    state.adminMenu = []
     state.userData = {
         id: null,
         company: '',
@@ -71,6 +77,10 @@ function resetStore(state) {
         country: 'Country',
         comments: '',
         botPrevention: ''
+    }
+    state.productEditMode = {
+        state: false,
+        productData: null
     }
     // state.resettingUserData = false // pending deprecation
     state.alreadyRegistered = false // pending deprecation

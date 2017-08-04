@@ -13,9 +13,39 @@ const upload = multer({ dest: path.resolve('./dist/server/upload/') })
 
 router
     .get('/', retrievePhoto)
+    .get('/streaming', streamPhoto)
     .post('/', upload.array('prod-photo', null), processPhotoUploads)
 
 module.exports = router
+
+function streamPhoto(req, res, next) {
+    return db.Photos
+        .findById(req.query.photoId)
+        .then((photo) => {
+            if (photo === null) { // promise is rejected if the photoId does not exist
+                let error = new Error('image not found')
+                error.name = 'imageIdNotFound'
+                return Promise.reject(error)
+            }
+            return routerResponse.streamImage({
+                pendingResponse: res,
+                statusCode: 200,
+                mimeType: photo.mimeType,
+                dataBuffer: Buffer.from(photo.photoData)
+            })
+        })
+        .catch((error) => {
+            // return error object to the frontend
+            return routerResponse.json({
+                pendingResponse: res,
+                originalRequest: req,
+                statusCode: 500,
+                success: false,
+                error: error,
+                message: 'photo retrieval failure'
+            })
+        })
+}
 
 function retrievePhoto(req, res, next) {
     let imagePath = null

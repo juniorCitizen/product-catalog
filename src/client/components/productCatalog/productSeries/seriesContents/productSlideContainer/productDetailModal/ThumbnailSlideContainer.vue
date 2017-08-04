@@ -68,7 +68,7 @@
                 } else {
                     let slideInPhotoIndex = this.visibleThumbnails[0].photoIndexInProduct === 0 ? (this.productPhotos.length - 1) : (this.visibleThumbnails[0].photoIndexInProduct - 1)
                     return {
-                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos?photoId=${this.productPhotos[slideInPhotoIndex].id}`,
+                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.productPhotos[slideInPhotoIndex].id}`,
                         photoIndexInProduct: slideInPhotoIndex
                     }
                 }
@@ -79,7 +79,7 @@
                 } else {
                     let slideInPhotoIndex = this.visibleThumbnails[(this.displayCount - 1)].photoIndexInProduct < (this.productPhotos.length - 1) ? (this.visibleThumbnails[(this.displayCount - 1)].photoIndexInProduct + 1) : 0
                     return {
-                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos?photoId=${this.productPhotos[slideInPhotoIndex].id}`,
+                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.productPhotos[slideInPhotoIndex].id}`,
                         photoIndexInProduct: slideInPhotoIndex
                     }
                 }
@@ -96,7 +96,7 @@
             for (let photoIndex = 0; photoIndex < this.displayCount; photoIndex++) {
                 if (photoIndex < (this.productPhotos.length)) {
                     this.visibleThumbnails.push({
-                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos?photoId=${this.productPhotos[photoIndex].id}`,
+                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.productPhotos[photoIndex].id}`,
                         photoIndexInProduct: photoIndex
                     })
                 }

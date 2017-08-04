@@ -1,6 +1,9 @@
 <template>
     <li>
-        <a>{{ productData.title }}</a>
+        <a :class="{'is-active':isBeingEdited}"
+           @click="handleClickEvent">
+            {{ productData.title }}
+        </a>
     </li>
 </template>
 
@@ -15,12 +18,30 @@
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                editingState: 'editingState',
+                dataInEditMode: 'dataInEditMode'
+            }),
+            isBeingEdited: function () {
+                if (this.dataInEditMode) {
+                    return this.dataInEditMode.id === this.productData.data.id
+                } else {
+                    return false
+                }
+            }
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({ toggleProductEditMode: 'toggleProductEditMode' }),
+            ...mapActions({}),
+            handleClickEvent: function () {
+                if (!this.isBeingEdited) {
+                    this.toggleProductEditMode()
+                    setTimeout(() => {
+                        this.toggleProductEditMode(this.productData.data)
+                    }, 1)
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },

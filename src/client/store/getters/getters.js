@@ -52,6 +52,9 @@ export default {
     regCompletionFlag: regCompletionFlag,
     // admin page vertical menu
     adminMenu: (state) => { return state.adminMenu },
+    // product edit mode related
+    editingState: (state) => { return state.productEditMode.state },
+    dataInEditMode: (state) => { return state.productEditMode.productData },
     // //////////////////////////////////////////////////////////
     // pending deprecation //////////////////////////////////////
     // //////////////////////////////////////////////////////////
