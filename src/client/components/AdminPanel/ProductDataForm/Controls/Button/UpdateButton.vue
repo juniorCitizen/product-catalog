@@ -1,0 +1,40 @@
+<template>
+    <p class="control">
+        <button class="button is-success"
+                :disabled="ajaxRequestPending"
+                @click="$emit('updateRecordEvent')">
+            更新記錄
+        </button>
+    </p>
+</template>
+
+<script>
+    import { mapActions, mapGetters, mapMutations } from 'vuex'
+
+    export default {
+        name: 'update-button',
+        components: {},
+        props: [],
+        data: function () {
+            return {}
+        },
+        computed: {
+            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' })
+        },
+        watch: {},
+        methods: {
+            ...mapMutations({}),
+            ...mapActions({})
+        },
+        beforeCreate: function () { },
+        created: function () { },
+        beforeMount: function () { },
+        mounted: function () { },
+        beforeUpdate: function () { },
+        updated: function () { },
+        beforeDestroy: function () { },
+        destroyed: function () { }
+    }
+</script>
+
+<style scoped></style>

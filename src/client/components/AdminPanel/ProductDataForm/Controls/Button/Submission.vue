@@ -1,36 +1,35 @@
 <template>
     <div class="field is-grouped">
-        <p class="control">
-            <button class="button is-info"
-                    :disabled="!readyToSubmit||ajaxRequestPending"
-                    @click="submitProductData(masterDataSet)">
-                <template v-if="ajaxRequestPending">
-                    <span class="icon">
-                        <i class="fa fa-spinner fa-pulse"></i>
-                    </span>
-                    <span>資料傳輸中</span>
-                </template>
-                <template v-else>
-                    <span>建立資料</span>
-                </template>
-            </button>
-        </p>
-        <p class="control">
-            <button class="button is-info"
-                    :disabled="ajaxRequestPending"
-                    @click="$emit('clearForm')">
-                清除表單
-            </button>
-        </p>
+        <template v-if="!editingState">
+            <insert-button :masterDataSet="masterDataSet"
+                           :readyToSubmit="readyToSubmit"
+                           @resetFormEvent="$emit('resetFormEvent')">
+            </insert-button>
+        </template>
+        <template v-else>
+            <update-button></update-button>
+            <delete-button></delete-button>
+        </template>
+        <reset-button @resetFormEvent="$emit('resetFormEvent')"></reset-button>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import InsertButton from './InsertButton.vue'
+    import DeleteButton from './DeleteButton.vue'
+    import UpdateButton from './UpdateButton.vue'
+    import ResetButton from './ResetButton.vue'
+
     export default {
         name: 'submission',
-        components: {},
+        components: {
+            InsertButton,
+            UpdateButton,
+            DeleteButton,
+            ResetButton
+        },
         props: [
             'masterDataSet',
             'readyToSubmit'
@@ -46,26 +45,8 @@
         },
         watch: {},
         methods: {
-            ...mapMutations({ setAjaxPendingState: 'setAjaxPendingState' }),
-            ...mapActions({
-                refreshAdminMenuContent: 'refreshAdminMenuContent',
-                submitProductDataAction: 'submitProductData'
-            }),
-            submitProductData: function (masterDataSet) {
-                this.submitProductDataAction(masterDataSet)
-                    .then((apiResponse) => {
-                        this.refreshAdminMenuContent()
-                        alert(`產品【${masterDataSet.productCode}】建立完成`)
-                        this.$emit('clearForm')
-                        this.setAjaxPendingState(false)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                        alert('產品資料建立失敗!!!')
-                        this.$emit('clearForm')
-                        this.setAjaxPendingState(false)
-                    })
-            }
+            ...mapMutations({}),
+            ...mapActions({})
         },
         beforeCreate: function () { },
         created: function () { },

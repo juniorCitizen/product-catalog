@@ -8,7 +8,7 @@
         </div>
         <submission :readyToSubmit="readyToSubmit"
                     :masterDataSet="masterDataSet"
-                    @clearForm="resetData">
+                    @resetFormEvent="resetData">
         </submission>
         <product-series :masterValue="productSeriesId"
                         @productSeriesIdSelection="productSeriesId=$event"
@@ -87,7 +87,8 @@
                     !(this.productType === 'unselected') &&
                     !(this.productCode === '') &&
                     !(this.productName === '') &&
-                    !((this.primaryPhoto === null) || (this.primaryPhoto === undefined))
+                    !((this.primaryPhoto === null) || (this.primaryPhoto === undefined)) &&
+                    !((this.secondaryPhotos === null) || (this.secondaryPhotos === undefined))
                 )
             },
             masterDataSet: function () {
