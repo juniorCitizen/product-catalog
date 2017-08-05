@@ -5,6 +5,7 @@ import eVars from '../../../server/config/environment'
 
 import userRegistration from './userRegistration'
 import submitProductData from './submitProductData'
+import deleteProductData from './deleteProductData'
 import serviceLocations from './serviceLocations'
 import staffContactInfo from './staffContactInfo'
 import mockAdminMenuRoot from './mockAdminMenuRoot'
@@ -20,6 +21,7 @@ export default {
     fetchRegionData: fetchRegionData,
     userRegistration: userRegistration,
     submitProductData: submitProductData,
+    deleteProductData: deleteProductData,
     refreshAdminMenuContent: refreshAdminMenuContent
 }
 

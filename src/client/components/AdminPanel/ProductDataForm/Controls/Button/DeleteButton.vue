@@ -2,7 +2,7 @@
     <p class="control">
         <button class="button is-danger"
                 :disabled="ajaxRequestPending"
-                @click="$emit('deleteRecordEvent')">
+                @click="deleteRecord">
             刪除記錄
         </button>
     </p>
@@ -19,12 +19,37 @@
             return {}
         },
         computed: {
-            ...mapGetters({ ajaxRequestPending: 'ajaxRequestPending' })
+            ...mapGetters({
+                ajaxRequestPending: 'ajaxRequestPending',
+                dataInEditMode: 'dataInEditMode'
+            })
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({
+                setAjaxPendingState: 'setAjaxPendingState',
+                toggleProductEditMode: 'toggleProductEditMode'
+            }),
+            ...mapActions({
+                deleteProductData: 'deleteProductData',
+                refreshAdminMenuContent: 'refreshAdminMenuContent'
+            }),
+            deleteRecord: function () {
+                let workingItemCode = this.dataInEditMode.itemCode
+                this.deleteProductData(this.dataInEditMode.id)
+                    .then(() => {
+                        this.refreshAdminMenuContent()
+                        alert(`資料【${workingItemCode}】刪除成功`)
+                        this.toggleProductEditMode()
+                        this.setAjaxPendingState(false)
+                    })
+                    .catch((error) => {
+                        alert(`資料【${workingItemCode}】刪除失敗`)
+                        console.log(error)
+                        this.toggleProductEditMode(this.dataInEditMode)
+                        this.setAjaxPendingState(false)
+                    })
+            }
         },
         beforeCreate: function () { },
         created: function () { },

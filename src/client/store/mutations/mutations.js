@@ -48,8 +48,12 @@ function toggleProductEditMode(state, payload = null) {
         state.productEditMode.state = false
         state.productEditMode.productData = null
     } else {
-        state.productEditMode.state = true
-        state.productEditMode.productData = payload
+        state.productEditMode.state = false
+        state.productEditMode.productData = null
+        setTimeout(() => {
+            state.productEditMode.state = true
+            state.productEditMode.productData = payload
+        }, 1)
     }
 }
 

@@ -1,6 +1,6 @@
 <template>
     <p class="control">
-        <button class="button is-warning"
+        <button class="button is-danger"
                 :disabled="ajaxRequestPending"
                 @click="resetButtonPressed">
             <span v-if="!editingState">表單重設</span>
