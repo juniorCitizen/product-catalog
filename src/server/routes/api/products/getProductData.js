@@ -9,7 +9,12 @@ function getProductData(req, res, next) {
                 { model: db.Descriptions },
                 { model: db.Photos, attributes: { exclude: ['photoData'] } }
             ]
-        }]
+        }],
+        order: [
+            ['id'],
+            [db.Products, 'itemCode'],
+            [db.Products, db.Photos, 'primaryImage', 'DESC']
+        ]
     }
     return db.Series.findAll(queryFilter)
         .then((productRecords) => {

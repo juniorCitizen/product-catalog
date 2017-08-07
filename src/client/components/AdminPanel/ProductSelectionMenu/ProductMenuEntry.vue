@@ -1,6 +1,6 @@
 <template>
     <li>
-        <a :class="{'is-active':isBeingEdited}"
+        <a :class="{'is-active':isBeingEdited,'is-disabled':ajaxRequestPending}"
            @click="handleClickEvent">
             {{ productData.title }}
         </a>
@@ -19,8 +19,9 @@
         },
         computed: {
             ...mapGetters({
-                editingState: 'editingState',
-                dataInEditMode: 'dataInEditMode'
+                ajaxRequestPending: 'ajaxRequestPending',
+                dataInEditMode: 'dataInEditMode',
+                editingState: 'editingState'
             }),
             isBeingEdited: function () {
                 if (this.dataInEditMode) {
@@ -36,10 +37,7 @@
             ...mapActions({}),
             handleClickEvent: function () {
                 if (!this.isBeingEdited) {
-                    this.toggleProductEditMode()
-                    setTimeout(() => {
-                        this.toggleProductEditMode(this.productData.data)
-                    }, 1)
+                    this.toggleProductEditMode(this.productData.data)
                 }
             }
         },
@@ -54,4 +52,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    a.is-disabled {
+        pointer-events: none;
+    }
+</style>

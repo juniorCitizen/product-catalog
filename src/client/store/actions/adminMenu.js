@@ -21,6 +21,7 @@ export function refreshAdminMenuContent(context) {
         .catch((error) => {
             context.commit('registerProductSeriesData', { productSeriesData: [] })
             context.commit('registerProductCatalogData', { productCatalogData: [] })
+            context.commit('registerAdminProductMenu', { adminMenuRootData: [] })
             console.log(error)
         })
 }
