@@ -58,6 +58,11 @@ export default {
     // //////////////////////////////////////////////////////////
     // pending deprecation //////////////////////////////////////
     // //////////////////////////////////////////////////////////
+    // viewport information
+    // windowInnerWidth: (state) => { return state.windowInnerWidth },
+    // windowInnerHeight: (state) => { return state.windowInnerHeight },
+    // clientWidth: (state) => { return state.clientWidth },
+    // clientHeight: (state) => { return state.clientHeight },
     // resettingUserData: (state) => { return state.resettingUserData }, // pending deprecation
     registeredUserInfo: (state) => { return state.registeredUserInfo }, // pending deprecation
     alreadyRegistered: (state) => { return state.alreadyRegistered }, // pending deprecation

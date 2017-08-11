@@ -38,32 +38,19 @@
 
 <style scoped>
     div.hero-body {
-        height: 530px;
         overflow: scroll;
         overflow-x: hidden;
     }
 
      ::-webkit-scrollbar {
-        width: 0px;
         /* remove scrollbar space */
-        background: transparent;
+        width: 0px;
         /* optional: just make scrollbar invisible */
+        background: transparent;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    /* optional: show position indicator in red */
-
      ::-webkit-scrollbar-thumb {
+        /* optional: show position indicator in red */
         background: #FF0000;
     }
 </style>

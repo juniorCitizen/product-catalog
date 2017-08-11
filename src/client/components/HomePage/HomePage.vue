@@ -43,8 +43,7 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({})
-        },
-        mounted: function () { }
+        }
     }
 </script>
 

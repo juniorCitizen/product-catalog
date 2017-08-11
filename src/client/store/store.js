@@ -61,6 +61,12 @@ const store = new Vuex.Store({
             country: 'Country',
             comments: ''
         }
+        // ,
+        // viewport information
+        // windowInnerWidth: 0,
+        // windowInnerHeight: 0,
+        // clientWidth: 0,
+        // clientHeight: 0,
     }
 })
 

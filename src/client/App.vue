@@ -44,11 +44,27 @@
         methods: {
             ...mapMutations({
                 switchMobileNavMode: 'switchMobileNavMode',
-                switchView: 'switchView'
+                switchView: 'switchView',
+                registerWindowInnerWidth: 'registerWindowInnerWidth',
+                registerWindowInnerHeight: 'registerWindowInnerHeight',
+                registerClientWidth: 'registerClientWidth',
+                registerClientHeight: 'registerClientHeight'
             }),
             ...mapActions({
                 appInit: 'appInit'
             })
+            // ,getWindowInnerWidth: function () {
+            //     this.registerWindowInnerWidth((window.innerWidth || 0))
+            // },
+            // getWindowInnerHeight: function () {
+            //     this.registerWindowInnerHeight((window.innerHeight || 0))
+            // },
+            // getClientWidth: function () {
+            //     this.registerClientWidth(document.documentElement.clientWidth)
+            // },
+            // getClientHeight: function () {
+            //     this.registerClientHeight(document.documentElement.clientHeight)
+            // }
         },
         beforeCreate: function () { },
         created: function () {
@@ -57,10 +73,25 @@
         beforeMount: function () { },
         mounted: function () {
             this.switchView(this.$route.name)
+            // this.$nextTick(() => {
+            //     window.addEventListener('resize', this.getWindowInnerWidth)
+            //     window.addEventListener('resize', this.getWindowInnerHeight)
+            //     window.addEventListener('resize', this.getClientWidth)
+            //     window.addEventListener('resize', this.getClientHeight)
+            //     this.getWindowInnerWidth()
+            //     this.getWindowInnerHeight()
+            //     this.getClientWidth()
+            //     this.getClientHeight()
+            // })
         },
         beforeUpdate: function () { },
         updated: function () { },
-        beforeDestroy: function () { },
+        beforeDestroy: function () {
+            // window.removeEventListener('resize', this.getWindowInnerWidth)
+            // window.removeEventListener('resize', this.getWindowInnerHeight)
+            // window.removeEventListener('resize', this.getClientWidth)
+            // window.removeEventListener('resize', this.getClientHeight)
+        },
         destroyed: function () { }
     }
 </script>

@@ -40,6 +40,11 @@ export default {
     // /////////////////////////////////
     // pending deprecation /////////////
     // /////////////////////////////////
+    // viewport information
+    // registerWindowInnerWidth: (state, windowInnerWidth) => { state.windowsInnerWidth = windowInnerWidth },
+    // registerWindowInnerHeight: (state, windowsInnerHeight) => { state.windowsInnerHeight = windowsInnerHeight },
+    // registerClientWidth: (state, clientWidth) => { state.clientWidth = clientWidth },
+    // registerClientHeight: (state, clientHeight) => { state.clientHeight = clientHeight },
     markRegisteredSession: markRegisteredSession // pending deprecation
 }
 
@@ -86,6 +91,10 @@ function resetStore(state) {
         state: false,
         productData: null
     }
+    state.windowInnerWidth = 0
+    state.windowInnerHeight = 0
+    state.clientWidth = 0
+    state.clientHeight = 0
     // state.resettingUserData = false // pending deprecation
     state.alreadyRegistered = false // pending deprecation
     state.registeredUserInfo = { // pending deprecation
