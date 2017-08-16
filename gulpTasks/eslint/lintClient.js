@@ -4,7 +4,8 @@ require('dotenv').config()
 
 module.exports = (gulp, plugins) => {
     return () => {
-        return gulp.src([
+        return gulp
+            .src([
                 './src/client/**/*.js',
                 './src/client/**/*.vue'
             ])

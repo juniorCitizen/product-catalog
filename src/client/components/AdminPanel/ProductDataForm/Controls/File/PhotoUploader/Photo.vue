@@ -1,5 +1,7 @@
 <template>
-    <img :src="src">
+    <img :src="src"
+         :class="{'marked-for-removal':markedForRemoval}"
+         @click="photoClickEvent">
 </template>
 
 <script>
@@ -14,8 +16,10 @@
         ],
         data: function () {
             return {
+                markedForRemoval: false,
                 src: null,
-                apiUrlPrefix: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/photos/streaming?photoId=`
+                // apiUrlPrefix: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/photos/streaming?photoId=`
+                apiUrlPrefix: `${this.$eVars.HOST}/${this.$eVars.SYS_REF}/api/photos/streaming?photoId=`
             }
         },
         computed: {
@@ -23,20 +27,30 @@
         },
         watch: {
             photoFile: function (updatedPhotoFile) {
-                if (!this.editingState || (this.editingState && this.revokeState)) {
+                // if (!this.editingState || (this.editingState && this.revokeState)) {
+                if (updatedPhotoFile.id === undefined) { // 'id' property undefined means it's an uploaded item
                     let fileReader = new FileReader()
                     fileReader.onload = (event) => {
                         this.src = event.target.result
                     }
                     fileReader.readAsDataURL(updatedPhotoFile)
-                } else {
+                } else { // 'id' property exists meaning it's an existing database stored photo
                     this.src = `${this.apiUrlPrefix}${updatedPhotoFile.id}`
                 }
             }
         },
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({}),
+            photoClickEvent: function () {
+                if (this.markedForRemoval) {
+                    this.$emit('restorePhoto')
+                    this.markedForRemoval = false
+                } else {
+                    this.$emit('removePhoto')
+                    this.markedForRemoval = true
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },
@@ -59,4 +73,13 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    img.marked-for-removal {
+        opacity: 0.2;
+        border: 1px solid red;
+    }
+
+    img:hover {
+        transform: scale(1.1);
+    }
+</style>

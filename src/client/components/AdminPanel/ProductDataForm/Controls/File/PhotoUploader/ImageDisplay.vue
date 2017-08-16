@@ -9,7 +9,9 @@
                      v-for="columnIndex in columnCount(rowIndex)"
                      :key="columnIndex">
                     <photo :photoFile="imageList[imageIndex(rowIndex,columnIndex)]"
-                           :revokeState="revokeState">
+                           :revokeState="revokeState"
+                           @restorePhoto="restorePhoto(imageIndex(rowIndex,columnIndex))"
+                           @removePhoto="removePhoto(imageIndex(rowIndex,columnIndex))">
                     </photo>
                 </div>
             </div>
@@ -31,13 +33,13 @@
         ],
         data: function () {
             return {
-                // available settings
-                // cellCount: 12, sizingClass: 'is-1' // smallest
-                // cellCount: 6, sizingClass: 'is-2'
-                // cellCount: 4, sizingClass: 'is-3'
-                // cellCount: 3, sizingGlass: 'is-4'
-                // cellCount: 2, sizingGlass: 'is-6'
-                // cellCount: 1, sizingGlass: '' // largest
+                // possible settings
+                // {cellCount: 12, sizingClass: 'is-1'} // smallest
+                // {cellCount: 6, sizingClass: 'is-2'}
+                // {cellCount: 4, sizingClass: 'is-3'}
+                // {cellCount: 3, sizingGlass: 'is-4'}
+                // {cellCount: 2, sizingGlass: 'is-6'}
+                // {cellCount: 1, sizingGlass: ''} // largest
                 photoCellsPerRow: {
                     cellCount: 6,
                     sizingClass: 'is-2'
@@ -64,6 +66,14 @@
             },
             imageIndex: function (rowIndex, columnIndex) {
                 return ((rowIndex - 1) * this.photoCellsPerRow.cellCount) + (columnIndex - 1)
+            },
+            restorePhoto: function (index) {
+                this.$emit('restorePhoto', index)
+                // delete this.imageList[index].removed
+            },
+            removePhoto: function (index) {
+                this.$emit('removePhoto', index)
+                // this.imageList[index].removed = true
             }
         },
         beforeCreate: function () { },

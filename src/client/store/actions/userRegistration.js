@@ -9,7 +9,8 @@ export default (context) => {
     if (getters.readyToRegister) {
         let axiosOptions = {
             method: 'post',
-            url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/users`,
+            // url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/users`,
+            url: `${eVars.HOST}/${eVars.SYS_REF}/api/users`,
             data: {
                 company: getters.userCompany,
                 name: getters.userName,

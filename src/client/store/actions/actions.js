@@ -11,7 +11,8 @@ import staffContactInfo from './staffContactInfo'
 import mockAdminMenuRoot from './mockAdminMenuRoot'
 import { refreshAdminMenuContent } from './adminMenu'
 
-const urlPrefix = `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}`
+// const urlPrefix = `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}`
+const urlPrefix = `${eVars.HOST}/${eVars.SYS_REF}`
 
 export default {
     appInit: appInit,

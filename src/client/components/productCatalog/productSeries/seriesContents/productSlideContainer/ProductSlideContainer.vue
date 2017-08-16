@@ -68,7 +68,7 @@
         data: function () {
             return {
                 host: this.$eVars.HOST,
-                port: this.$eVars.PORT,
+                // port: this.$eVars.PORT,
                 sysRef: this.$eVars.SYS_REF,
                 displayCount: 4,
                 productList: [],
@@ -83,7 +83,8 @@
                 } else {
                     let slideInProductIndex = this.productList[0].productIndexInSeries === 0 ? (this.products.length - 1) : (this.productList[0].productIndexInSeries - 1)
                     return {
-                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.products[slideInProductIndex].photos[0].id}`,
+                        // imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.products[slideInProductIndex].photos[0].id}`,
+                        imagePath: `${this.host}/${this.sysRef}/api/photos/streaming?photoId=${this.products[slideInProductIndex].photos[0].id}`,
                         itemCode: this.products[slideInProductIndex].itemCode,
                         productIndexInSeries: slideInProductIndex
                     }
@@ -95,7 +96,8 @@
                 } else {
                     let slideInProductIndex = this.productList[(this.displayCount - 1)].productIndexInSeries < (this.products.length - 1) ? (this.productList[(this.displayCount - 1)].productIndexInSeries + 1) : 0
                     return {
-                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.products[slideInProductIndex].photos[0].id}`,
+                        // imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.products[slideInProductIndex].photos[0].id}`,
+                        imagePath: `${this.host}/${this.sysRef}/api/photos/streaming?photoId=${this.products[slideInProductIndex].photos[0].id}`,
                         itemCode: this.products[slideInProductIndex].itemCode,
                         productIndexInSeries: slideInProductIndex
                     }
@@ -113,7 +115,8 @@
             for (let productIndex = 0; productIndex < this.displayCount; productIndex++) {
                 if (productIndex < (this.products.length)) {
                     this.productList.push({
-                        imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.products[productIndex].photos[0].id}`,
+                        // imagePath: `${this.host}:${this.port}/${this.sysRef}/api/photos/streaming?photoId=${this.products[productIndex].photos[0].id}`,
+                        imagePath: `${this.host}/${this.sysRef}/api/photos/streaming?photoId=${this.products[productIndex].photos[0].id}`,
                         itemCode: this.products[productIndex].itemCode,
                         productIndexInSeries: productIndex
                     })

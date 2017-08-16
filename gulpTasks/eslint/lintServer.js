@@ -4,7 +4,8 @@ require('dotenv').config()
 
 module.exports = (gulp, plugins) => {
     return () => {
-        return gulp.src([
+        return gulp
+            .src([
                 'src/server/**/*.js'
             ])
             .pipe(plugins.if(process.env.NODE_ENV === 'development', plugins.print()))

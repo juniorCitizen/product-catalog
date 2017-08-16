@@ -17,8 +17,8 @@
         props: [],
         data: function () {
             return {
-                hostUrl: `${this.$eVars.HOST}:${this.$eVars.PORT}`,
-                logoUrl: `${this.$eVars.HOST}:${this.$eVars.PORT}/assets/images/gentryLogo.png`
+                hostUrl: `${this.$eVars.HOST}`,
+                logoUrl: `${this.$eVars.HOST}/assets/images/gentryLogo.png`
             }
         },
         computed: {

@@ -7,7 +7,9 @@
             </insert-button>
         </template>
         <template v-else>
-            <update-button></update-button>
+            <update-button :masterDataSet="masterDataSet"
+                           :readyToSubmit="readyToSubmit">
+            </update-button>
             <delete-button></delete-button>
         </template>
         <reset-button @resetFormEvent="$emit('resetFormEvent')"></reset-button>

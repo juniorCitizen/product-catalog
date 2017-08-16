@@ -74,7 +74,8 @@
                     let alpha3Code = this.countries.filter((country) => {
                         return country.name === this.countryInStore
                     })[0].alpha3Code
-                    return `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/countries/flags?country=${alpha3Code.toLowerCase()}`
+                    // return `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}/api/countries/flags?country=${alpha3Code.toLowerCase()}`
+                    return `${this.$eVars.HOST}/${this.$eVars.SYS_REF}/api/countries/flags?country=${alpha3Code.toLowerCase()}`
                 }
             },
             flagSize: function () {

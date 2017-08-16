@@ -18,6 +18,7 @@ const cannedMessage = {
 module.exports = {
     image: imageResponse,
     streamImage: streamImageResponse,
+    file: fileResponse,
     json: jsonResponse,
     template: templateResponse
 }
@@ -42,7 +43,7 @@ function templateResponse(args) {
     return args.pendingResponse
         .status(args.statusCode)
         .render(
-            args.reference,
+            args.viewToRender,
             args.data
         )
 }
@@ -97,4 +98,11 @@ function streamImageResponse(args) {
         .status(args.statusCode)
         .type(args.mimeType)
         .send(args.dataBuffer)
+}
+
+function fileResponse(args) {
+    return args.pendingResponse
+        .status(args.statusCode)
+        .type(args.mimeType)
+        .sendFile(args.filePath)
 }

@@ -16,8 +16,15 @@
         <div v-if="files"
              class="box">
             <image-display :imageList="files"
-                           :revokeState="revokeState"></image-display>
+                           :revokeState="revokeState"
+                           @restorePhoto="restorePhoto($event)"
+                           @removePhoto="removePhoto($event)">
+            </image-display>
         </div>
+        <span v-if="files"
+              class="tag is-warning">
+            點選圖片刪除
+        </span>
     </div>
 </template>
 
@@ -89,6 +96,12 @@
                     this.files = null
                     this.revokeState = true
                 }
+            },
+            restorePhoto: function (index) {
+                this.$emit('restorePhoto', index)
+            },
+            removePhoto: function (index) {
+                this.$emit('removePhoto', index)
             }
         },
         beforeCreate: function () { },

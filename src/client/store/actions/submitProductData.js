@@ -19,7 +19,8 @@ export default (context, payload) => {
     // console.log(productData)
     let axiosOptions = {
         method: 'post',
-        url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`,
+        // url: `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}/api/products`,
+        url: `${eVars.HOST}/${eVars.SYS_REF}/api/products`,
         data: productData,
         headers: { 'Content-Type': 'multipart/form-data' }
     }

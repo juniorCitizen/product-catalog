@@ -20,11 +20,13 @@ gulp.task('realignDistStructure', gulp.parallel(
 gulp.task('catalog', require('./gulpTasks/assets/catalog')(gulp, plugins))
 gulp.task('cssPlaceholder', require('./gulpTasks/assets/cssPlaceholder')(gulp, plugins))
 gulp.task('index.html', require('./gulpTasks/assets/index.html')(gulp, plugins))
+gulp.task('hbs', require('./gulpTasks/assets/hbs')(gulp, plugins))
 gulp.task('favicon', require('./gulpTasks/assets/favicon')(gulp, plugins))
 gulp.task('images', require('./gulpTasks/assets/images')(gulp, plugins))
 gulp.task('flags', require('./gulpTasks/assets/flags')(gulp, plugins))
 gulp.task('prepAssets', gulp.parallel(
     'index.html',
+    'hbs',
     'images',
     'flags',
     'favicon',

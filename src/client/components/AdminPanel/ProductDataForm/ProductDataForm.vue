@@ -25,11 +25,15 @@
         </product-description>
         <photo-uploader :config="primaryImageUploaderConfig"
                         :masterValue="primaryPhoto"
-                        @photoListUpdated="primaryPhoto=$event">
+                        @photoListUpdated="primaryPhoto=$event"
+                        @restorePhoto="restorePrimaryPhoto($event)"
+                        @removePhoto="removePrimaryPhoto($event)">
         </photo-uploader>
         <photo-uploader :config="secondaryImagesUploaderConfig"
                         :masterValue="secondaryPhotos"
-                        @photoListUpdated="secondaryPhotos=$event">
+                        @photoListUpdated="secondaryPhotos=$event"
+                        @restorePhoto="restoreSecondaryPhoto($event)"
+                        @removePhoto="removeSecondaryPhoto($event)">
         </photo-uploader>
     </div>
 </template>
@@ -87,7 +91,7 @@
                     !(this.productType === 'unselected') &&
                     !(this.productCode === '') &&
                     !(this.productName === '') &&
-                    !((this.primaryPhoto === null) || (this.primaryPhoto === undefined)) &&
+                    !((this.primaryPhoto === null) || (this.primaryPhoto === undefined) || (this.primaryPhoto[0].removed)) &&
                     !((this.secondaryPhotos === null) || (this.secondaryPhotos === undefined))
                 )
             },
@@ -124,6 +128,18 @@
                     this.primaryPhoto = null
                     this.secondaryPhotos = null
                 }, 5)
+            },
+            restorePrimaryPhoto: function (photoIndex) {
+                this.primaryPhoto[photoIndex].removed = true
+            },
+            removePrimaryPhoto: function (photoIndex) {
+                delete this.primaryPhoto[photoIndex].removed
+            },
+            restoreSecondaryPhoto: function (photoIndex) {
+                this.secondaryPhoto[photoIndex].removed = true
+            },
+            removeSecondaryPhoto: function (photoIndex) {
+                delete this.secondaryPhoto[photoIndex].removed
             }
         },
         beforeCreate: function () { },

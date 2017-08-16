@@ -26,7 +26,8 @@
         ],
         data: function () {
             return {
-                apiUrlPrefix: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}`
+                // apiUrlPrefix: `${this.$eVars.HOST}:${this.$eVars.PORT}/${this.$eVars.SYS_REF}`
+                apiUrlPrefix: `${this.$eVars.HOST}/${this.$eVars.SYS_REF}`
             }
         },
         computed: {
