@@ -1,25 +1,25 @@
 {
-    "plugins": [
-        "html",
-        "import",
-        "node",
-        "promise",
-        "standard"
-    ],
-    "extends": [
-        "plugin:import/recommended",
-        "plugin:node/recommended",
-        "plugin:promise/recommended",
-        "standard"
-    ],
     "env": {
         "browser": true,
         "node": true,
         "jquery": true,
         "commonjs": true,
-        "es6": true,
-        "jasmine": true
+        "jasmine": true,
+        "es6": true
     },
+    "extends": [
+        "plugin:import/recommended",
+        "plugin:node/recommended",
+        // "plugin:promise/recommended",
+        "standard"
+    ],
+    "plugins": [
+        "html",
+        "import",
+        "node",
+        // "promise",
+        "standard"
+    ],
     "root": true,
     "parser": "babel-eslint",
     "parserOptions": {
@@ -40,18 +40,10 @@
         //     "warn",
         //     "always"
         // ],
-        // "brace-style": [
-        //     "error",
-        //     "1tbs",
-        //     {
-        //         "allowSingleLine": true
-        //     }
-        // ],
+        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
         "camelcase": "off",
-        "comma-dangle": [
-            "error",
-            "never"
-        ],
+        "comma-dangle": ["error", "never"],
+        "comma-spacing": ["error", { "before": false, "after": true }],
         // "computed-property-spacing": [
         //     "error",
         //     "never"
@@ -60,9 +52,9 @@
         //     "warn",
         //     "always"
         // ],
-        "guard-for-in": "off",
-        "indent": ["error", 4],
-        "linebreak-style": ["error", "unix"],
+        // "guard-for-in": "off",
+        "indent": ["warn", 4],
+        // "linebreak-style": ["error", "unix"],
         // "max-len": "off",
         // "new-cap": [
         //     "error",
@@ -77,12 +69,12 @@
         // ],
         // "newline-after-var": "off",
         // "no-console": "off",
-        // "no-extra-semi": "error",
-        "no-invalid-this": "off",
-        "no-undef": "error",
-        "no-unneeded-ternary": "off",
-        "no-unused-vars": "warn",
-        "no-var": "warn",
+        "no-extra-semi": "error",
+        // "no-invalid-this": "off",
+        // "no-undef": "error",
+        // "no-unneeded-ternary": "off",
+        // "no-unused-vars": "warn",
+        // "no-var": "warn",
         // "object-curly-spacing": [
         //     "error",
         //     "always",
@@ -91,7 +83,7 @@
         //         "objectsInObjects": true
         //     }
         // ],
-        "quotes": ["error", "single"],
+        // "quotes": ["error", "single"],
         // "require-jsdoc": "off",
         // "space-before-blocks": [
         //     "error",
@@ -112,10 +104,11 @@
         //     "error",
         //     "safe"
         // ],
+        // "promise/avoid-new": "off",
         "import/default": "off",
         "import/unambiguous": "off",
-        // "node/exports-style": "off",
-        // "node/no-unpublished-require": "off",
+        "node/exports-style": "off",
+        "node/no-unpublished-require": "off",
         "node/no-unsupported-features": "off"
     }
 }
