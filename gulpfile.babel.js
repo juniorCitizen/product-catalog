@@ -32,9 +32,11 @@ gulp.task('realignDistStructure', gulp.parallel(
 ))
 
 // asset preparations
+gulp.task('restoreDatabase', requireTaskPath('/backup/restoreDatabase'))
 gulp.task('commonAssets', requireTaskPath('/assets/commonAssets'))
 gulp.task('hbsTemplates', requireTaskPath('/assets/hbsTemplates'))
 gulp.task('prepAssets', gulp.parallel(
+    'restoreDatabase',
     'commonAssets',
     'hbsTemplates'
 ))
@@ -45,7 +47,7 @@ gulp.task('lintServerSideCode', requireTaskPath('/eslint/lintServerSideCode'))
 gulp.task('lintFullSource', requireTaskPath('/eslint/lintFullSource'))
 
 // server preperation task routines
-gulp.task('prepDevServer', gulp.series(
+gulp.task('prepServer', gulp.series(
     'backup',
     'realignDistStructure',
     gulp.parallel(
@@ -58,3 +60,6 @@ gulp.task('prepDevServer', gulp.series(
 gulp.task('watchTemplates', requireTaskPath('/devServer/watchTemplates'))
 gulp.task('nodemon', requireTaskPath('/devServer/nodemon'))
 gulp.task('startBrowser', requireTaskPath('/devServer/startBrowser'))
+
+// build production server package
+gulp.task('buildServer', requireTaskPath('/transpile/buildServer'))

@@ -1,8 +1,6 @@
 <template>
     <div id="app">
-        <div>
-            {{test}}
-        </div>
+        {{ test }}
     </div>
 </template>
 
@@ -17,9 +15,7 @@
             return {}
         },
         computed: {
-            ...mapGetters({
-                test: 'test'
-            })
+            ...mapGetters({ test: 'test' })
         },
         watch: {},
         methods: {

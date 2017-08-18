@@ -44,7 +44,15 @@ router
             pendingResponse: res,
             statusCode: 200,
             mimeType: 'image/png',
-            imagePath: path.resolve(`./dist/server/static/${process.env.SYS_REF}/assets/gentryLogo.png`)
+            imagePath: path.resolve(`./dist/server/client/assets/gentryLogo.png`)
+        })
+    })
+    .get('/assets/gentryLogoSmall.png', (req, res) => {
+        return routerResponse.image({
+            pendingResponse: res,
+            statusCode: 200,
+            mimeType: 'image/png',
+            imagePath: path.resolve(`./dist/server/client/assets/gentryLogoSmall.png`)
         })
     })
 

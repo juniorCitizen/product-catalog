@@ -10,7 +10,7 @@ const babelOptions = {
 
 module.exports = (gulp, plugins) => {
     return () => {
-        let transpile = gulp.src('./src/backend/**/*.js')
+        let transpile = gulp.src('./src/server/**/*.js')
         // TODO check if source map is actually working...
         if (process.env.NODE_ENV !== 'production') {
             transpile
