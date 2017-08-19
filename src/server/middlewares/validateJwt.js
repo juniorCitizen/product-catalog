@@ -6,7 +6,7 @@ import eVars from '../config/environment'
 import routerResponse from '../controllers/routerResponse'
 
 module.exports = (request, response, next) => {
-    if (eVars.VALIDATE !== 'enforced') {
+    if (!eVars.ENFORCE_VALIDATION) {
         console.log(chalk.red('SYSTEM IS CONFIGURED TO SKIP TOKEN VALIDATION !!!'))
         next()
     } else {

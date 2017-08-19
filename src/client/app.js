@@ -12,7 +12,7 @@ import mutations from './store/mutations/mutations'
 import routes from './routes'
 
 import Axios from './plugins/axios'
-// import EVars from './plugins/eVars'
+import EVars from './plugins/eVars'
 // import { MediaQueries } from './plugins/mediaQueries'
 // import ResponsiveBands from './mixins/responsiveBands'
 import App from './components/App.vue'
@@ -23,7 +23,7 @@ Vue.use(VueRouter)
 Vue.use(Vuetify)
 Vue.use(Vuex)
 Vue.use(Axios, '$axios')
-// Vue.use(EVars, '$eVars')
+Vue.use(EVars, '$eVars')
 // Vue.use(mediaQueries)
 // Vue.mixin(ResponsiveBands.mixin)
 
@@ -38,7 +38,14 @@ const store = new Vuex.Store({
     mutations: mutations,
     state: {
         // routing
-        routes: routes
+        routes: routes,
+        // api recordsets
+        companyStaffMembers: [],
+        series: [],
+        productsBySeries: [],
+        regions: [],
+        countries: [],
+        officeLocations: []
     }
 })
 

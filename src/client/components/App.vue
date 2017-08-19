@@ -43,10 +43,12 @@
         watch: {},
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({ appInit: 'appInit' })
         },
         beforeCreate: function () { },
-        created: function () { },
+        created: function () {
+            this.appInit()
+        },
         beforeMount: function () { },
         mounted: function () { },
         beforeUpdate: function () { },

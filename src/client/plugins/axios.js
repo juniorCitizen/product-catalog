@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-    install: (Vue, name = '$http') => {
+    install: (Vue, name = '$axios') => {
         Object.defineProperty(Vue.prototype, name, { value: axios })
     }
 }

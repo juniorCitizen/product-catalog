@@ -1,28 +1,31 @@
 module.exports = (sequelize, DataTypes) => {
-    const Users = sequelize.define('users', {
-        email: {
-            type: DataTypes.STRING,
+    const OfficeLocations = sequelize.define('officeLocations', {
+        id: {
+            type: DataTypes.INTEGER,
             primaryKey: true,
-            validate: { isEmail: true }
+            autoIncrement: true
         },
-        name: {
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        address: {
             type: DataTypes.STRING,
             allowNull: false
         },
         countryId: {
             type: DataTypes.STRING,
-            allowNull: true
-        },
-        loginId: {
-            type: DataTypes.UUID,
-            unique: true,
             allowNull: false
         },
-        password: {
+        telephone: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        salt: {
+        fax: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        website: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -42,9 +45,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         name: {
-            singular: 'user',
-            plural: 'users'
+            singular: 'officeLocations',
+            plural: 'officeLocations'
         }
     })
-    return Users
+    return OfficeLocations
 }
