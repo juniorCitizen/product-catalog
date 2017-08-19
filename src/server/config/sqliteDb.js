@@ -19,7 +19,6 @@ module.exports = { // connection object for sqlite database
         deletedAt: 'deletedAt'
     },
     // custom settings
-    // resetDatabase: eVars.NODE_ENV !== 'production', // reset database if not starting in 'production' mode
     resetDatabase: false, // do not reset
     defaultRecords: () => { // provide default entries to be written into database
         const countries = require('world-countries/dist/countries.json')

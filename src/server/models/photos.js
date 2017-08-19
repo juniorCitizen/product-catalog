@@ -2,9 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Photos = sequelize.define('photos', {
         id: {
             type: DataTypes.UUID,
-            allowNull: false,
-            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         productId: {

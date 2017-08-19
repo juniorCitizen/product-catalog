@@ -2,9 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Descriptions = sequelize.define('descriptions', {
         id: {
             type: DataTypes.UUID,
-            allowNull: false,
-            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         productId: {

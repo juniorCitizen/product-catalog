@@ -8,6 +8,7 @@ module.exports = (() => {
         LOCAL_DEV_HOST: process.env.LOCAL_DEV_HOST,
         REMOTE_DEV_HOST: process.env.REMOTE_DEV_HOST,
         PORT: process.env.PORT,
+        RESET_DB: process.env.RESET_DB,
         VALIDATE: process.env.VALIDATE,
         PASS_PHRASE: process.env.PASS_PHRASE,
         TIMEZONE: process.env.TIMEZONE,

@@ -1,6 +1,6 @@
-import Promise from 'bluebird'
 import del from 'del'
 import fs from 'fs'
+import Promise from 'bluebird'
 
 const mkdir = Promise.promisify(require('fs').mkdir)
 

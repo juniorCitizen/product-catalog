@@ -2,7 +2,6 @@ module.exports = (sequelize, DataTypes) => {
     const Series = sequelize.define('series', {
         id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },

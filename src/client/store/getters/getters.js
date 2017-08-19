@@ -1,3 +1,4 @@
 export default {
-    test: (state) => { return state.test }
+    // routing
+    routes: (state) => { return state.routes }
 }

@@ -1,16 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
-    const Countries = sequelize.define('countries', {
-        alpha3Code: {
+    const Users = sequelize.define('users', {
+        email: {
             type: DataTypes.STRING,
-            primaryKey: true
+            primaryKey: true,
+            validate: { isEmail: true }
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
-        region: {
+        loginId: {
+            type: DataTypes.UUID,
+            unique: true,
+            allowNull: false
+        },
+        password: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
+        },
+        salt: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -28,9 +38,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         name: {
-            singular: 'country',
-            plural: 'countries'
+            singular: 'user',
+            plural: 'users'
         }
     })
-    return Countries
+    return Users
 }

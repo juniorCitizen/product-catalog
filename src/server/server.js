@@ -16,7 +16,7 @@ import eVars from './config/environment'
 console.log('instantiating Express Framework...')
 const app = express()
 
-// Handlebars template engine setup
+// setup Handlebars template engine
 console.log('setup Handlebars templating engine...')
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
@@ -46,12 +46,17 @@ app.use('/productCatalog/api', apiAccessRouter)
 
 // declaration of routing and endpoint handlers
 console.log('setup end-point handlers...')
-clientAccessRouter.use('/', require('./routes/clientAccess')) // serve index.html from hbs template engin
+clientAccessRouter.use('/', require('./routes/clientAccess')) // serve index.html from hbs template engine
+
+// api routes
 apiAccessRouter.use('/products', require('./routes/products/series'))
 apiAccessRouter.use('/products', require('./routes/products/products'))
 apiAccessRouter.use('/photos', require('./routes/photos/photos'))
 apiAccessRouter.use('/countries', require('./routes/countries'))
-apiAccessRouter.use('/users', require('./routes/users'))
+apiAccessRouter.use('/registrations', require('./routes/registrations'))
+apiAccessRouter.use('/users', require('./routes/users/users'))
+apiAccessRouter.use('/token', require('./routes/token/token'))
+
 app.use('*', require('./routes/clientAccess')) // serve index.html from hbs template engin for any mismatched route requests
 
 // initializing system components

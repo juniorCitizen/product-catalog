@@ -37,7 +37,8 @@ const store = new Vuex.Store({
     getters: getters,
     mutations: mutations,
     state: {
-        test: 'this is just a test'
+        // routing
+        routes: routes
     }
 })
 
