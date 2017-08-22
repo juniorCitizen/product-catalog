@@ -3,18 +3,15 @@
 // 2. global database tables access object
 // 3. database init function
 
-import Promise from 'bluebird'
 import fs from 'fs'
 import path from 'path'
+import Promise from 'bluebird'
 import Sequelize from 'sequelize' // requires the sequalize library
 
-import config from '../config/database'
-// import eVars from '../config/environment'
+import sqliteDbConfig from '../config/sqliteDb'
 
-// initialize sequelize database object
-const sequelize = new Sequelize(config)
+const sequelize = new Sequelize(sqliteDbConfig)
 
-// create a global database access object
 const db = {
     Sequelize: Sequelize,
     sequelize: sequelize,
@@ -22,59 +19,71 @@ const db = {
 }
 
 function initialize() {
-    // dynamically load model from models directory
-    let modelPath = path.resolve('./src/server/models')
-    let modelSyncList = []
-    fs.readdirSync(modelPath) // retrieves the file list from models directory
-        .filter((fileName) => { // returns js models file list
+    // loading models from files
+    let modelFilePath = path.join(__dirname, '../models')
+    let modelInitSyncList = []
+    fs.readdirSync(modelFilePath) // read the models directory
+        .filter((fileName) => { // prep a list of js model file name
             return ((fileName.indexOf('.') !== 0) && (fileName.slice(-3) === '.js'))
-        }).forEach((fileName) => { // loop through the models list
+        })
+        .forEach((fileName) => { // loop through the models list
             // prepare the model name from the file
             let modelName = fileName.slice(0, -3).charAt(0).toUpperCase() + fileName.slice(0, -3).slice(1)
-            // register models dynamically
-            db[modelName] = require(path.join(path.resolve('./src/server/models'), fileName))(sequelize, Sequelize)
-            // check if it's a development run
-            let initDbRecordset = []
-            if (config.resetDatabase) { // if database is being resetted
+            // register models in the database controller dynamically
+            db[modelName] = require(path.join(modelFilePath, fileName))(sequelize, Sequelize)
+            // extract the available default records for the current model in the loop
+            let defaultDbRecords = null
+            if (sqliteDbConfig.resetDatabase) { // check resetDatabase flag
                 // determin if a default record set are in place
-                initDbRecordset = config.defaultRecords.filter((recordset) => {
+                defaultDbRecords = sqliteDbConfig.defaultRecords().filter((recordset) => {
                     return recordset.modelName === modelName
                 })
-            }
-            // push a model sync function into the array
-            if (initDbRecordset.length === 0) {
-                // only sync data table (reset db if in development mode)
-                modelSyncList.push(db[modelName].sync({ force: config.resetDatabase }))
-            } else {
-                // sync data table and insert default recordsets
-                modelSyncList.push(db[modelName]
-                    .sync({ force: config.resetDatabase })
-                    .then(() => {
-                        let createArray = []
-                        initDbRecordset[0].records.forEach((record) => {
-                            createArray.push(
-                                db[modelName].create(record)
-                            )
+                if (defaultDbRecords.length > 0) {
+                    // reset the data table and insert default recordsets
+                    modelInitSyncList.push(db[modelName]
+                        .sync({ force: true })
+                        .then(() => {
+                            let insertDefaultRecords = []
+                            defaultDbRecords[0].records.forEach((record) => {
+                                insertDefaultRecords.push(db[modelName].create(record))
+                            })
+                            return Promise.all(insertDefaultRecords)
                         })
-                        return Promise.all(createArray)
-                    })
-                )
+                    )
+                } else {
+                    // RESET the data table, since there are no default records available
+                    modelInitSyncList.push(db[modelName].sync({ force: true }))
+                }
+            } else {
+                // only SYNC the data table, and disregard any default records
+                modelInitSyncList.push(db[modelName].sync())
             }
         })
-
-    db.Series.hasMany(db.Products, { constraints: true })
-    db.Products.hasMany(db.Photos, { constraints: true })
-    db.Products.hasOne(db.Descriptions, { constraints: true })
-    db.Descriptions.belongsTo(db.Products, { constraints: true, sourceKey: 'productId', targetKey: 'id' })
-    db.Photos.belongsTo(db.Products, { constraints: true, sourceKey: 'productId', targetKey: 'id' })
 
     return sequelize
         .authenticate() // verify database connection
         .then(() => {
             // sync the list models found in the directory
-            return Promise.each(modelSyncList, (modalSyncPromise) => {
-                return modalSyncPromise
-            })
+            return Promise
+                .each(modelInitSyncList, (modalSyncPromise) => {
+                    return modalSyncPromise
+                })
+        })
+        .then(() => {
+            // db relations and constraints are activated after default records are written
+            db.Series.hasMany(db.Products, { constraints: true, foreignKey: 'seriesId', targetKey: 'id' })
+            db.Products.belongsTo(db.Series, { constraints: true, foreignKey: 'seriesId', targetKey: 'id' })
+            db.Products.hasMany(db.Photos, { constraints: true, foreignKey: 'productId', targetKey: 'id' })
+            db.Products.hasOne(db.Descriptions, { constraints: true, foreignKey: 'productId', targetKey: 'id' })
+            db.Photos.belongsTo(db.Products, { constraints: true, foreignKey: 'productId', targetKey: 'id' })
+            db.Descriptions.belongsTo(db.Products, { constraints: true, foreignKey: 'productId', targetKey: 'id' })
+            db.Countries.hasMany(db.Registrations, { constrains: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
+            db.Registrations.belongsTo(db.Countries, { constraints: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
+            db.Countries.hasMany(db.OfficeLocations, { constrains: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
+            db.OfficeLocations.belongsTo(db.Countries, { constraints: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
+            db.OfficeLocations.hasMany(db.Users, { constrains: true, foreignKey: 'officeLocationId', targetKey: 'id' })
+            db.Users.belongsTo(db.OfficeLocations, { constraints: true, foreignKey: 'officeLocationId', targetKey: 'id' })
+            return Promise.resolve()
         })
         .catch((error) => {
             return Promise.reject(error)

@@ -1,11 +1,19 @@
 <template>
     <div class="hero-body">
-        <div class="container has-text-centered"
-             :style="dynamicPositionStyling">
-            <companyTitle></companyTitle>
-            <br v-if="isLargeAndUp || isMediumAndUp">
-            <br v-if="isLargeAndUp">
-            <motto-text></motto-text>
+        <div class="container is-fluid has-text-centered">
+            <div class="tile is-ancestor">
+                <div class="tile is-parent is-vertical">
+                    <div class="tile is-child">
+                        <head-lines></head-lines>
+                    </div>
+                    <div class="tile is-child">
+                        <subheadings></subheadings>
+                    </div>
+                    <div class="tile is-child">
+                        <caption-text></caption-text>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -13,53 +21,59 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import MottoText from './MottoText/MottoText.vue'
-    import CompanyTitle from './CompanyTitle/CompanyTitle.vue'
+    import HeadLines from './HeadLines.vue'
+    import Subheadings from './Subheadings.vue'
+    import CaptionText from './CaptionText.vue'
 
     export default {
         name: 'home-page',
         components: {
-            CompanyTitle,
-            MottoText
+            HeadLines,
+            Subheadings,
+            CaptionText
         },
+        props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({}),
-            dynamicPositionStyling: function () {
-                if (this.isMobile) {
-                    return {
-                        'transform': 'translateY(-30px)'
-                    }
-                } else if (this.isWidescreen) {
-                    return {
-                        'margin-top': '150px',
-                        'margin-bottom': '150px'
-                    }
-                }
-            }
+            ...mapGetters({
+                windowsInnerWidth: 'windowsInnerWidth',
+                windowsInnerHeight: 'windowsInnerHeight',
+                clientWidth: 'clientWidth',
+                clientHeight: 'clientHeight',
+                headerToolbarHeight: 'headerToolbarHeight',
+                pageFooterHeight: 'pageFooterHeight'
+            })
         },
+        watch: {},
         methods: {
             ...mapMutations({}),
             ...mapActions({})
-        }
+        },
+        beforeCreate: function () { },
+        created: function () { },
+        beforeMount: function () { },
+        mounted: function () { },
+        beforeUpdate: function () { },
+        updated: function () { },
+        beforeDestroy: function () { },
+        destroyed: function () { }
     }
 </script>
 
 <style scoped>
-    /* div.container { border: 1px solid black; } */
-
     div.hero-body {
+        z-index: 0;
         animation: animate 0.8s both;
     }
 
     @keyframes animate {
         0% {
-            transform: scale(0.6);
+            transform: scale(0.6) translateY(120px);
         }
         100% {
-            transform: scale(0.8);
+            transform: scale(1) translate(0px);
         }
     }
 </style>

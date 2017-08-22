@@ -1,0 +1,55 @@
+<template>
+    <p class="subtitle is-4">
+        <template v-for="(mottoLine,arrayIndex) in mottoText">
+            <span :key="arrayIndex">
+                {{ mottoLine }}
+            </span>
+            <br :key="arrayIndex"
+                v-if="arrayIndex<=mottoText.length">
+        </template>
+    </p>
+</template>
+
+<script>
+    import { mapActions, mapGetters, mapMutations } from 'vuex'
+
+    export default {
+        name: 'subheadings',
+        components: {},
+        props: [],
+        data: function () {
+            return {
+                mottoText: [
+                    'Quality aluminium extrusion articles',
+                    'for medical, rehabilitation and recreation industries',
+                    'at competitive prices !!!'
+                ]
+            }
+        },
+        computed: {
+            ...mapGetters({})
+        },
+        watch: {},
+        methods: {
+            ...mapMutations({}),
+            ...mapActions({})
+        },
+        beforeCreate: function () { },
+        created: function () { },
+        beforeMount: function () { },
+        mounted: function () { },
+        beforeUpdate: function () { },
+        updated: function () { },
+        beforeDestroy: function () { },
+        destroyed: function () { }
+    }
+</script>
+
+<style scoped>
+    .subtitle {
+        color: darkgreen;
+        font-weight: bold;
+        font-style: italic;
+        transform: rotate(-4deg)
+    }
+</style>

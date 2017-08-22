@@ -1,14 +1,7 @@
 <template>
     <div class="hero-body">
-        <div class="container columns">
-            <span class="column is-narrow">
-                <product-selection-menu>
-                </product-selection-menu>
-            </span>
-            <span class="column">
-                <product-data-form :productToEdit="productToEdit">
-                </product-data-form>
-            </span>
+        <div class="container is-fluid has-text-centered">
+            Admin Panel
         </div>
     </div>
 </template>
@@ -16,27 +9,21 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import ProductSelectionMenu from './ProductSelectionMenu/ProductSelectionMenu.vue'
-    import ProductDataForm from './ProductDataForm/ProductDataForm.vue'
-
     export default {
         name: 'admin-panel',
-        components: {
-            ProductDataForm,
-            ProductSelectionMenu
-        },
+        components: {},
         props: [],
         data: function () {
-            return {
-                productToEdit: null
-            }
+            return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                jwt: 'jwt'
+            })
         },
         watch: {},
         methods: {
-            ...mapMutations({ toggleProductEditMode: 'toggleProductEditMode' }),
+            ...mapMutations({}),
             ...mapActions({})
         },
         beforeCreate: function () { },
@@ -46,9 +33,7 @@
         beforeUpdate: function () { },
         updated: function () { },
         beforeDestroy: function () { },
-        destroyed: function () {
-            this.toggleProductEditMode()
-        }
+        destroyed: function () { }
     }
 </script>
 

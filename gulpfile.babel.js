@@ -1,65 +1,65 @@
 import gulp from 'gulp'
 import gulpLoadPlugins from 'gulp-load-plugins'
-
-require('dotenv').config()
+import path from 'path'
 
 const plugins = gulpLoadPlugins({
     lazy: true,
     camelize: true
 })
 
+function requireTaskPath(pathString) {
+    return require(path.resolve(path.join('./src/gulpTasks', pathString)))(gulp, plugins)
+}
+
+// backup tasks
+gulp.task('backupDatabase', requireTaskPath('/backup/backupDatabase'))
+gulp.task('backupEnvConfig', requireTaskPath('/backup/backupEnvConfig'))
+gulp.task('backup', gulp.parallel(
+    'backupDatabase',
+    'backupEnvConfig'
+))
+
 // clean up related tasks
-gulp.task('removeLogs', require('./gulpTasks/cleanup/removeLogs')(gulp, plugins))
-gulp.task('resetDist', require('./gulpTasks/cleanup/resetDist')(gulp, plugins))
+gulp.task('removeLogs', requireTaskPath('/cleanup/removeLogs'))
+gulp.task('removeDistFolder', requireTaskPath('/cleanup/removeDistFolder'))
+gulp.task('generateClientFolders', requireTaskPath('/cleanup/generateClientFolders'))
 gulp.task('realignDistStructure', gulp.parallel(
     'removeLogs',
-    'resetDist'
+    gulp.series(
+        'removeDistFolder',
+        'generateClientFolders'
+    )
 ))
 
 // asset preparations
-gulp.task('catalog', require('./gulpTasks/assets/catalog')(gulp, plugins))
-gulp.task('cssPlaceholder', require('./gulpTasks/assets/cssPlaceholder')(gulp, plugins))
-gulp.task('index.html', require('./gulpTasks/assets/index.html')(gulp, plugins))
-gulp.task('hbs', require('./gulpTasks/assets/hbs')(gulp, plugins))
-gulp.task('favicon', require('./gulpTasks/assets/favicon')(gulp, plugins))
-gulp.task('images', require('./gulpTasks/assets/images')(gulp, plugins))
-gulp.task('flags', require('./gulpTasks/assets/flags')(gulp, plugins))
+gulp.task('restoreDatabase', requireTaskPath('/backup/restoreDatabase'))
+gulp.task('commonAssets', requireTaskPath('/assets/commonAssets'))
+gulp.task('hbsTemplates', requireTaskPath('/assets/hbsTemplates'))
 gulp.task('prepAssets', gulp.parallel(
-    'index.html',
-    'hbs',
-    'images',
-    'flags',
-    'favicon',
-    'catalog'
+    'restoreDatabase',
+    'commonAssets',
+    'hbsTemplates'
 ))
 
 // linting related tasks
-gulp.task('lintClient', require('./gulpTasks/eslint/lintClient')(gulp, plugins))
-gulp.task('lintServer', require('./gulpTasks/eslint/lintServer')(gulp, plugins))
-gulp.task('lintSource', require('./gulpTasks/eslint/lintSource')(gulp, plugins))
+gulp.task('lintClientSideCode', requireTaskPath('/eslint/lintClientSideCode'))
+gulp.task('lintServerSideCode', requireTaskPath('/eslint/lintServerSideCode'))
+gulp.task('lintFullSource', requireTaskPath('/eslint/lintFullSource'))
 
-// misc tasks
-gulp.task('saveExampleDb', require('./gulpTasks/misc/saveExampleDb')(gulp, plugins))
-gulp.task('saveExampleEnvConfig', require('./gulpTasks/misc/saveExampleEnvConfig')(gulp, plugins))
-gulp.task('saveExampleFiles', gulp.parallel(
-    'saveExampleDb',
-    'saveExampleEnvConfig'
-))
-
-// devServer
-gulp.task('watchDevIndex', require('./gulpTasks/devServer/watchers/watchDevIndex')(gulp, plugins))
-gulp.task('nodemon', require('./gulpTasks/devServer/nodemon')(gulp, plugins))
-gulp.task('startBrowser', require('./gulpTasks/devServer/startBrowser')(gulp, plugins))
-
-// task combinations
-gulp.task('prepDevServer', gulp.series(
+// server preperation task routines
+gulp.task('prepServer', gulp.series(
+    'backup',
     'realignDistStructure',
     gulp.parallel(
-        'saveExampleFiles',
-        'lintSource'
-    ),
-    gulp.parallel(
-        'prepAssets',
-        'cssPlaceholder'
+        'lintFullSource',
+        'prepAssets'
     )
 ))
+
+// development server task routines
+gulp.task('watchTemplates', requireTaskPath('/devServer/watchTemplates'))
+gulp.task('nodemon', requireTaskPath('/devServer/nodemon'))
+gulp.task('startBrowser', requireTaskPath('/devServer/startBrowser'))
+
+// build production server package
+gulp.task('buildServer', requireTaskPath('/transpile/buildServer'))

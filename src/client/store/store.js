@@ -1,11 +1,12 @@
+import { decode } from 'jsonwebtoken'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import routes from '../routes'
-
 import actions from './actions/actions'
+import eVars from '../../server/config/environment'
 import getters from './getters/getters'
 import mutations from './mutations/mutations'
+import routes from '../routes'
 
 Vue.use(Vuex)
 
@@ -14,70 +15,49 @@ const store = new Vuex.Store({
     getters: getters,
     mutations: mutations,
     state: {
-        // routing management
+        // routing
         routes: routes,
-        currentView: 'home',
-        mobileNavMode: false,
-        productSeriesData: [],
-        productCatalogData: [],
-        activeProductSeriesId: 1,
-        interestedItems: [],
+        // api resources
+        clientAccessUrl: `${eVars.NODE_ENV === 'production' ? eVars.PROD_HOST : eVars.REMOTE_DEV_HOST}/${eVars.SYS_REF}`,
+        apiUrl: `${eVars.NODE_ENV === 'production' ? eVars.PROD_HOST : eVars.REMOTE_DEV_HOST}/${eVars.SYS_REF}/api`,
         regions: [],
         countries: [],
-        validatingUserData: false,
-        ajaxRequestPending: false,
-        userData: {
-            id: null,
-            company: '',
-            name: '',
-            email: '',
-            region: 'All Regions',
-            country: 'Country',
-            comments: '',
-            botPrevention: ''
-        },
-        // contact and service location info
-        inViewOfficeId: 0,
-        officeLocationData: [],
-        staffData: [],
-        // admin page vertical menu
-        adminMenu: [],
-        // product data edit mode related data
-        productEditMode: {
-            state: false,
-            productData: null
-        },
-        // /////////////////////////////////////////////
-        // pending deprecation /////////////////////////
-        // /////////////////////////////////////////////
-        resettingUserData: false, // pending deprecation
-        alreadyRegistered: false, // pending deprecation
-        registeredUserInfo: { // pending deprecation
-            registrationId: null,
-            validation: false,
-            company: '',
-            name: '',
-            email: '',
-            country: 'Country',
-            comments: ''
-        }
-        // ,
-        // viewport information
-        // windowInnerWidth: 0,
-        // windowInnerHeight: 0,
-        // clientWidth: 0,
-        // clientHeight: 0,
+        officeLocations: [],
+        series: [],
+        products: [],
+        // viewport management
+        // windowsInnerWidth: null,
+        // windowsInnerHeight: null,
+        clientWidth: null,
+        clientHeight: null,
+        // header toolbar
+        headerToolbarHeight: null,
+        mobileNavMenu: false,
+        // page footer
+        pageFooterHeight: null,
+        // admin panel
+        jwt: sessionStorage.jwt || null,
+        email: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null,
+        loginId: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.loginId : null
     }
 })
 
 export default store
 
-// if (module.hot) {
-//     module.hot.accept(['./getters', './actions', './mutations'], () => {
-//         store.hotUpdate({
-//             getters: require('./getters'),
-//             actions: require('./actions'),
-//             mutations: require('./mutations')
-//         })
-//     })
-// }
+// store hot-reloading related code
+if (module.hot) {
+    module.hot.accept([
+        './actions/actions',
+        './getters/getters',
+        './mutations/mutations'
+    ], () => {
+        const newActions = require('./actions/actions').default
+        const newGetters = require('./getters/getters').default
+        const newMutations = require('./mutations/mutations').default
+        store.hotUpdate({
+            actions: newActions,
+            getters: newGetters,
+            mutations: newMutations
+        })
+    })
+}

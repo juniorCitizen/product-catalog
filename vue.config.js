@@ -2,9 +2,7 @@ require('dotenv').config()
 
 module.exports = {
     sass: {
-        includePaths: [
-            './src/client/assets/scss'
-        ]
+        includePaths: ['./src/client/assets/scss']
     },
     // postcss: [require('postcss')([require('autoprefixer')])],
     babel: {

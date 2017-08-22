@@ -3,91 +3,101 @@ import Promise from 'bluebird'
 
 import eVars from '../../../server/config/environment'
 
-import userRegistration from './userRegistration'
-import submitProductData from './submitProductData'
-import deleteProductData from './deleteProductData'
-import serviceLocations from './serviceLocations'
-import staffContactInfo from './staffContactInfo'
-import mockAdminMenuRoot from './mockAdminMenuRoot'
-import { refreshAdminMenuContent } from './adminMenu'
-
-// const urlPrefix = `${eVars.HOST}:${eVars.PORT}/${eVars.SYS_REF}`
-const urlPrefix = `${eVars.HOST}/${eVars.SYS_REF}`
+const apiUrlPrefix = `${eVars.NODE_ENV === 'production' ? eVars.PROD_HOST : eVars.REMOTE_DEV_HOST}/${eVars.SYS_REF}/api`
 
 export default {
+    // utility functions
     appInit: appInit,
-    fetchProductSeriesData: fetchProductSeriesData,
-    fetchProductCatalogData: fetchProductCatalogData,
-    fetchCountryData: fetchCountryData,
-    fetchRegionData: fetchRegionData,
-    userRegistration: userRegistration,
-    submitProductData: submitProductData,
-    deleteProductData: deleteProductData,
-    refreshAdminMenuContent: refreshAdminMenuContent
+    // api resources
+    fetchRegions: fetchRegions,
+    fetchCountries: fetchCountries,
+    fetchOfficeLocations: fetchOfficeLocations,
+    fetchSeries: fetchSeries,
+    fetchProducts: fetchProducts
 }
 
-function fetchProductSeriesData(context) {
-    let axiosOptions = {
-        method: 'get',
-        url: `${urlPrefix}/api/series`
-    }
-    return axios(axiosOptions)
-}
-
-function fetchProductCatalogData(context) {
-    let axiosOptions = {
-        method: 'get',
-        url: `${urlPrefix}/api/products`
-    }
-    return axios(axiosOptions)
-}
-
-function fetchRegionData(context) {
-    let axiosOptions = {
-        method: 'get',
-        url: `${urlPrefix}/api/countries/regions`
-    }
-    return axios(axiosOptions)
-}
-
-function fetchCountryData(context) {
-    let axiosOptions = {
-        method: 'get',
-        url: `${urlPrefix}/api/countries`
-    }
-    return axios(axiosOptions)
-}
-
+// utility functions
 function appInit(context) {
-    context.commit('registerStaffContactInfo', staffContactInfo)
-    context.commit('registerServiceLocationData', serviceLocations)
-    context.dispatch('fetchProductSeriesData')
-        .then((apiResponse) => {
-            context.commit('registerProductSeriesData', { productSeriesData: apiResponse.data.data })
-            return context.dispatch('fetchProductCatalogData')
+    const initList = [{
+        dispatch: 'fetchRegions',
+        commit: 'registerRegions'
+    }, {
+        dispatch: 'fetchCountries',
+        commit: 'registerCountries'
+    }, {
+        dispatch: 'fetchOfficeLocations',
+        commit: 'registerOfficeLocations'
+    }, {
+        dispatch: 'fetchSeries',
+        commit: 'registerSeries'
+    }, {
+        dispatch: 'fetchProducts',
+        commit: 'registerProducts'
+    }]
+    context.commit('clearStore')
+    let initProcedures = []
+    initList.forEach((item) => {
+        initProcedures.push({
+            dispatch: context.dispatch(item.dispatch),
+            commit: item.commit
         })
-        .then((apiResponse) => {
-            context.commit('registerProductCatalogData', { productCatalogData: apiResponse.data.data })
-            return context.dispatch('fetchRegionData')
+    })
+    Promise
+        .each(initProcedures, (initProcedure) => {
+            return initProcedure
         })
-        .then((apiResponse) => {
-            context.commit('registerRegionData', { regionData: apiResponse.data.data })
-            return context.dispatch('fetchCountryData')
-        })
-        .then((apiResponse) => {
-            context.commit('registerCountryData', { countryData: apiResponse.data.data })
-            return Promise.resolve(mockAdminMenuRoot) // mock admin menu data
-        })
-        .then((mockAPIResponse) => {
-            context.commit('registerAdminProductMenu', {
-                adminMenuRootData: mockAPIResponse
+        .then((initProcedureResults) => {
+            initProcedureResults.forEach((initProcedureResult) => {
+                initProcedureResult
+                    .dispatch
+                    .then((fetchedApiData) => {
+                        context.commit(initProcedureResult.commit, fetchedApiData.data.data)
+                    })
             })
         })
         .catch((error) => {
-            context.commit('registerProductSeriesData', { productSeriesData: [] })
-            context.commit('registerProductCatalogData', { productCatalogData: [] })
-            context.commit('registerRegionData', { regionData: [] })
-            context.commit('registerCountryData', { countryData: [] })
+            alert('App initialization failure...')
             console.log(error)
         })
+}
+
+// api resources
+function fetchRegions(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/countries/regions`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchCountries(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/countries`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchOfficeLocations(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/countries/officeLocations`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchSeries(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/products/series`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchProducts(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/products`
+    }
+    return axios(axiosOptions)
 }

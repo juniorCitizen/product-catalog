@@ -1,36 +1,63 @@
 <template>
-    <div class="hero-foot">
-        <catalog-link v-if="isTouch && $route.name!=='products'"></catalog-link>
-        <registration-link v-if="isTouch && $route.name!=='register'"></registration-link>
-        <copy-right-notice></copy-right-notice>
-    </div>
+    <footer id="page-footer"
+            class="footer is-paddingless">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div v-if="!isMobile"
+                     class="column">
+                </div>
+                <copyright-notice></copyright-notice>
+            </div>
+        </div>
+    </footer>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import CatalogLink from './CatalogLink/CatalogLink.vue'
-    import CopyRightNotice from './CopyRightNotice/CopyRightNotice.vue'
-    import RegistrationLink from './RegistrationLink/RegistrationLink.vue'
+    import copyrightNotice from './copyrightNotice.vue'
 
     export default {
-        name: 'page-footer',
-        components: {
-            CatalogLink,
-            CopyRightNotice,
-            RegistrationLink
-        },
+        name: 'footer-toolbar',
+        components: { copyrightNotice },
+        props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({ alreadyRegistered: 'alreadyRegistered' })
+            ...mapGetters({})
         },
+        watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
-        }
+            ...mapMutations({
+                registerPageFooterHeight: 'registerPageFooterHeight'
+            }),
+            ...mapActions({}),
+            updatePageFooterHeight: function () {
+                this.registerPageFooterHeight(document.getElementById('page-footer').clientHeight)
+            }
+        },
+        beforeCreate: function () { },
+        created: function () { },
+        beforeMount: function () { },
+        mounted: function () {
+            this.updatePageFooterHeight()
+        },
+        beforeUpdate: function () { },
+        updated: function () {
+            this.updatePageFooterHeight()
+        },
+        beforeDestroy: function () { },
+        destroyed: function () { }
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+</style>

@@ -1,40 +1,51 @@
 import HomePage from './components/HomePage/HomePage.vue'
-import ProductCatalog from './components/productCatalog/ProductCatalog.vue'
+import ProductCatalog from './components/ProductCatalog/ProductCatalog.vue'
 import Registration from './components/Registration/Registration.vue'
 import ContactPage from './components/ContactPage/ContactPage.vue'
 import AdminPanel from './components/AdminPanel/AdminPanel.vue'
+import LoginForm from './components/LoginForm/LoginForm.vue'
 
-const routes = [{
-    path: '/',
+module.exports = [{
+    path: '/productCatalog',
     name: 'home',
     component: HomePage,
-    menuText: 'HOME'
+    caption: 'HOME',
+    vCentered: true
 }, {
-    path: '/products',
+    path: '/productCatalog/products',
     name: 'products',
     component: ProductCatalog,
-    menuText: 'CATALOG'
+    caption: 'CATALOG',
+    vCentered: false
 }, {
-    path: '/register',
+    path: '/productCatalog/register',
     name: 'register',
     component: Registration,
-    menuText: 'REGISTER'
+    caption: 'REGISTER',
+    vCentered: false
 }, {
-    path: '/contacts',
+    path: '/productCatalog/contacts',
     name: 'contacts',
     component: ContactPage,
-    menuText: 'CONTACT US'
+    caption: 'CONTACT US',
+    vCentered: false
 }, {
-    path: '/admin',
+    path: '/productCatalog/admin',
     name: 'admin',
     component: AdminPanel,
-    menuText: 'ADMIN'
+    caption: 'ADMIN',
+    vCentered: false
+}, {
+    path: '/productCatalog/login',
+    name: 'login',
+    component: LoginForm,
+    caption: 'LOGIN',
+    vCentered: true
 }, {
     path: '*',
-    redirect: '/',
+    redirect: '/productCatalog',
     name: null,
     component: null,
-    menuText: null
+    caption: null,
+    vCentered: null
 }]
-
-export default routes

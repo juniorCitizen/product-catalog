@@ -2,9 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Registrations = sequelize.define('registrations', {
         id: {
             type: DataTypes.UUID,
-            allowNull: false,
-            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         company: {
@@ -17,9 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            validate: { isEmail: true }
         },
-        country: {
+        countryId: {
             type: DataTypes.STRING,
             allowNull: true
         },
@@ -27,12 +27,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: true
         },
-        noticeIssued: {
+        notified: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
         },
-        thankYouSent: {
+        contacted: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false

@@ -59,12 +59,15 @@ typings/
 
 # dotenv environment variables file
 .env
+.backup.env
 
 dist/
 temp/
-
-*.db
-*.db-journal
-!example.db
+backup/
 
 *.swp
+
+# sqlite database
+*.db
+*.db-journal
+*.backup.db

@@ -10,14 +10,12 @@
     "extends": [
         "plugin:import/recommended",
         "plugin:node/recommended",
-        // "plugin:promise/recommended",
         "standard"
     ],
     "plugins": [
         "html",
         "import",
         "node",
-        // "promise",
         "standard"
     ],
     "root": true,
@@ -83,8 +81,7 @@
         //         "objectsInObjects": true
         //     }
         // ],
-        // "quotes": ["error", "single"],
-        // "require-jsdoc": "off",
+        "quotes": ["error", "single"],
         // "space-before-blocks": [
         //     "error",
         //     "always"
@@ -104,7 +101,6 @@
         //     "error",
         //     "safe"
         // ],
-        // "promise/avoid-new": "off",
         "import/default": "off",
         "import/unambiguous": "off",
         "node/exports-style": "off",

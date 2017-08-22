@@ -1,8 +1,6 @@
-// The following line loads the standalone build of Vue instead of the runtime-only build,
-// so you don't have to do: import Vue from 'vue/dist/vue'
-// This is done with the browser options. For the config, see package.json
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 
 import routes from './routes'
 
@@ -10,11 +8,12 @@ import Axios from './plugins/axios'
 import EVars from './plugins/eVars'
 import { MediaQueries } from './plugins/mediaQueries'
 import ResponsiveBands from './mixins/responsiveBands'
-import App from './App.vue'
+import App from './components/App.vue'
 
 const mediaQueries = new MediaQueries({ bands: ResponsiveBands })
 
 Vue.use(VueRouter)
+Vue.use(Vuex)
 Vue.use(Axios, '$axios')
 Vue.use(EVars, '$eVars')
 Vue.use(mediaQueries)

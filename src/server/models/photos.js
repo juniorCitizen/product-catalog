@@ -2,9 +2,8 @@ module.exports = (sequelize, DataTypes) => {
     const Photos = sequelize.define('photos', {
         id: {
             type: DataTypes.UUID,
-            allowNull: false,
-            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         productId: {
@@ -12,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: { isUUID: 4 }
         },
-        primaryImage: {
+        primary: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
@@ -33,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: true
         },
-        photoData: {
+        data: {
             type: DataTypes.BLOB,
             allowNull: true
         },

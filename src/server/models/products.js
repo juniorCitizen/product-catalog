@@ -2,18 +2,18 @@ module.exports = (sequelize, DataTypes) => {
     const Products = sequelize.define('products', {
         id: {
             type: DataTypes.UUID,
-            allowNull: false,
-            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         seriesId: {
             type: DataTypes.INTEGER,
             allowNull: true
         },
-        itemCode: {
+        code: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            unique: true
         },
         name: {
             type: DataTypes.STRING,

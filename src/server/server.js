@@ -1,25 +1,30 @@
 // load npm packages
 import bodyParser from 'body-parser'
-import chalk from 'chalk'
 import cors from 'cors'
-import exphbs from 'express-handlebars'
 import express from 'express'
-import morgan from 'morgan'
+import exphbs from 'express-handlebars'
 import path from 'path'
 import Promise from 'bluebird'
 
 // load custom modules
-import eVars from './config/environment'
 import db from './controllers/database'
-import emailBroadcastSystem from './controllers/broadcastSystems/email/emailBroadcastSystem'
+import emailSystem from './controllers/emails/emails'
+import proxyRegistration from './controllers/proxyRegistration'
+import eVars from './config/environment'
 
-// setup Express framework and routing
-console.log(chalk.red('loading Express framework...'))
-export let serverStartTime = null // log server start time
-const app = express() // init express app
+// initializing system components
+console.log('initializing system components...')
+let systemInitSequence = []
+systemInitSequence.push(db.initialize()) // initialize system database
+systemInitSequence.push(emailSystem.initialize()) // initialize email system
+let initRun = Promise.all(systemInitSequence)
 
-// Handlebars template engine setup
-console.log(chalk.red('setup Handlebars templating engine...'))
+// instantiating Express Framework
+console.log('instantiating Express Framework...')
+const app = express()
+
+// setup Handlebars template engine
+console.log('setup Handlebars templating engine...')
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     extname: '.hbs',
@@ -31,62 +36,59 @@ app.set('views', path.join(__dirname, '/views'))
 app.set('layouts', path.join(__dirname, '/views/layouts'))
 app.set('partials', path.join(__dirname, '/views/partials'))
 
-// global routing and middlewares
-console.log(chalk.red('loading global middlewares...'))
-app.use(require('serve-favicon')('dist/client/favicon/favicon.ico'))
+// global middlewares
+console.log('loading global middlewares...')
+app.use(cors()) // allowing cross origin requests
+app.use(require('serve-favicon')(path.join(__dirname, '/client/assets/favicon.ico')))
+if (eVars.NODE_ENV !== 'production') { app.use(require('morgan')('dev')) } // for debugging
+app.use(bodyParser.urlencoded({ extended: true })) // application/x-www-form-urlencoded
+app.use(bodyParser.json()) // application/json
 
-const apiRouter = express.Router() // create an express router
-app.use(`/${eVars.SYS_REF}/api`, apiRouter) // adds system reference name to the endpoint paths globally
-apiRouter.use(cors()) // allowing cross origin requests
-apiRouter.use(morgan('dev')) // for debugging
-apiRouter.use(bodyParser.urlencoded({ extended: true })) // application/x-www-form-urlencoded
-apiRouter.use(bodyParser.json()) // application/json
-
-// custom request preprocessing middlewares
-// console.log(chalk.red('loading custom pre-processing middleware...'))
-// main.use(require('./middlewares/preprocessing/preset404.js')) // preset all requests as status 404
-// main.use(require('./middlewares/preprocessing/unsupportedMethods.js')) // catch request using unsupported methods
+// setup routing
+console.log('setup routers...')
+const clientAccessRouter = express.Router()
+app.use('/productCatalog', clientAccessRouter)
+const apiAccessRouter = express.Router()
+app.use('/productCatalog/api', apiAccessRouter)
 
 // declaration of routing and endpoint handlers
-console.log(chalk.red('setup routing and end-point handlers...'))
-// app.use('/', express.static(path.join(__dirname, '../client'))) // serve static html
-app.use('/', require('./routes/assets/assets')) // serve index.html from hbs template engin
+console.log('setup end-point handlers...')
+// serve index.html from hbs template engine
+clientAccessRouter.use('/', require(path.join(__dirname, '/routes/clientAccess')))
+// set up api routes
+apiAccessRouter.use('/products', require(path.join(__dirname, '/routes/products/products')))
+apiAccessRouter.use('/photos', require(path.join(__dirname, '/routes/photos/photos')))
+apiAccessRouter.use('/countries', require(path.join(__dirname, '/routes/countries/countries')))
+apiAccessRouter.use('/registrations', require(path.join(__dirname, '/routes/registrations')))
+apiAccessRouter.use('/users', require(path.join(__dirname, '/routes/users/users')))
+apiAccessRouter.use('/token', require(path.join(__dirname, '/routes/token/token')))
+// serve index.html from hbs template engin for any mismatched route requests
+app.use('*', require(path.join(__dirname, '/routes/clientAccess')))
 
-// main.use('/', require('./routes/serverStatus.js')) // serves server status template
-apiRouter.use('/series', require('./routes/api/series'))
-apiRouter.use('/photos', require('./routes/api/photos'))
-apiRouter.use('/products', require('./routes/api/products/products'))
-apiRouter.use('/users', require('./routes/api/users/users'))
-apiRouter.use('/countries', require('./routes/api/countries'))
-
-// custom request postprocessing middlewares
-// console.log(chalk.red('loading custom post-processing middleware...'))
-// app.use(require('./middlewares/postprocessing/fallThrough.js')) // catch requests that falls through all avail handlers
-// app.use(require('./middlewares/postprocessing/lastResort.js')) // last resort
-
-// serve index.html on requests to missing routes on the root level
-// //// app.use('*', express.static(path.join(__dirname, '../client')))
-app.use('*', require('./routes/assets/assets')) // serve index.html from hbs template engin
-
-// initializing system different system components
-let initProcedures = []
-// prepare a list of initialization procedures
-initProcedures.push(db.initialize()) // initialize database.js module and data models
-initProcedures.push(emailBroadcastSystem.initialize()) // initialize emailBroadcastSystem.js module
-// initialize each system sequentially
-Promise.each(initProcedures, (initProcedurePromise) => {
-    return initProcedurePromise
-}).then((initProcedureResults) => {
-    // start node express server
-    app.listen(eVars.PORT, (error) => {
-        // serverStartTime = new Date()
-        if (error) {
-            console.log(chalk.red(`${eVars.SYS_REF} server could not be started...`))
-            console.log(chalk.red(error))
-        } else {
-            console.log(chalk.red(`${eVars.SYS_REF} server activated (${eVars.HOST}:${eVars.PORT})...`))
-        }
+// check system initialization state
+initRun
+    .then(() => {
+        // start node express server if successful
+        console.log('spin up Node Express web server...')
+        return app.listen(eVars.PORT, (error) => {
+            if (error) {
+                console.log(`${eVars.SYS_REF} server could not be started...`)
+                return Promise.reject(error)
+            } else {
+                proxyRegistration
+                    .then(() => {
+                        console.log(`${eVars.SYS_REF} server activated (${eVars.REMOTE_DEV_HOST}:${eVars.PORT})`)
+                        return Promise.resolve()
+                    })
+                    .catch((error) => {
+                        return Promise.reject(error)
+                    })
+            }
+        })
     })
-}).catch((error) => {
-    console.log(chalk.red(error))
-})
+    .catch((error) => {
+        console.log(error.name)
+        console.log(error.message)
+        console.log(error.stack)
+        throw error
+    })
