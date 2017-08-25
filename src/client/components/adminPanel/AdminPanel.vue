@@ -28,7 +28,11 @@
         },
         beforeCreate: function () { },
         created: function () { },
-        beforeMount: function () { },
+        beforeMount: function () {
+            // if (this.jwt === null) {
+            //     this.$router.replace('/productCatalog/login')
+            // }
+        },
         mounted: function () { },
         beforeUpdate: function () { },
         updated: function () { },

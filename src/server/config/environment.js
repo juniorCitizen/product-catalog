@@ -7,6 +7,7 @@ module.exports = (() => {
         PROD_HOST: process.env.PROD_HOST,
         LOCAL_DEV_HOST: process.env.LOCAL_DEV_HOST,
         REMOTE_DEV_HOST: process.env.REMOTE_DEV_HOST,
+        HOST: process.env.NODE_ENV === 'production' ? process.env.PROD_HOST : process.env.REMOTE_DEV_HOST,
         PORT: process.env.PORT,
         RESET_DB: process.env.RESET_DB === 'true',
         NODEMON_VERBOSE: process.env.NODEMON_VERBOSE === 'true',

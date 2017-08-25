@@ -1,9 +1,9 @@
 <template>
-    <a class="navbar-item"
-       :href="clientAccessUrl">
-        <img :src="logoUrl"
+    <span class="navbar-item">
+        <img class="image"
+             :src="logoUrl"
              alt="Gentry Way Co., Ltd.">
-    </a>
+    </span>
 </template>
 
 <script>
@@ -40,17 +40,4 @@
     }
 </script>
 
-<style scoped>
-    a {
-        cursor: default;
-    }
-
-    a:hover {
-        transform: scale(1.1);
-    }
-
-    a[disabled],
-    a[disabled]:hover {
-        pointer-events: none;
-    }
-</style>
+<style scoped></style>

@@ -13,7 +13,13 @@ router.post('/', loginInfoPresence, tokenRequest)
 module.exports = router
 
 function tokenRequest(req, res) {
-    db.Users.findOne({ where: { loginId: req.body.loginId } })
+    db.Users
+        .findOne({
+            where: {
+                email: req.body.email,
+                loginId: req.body.loginId
+            }
+        })
         .then((apiUser) => {
             if (apiUser === null) { // reject the request if such user does not exist
                 let error = new Error('no such user')
@@ -71,7 +77,6 @@ function tokenRequest(req, res) {
 }
 
 function loginInfoPresence(req, res, next) {
-    console.log(req.body)
     if ((req.body === undefined) || (req.body.loginId === undefined) || (req.body.password === undefined)) {
         let error = new Error('required login information missing')
         error.name = 'missingLoginInfo'

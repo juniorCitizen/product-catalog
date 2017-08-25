@@ -3,6 +3,8 @@ import Promise from 'bluebird'
 
 import eVars from '../../../server/config/environment'
 
+import loginForm from './loginForm'
+
 const apiUrlPrefix = `${eVars.NODE_ENV === 'production' ? eVars.PROD_HOST : eVars.REMOTE_DEV_HOST}/${eVars.SYS_REF}/api`
 
 export default {
@@ -13,7 +15,9 @@ export default {
     fetchCountries: fetchCountries,
     fetchOfficeLocations: fetchOfficeLocations,
     fetchSeries: fetchSeries,
-    fetchProducts: fetchProducts
+    fetchProducts: fetchProducts,
+    // login form
+    userLogin: loginForm.userLogin
 }
 
 // utility functions

@@ -32,8 +32,8 @@
             }),
             dynamicClasses: function () {
                 return {
-                    'tabs': !this.isMobile && !this.isTabletOnly,
-                    'menu-list': this.isMobile || this.isTabletOnly
+                    'tabs': !this.isOnMobileDevice,
+                    'menu-list': this.isOnMobileDevice
                 }
             }
         },
@@ -67,5 +67,31 @@
 <style scoped>
     ul {
         border: none;
+    }
+
+    div#mobile-nav-menu.is-inactive {
+        animation: slide-left 0.5s both;
+    }
+
+    @keyframes slide-left {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    div#mobile-nav-menu.is-active {
+        animation: slide-right 0.5s both;
+    }
+
+    @keyframes slide-right {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100%);
+        }
     }
 </style>

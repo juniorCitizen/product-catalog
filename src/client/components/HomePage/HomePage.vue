@@ -73,7 +73,7 @@
             transform: scale(0.6) translateY(120px);
         }
         100% {
-            transform: scale(1) translate(0px);
+            transform: scale(1) translateY(0px);
         }
     }
 </style>

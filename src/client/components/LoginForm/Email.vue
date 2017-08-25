@@ -1,6 +1,20 @@
 <template>
-    <div>
-        New Template
+    <div class="field">
+        <div class="control has-icons-left">
+            <input class="input"
+                   :class="dynamicClass"
+                   type="email"
+                   v-model="email"
+                   placeholder="電子郵件"
+                   :disabled="dataSubmissionInProgress">
+            <span class="icon is-left">
+                <i class="fa fa-envelope"></i>
+            </span>
+        </div>
+        <p v-if="warning"
+           class="help is-danger">
+            未輸入電子郵件或格式錯誤
+        </p>
     </div>
 </template>
 
@@ -8,18 +22,43 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'email',
         components: {},
-        props: [],
+        props: [
+            'resetFieldValue'
+        ],
         data: function () {
-            return {}
+            return {
+                email: ''
+            }
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                dataSubmissionInProgress: 'dataSubmissionInProgress',
+                loginFormEmailReady: 'loginFormEmailReady',
+                loginFormValidation: 'loginFormValidation'
+            }),
+            warning: function () {
+                return !this.loginFormEmailReady && this.loginFormValidation
+            },
+            dynamicClass: function () {
+                return {
+                    'is-danger': this.warning
+                }
+            }
         },
-        watch: {},
+        watch: {
+            email: function (updatedEmail) {
+                this.registerLoginFormEmail(updatedEmail)
+            },
+            resetFieldValue: function (state) {
+                if (state === true) { this.email = '' }
+            }
+        },
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                registerLoginFormEmail: 'registerLoginFormEmail'
+            }),
             ...mapActions({})
         },
         beforeCreate: function () { },

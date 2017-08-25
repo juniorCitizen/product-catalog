@@ -1,6 +1,20 @@
 <template>
-    <div>
-        New Template
+    <div class="field">
+        <div class="control has-icons-left">
+            <input class="input"
+                   :class="dynamicClass"
+                   type="password"
+                   v-model="password"
+                   placeholder="登入密碼"
+                   :disabled="dataSubmissionInProgress">
+            <span class="icon is-left">
+                <i class="fa fa-key"></i>
+            </span>
+        </div>
+        <p v-if="warning"
+           class="help is-danger">
+            登入密碼為必塡項目
+        </p>
     </div>
 </template>
 
@@ -8,18 +22,43 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'password',
         components: {},
-        props: [],
+        props: [
+            'resetFieldValue'
+        ],
         data: function () {
-            return {}
+            return {
+                password: ''
+            }
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                dataSubmissionInProgress: 'dataSubmissionInProgress',
+                loginFormPasswordReady: 'loginFormPasswordReady',
+                loginFormValidation: 'loginFormValidation'
+            }),
+            warning: function () {
+                return !this.loginFormPasswordReady && this.loginFormValidation
+            },
+            dynamicClass: function () {
+                return {
+                    'is-danger': this.warning
+                }
+            }
         },
-        watch: {},
+        watch: {
+            password: function (updatedPassword) {
+                this.registerLoginFormPassword(updatedPassword)
+            },
+            resetFieldValue: function (state) {
+                if (state === true) { this.password = '' }
+            }
+        },
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                registerLoginFormPassword: 'registerLoginFormPassword'
+            }),
             ...mapActions({})
         },
         beforeCreate: function () { },

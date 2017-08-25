@@ -1,5 +1,6 @@
 <template>
-    <p class="subtitle is-4">
+    <p class="subtitle"
+       :class="dynamicClass">
         <template v-for="(mottoLine,arrayIndex) in mottoText">
             <span :key="arrayIndex">
                 {{ mottoLine }}
@@ -32,7 +33,13 @@
         watch: {},
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({}),
+            dynamicClass: function () {
+                return {
+                    'is-4': !this.isOnMobileDevice,
+                    'is-6': this.isOnMobileDevice
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },

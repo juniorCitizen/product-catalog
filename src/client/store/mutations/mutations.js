@@ -1,7 +1,8 @@
 import { decode } from 'jsonwebtoken'
 import routes from '../../routes'
 
-import { logout, restoreToken } from './adminPanel'
+import adminPanel from './adminPanel'
+import loginForm from './loginForm'
 
 export default {
     // utility functions
@@ -12,6 +13,14 @@ export default {
     registerOfficeLocations: registerOfficeLocations,
     registerSeries: registerSeries,
     registerProducts: registerProducts,
+    toggleDataSubmissionState: (state, functionReference) => {
+        state.dataSubmission.function = functionReference
+        state.dataSubmission.inProgress = true
+    },
+    resetDataSubmissionState: (state) => {
+        state.dataSubmission.function = null
+        state.dataSubmission.inProgress = false
+    },
     // viewport management
     // registerWindowInnerWidth: (state, windowInnerWidth) => { state.windowInnerWidth = windowInnerWidth },
     // registerWindowInnerHeight: (state, windowInnerHeight) => { state.windowInnerHeight = windowInnerHeight },
@@ -24,9 +33,25 @@ export default {
     toggleMobileNavMenu: (state) => { state.mobileNavMenu = !state.mobileNavMenu },
     // page footer
     registerPageFooterHeight: (state, height) => { state.pageFooterHeight = height },
+    // login form
+    registerLoginFormEmail: (state, email) => { state.loginForm.email = email },
+    registerLoginFormLoginId: (state, loginId) => { state.loginForm.loginId = loginId },
+    registerLoginFormPassword: (state, password) => { state.loginForm.password = password },
+    toggleLoginFormValidation: (state) => { state.loginForm.validation = !state.loginForm.validation },
+    clearLoginForm: (state) => {
+        state.loginForm.validation = false
+        state.loginForm.email = ''
+        state.loginForm.loginId = ''
+        state.loginForm.password = ''
+    },
+    clearLoginFormPassword: (state) => {
+        state.loginForm.validation = false
+        state.loginForm.password = ''
+    },
+    registerToken: loginForm.registerToken,
     // admin panel
-    logout: logout,
-    restoreToken: restoreToken
+    logout: adminPanel.logout,
+    restoreToken: adminPanel.restoreToken
 }
 
 // utility functions
@@ -41,11 +66,20 @@ function clearStore(state) {
     state.officeLocations = []
     state.series = []
     state.products = []
+    state.dataSubmission = {
+        function: null,
+        inProgress: false
+    }
     // header toolbar
     state.headerToolbarHeight = null
     state.mobileNavMenu = false
     // page footer
     state.pageFooterHeight = null
+    // login form
+    state.loginForm.validation = false
+    state.loginForm.email = ''
+    state.loginForm.loginId = ''
+    state.loginForm.password = ''
     // admin panel
     state.jwt = sessionStorage.jwt || null
     state.email = sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null

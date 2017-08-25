@@ -25,6 +25,10 @@ const store = new Vuex.Store({
         officeLocations: [],
         series: [],
         products: [],
+        dataSubmission: {
+            function: null,
+            inProgress: false
+        },
         // viewport management
         // windowsInnerWidth: null,
         // windowsInnerHeight: null,
@@ -35,6 +39,13 @@ const store = new Vuex.Store({
         mobileNavMenu: false,
         // page footer
         pageFooterHeight: null,
+        // login form
+        loginForm: {
+            validation: false,
+            email: '',
+            loginId: '',
+            password: ''
+        },
         // admin panel
         jwt: sessionStorage.jwt || null,
         email: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null,

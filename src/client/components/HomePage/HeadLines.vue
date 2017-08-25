@@ -1,5 +1,6 @@
 <template>
-    <p class="title is-1 is-spaced">
+    <p class="title is-spaced"
+       :class="dynamicClass">
         <template v-for="(officeLocation,arrayIndex) in officeLocations">
             <span :key="officeLocation.id">
                 {{ officeLocation.title}}
@@ -20,12 +21,18 @@
         components: {},
         props: [],
         data: function () {
-            return {
-
-            }
+            return {}
         },
         computed: {
-            ...mapGetters({ officeLocations: 'officeLocations' })
+            ...mapGetters({
+                officeLocations: 'officeLocations'
+            }),
+            dynamicClass: function () {
+                return {
+                    'is-1': !this.isOnMobileDevice,
+                    'is-3': this.isOnMobileDevice
+                }
+            }
         },
         watch: {},
         methods: {

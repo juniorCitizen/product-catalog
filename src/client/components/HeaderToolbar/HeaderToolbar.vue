@@ -44,7 +44,7 @@
             },
             dynamicClasses: function () {
                 return {
-                    'is-active': (this.isMobile || this.isTabletOnly) && this.mobileNavMenu
+                    'is-active': this.isOnMobileDevice && this.mobileNavMenu
                 }
             }
         },

@@ -1,30 +1,27 @@
 <template>
-    <p class="subtitle"
-       :class="dynamicClass">
-        {{ captionText }}
-    </p>
+    <div class="control">
+        <button class="button is-danger"
+                @click="$emit('clearLoginFormEvent')"
+                :disabled="dataSubmissionInProgress">
+            <span>清除表單</span>
+        </button>
+    </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'caption-text',
+        name: 'reset',
         components: {},
         props: [],
         data: function () {
-            return {
-                captionText: 'Products available from Taiwan or China'
-            }
+            return {}
         },
         computed: {
-            ...mapGetters({}),
-            dynamicClass: function () {
-                return {
-                    'is-5': !this.isOnMobileDevice,
-                    'is-6': this.isOnMobileDevice
-                }
-            }
+            ...mapGetters({
+                dataSubmissionInProgress: 'dataSubmissionInProgress'
+            })
         },
         watch: {},
         methods: {
@@ -42,8 +39,4 @@
     }
 </script>
 
-<style scoped>
-    p {
-        margin-top: 100px;
-    }
-</style>
+<style scoped></style>
