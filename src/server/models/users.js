@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        countryId: {
-            type: DataTypes.STRING,
-            allowNull: true
+        officeLocationId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
         loginId: {
             type: DataTypes.UUID,

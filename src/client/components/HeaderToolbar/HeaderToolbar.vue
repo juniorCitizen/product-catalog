@@ -1,5 +1,6 @@
 <template>
-    <v-toolbar fixed
+    <v-toolbar class="green darken-4"
+               fixed
                dark>
         <span class="hidden-md-and-up">
             <v-toolbar-side-icon @click.stop="$emit('toggleNavigationDrawer')">

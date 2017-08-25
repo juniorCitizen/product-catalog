@@ -77,42 +77,42 @@ function usersDefaultData() {
         records: [{
             email: 'gentry88@ms46.hinet.net',
             name: 'General Service',
-            countryId: 'TWN',
+            officeLocationId: 1,
             loginId: 'gentryWay',
             password: null,
             salt: null
         }, {
             email: 'david.tsai@gentry-way.com.tw',
             name: 'David Tsai',
-            countryId: 'TWN',
+            officeLocationId: 1,
             loginId: 'david',
             password: 'cuccet882',
             salt: null
         }, {
             email: 'cathy.liu@gentry-way.com.tw',
             name: 'Cathy Liu',
-            countryId: 'TWN',
+            officeLocationId: 1,
             loginId: 'cathy',
             password: null,
             salt: null
         }, {
             email: 'candy.wu@gentry-way.com.tw',
             name: 'Candy Wu',
-            countryId: 'TWN',
+            officeLocationId: 1,
             loginId: 'candy',
             password: null,
             salt: null
         }, {
             email: 'gentry@vip.163.com',
             name: 'General Service',
-            countryId: 'CHN',
+            officeLocationId: 2,
             loginId: 'gentryHardware',
             password: null,
             salt: null
         }, {
             email: 'altecqc@msn.com',
             name: 'Johnson Wu',
-            countryId: 'CHN',
+            officeLocationId: 2,
             loginId: 'johnson',
             password: null,
             salt: null

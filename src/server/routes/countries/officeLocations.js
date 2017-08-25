@@ -2,42 +2,29 @@ import db from '../../controllers/database'
 import routerResponse from '../../controllers/routerResponse'
 
 module.exports = (req, res) => {
-    return db.Series
+    return db.OfficeLocations
         .findAll({
             attributes: {
                 exclude: ['createdAt', 'updatedAt', 'deletedAt']
             },
             include: [{
-                model: db.Products,
+                model: db.Countries,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'deletedAt']
-                },
-                include: [{
-                    model: db.Descriptions,
-                    attributes: {
-                        exclude: [
-                            'createdAt',
-                            'updatedAt',
-                            'deletedAt'
-                        ]
-                    }
-                }, {
-                    model: db.Photos,
-                    attributes: {
-                        exclude: [
-                            'data',
-                            'createdAt',
-                            'updatedAt',
-                            'deletedAt'
-                        ]
-                    }
-                }]
-            }],
-            order: [
-                ['displaySequence'],
-                [db.Products, 'code'],
-                [db.Products, db.Photos, 'primary', 'DESC']
-            ]
+                }
+            }, {
+                model: db.Users,
+                attributes: {
+                    exclude: [
+                        'loginId',
+                        'password',
+                        'salt',
+                        'createdAt',
+                        'updatedAt',
+                        'deletedAt'
+                    ]
+                }
+            }]
         })
         .then((data) => {
             return routerResponse.json({

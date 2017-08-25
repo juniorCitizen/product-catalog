@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <v-app>
+        <v-app class="application--toolbar application--footer application--footer-fixed">
             <v-navigation-drawer v-model="navDrawerActivated"
                                  temporary>
                 <navigation-drawer-contents></navigation-drawer-contents>

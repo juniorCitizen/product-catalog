@@ -32,15 +32,6 @@ function initialize() {
             // register models in the database controller dynamically
             db[modelName] = require(path.join(modelPath, fileName))(sequelize, Sequelize)
             // extract the available default records for the current model in the loop
-            console.log('===============================================================')
-            console.log('===============================================================')
-            console.log('===============================================================')
-            console.log('===============================================================')
-            console.log(sqliteDbConfig.resetDatabase)
-            console.log('===============================================================')
-            console.log('===============================================================')
-            console.log('===============================================================')
-            console.log('===============================================================')
             let defaultDbRecords = null
             if (sqliteDbConfig.resetDatabase) { // check resetDatabase flag
                 // determin if a default record set are in place
@@ -88,10 +79,10 @@ function initialize() {
             db.Descriptions.belongsTo(db.Products, { constraints: true, foreignKey: 'productId', targetKey: 'id' })
             db.Countries.hasMany(db.Registrations, { constrains: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
             db.Registrations.belongsTo(db.Countries, { constraints: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
-            db.Countries.hasMany(db.Users, { constrains: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
-            db.Users.belongsTo(db.Countries, { constraints: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
             db.Countries.hasMany(db.OfficeLocations, { constrains: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
             db.OfficeLocations.belongsTo(db.Countries, { constraints: true, foreignKey: 'countryId', targetKey: 'alpha3Code' })
+            db.OfficeLocations.hasMany(db.Users, { constrains: true, foreignKey: 'officeLocationId', targetKey: 'id' })
+            db.Users.belongsTo(db.OfficeLocations, { constraints: true, foreignKey: 'officeLocationId', targetKey: 'id' })
             return Promise.resolve()
         })
         .catch((error) => {

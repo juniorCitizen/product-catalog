@@ -9,24 +9,51 @@ export default {
     // utility functions
     appInit: appInit,
     // api recordsets
-    fetchCompanyStaffMembers: fetchCompanyStaffMembers
-
+    fetchRegions: fetchRegions,
+    fetchCountries: fetchCountries,
+    fetchOfficeLocations: fetchOfficeLocations,
+    fetchSeries: fetchSeries,
+    fetchProducts: fetchProducts
 }
 
 // utility functions
 function appInit(context) {
+    const initList = [{
+        dispatch: 'fetchRegions',
+        commit: 'registerRegions'
+    }, {
+        dispatch: 'fetchCountries',
+        commit: 'registerCountries'
+    }, {
+        dispatch: 'fetchOfficeLocations',
+        commit: 'registerOfficeLocations'
+    }, {
+        dispatch: 'fetchSeries',
+        commit: 'registerSeries'
+    }, {
+        dispatch: 'fetchProducts',
+        commit: 'registerProducts'
+    }]
     context.commit('clearStore')
     let initProcedures = []
-    initProcedures.push({
-        dispatch: context.dispatch('fetchCompanyStaffMembers'),
-        commit: 'registerCompanyStaffMembers'
+    initList.forEach((item) => {
+        initProcedures.push({
+            dispatch: context.dispatch(item.dispatch),
+            commit: item.commit
+        })
     })
     Promise
         .each(initProcedures, (initProcedure) => {
-            return initProcedure.dispatch
+            return initProcedure
         })
         .then((initProcedureResults) => {
-            console.log(initProcedureResults[0].dispatch)
+            initProcedureResults.forEach((initProcedureResult) => {
+                initProcedureResult
+                    .dispatch
+                    .then((fetchedApiData) => {
+                        context.commit(initProcedureResult.commit, fetchedApiData.data.data)
+                    })
+            })
         })
         .catch((error) => {
             alert('App initialization failure...')
@@ -35,10 +62,42 @@ function appInit(context) {
 }
 
 // api recordsets
-function fetchCompanyStaffMembers(context) {
+function fetchRegions(context) {
     let axiosOptions = {
         method: 'get',
-        url: `${apiUrlPrefix}/users/companyStaffMembers`
+        url: `${apiUrlPrefix}/countries/regions`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchCountries(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/countries`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchOfficeLocations(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/countries/officeLocations`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchSeries(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/products/series`
+    }
+    return axios(axiosOptions)
+}
+
+function fetchProducts(context) {
+    let axiosOptions = {
+        method: 'get',
+        url: `${apiUrlPrefix}/products`
     }
     return axios(axiosOptions)
 }

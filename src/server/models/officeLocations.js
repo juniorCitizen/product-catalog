@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         name: {
-            singular: 'officeLocations',
+            singular: 'officeLocation',
             plural: 'officeLocations'
         }
     })

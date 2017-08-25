@@ -49,10 +49,9 @@ console.log('setup end-point handlers...')
 clientAccessRouter.use('/', require('./routes/clientAccess')) // serve index.html from hbs template engine
 
 // api routes
-apiAccessRouter.use('/products', require('./routes/products/series'))
 apiAccessRouter.use('/products', require('./routes/products/products'))
 apiAccessRouter.use('/photos', require('./routes/photos/photos'))
-apiAccessRouter.use('/countries', require('./routes/countries'))
+apiAccessRouter.use('/countries', require('./routes/countries/countries'))
 apiAccessRouter.use('/registrations', require('./routes/registrations'))
 apiAccessRouter.use('/users', require('./routes/users/users'))
 apiAccessRouter.use('/token', require('./routes/token/token'))

@@ -1,17 +1,18 @@
 <template>
-    <v-footer class="green darken-4"
-              dark
-              fixed>
-        <v-spacer></v-spacer>
-        <div class="caption white--text">© Copyright {{ new Date().getFullYear() }} Gentry Way Co., Ltd.</div>
-    </v-footer>
+    <v-card hover>
+        <v-card-title primary-title>
+            <div class="text-centered">
+                <h1 class="headline">Login Form</h1>
+            </div>
+        </v-card-title>
+    </v-card>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'footer-toolbar',
+        name: 'login-form',
         components: {},
         props: [],
         data: function () {

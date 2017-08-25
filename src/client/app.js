@@ -1,6 +1,4 @@
-// The following line loads the standalone build of Vue instead of the runtime-only build,
-// so you don't have to do: import Vue from 'vue/dist/vue'
-// This is done with the browser options. For the config, see package.json
+import { decode } from 'jsonwebtoken'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuetify from 'vuetify'
@@ -40,12 +38,15 @@ const store = new Vuex.Store({
         // routing
         routes: routes,
         // api recordsets
-        companyStaffMembers: [],
-        series: [],
-        productsBySeries: [],
         regions: [],
         countries: [],
-        officeLocations: []
+        officeLocations: [],
+        series: [],
+        products: [],
+        // admin
+        jwt: sessionStorage.jwt || null,
+        email: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null,
+        loginId: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.loginId : null
     }
 })
 
