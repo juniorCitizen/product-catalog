@@ -47,9 +47,26 @@ const store = new Vuex.Store({
             password: ''
         },
         // admin panel
-        jwt: sessionStorage.jwt || null,
-        email: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null,
-        loginId: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.loginId : null
+        adminUser: {
+            jwt: sessionStorage.jwt || null,
+            email: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null,
+            loginId: sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.loginId : null
+        },
+        adminPanelMenu: [{
+            title: '登出',
+            active: false,
+            hover: false,
+            submenu: [],
+            data: null,
+            action: null
+        }, {
+            title: '產品系列',
+            active: false,
+            hover: false,
+            submenu: [],
+            data: null,
+            action: null
+        }]
     }
 })
 

@@ -28,18 +28,17 @@ console.log('setup Handlebars templating engine...')
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     extname: '.hbs',
-    layoutsDir: path.join(__dirname, '/views/layouts'),
-    partialsDir: path.join(__dirname, '/views/partials')
+    layoutsDir: path.join(__dirname, 'views/layouts'),
+    partialsDir: path.join(__dirname, 'views/partials')
 }))
 app.set('view engine', '.hbs')
-app.set('views', path.join(__dirname, '/views'))
-app.set('layouts', path.join(__dirname, '/views/layouts'))
-app.set('partials', path.join(__dirname, '/views/partials'))
+app.set('views', path.join(__dirname, 'views'))
+app.set('layouts', path.join(__dirname, 'views/layouts'))
+app.set('partials', path.join(__dirname, 'views/partials'))
 
 // global middlewares
 console.log('loading global middlewares...')
 app.use(cors()) // allowing cross origin requests
-app.use(require('serve-favicon')(path.join(__dirname, '/client/assets/favicon.ico')))
 if (eVars.NODE_ENV !== 'production') { app.use(require('morgan')('dev')) } // for debugging
 app.use(bodyParser.urlencoded({ extended: true })) // application/x-www-form-urlencoded
 app.use(bodyParser.json()) // application/json
@@ -53,17 +52,20 @@ app.use('/productCatalog/api', apiAccessRouter)
 
 // declaration of routing and endpoint handlers
 console.log('setup end-point handlers...')
+
 // serve index.html from hbs template engine
-clientAccessRouter.use('/', require(path.join(__dirname, '/routes/clientAccess')))
+clientAccessRouter.use('/', require(path.join(__dirname, 'routes/clientAccess')))
+
 // set up api routes
-apiAccessRouter.use('/products', require(path.join(__dirname, '/routes/products/products')))
-apiAccessRouter.use('/photos', require(path.join(__dirname, '/routes/photos/photos')))
-apiAccessRouter.use('/countries', require(path.join(__dirname, '/routes/countries/countries')))
-apiAccessRouter.use('/registrations', require(path.join(__dirname, '/routes/registrations')))
-apiAccessRouter.use('/users', require(path.join(__dirname, '/routes/users/users')))
-apiAccessRouter.use('/token', require(path.join(__dirname, '/routes/token/token')))
+apiAccessRouter.use('/products', require(path.join(__dirname, 'routes/products/products')))
+apiAccessRouter.use('/photos', require(path.join(__dirname, 'routes/photos/photos')))
+apiAccessRouter.use('/countries', require(path.join(__dirname, 'routes/countries/countries')))
+apiAccessRouter.use('/registrations', require(path.join(__dirname, 'routes/registrations')))
+apiAccessRouter.use('/users', require(path.join(__dirname, 'routes/users/users')))
+apiAccessRouter.use('/token', require(path.join(__dirname, 'routes/token/token')))
+
 // serve index.html from hbs template engin for any mismatched route requests
-app.use('*', require(path.join(__dirname, '/routes/clientAccess')))
+app.use('*', require(path.join(__dirname, 'routes/clientAccess')))
 
 // check system initialization state
 initRun

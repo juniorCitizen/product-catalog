@@ -48,10 +48,13 @@ export default {
         state.loginForm.validation = false
         state.loginForm.password = ''
     },
-    registerToken: loginForm.registerToken,
+    registerNewToken: loginForm.registerNewToken,
     // admin panel
     logout: adminPanel.logout,
-    restoreToken: adminPanel.restoreToken
+    injectLogout: adminPanel.injectLogout,
+    restoreToken: adminPanel.restoreToken,
+    prepAdminPanelMenu: adminPanel.prepAdminPanelMenu,
+    resetAdminPanelMenu: adminPanel.resetAdminPanelMenu
 }
 
 // utility functions
@@ -81,9 +84,24 @@ function clearStore(state) {
     state.loginForm.loginId = ''
     state.loginForm.password = ''
     // admin panel
-    state.jwt = sessionStorage.jwt || null
-    state.email = sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null
-    state.loginId = sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.loginId : null
+    state.adminUser.jwt = sessionStorage.jwt || null
+    state.adminUser.email = sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.email : null
+    state.adminUser.loginId = sessionStorage.jwt ? decode(sessionStorage.jwt, { complete: true }).payload.loginId : null
+    state.adminPanelMenu = [{
+        title: '登出',
+        active: false,
+        hover: false,
+        submenu: [],
+        data: null,
+        action: null
+    }, {
+        title: '產品系列',
+        active: false,
+        hover: false,
+        submenu: [],
+        data: null,
+        action: null
+    }]
 }
 
 // api resources

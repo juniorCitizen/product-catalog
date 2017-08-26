@@ -27,7 +27,7 @@
         },
         computed: {
             ...mapGetters({
-                jwt: 'jwt',
+                loggedInAsAdmin: 'loggedInAsAdmin',
                 routes: 'routes'
             }),
             dynamicClasses: function () {
@@ -44,8 +44,8 @@
             routeAvailability: function (route) {
                 return (
                     (route.path !== '*') &&
-                    !((route.name === 'login') && (this.jwt !== null)) &&
-                    !((route.name === 'admin') && (this.jwt === null)) &&
+                    !((route.name === 'login') && (this.loggedInAsAdmin)) &&
+                    !((route.name === 'admin') && (!this.loggedInAsAdmin)) &&
                     !(
                         ((route.name === 'admin') || (route.name === 'login')) &&
                         (this.isMobile || this.isTabletOnly)

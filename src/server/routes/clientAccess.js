@@ -12,6 +12,14 @@ const appScriptEndPoint = '/lib/app.js'
 const appStyleEndPoint = '/style/app.css'
 
 router
+    .get('/favicon.ico', (req, res) => {
+        return routerResponse.image({
+            pendingResponse: res,
+            statusCode: 200,
+            mimeType: 'image/x-icon',
+            filePath: path.join(__dirname, '../client/assets/favicon.ico')
+        })
+    })
     .get('/', (req, res) => {
         let titleString = null
         titleString = productionMode ? 'Gentry Way Co., Ltd.' : '(DEV) Gentry Way Co., Ltd.'
@@ -21,6 +29,7 @@ router
             view: 'index',
             data: {
                 title: titleString,
+                favicon: `${productionMode ? eVars.PROD_HOST : eVars.REMOTE_DEV_HOST}/${eVars.SYS_REF}/favicon.ico`,
                 styleSource: productionMode ? `${eVars.PROD_HOST}/${eVars.SYS_REF}${appStyleEndPoint}` : '',
                 scriptSource: `${productionMode ? eVars.PROD_HOST : eVars.REMOTE_DEV_HOST}/${eVars.SYS_REF}${appScriptEndPoint}`
             }
@@ -35,7 +44,6 @@ router
         })
     })
     .get('/assets/gentryLogoSmall.png', (req, res) => {
-        console.log(__dirname)
         return routerResponse.image({
             pendingResponse: res,
             statusCode: 200,

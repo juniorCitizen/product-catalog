@@ -1,13 +1,11 @@
-import { decode } from 'jsonwebtoken'
-
-// admin panel
 export default {
-    registerToken: registerToken
+    registerNewToken: registerNewToken
 }
 
-function registerToken(state, token) {
-    sessionStorage.removeItem('jwt')
+function registerNewToken(state, token) {
+    if (sessionStorage.jwt) {
+        sessionStorage.removeItem('jwt')
+    }
     sessionStorage.jwt = token
-    state.email = decode(token, { complete: true }).payload.email
-    state.loginId = decode(token, { complete: true }).payload.loginId
+    state.adminUser.jwt = token
 }

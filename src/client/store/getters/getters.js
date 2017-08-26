@@ -7,6 +7,8 @@ export default {
     clientAccessUrl: (state) => { return state.clientAccessUrl },
     apiUrl: (state) => { return state.apiUrl },
     officeLocations: (state) => { return state.officeLocations },
+    series: (state) => { return state.series },
+    products: (state) => { return state.products },
     dataSubmissionInProgress: (state) => { return state.dataSubmission.inProgress },
     // viewport management
     // windowsInnerWidth: (state) => { return state.windowsInnerWidth },
@@ -28,5 +30,9 @@ export default {
     loginFormPasswordReady: (state) => { return loginForm.passwordReady(state) },
     loginFormReadyToSubmit: (state) => { return loginForm.readyToSubmit(state) },
     // admin panel
-    jwt: (state) => { return state.jwt }
+    loggedInAsAdmin: (state) => { return (state.adminUser.jwt !== null) },
+    jwt: (state) => { return state.adminUser.jwt },
+    adminUserEmail: (state) => { return state.adminUser.email },
+    adminUserLoginId: (state) => { return state.adminUser.loginId },
+    adminPanelMenu: (state) => { return state.adminPanelMenu }
 }

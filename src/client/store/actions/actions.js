@@ -24,27 +24,35 @@ export default {
 function appInit(context) {
     const initList = [{
         dispatch: 'fetchRegions',
-        commit: 'registerRegions'
+        commits: ['registerRegions']
     }, {
         dispatch: 'fetchCountries',
-        commit: 'registerCountries'
+        commits: ['registerCountries']
     }, {
         dispatch: 'fetchOfficeLocations',
-        commit: 'registerOfficeLocations'
+        commits: ['registerOfficeLocations']
     }, {
         dispatch: 'fetchSeries',
-        commit: 'registerSeries'
+        commits: ['registerSeries']
     }, {
         dispatch: 'fetchProducts',
-        commit: 'registerProducts'
+        commits: [
+            'registerProducts',
+            'resetAdminPanelMenu'
+        ]
     }]
     context.commit('clearStore')
     let initProcedures = []
-    initList.forEach((item) => {
+    initList.forEach((item, index, array) => {
         initProcedures.push({
             dispatch: context.dispatch(item.dispatch),
-            commit: item.commit
+            commit: item.commits[0],
+            furtherCommits: []
         })
+        let additionalCommits = array[index].commits.slice(1, array[index].commits.length)
+        if (additionalCommits.length > 0) {
+            initProcedures[index].furtherCommits = additionalCommits
+        }
     })
     Promise
         .each(initProcedures, (initProcedure) => {
@@ -56,6 +64,9 @@ function appInit(context) {
                     .dispatch
                     .then((fetchedApiData) => {
                         context.commit(initProcedureResult.commit, fetchedApiData.data.data)
+                        initProcedureResult.furtherCommits.forEach((commit) => {
+                            context.commit(commit)
+                        })
                     })
             })
         })

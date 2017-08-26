@@ -18,7 +18,8 @@ function userLogin(context) {
         }).then((token) => {
             context.commit('clearLoginForm')
             context.commit('resetDataSubmissionState')
-            context.commit('registerToken', token.data.data.token)
+            context.commit('registerNewToken', token.data.data.token)
+            context.commit('restoreToken')
             return Promise.resolve()
         }).catch((error) => {
             context.commit('clearLoginFormPassword')

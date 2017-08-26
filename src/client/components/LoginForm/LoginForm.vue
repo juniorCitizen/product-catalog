@@ -18,7 +18,8 @@
             </div>
             <div v-else
                  class="columns is-centered">
-                <div class="column has-text-centered">Unsupported resolution</div>
+                <div class="column has-text-centered">不支援行動裝置解析度</div>
+                <div class="column has-text-centered">Mobile Device is Unsupported</div>
             </div>
         </div>
     </div>
