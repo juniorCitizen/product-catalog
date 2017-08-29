@@ -1,10 +1,6 @@
 <template>
-    <div class="control">
-        <button class="button is-danger"
-                @click="$emit('clearLoginFormEvent')"
-                :disabled="dataSubmissionInProgress">
-            <span>清除表單</span>
-        </button>
+    <div>
+        New Template
     </div>
 </template>
 
@@ -12,16 +8,14 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'reset',
+        name: 'new-template',
         components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({
-                dataSubmissionInProgress: 'dataSubmissionInProgress'
-            })
+            ...mapGetters({})
         },
         watch: {},
         methods: {

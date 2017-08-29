@@ -15,11 +15,11 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import copyrightNotice from './copyrightNotice.vue'
+    import CopyrightNotice from './CopyrightNotice.vue'
 
     export default {
-        name: 'footer-toolbar',
-        components: { copyrightNotice },
+        name: 'page-footer',
+        components: { CopyrightNotice },
         props: [],
         data: function () {
             return {}
@@ -29,24 +29,15 @@
         },
         watch: {},
         methods: {
-            ...mapMutations({
-                registerPageFooterHeight: 'registerPageFooterHeight'
-            }),
-            ...mapActions({}),
-            updatePageFooterHeight: function () {
-                this.registerPageFooterHeight(document.getElementById('page-footer').clientHeight)
-            }
+            ...mapMutations({}),
+            ...mapActions({})
         },
         beforeCreate: function () { },
         created: function () { },
         beforeMount: function () { },
-        mounted: function () {
-            this.updatePageFooterHeight()
-        },
+        mounted: function () { },
         beforeUpdate: function () { },
-        updated: function () {
-            this.updatePageFooterHeight()
-        },
+        updated: function () { },
         beforeDestroy: function () { },
         destroyed: function () { }
     }
@@ -59,5 +50,6 @@
         bottom: 0;
         overflow-y: hidden;
         overflow-x: hidden;
+        z-index: 10;
     }
 </style>

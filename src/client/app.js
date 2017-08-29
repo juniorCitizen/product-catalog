@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 
-import routes from './routes'
+import routing from './store/state/routing'
 
 import Axios from './plugins/axios'
 import EVars from './plugins/eVars'
@@ -20,13 +20,13 @@ Vue.use(mediaQueries)
 Vue.mixin(ResponsiveBands.mixin)
 
 const router = new VueRouter({
-    routes: routes,
+    routes: routing.state.routes,
     mode: 'history'
 })
 
 new Vue({ // eslint-disable-line no-new
     el: '#app',
-    router,
+    router: router,
     mediaQueries: mediaQueries,
     render: (h) => h(App)
 })

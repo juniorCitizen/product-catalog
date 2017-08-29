@@ -1,30 +1,21 @@
 <template>
-    <p class="subtitle"
-       :class="dynamicClass">
-        {{ captionText }}
-    </p>
+    <div>
+        New Template
+    </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'caption-text',
+        name: 'new-template',
         components: {},
         props: [],
         data: function () {
-            return {
-                captionText: 'Products available from Taiwan or China'
-            }
+            return {}
         },
         computed: {
-            ...mapGetters({}),
-            dynamicClass: function () {
-                return {
-                    'is-5': !this.isOnMobileDevice,
-                    'is-6': this.isOnMobileDevice
-                }
-            }
+            ...mapGetters({})
         },
         watch: {},
         methods: {
@@ -42,8 +33,4 @@
     }
 </script>
 
-<style scoped>
-    p {
-        margin-top: 100px;
-    }
-</style>
+<style scoped></style>

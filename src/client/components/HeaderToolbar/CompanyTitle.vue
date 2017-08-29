@@ -1,17 +1,14 @@
 <template>
-    <a class="navbar-item">
-        <span v-show="!isMobile"
-              class="title is-4">
-            <b>Gentry Way Co., Ltd.</b>
-        </span>
-    </a>
+    <div>
+        New Template
+    </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'company-title',
+        name: 'new-template',
         components: {},
         props: [],
         data: function () {
@@ -36,16 +33,4 @@
     }
 </script>
 
-<style scoped>
-    a {
-        font-style: italic;
-        margin-top: auto;
-        margin-bottom: auto;
-        cursor: default;
-    }
-
-    a[disabled],
-    a[disabled]:hover {
-        pointer-events: none;
-    }
-</style>
+<style scoped></style>

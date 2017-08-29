@@ -1,94 +1,36 @@
 <template>
-    <header id="header-toolbar"
-            class="navbar is-transparent">
-        <div class="navbar-brand">
-            <logo></logo>
-            <company-title></company-title>
-            <burger-icon></burger-icon>
-        </div>
-        <div id="mobile-nav-menu"
-             class="navbar-menu"
-             :class="dynamicClasses">
-            <toolbar-nav></toolbar-nav>
-        </div>
-    </header>
+    <div>
+        header toolbar
+    </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import BurgerIcon from './BurgerIcon.vue'
-    import CompanyTitle from './CompanyTitle.vue'
-    import Logo from './Logo.vue'
-    import ToolbarNav from './ToolbarNav.vue'
-
     export default {
         name: 'header-toolbar',
-        components: {
-            BurgerIcon,
-            CompanyTitle,
-            Logo,
-            ToolbarNav
-        },
+        components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({
-                clientAccessUrl: 'clientAccessUrl',
-                mobileNavMenu: 'mobileNavMenu'
-            }),
-            logoUrl: function () {
-                return `${this.clientAccessUrl}/assets/gentryLogoSmall.png`
-            },
-            dynamicClasses: function () {
-                return {
-                    'is-active': this.isOnMobileDevice && this.mobileNavMenu
-                }
-            }
+            ...mapGetters({})
         },
         watch: {},
         methods: {
-            ...mapMutations({
-                registerHeaderToolbarHeight: 'registerHeaderToolbarHeight'
-            }),
-            ...mapActions({}),
-            updateHeaderToolbarHeight: function () {
-                this.registerHeaderToolbarHeight(document.getElementById('header-toolbar').clientHeight)
-            }
+            ...mapMutations({}),
+            ...mapActions({})
         },
         beforeCreate: function () { },
         created: function () { },
         beforeMount: function () { },
-        mounted: function () {
-            this.updateHeaderToolbarHeight()
-        },
+        mounted: function () { },
         beforeUpdate: function () { },
-        updated: function () {
-            this.updateHeaderToolbarHeight()
-        },
+        updated: function () { },
         beforeDestroy: function () { },
         destroyed: function () { }
     }
 </script>
 
-<style scoped>
-    header {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        overflow-y: hidden;
-        overflow-x: hidden;
-        z-index: 1;
-    }
-
-    a {
-        cursor: pointer;
-    }
-
-    a[disabled],
-    a[disabled]:hover {
-        pointer-events: none;
-    }
-</style>
+<style scoped></style>

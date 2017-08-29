@@ -1,8 +1,6 @@
 <template>
-    <div class="hero-body">
-        <div class="container is-fluid has-text-centered">
-            Registration
-        </div>
+    <div>
+        New Template
     </div>
 </template>
 
@@ -10,7 +8,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'registration',
+        name: 'new-template',
         components: {},
         props: [],
         data: function () {

@@ -8,7 +8,7 @@ import routerResponse from '../../controllers/routerResponse'
 
 const router = express.Router()
 
-router.post('/', loginInfoPresence, tokenRequest)
+router.post('/', loginInfoPresence, require('../../middlewares/botPrevention'), tokenRequest)
 
 module.exports = router
 
@@ -77,7 +77,7 @@ function tokenRequest(req, res) {
 }
 
 function loginInfoPresence(req, res, next) {
-    if ((req.body === undefined) || (req.body.loginId === undefined) || (req.body.password === undefined)) {
+    if ((req.body === undefined) || (req.body.loginId === undefined) || (req.body.password === undefined) || (req.body.botPrevention === undefined)) {
         let error = new Error('required login information missing')
         error.name = 'missingLoginInfo'
         return routerResponse.json({

@@ -35,10 +35,12 @@ gulp.task('realignDistStructure', gulp.parallel(
 gulp.task('restoreDatabase', requireTaskPath('/backup/restoreDatabase'))
 gulp.task('commonAssets', requireTaskPath('/assets/commonAssets'))
 gulp.task('hbsTemplates', requireTaskPath('/assets/hbsTemplates'))
+gulp.task('bulma', requireTaskPath('/assets/bulma'))
 gulp.task('prepAssets', gulp.parallel(
     'restoreDatabase',
     'commonAssets',
-    'hbsTemplates'
+    'hbsTemplates',
+    'bulma'
 ))
 
 // linting related tasks

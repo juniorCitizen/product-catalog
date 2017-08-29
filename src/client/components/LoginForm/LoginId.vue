@@ -1,20 +1,6 @@
 <template>
-    <div class="field">
-        <div class="control has-icons-left">
-            <input class="input"
-                   :class="dynamicClass"
-                   type="text"
-                   v-model="loginId"
-                   placeholder="使用者帳號"
-                   :disabled="dataSubmissionInProgress">
-            <span class="icon is-left">
-                <i class="fa fa-user"></i>
-            </span>
-        </div>
-        <p v-if="warning"
-           class="help is-danger">
-            使用者帳號為必塡項目
-        </p>
+    <div>
+        New Template
     </div>
 </template>
 
@@ -22,43 +8,18 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'login-id',
+        name: 'new-template',
         components: {},
-        props: [
-            'resetFieldValue'
-        ],
+        props: [],
         data: function () {
-            return {
-                loginId: ''
-            }
+            return {}
         },
         computed: {
-            ...mapGetters({
-                dataSubmissionInProgress: 'dataSubmissionInProgress',
-                loginFormLoginIdReady: 'loginFormLoginIdReady',
-                loginFormValidation: 'loginFormValidation'
-            }),
-            warning: function () {
-                return !this.loginFormLoginIdReady && this.loginFormValidation
-            },
-            dynamicClass: function () {
-                return {
-                    'is-danger': this.warning
-                }
-            }
+            ...mapGetters({})
         },
-        watch: {
-            loginId: function (updatedLoginId) {
-                this.registerLoginFormLoginId(updatedLoginId)
-            },
-            resetFieldValue: function (state) {
-                if (state === true) { this.loginId = '' }
-            }
-        },
+        watch: {},
         methods: {
-            ...mapMutations({
-                registerLoginFormLoginId: 'registerLoginFormLoginId'
-            }),
+            ...mapMutations({}),
             ...mapActions({})
         },
         beforeCreate: function () { },

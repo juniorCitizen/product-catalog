@@ -1,28 +1,21 @@
 <template>
-    <span class="navbar-item">
-        <img class="image"
-             :src="logoUrl"
-             alt="Gentry Way Co., Ltd.">
-    </span>
+    <div>
+        New Template
+    </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'logo',
+        name: 'new-template',
         components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({
-                clientAccessUrl: 'clientAccessUrl'
-            }),
-            logoUrl: function () {
-                return `${this.clientAccessUrl}/assets/gentryLogoSmall.png`
-            }
+            ...mapGetters({})
         },
         watch: {},
         methods: {
