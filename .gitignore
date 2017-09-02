@@ -64,6 +64,7 @@ typings/
 dist/
 temp/
 backup/
+!src/gulpTasks/backup
 
 *.swp
 
