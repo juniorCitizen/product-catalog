@@ -43,5 +43,7 @@
 <style scoped>
     div {
         font-size: 75%;
+        color: darkgreen;
+        cursor: default;
     }
 </style>

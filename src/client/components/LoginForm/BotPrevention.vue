@@ -1,11 +1,11 @@
 <template>
-    <div class="navbar-burger burger"
-         :class="{'is-active':mobileNavMenuActivated}"
-         @click="toggleMobileNavMenu"
-         data-target="mobile-nav-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="field">
+        <input class="input"
+               name="bot-prevention"
+               type="text"
+               required
+               :value="botPrevention"
+               @input="updateValue">
     </div>
 </template>
 
@@ -13,7 +13,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'burger-icon',
+        name: 'bot-prevention',
         components: {},
         props: [],
         data: function () {
@@ -21,15 +21,21 @@
         },
         computed: {
             ...mapGetters({
-                mobileNavMenuActivated: 'mobileNavMenu/activated'
+                botPrevention: 'loginForm/botPrevention'
             })
         },
         watch: {},
         methods: {
             ...mapMutations({
-                toggleMobileNavMenu: 'mobileNavMenu/toggle'
+                register: 'loginForm/register'
             }),
-            ...mapActions({})
+            ...mapActions({}),
+            updateValue: function (event) {
+                this.register({
+                    name: 'botPrevention',
+                    value: event.target.value
+                })
+            }
         },
         beforeCreate: function () { },
         created: function () { },
@@ -42,4 +48,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    div {
+        display: none;
+    }
+</style>

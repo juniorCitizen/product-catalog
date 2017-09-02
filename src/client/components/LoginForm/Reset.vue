@@ -1,6 +1,10 @@
 <template>
-    <div>
-        New Template
+    <div class="control">
+        <button class="button is-danger"
+                @click="reset"
+                :disabled="flowControl">
+            <span>清除表單</span>
+        </button>
     </div>
 </template>
 
@@ -8,18 +12,22 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'reset',
         components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                flowControl: 'flowControl/activated'
+            })
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                reset: 'loginForm/reset'
+            }),
             ...mapActions({})
         },
         beforeCreate: function () { },

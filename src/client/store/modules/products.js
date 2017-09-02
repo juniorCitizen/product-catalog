@@ -3,27 +3,29 @@ import eVars from '../../../server/config/environment'
 
 export default {
     namespaced: true,
+    state: {
+        data: [],
+        apiUrl: `${eVars.API_URL}/products`
+    },
+    mutations: {
+        register: (state, products) => {
+            state.data = products
+        },
+        reset: (state) => {
+            state.data = []
+        }
+    },
+    getters: {
+        data: state => state.data,
+        apiUrl: state => state.apiUrl
+    },
     actions: {
         fetch: (context) => {
             let options = {
                 method: 'get',
-                url: `${eVars.API_URL}/products`
+                url: context.state.apiUrl
             }
             return axios(options)
         }
-    },
-    getters: {
-        products: state => state.products
-    },
-    mutations: {
-        register: (state, products) => {
-            state.products = products
-        },
-        reset: (state) => {
-            state.products = []
-        }
-    },
-    state: {
-        products: []
     }
 }

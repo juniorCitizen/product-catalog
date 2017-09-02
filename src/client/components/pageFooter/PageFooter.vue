@@ -29,15 +29,27 @@
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                register: 'viewport/register'
+            }),
             ...mapActions({})
         },
         beforeCreate: function () { },
         created: function () { },
         beforeMount: function () { },
-        mounted: function () { },
+        mounted: function () {
+            this.register({
+                stateProperty: 'pageFooterHeight',
+                value: document.getElementById('page-footer').clientHeight
+            })
+        },
         beforeUpdate: function () { },
-        updated: function () { },
+        updated: function () {
+            this.register({
+                stateProperty: 'pageFooterHeight',
+                value: document.getElementById('page-footer').clientHeight
+            })
+        },
         beforeDestroy: function () { },
         destroyed: function () { }
     }

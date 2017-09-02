@@ -1,18 +1,31 @@
 <template>
-    <div>
-        New Template
-    </div>
+    <p class="subtitle"
+       :class="dynamicClass">
+        <template v-for="(mottoLine,arrayIndex) in mottoText">
+            <span :key="arrayIndex">
+                {{ mottoLine }}
+            </span>
+            <br :key="arrayIndex"
+                v-if="arrayIndex<=mottoText.length">
+        </template>
+    </p>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'subheadings',
         components: {},
         props: [],
         data: function () {
-            return {}
+            return {
+                mottoText: [
+                    'Quality aluminium extrusion articles',
+                    'for medical, rehabilitation and recreation industries',
+                    'at competitive prices !!!'
+                ]
+            }
         },
         computed: {
             ...mapGetters({})
@@ -20,7 +33,13 @@
         watch: {},
         methods: {
             ...mapMutations({}),
-            ...mapActions({})
+            ...mapActions({}),
+            dynamicClass: function () {
+                return {
+                    'is-3': !this.isOnMobileDevice,
+                    'is-6': this.isOnMobileDevice
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },
@@ -33,4 +52,11 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    .subtitle {
+        color: darkgreen;
+        font-weight: bold;
+        font-style: italic;
+        transform: rotate(-4deg)
+    }
+</style>

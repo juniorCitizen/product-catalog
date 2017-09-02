@@ -8,7 +8,7 @@ export default {
             }
         })
     },
-    resetStore: (state) => {
+    reset: (state) => {
         state.seriesId = 0
         state.type = 'unselected'
         state.code = ''

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        New Template
+    <div class="hero-body">
+        product catalog
     </div>
 </template>
 
@@ -8,7 +8,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'product-catalog',
         components: {},
         props: [],
         data: function () {

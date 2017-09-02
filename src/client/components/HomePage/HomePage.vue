@@ -4,16 +4,13 @@
             <div class="tile is-ancestor">
                 <div class="tile is-parent is-vertical">
                     <div class="tile is-child">
-                        test
-                        <!-- <head-lines></head-lines> -->
+                        <head-lines></head-lines>
                     </div>
                     <div class="tile is-child">
-                        test
-                        <!-- <subheadings></subheadings> -->
+                        <subheadings></subheadings>
                     </div>
                     <div class="tile is-child">
-                        test
-                        <!-- <caption-text></caption-text> -->
+                        <caption-text></caption-text>
                     </div>
                 </div>
             </div>
@@ -24,9 +21,17 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import HeadLines from './HeadLines.vue'
+    import Subheadings from './Subheadings.vue'
+    import CaptionText from './CaptionText.vue'
+
     export default {
         name: 'home-page',
-        components: {},
+        components: {
+            HeadLines,
+            Subheadings,
+            CaptionText
+        },
         props: [],
         data: function () {
             return {}
@@ -50,4 +55,18 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+    div.hero-body {
+        z-index: 0;
+        animation: animate 0.6s both;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: scale(0.6) translateY(60px);
+        }
+        100% {
+            transform: scale(1) translateY(0px);
+        }
+    }
+</style>
