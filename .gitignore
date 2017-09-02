@@ -72,3 +72,4 @@ backup/
 *.db
 *.db-journal
 *.backup.db
+!productCatalog.blank.db
