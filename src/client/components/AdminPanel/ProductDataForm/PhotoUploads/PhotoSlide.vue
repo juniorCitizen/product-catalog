@@ -32,7 +32,8 @@
         },
         computed: {
             ...mapGetters({
-                flowControl: 'flowControl/activated'
+                flowControl: 'flowControl/activated',
+                newEntry: 'productData/newEntry'
             })
         },
         watch: {
@@ -57,11 +58,15 @@
         created: function () { },
         beforeMount: function () { },
         mounted: function () {
-            let fileReader = new FileReader()
-            fileReader.onload = (event) => {
-                this.src = event.target.result
+            if (!this.newEntry) {
+                this.src = `${this.$eVars.API_URL}/photos?photoId=${this.photo.id}`
+            } else {
+                let fileReader = new FileReader()
+                fileReader.onload = (event) => {
+                    this.src = event.target.result
+                }
+                fileReader.readAsDataURL(this.photo)
             }
-            fileReader.readAsDataURL(this.photo)
         },
         beforeUpdate: function () { },
         updated: function () { },

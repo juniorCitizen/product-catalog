@@ -111,15 +111,6 @@ export default {
             }).then((apiResponse) => {
                 context.commit('products/addProduct', apiResponse.data.data)
                 context.commit('series/addProduct', apiResponse.data.data)
-                //     console.log('--------------------------------------------------------')
-                //     console.log('---------------------new record-------------------------')
-                //     console.log('--------------------------------------------------------')
-                //     console.log(apiResponse.data.data)
-                //     console.log('--------------------------------------------------------')
-                //     context.commit('products/reset')
-                //     return context.dispatch('products/fetch')
-                // }).then((apiResponse) => {
-                //     context.commit('products/register', apiResponse.data.data)
                 context.commit('productData/reset')
                 context.commit('flowControl/stop')
                 return Promise.resolve()
@@ -129,5 +120,28 @@ export default {
                 return Promise.reject(error)
             })
         }
+    },
+    deleteProductRecord: (context, productId) => {
+        context.commit('flowControl/start')
+        return axios({
+            method: 'delete',
+            url: `${eVars.API_URL}/products?productId=${productId}`,
+            headers: {
+                'x-access-token': context.getters['credentials/jwt']
+            }
+        }).then((apiResponse) => {
+            return context.dispatch('series/fetch')
+        }).then((apiResponse) => {
+            context.commit('series/register', apiResponse.data.data)
+            return context.dispatch('products/fetch')
+        }).then((apiResponse) => {
+            context.commit('products/register', apiResponse.data.data)
+            context.commit('productData/reset')
+            context.commit('flowControl/stop')
+            return Promise.resolve()
+        }).catch((error) => {
+            context.commit('flowControl/stop')
+            return Promise.reject(error)
+        })
     }
 }

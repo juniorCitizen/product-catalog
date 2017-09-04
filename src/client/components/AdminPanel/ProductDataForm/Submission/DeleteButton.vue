@@ -1,17 +1,16 @@
 <template>
     <p class="control">
-        <button class="button is-primary"
-                @click="submit"
+        <button class="button is-danger"
+                @click="deleteProductRecord"
                 :disabled="flowControl">
             <template v-if="!flowControl">
-                <span v-if="validated">建立資料</span>
-                <span v-else>產品資料不完整</span>
+                <span>刪除資料</span>
             </template>
             <template v-else>
                 <span class="icon">
                     <i class="fa fa-spinner fa-pulse"></i>
                 </span>
-                <span>新產品資料建立中...</span>
+                <span>刪除產品資料...</span>
             </template>
         </button>
     </p>
@@ -21,7 +20,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'insert-button',
+        name: 'delete-button',
         components: {},
         props: [],
         data: function () {
@@ -30,30 +29,23 @@
         computed: {
             ...mapGetters({
                 flowControl: 'flowControl/activated',
-                validated: 'productData/form/validation/form',
-                validating: 'productData/form/validation/state'
+                updateProductId: 'productData/updateProductId'
             })
         },
         watch: {},
         methods: {
             ...mapMutations({
-                activateValidation: 'productData/form/validation/activate',
                 reset: 'productData/reset'
             }),
-            ...mapActions({
-                registerNewProduct: 'registerNewProduct'
-            }),
-            submit: function () {
-                if (!this.validating) {
-                    this.activateValidation()
-                }
-                if (this.validated) {
-                    this.registerNewProduct()
+            ...mapActions({}),
+            deleteProductRecord: function () {
+                if (confirm('確認刪除產品資料')) {
+                    this.$store.dispatch('deleteProductRecord', this.updateProductId)
                         .then(() => {
-                            alert('新產品資料建立成功')
+                            alert('產品資料刪除成功')
                         })
                         .catch((error) => {
-                            alert('產品資料建立失敗')
+                            alert('產品資料刪除失敗')
                             console.log(error.name)
                             console.log(error.message)
                             console.log(error.stack)

@@ -1,7 +1,8 @@
 <template>
     <p class="control">
         <button class="button is-danger"
-                @click="handleReset">
+                @click="handleReset"
+                :disabled="flowControl">
             <span>表單重設</span>
         </button>
     </p>
@@ -18,12 +19,14 @@
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                flowControl: 'flowControl/activated'
+            })
         },
         watch: {},
         methods: {
             ...mapMutations({
-                reset: 'productData/form/reset'
+                reset: 'productData/reset'
             }),
             ...mapActions({}),
             handleReset: function () {

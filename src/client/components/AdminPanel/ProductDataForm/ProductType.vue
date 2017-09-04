@@ -2,7 +2,8 @@
     <div class="control">
         <div class="select">
             <select :value="type"
-                    @change="updateValue">
+                    @change="updateValue"
+                    :disabled="!newEntry">
                 <option value="unselected"
                         disabled
                         selected>
@@ -30,7 +31,8 @@
                 type: 'productData/form/type',
                 flowControl: 'flowControl/activated',
                 validated: 'productData/form/validation/input',
-                validating: 'productData/form/validation/state'
+                validating: 'productData/form/validation/state',
+                newEntry: 'productData/newEntry'
             }),
             warning: function () {
                 return !this.validated('type') && this.validating

@@ -20,7 +20,7 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-    import SideMenu from './SideMenu/SideMenu.vue'
+    import SideMenu from './SideMenu.vue'
     import ProductDataForm from './ProductDataForm/ProductDataForm.vue'
 
     export default {

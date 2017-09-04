@@ -138,9 +138,24 @@ let form = {
 export default {
     namespaced: true,
     state: {
-        newEntry: true
+        newEntry: true,
+        updateProductId: null
     },
     mutations: {
+        newEntry: (state) => { state.newEntry = true },
+        updateRecord: (state, productData) => {
+            state.form.validation.state = false
+            state.newEntry = false
+            state.form.ignoredPhotos = []
+            state.form.seriesId = productData.seriesId
+            state.form.type = productData.type
+            state.form.code = productData.code
+            state.form.name = productData.name
+            state.form.description = productData.description.text
+            state.form.primaryPhoto = productData.photos.slice(0, 1)
+            state.form.secondaryPhotos = productData.photos.slice(1, productData.photos.length)
+            state.updateProductId = productData.id
+        },
         reset: (state) => {
             state.form.validation.state = false
             state.form.seriesId = 0
@@ -152,9 +167,13 @@ export default {
             state.form.secondaryPhotos = null
             state.form.ignoredPhotos = []
             state.newEntry = true
+            state.updateProductId = null
         }
     },
-    getters: {},
+    getters: {
+        newEntry: state => state.newEntry,
+        updateProductId: state => state.updateProductId
+    },
     actions: {},
     modules: {
         form: form

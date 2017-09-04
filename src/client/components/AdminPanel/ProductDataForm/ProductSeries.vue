@@ -3,7 +3,8 @@
         <span class="select"
               :class="{'is-danger':warning}">
             <select :value="seriesId"
-                    @change="updateValue">
+                    @change="updateValue"
+                    :disabled="!newEntry">
                 <option value="0"
                         disabled
                         selected>
@@ -35,7 +36,8 @@
                 seriesId: 'productData/form/seriesId',
                 flowControl: 'flowControl/activated',
                 validated: 'productData/form/validation/input',
-                validating: 'productData/form/validation/state'
+                validating: 'productData/form/validation/state',
+                newEntry: 'productData/newEntry'
             }),
             warning: function () {
                 return !this.validated('seriesId') && this.validating

@@ -16,11 +16,14 @@ module.exports = (req, res) => {
                     pendingResponse: res,
                     statusCode: 200,
                     mimeType: photo.mimeType,
-                    dataBuffer: Buffer.from(photo.photoData)
+                    dataBuffer: Buffer.from(photo.data)
                 })
             }
         })
         .catch((error) => {
+            console.log(error.name)
+            console.log(error.message)
+            console.log(error.stack)
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,

@@ -17,7 +17,7 @@ router
         validateJwt,
         upload.fields([
             { name: 'primaryPhoto', maxCount: 1 },
-            { name: 'secondaryPhotos', maxCount: 30 }
+            { name: 'secondaryPhotos', maxCount: 15 }
         ]),
         require('./insert'))
     .delete('/', validateJwt, require('./delete'))

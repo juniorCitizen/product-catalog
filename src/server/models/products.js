@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         code: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: 'uniqueCodeIndex'
         },
         name: {
             type: DataTypes.STRING,
@@ -35,7 +35,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         deletedAt: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
+            unique: 'uniqueCodeIndex'
         }
     }, {
         name: {

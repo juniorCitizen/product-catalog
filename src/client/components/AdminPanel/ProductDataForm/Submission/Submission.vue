@@ -1,6 +1,7 @@
 <template>
     <div class="field is-grouped">
-        <insert-button></insert-button>
+        <insert-button v-if="newEntry"></insert-button>
+        <delete-button v-if="!newEntry"></delete-button>
         <reset-button></reset-button>
     </div>
 </template>
@@ -10,19 +11,23 @@
 
     import InsertButton from './InsertButton.vue'
     import ResetButton from './ResetButton.vue'
+    import DeleteButton from './DeleteButton.vue'
 
     export default {
         name: 'submission',
         components: {
             InsertButton,
-            ResetButton
+            ResetButton,
+            DeleteButton
         },
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                newEntry: 'productData/newEntry'
+            })
         },
         watch: {},
         methods: {

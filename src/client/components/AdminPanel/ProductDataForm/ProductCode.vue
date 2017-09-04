@@ -5,6 +5,7 @@
                    type="text"
                    placeholder="輸入產品編號 (必填)"
                    :value="code"
+                   :disabled="!newEntry"
                    @input="updateValue">
         </div>
     </div>
@@ -25,7 +26,8 @@
                 code: 'productData/form/code',
                 flowControl: 'flowControl/activated',
                 validated: 'productData/form/validation/input',
-                validating: 'productData/form/validation/state'
+                validating: 'productData/form/validation/state',
+                newEntry: 'productData/newEntry'
             }),
             warning: function () {
                 return !this.validated('code') && this.validating

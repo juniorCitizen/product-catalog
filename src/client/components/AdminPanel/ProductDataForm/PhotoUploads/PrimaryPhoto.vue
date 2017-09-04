@@ -35,7 +35,8 @@
         },
         computed: {
             ...mapGetters({
-                primaryPhoto: 'productData/form/primaryPhoto'
+                primaryPhoto: 'productData/form/primaryPhoto',
+                newEntry: 'productData/newEntry'
             }),
             captions: function () {
                 if (this.primaryPhoto === null) {
@@ -46,7 +47,7 @@
                 } else {
                     return {
                         fileLabel: '重新選擇主要相片',
-                        fileName: this.primaryPhoto[0].name
+                        fileName: this.newEntry ? this.primaryPhoto[0].name : this.primaryPhoto[0].originalName
                     }
                 }
             }
