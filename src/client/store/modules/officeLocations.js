@@ -21,11 +21,10 @@ export default {
     },
     actions: {
         fetch: (context) => {
-            let options = {
+            return axios({
                 method: 'get',
                 url: context.state.apiUrl
-            }
-            return axios(options)
+            })
         }
     }
 }

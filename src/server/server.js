@@ -79,7 +79,7 @@ initRun
             } else {
                 proxyRegistration
                     .then(() => {
-                        console.log(`${eVars.SYS_REF} server activated (${eVars.REMOTE_DEV_HOST}:${eVars.PORT})`)
+                        console.log(`${eVars.SYS_REF} server activated (${eVars.HOST}:${eVars.PORT})`)
                         return Promise.resolve()
                     })
                     .catch((error) => {

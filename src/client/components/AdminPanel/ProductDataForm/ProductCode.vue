@@ -1,6 +1,12 @@
 <template>
-    <div>
-        New Template
+    <div class="field">
+        <div class="control">
+            <input class="input"
+                   type="text"
+                   placeholder="輸入產品編號 (必填)"
+                   :value="code"
+                   @input="updateValue">
+        </div>
     </div>
 </template>
 
@@ -8,19 +14,35 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'product-code',
         components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                code: 'productData/form/code',
+                flowControl: 'flowControl/activated',
+                validated: 'productData/form/validation/input',
+                validating: 'productData/form/validation/state'
+            }),
+            warning: function () {
+                return !this.validated('code') && this.validating
+            }
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({
+                register: 'productData/form/register'
+            }),
+            ...mapActions({}),
+            updateValue: function (event) {
+                this.register({
+                    name: 'code',
+                    value: event.target.value.trim()
+                })
+            }
         },
         beforeCreate: function () { },
         created: function () { },

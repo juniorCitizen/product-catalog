@@ -1,16 +1,22 @@
 <template>
-    <div>
-        New Template
-    </div>
+    <p class="menu-label">
+        <a v-if="typeof action === 'function'"
+           @click="action()">{{ labelText }}
+        </a>
+        <span v-else>{{ labelText }}</span>
+    </p>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'menu-label',
         components: {},
-        props: [],
+        props: [
+            'labelText',
+            'action'
+        ],
         data: function () {
             return {}
         },

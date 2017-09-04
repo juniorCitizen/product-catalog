@@ -1,14 +1,17 @@
 <template>
-    <div>
-        New Template
-    </div>
+    <p class="control">
+        <button class="button is-danger"
+                @click="handleReset">
+            <span>表單重設</span>
+        </button>
+    </p>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'reset-button',
         components: {},
         props: [],
         data: function () {
@@ -19,8 +22,15 @@
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({
+                reset: 'productData/form/reset'
+            }),
+            ...mapActions({}),
+            handleReset: function () {
+                if (confirm('請確認重置表單資料')) {
+                    this.reset()
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },
@@ -34,3 +44,4 @@
 </script>
 
 <style scoped></style>
+

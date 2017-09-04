@@ -13,6 +13,18 @@ export default {
         },
         reset: (state) => {
             state.data = []
+        },
+        addProduct: (state, product) => {
+            state.data.push(product)
+            state.data.sort((a, b) => {
+                if (a.code.toLowerCase() > b.code.toLowerCase()) {
+                    return 1
+                } else if (a.code.toLowerCase() > b.code.toLowerCase()) {
+                    return -1
+                } else {
+                    return 0
+                }
+            })
         }
     },
     getters: {
@@ -21,11 +33,10 @@ export default {
     },
     actions: {
         fetch: (context) => {
-            let options = {
+            return axios({
                 method: 'get',
                 url: context.state.apiUrl
-            }
-            return axios(options)
+            })
         }
     }
 }

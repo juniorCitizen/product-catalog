@@ -59,16 +59,46 @@ function insertProductRecord(req, res) {
                 })
         })
         .then(() => {
+            return db.Products.findOne({
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'deletedAt']
+                },
+                where: {
+                    seriesId: req.body.seriesId,
+                    code: req.body.code
+                },
+                include: [{
+                    model: db.Descriptions,
+                    attributes: {
+                        exclude: [
+                            'createdAt',
+                            'updatedAt',
+                            'deletedAt'
+                        ]
+                    }
+                }, {
+                    model: db.Photos,
+                    attributes: {
+                        exclude: [
+                            'data',
+                            'createdAt',
+                            'updatedAt',
+                            'deletedAt'
+                        ]
+                    }
+                }]
+            })
+        })
+        .then((productRecord) => {
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,
                 statusCode: 200,
-                success: true
+                success: true,
+                data: productRecord
             })
         })
         .catch((error) => {
-            console.log(error)
-            // return error object to the frontend
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,

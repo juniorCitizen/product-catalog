@@ -8,20 +8,20 @@ module.exports = (sequelize, DataTypes) => {
         },
         seriesId: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         code: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
             unique: true
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         type: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         createdAt: {
             type: DataTypes.DATE,

@@ -15,6 +15,7 @@ export default {
         context.commit('loginForm/reset')
         context.commit('flowControl/stop')
         context.commit('credentials/reset')
+        context.commit('productData/reset')
     },
     initialize: (context) => {
         context.dispatch('reset')
@@ -91,5 +92,42 @@ export default {
             context.commit('flowControl/stop')
             return Promise.reject(error)
         })
+    },
+    registerNewProduct: (context) => {
+        if (!context.getters['productData/form/validation/form']) {
+            let error = new Error('product data is not ready')
+            error.name = 'productDataNotReady'
+            return Promise.reject(error)
+        } else {
+            context.commit('flowControl/start')
+            return axios({
+                method: 'post',
+                url: `${eVars.API_URL}/products`,
+                data: context.getters['productData/form/formData'],
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'x-access-token': context.getters['credentials/jwt']
+                }
+            }).then((apiResponse) => {
+                context.commit('products/addProduct', apiResponse.data.data)
+                context.commit('series/addProduct', apiResponse.data.data)
+                //     console.log('--------------------------------------------------------')
+                //     console.log('---------------------new record-------------------------')
+                //     console.log('--------------------------------------------------------')
+                //     console.log(apiResponse.data.data)
+                //     console.log('--------------------------------------------------------')
+                //     context.commit('products/reset')
+                //     return context.dispatch('products/fetch')
+                // }).then((apiResponse) => {
+                //     context.commit('products/register', apiResponse.data.data)
+                context.commit('productData/reset')
+                context.commit('flowControl/stop')
+                return Promise.resolve()
+            }).catch((error) => {
+                context.commit('productData/form/validation/deactivate')
+                context.commit('flowControl/stop')
+                return Promise.reject(error)
+            })
+        }
     }
 }

@@ -46,8 +46,7 @@ export default {
                         let validationConditions = {
                             email: rootState.loginForm.email !== '' && validEmailString(rootState.loginForm.email),
                             loginId: rootState.loginForm.loginId !== '',
-                            password: rootState.loginForm.password !== '',
-                            botPrevention: true
+                            password: rootState.loginForm.password !== ''
                         }
                         return validationConditions[field]
                     }

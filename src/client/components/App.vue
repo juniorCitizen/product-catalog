@@ -48,6 +48,9 @@
                 this.vCentered = this.$router.options.routes.filter((route) => {
                     return route.name === to.name
                 })[0].vCentered
+                if (to.path === '/productCatalog/admin') {
+                    this.resetProductDataForm()
+                }
             },
             // monitors client windows size changes
             // when size increased over threshold, mobile navigation menu is deactivated
@@ -60,6 +63,7 @@
         methods: {
             ...mapMutations({
                 deactivateMobileNavMenu: 'mobileNavMenu/deactivate',
+                resetProductDataForm: 'productData/reset',
                 register: 'viewport/register'
             }),
             ...mapActions({

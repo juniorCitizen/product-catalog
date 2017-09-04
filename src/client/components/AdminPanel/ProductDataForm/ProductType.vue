@@ -1,6 +1,17 @@
 <template>
-    <div>
-        New Template
+    <div class="control">
+        <div class="select">
+            <select :value="type"
+                    @change="updateValue">
+                <option value="unselected"
+                        disabled
+                        selected>
+                    產品類別 (必選)
+                </option>
+                <option value="product">產品</option>
+                <option value="accessory">配件</option>
+            </select>
+        </div>
     </div>
 </template>
 
@@ -8,19 +19,35 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'product-type',
         components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                type: 'productData/form/type',
+                flowControl: 'flowControl/activated',
+                validated: 'productData/form/validation/input',
+                validating: 'productData/form/validation/state'
+            }),
+            warning: function () {
+                return !this.validated('type') && this.validating
+            }
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({
+                register: 'productData/form/register'
+            }),
+            ...mapActions({}),
+            updateValue: function (event) {
+                this.register({
+                    name: 'type',
+                    value: event.target.value
+                })
+            }
         },
         beforeCreate: function () { },
         created: function () { },

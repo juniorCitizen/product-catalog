@@ -1,6 +1,25 @@
 <template>
-    <div>
-        New Template
+    <div class="field">
+        <div class="file has-name is-fullwidth">
+            <label class="file-label">
+                <input id="primary-photo"
+                       class="file-input"
+                       type="file"
+                       accept="image/*"
+                       @change="handleUpload($event)">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        {{captions.fileLabel}}
+                    </span>
+                </span>
+                <span class="file-name">
+                    {{captions.fileName}}
+                </span>
+            </label>
+        </div>
     </div>
 </template>
 
@@ -8,19 +27,51 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'new-template',
+        name: 'primary-photo',
         components: {},
         props: [],
         data: function () {
             return {}
         },
         computed: {
-            ...mapGetters({})
+            ...mapGetters({
+                primaryPhoto: 'productData/form/primaryPhoto'
+            }),
+            captions: function () {
+                if (this.primaryPhoto === null) {
+                    return {
+                        fileLabel: '選擇主要相片',
+                        fileName: '尚未選定'
+                    }
+                } else {
+                    return {
+                        fileLabel: '重新選擇主要相片',
+                        fileName: this.primaryPhoto[0].name
+                    }
+                }
+            }
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({
+                register: 'productData/form/register'
+            }),
+            ...mapActions({}),
+            handleUpload: function (event) {
+                if (event.target.files.length === 1) {
+                    this.register({
+                        name: 'primaryPhoto',
+                        value: event.target.files
+                    })
+                } else {
+                    if (confirm('確認移除產品主要相片')) {
+                        this.register({
+                            name: 'primaryPhoto',
+                            value: null
+                        })
+                    }
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },

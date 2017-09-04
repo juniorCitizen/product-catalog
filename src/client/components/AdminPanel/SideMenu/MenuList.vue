@@ -1,16 +1,25 @@
 <template>
-    <div>
-        New Template
-    </div>
+    <ul class="menu-list">
+        <menu-list-item v-for="(data,dataIndex) in dataList"
+                        :data="data"
+                        :key="dataIndex">
+        </menu-list-item>
+    </ul>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import MenuListItem from './MenuListItem.vue'
+
     export default {
-        name: 'new-template',
-        components: {},
-        props: [],
+        name: 'menu-list',
+        components: {
+            MenuListItem
+        },
+        props: [
+            'dataList'
+        ],
         data: function () {
             return {}
         },

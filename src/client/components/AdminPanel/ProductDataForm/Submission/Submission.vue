@@ -1,15 +1,22 @@
 <template>
-    <div>
-        New Template
+    <div class="field is-grouped">
+        <insert-button></insert-button>
+        <reset-button></reset-button>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import InsertButton from './InsertButton.vue'
+    import ResetButton from './ResetButton.vue'
+
     export default {
-        name: 'new-template',
-        components: {},
+        name: 'submission',
+        components: {
+            InsertButton,
+            ResetButton
+        },
         props: [],
         data: function () {
             return {}

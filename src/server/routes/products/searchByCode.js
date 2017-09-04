@@ -3,7 +3,7 @@ import routerResponse from '../../controllers/routerResponse'
 
 module.exports = (req, res) => {
     db.Products
-        .findAll({
+        .findOne({
             attributes: {
                 exclude: ['createdAt', 'updatedAt', 'deletedAt']
             },
@@ -32,16 +32,15 @@ module.exports = (req, res) => {
                         'deletedAt'
                     ]
                 }
-            }],
-            order: [db.Photos, 'primary', 'DESC']
+            }]
         })
-        .then((productRecords) => {
+        .then((productRecord) => {
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,
                 statusCode: 200,
                 success: true,
-                data: productRecords
+                data: productRecord
             })
         })
         .catch((error) => {

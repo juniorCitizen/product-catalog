@@ -4,6 +4,7 @@ import path from 'path'
 
 import db from '../../controllers/database'
 import routerResponse from '../../controllers/routerResponse'
+import validateJwt from '../../middlewares/validateJwt'
 
 const router = express.Router()
 const upload = multer({ dest: path.join(__dirname, '/upload/') })
@@ -13,12 +14,13 @@ router
     .get('/series', require('./series'))
     .get('/searchByCode', require('./searchByCode'))
     .post('/',
+        validateJwt,
         upload.fields([
             { name: 'primaryPhoto', maxCount: 1 },
             { name: 'secondaryPhotos', maxCount: 30 }
         ]),
         require('./insert'))
-    .delete('/', require('./delete'))
+    .delete('/', validateJwt, require('./delete'))
 
 module.exports = router
 
