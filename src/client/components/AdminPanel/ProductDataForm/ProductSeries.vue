@@ -1,7 +1,8 @@
 <template>
-    <div class="control">
-        <span class="select"
-              :class="{'is-danger':warning}">
+    <div class="control"
+         :class="{'has-icons-left':warning}">
+        <div class="select"
+             :class="{'is-danger':warning}">
             <select :value="seriesId"
                     @change="updateValue"
                     :disabled="!newEntry">
@@ -16,7 +17,11 @@
                     {{ seriesItem.reference }} 系列
                 </option>
             </select>
-        </span>
+            <div v-if="warning"
+                 class="icon is-left">
+                <i class="fa fa-times"></i>
+            </div>
+        </div>
     </div>
 </template>
 

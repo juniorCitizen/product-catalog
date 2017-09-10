@@ -99,29 +99,32 @@ export default {
             error.name = 'productDataNotReady'
             return Promise.reject(error)
         } else {
-            context.commit('flowControl/start')
-            return axios({
-                method: 'post',
-                url: `${eVars.API_URL}/products`,
-                data: context.getters['productData/form/formData'],
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'x-access-token': context.getters['credentials/jwt']
-                }
-            }).then((apiResponse) => {
-                context.commit('products/addProduct', apiResponse.data.data)
-                context.commit('series/addProduct', apiResponse.data.data)
-                context.commit('productData/reset')
-                context.commit('flowControl/stop')
-                return Promise.resolve()
-            }).catch((error) => {
-                context.commit('productData/form/validation/deactivate')
-                context.commit('flowControl/stop')
-                return Promise.reject(error)
-            })
+            if (context.getters['productData/form/formData']) {
+                context.commit('flowControl/start')
+                return axios({
+                    method: 'post',
+                    url: `${eVars.API_URL}/products`,
+                    data: context.getters['productData/form/formData'],
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'x-access-token': context.getters['credentials/jwt']
+                    }
+                }).then((apiResponse) => {
+                    context.commit('products/addProduct', apiResponse.data.data)
+                    context.commit('series/addProduct', apiResponse.data.data)
+                    context.commit('productData/reset')
+                    context.commit('flowControl/stop')
+                    return Promise.resolve()
+                }).catch((error) => {
+                    context.commit('productData/form/validation/deactivate')
+                    context.commit('flowControl/stop')
+                    return Promise.reject(error)
+                })
+            }
         }
     },
     deleteProductRecord: (context, productId) => {
+        let seriesId = context.getters['productData/form/seriesId']
         context.commit('flowControl/start')
         return axios({
             method: 'delete',
@@ -129,13 +132,12 @@ export default {
             headers: {
                 'x-access-token': context.getters['credentials/jwt']
             }
-        }).then((apiResponse) => {
-            return context.dispatch('series/fetch')
-        }).then((apiResponse) => {
-            context.commit('series/register', apiResponse.data.data)
-            return context.dispatch('products/fetch')
-        }).then((apiResponse) => {
-            context.commit('products/register', apiResponse.data.data)
+        }).then(() => {
+            context.commit('series/removeProduct', {
+                seriesId: seriesId,
+                productId: productId
+            })
+            context.commit('products/removeProduct', productId)
             context.commit('productData/reset')
             context.commit('flowControl/stop')
             return Promise.resolve()
@@ -143,5 +145,40 @@ export default {
             context.commit('flowControl/stop')
             return Promise.reject(error)
         })
+    },
+    updateExistingProduct: (context) => {
+        if (!context.getters['productData/form/validation/form']) {
+            let error = new Error('product data is not ready')
+            error.name = 'productDataNotReady'
+            return Promise.reject(error)
+        } else {
+            if (context.getters['productData/form/formData']) {
+                context.commit('flowControl/start')
+                return axios({
+                    method: 'put',
+                    url: `${eVars.API_URL}/products`,
+                    data: context.getters['productData/form/formData'],
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'x-access-token': context.getters['credentials/jwt']
+                    }
+                }).then((apiResponse) => {
+                    context.commit('products/updateProduct', apiResponse.data.data)
+                    context.commit('series/updateProduct', apiResponse.data.data)
+                    context.commit('productData/reset')
+                    context.commit('flowControl/stop')
+                    return Promise.resolve()
+                }).catch((error) => {
+                    console.log(error)
+                    context.commit('productData/form/validation/deactivate')
+                    context.commit('flowControl/stop')
+                    return Promise.reject(error)
+                })
+            } else {
+                let error = new Error('表單資料不完整或未發現可修正資料')
+                error.name = 'noUpdateDataAvailable'
+                return Promise.reject(error)
+            }
+        }
     }
 }

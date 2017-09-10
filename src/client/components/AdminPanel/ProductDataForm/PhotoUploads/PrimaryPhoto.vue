@@ -1,6 +1,7 @@
 <template>
     <div class="field">
-        <div class="file has-name is-fullwidth">
+        <div class="file has-name is-fullwidth"
+             :class="dynamicClasses">
             <label class="file-label">
                 <input id="primary-photo"
                        class="file-input"
@@ -9,7 +10,12 @@
                        @change="handleUpload($event)">
                 <span class="file-cta">
                     <span class="file-icon">
-                        <i class="fa fa-upload"></i>
+                        <i v-if="pass"
+                           class="fa fa-check"></i>
+                        <i v-else-if="warning"
+                           class="fa fa-times"></i>
+                        <i v-else
+                           class="fa fa-upload"></i>
                     </span>
                     <span class="file-label">
                         {{captions.fileLabel}}
@@ -36,7 +42,8 @@
         computed: {
             ...mapGetters({
                 primaryPhoto: 'productData/form/primaryPhoto',
-                newEntry: 'productData/newEntry'
+                validated: 'productData/form/validation/input',
+                validating: 'productData/form/validation/state'
             }),
             captions: function () {
                 if (this.primaryPhoto === null) {
@@ -47,8 +54,20 @@
                 } else {
                     return {
                         fileLabel: '重新選擇主要相片',
-                        fileName: this.newEntry ? this.primaryPhoto[0].name : this.primaryPhoto[0].originalName
+                        fileName: this.primaryPhoto[0].name ? this.primaryPhoto[0].name : this.primaryPhoto[0].originalName
                     }
+                }
+            },
+            pass: function () {
+                return this.validated('primaryPhoto') && this.validating
+            },
+            warning: function () {
+                return !this.validated('primaryPhoto') && this.validating
+            },
+            dynamicClasses: function () {
+                return {
+                    'is-danger': this.warning,
+                    'is-success': this.pass
                 }
             }
         },

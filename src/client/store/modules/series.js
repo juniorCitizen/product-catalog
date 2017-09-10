@@ -1,35 +1,69 @@
 import axios from 'axios'
+import Vue from 'vue'
+
 import eVars from '../../../server/config/environment'
 
 export default {
     namespaced: true,
     state: {
         data: [],
+        activeSeriesIndex: 0,
         apiUrl: `${eVars.API_URL}/products/series`
     },
     mutations: {
-        register: (state, series) => {
-            state.data = series
+        register: (state, seriesData) => {
+            state.data = seriesData
+            state.activeSeriesIndex = 0
         },
         reset: (state) => {
             state.data = []
+            state.activeSeriesIndex = 0
+        },
+        toggleMenu: (state, seriesIndex) => {
+            state.activeSeriesIndex = state.activeSeriesIndex === seriesIndex ? 0 : seriesIndex
         },
         addProduct: (state, product) => {
             let products = state.data[product.seriesId - 1].products
             products.push(product)
             products.sort((a, b) => {
-                if (a.code.toLowerCase() > b.code.toLowerCase()) {
+                if (a.code.toUpperCase() > b.code.toUpperCase()) {
                     return 1
-                } else if (a.code.toLowerCase() > b.code.toLowerCase()) {
+                } else if (a.code.toUpperCase() < b.code.toUpperCase()) {
                     return -1
                 } else {
                     return 0
                 }
             })
+        },
+        updateProduct: (state, payload) => {
+            let productIndex = state.data[payload.seriesId - 1].products.findIndex((product) => {
+                return (
+                    product.id === payload.id
+                )
+            })
+            Vue.set(state.data[payload.seriesId - 1].products, productIndex, payload)
+            state.data[payload.seriesId - 1].products.sort((a, b) => {
+                if (a.code.toUpperCase() > b.code.toUpperCase()) {
+                    return 1
+                } else if (a.code.toUpperCase() < b.code.toUpperCase()) {
+                    return -1
+                } else {
+                    return 0
+                }
+            })
+        },
+        removeProduct: function (state, payload) {
+            let productIndex = state.data[payload.seriesId - 1].products.findIndex((product) => {
+                return (
+                    product.id === payload.productId
+                )
+            })
+            state.data[payload.seriesId - 1].products.splice(productIndex, 1)
         }
     },
     getters: {
         data: state => state.data,
+        activeSeriesIndex: state => state.activeSeriesIndex,
         apiUrl: state => state.apiUrl
     },
     actions: {

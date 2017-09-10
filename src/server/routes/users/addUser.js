@@ -10,7 +10,7 @@ module.exports = (req, res) => {
         )
     db.Users
         .upsert({
-            email: req.body.email,
+            email: req.body.email.toLowerCase(),
             name: req.body.name,
             loginId: req.body.loginId,
             password: encryptedPassword.passwordHash,
@@ -25,7 +25,9 @@ module.exports = (req, res) => {
             })
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error.name)
+            console.log(error.message)
+            console.log(error.stack)
             return routerResponse.json({
                 pendingResponse: res,
                 originalRequest: req,

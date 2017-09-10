@@ -4,6 +4,7 @@
             <div class="column is-2 has-text-centered">
                 <photo-slide :photo="primaryPhoto[0]"
                              :photoIndex="0"
+                             :ignored="false"
                              @photoClickEvent="removePrimaryPhoto($event)">
                 </photo-slide>
             </div>

@@ -7,7 +7,7 @@ import routerResponse from '../../controllers/routerResponse'
 import validateJwt from '../../middlewares/validateJwt'
 
 const router = express.Router()
-const upload = multer({ dest: path.join(__dirname, '/upload/') })
+const upload = multer({ dest: path.join(__dirname, '../../upload/') })
 
 router
     .get('/', products)
@@ -20,6 +20,13 @@ router
             { name: 'secondaryPhotos', maxCount: 15 }
         ]),
         require('./insert'))
+    .put('/',
+        validateJwt,
+        upload.fields([
+            { name: 'primaryPhoto', maxCount: 1 },
+            { name: 'secondaryPhotos', maxCount: 15 }
+        ]),
+        require('./update'))
     .delete('/', validateJwt, require('./delete'))
 
 module.exports = router

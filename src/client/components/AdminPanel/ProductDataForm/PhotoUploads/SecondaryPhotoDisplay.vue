@@ -46,6 +46,7 @@
         computed: {
             ...mapGetters({
                 secondaryPhotos: 'productData/form/secondaryPhotos',
+                appendedPhotos: 'productData/form/appendedPhotos',
                 ignoredPhotos: 'productData/form/ignoredPhotos',
                 includedCount: 'productData/form/includedCount'
             }),

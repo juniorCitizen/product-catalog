@@ -1,6 +1,7 @@
 <template>
     <div class="field">
-        <div class="file has-name is-fullwidth">
+        <div class="file has-name is-fullwidth"
+             :class="dynamicClasses">
             <label class="file-label">
                 <input class="file-input"
                        type="file"
@@ -10,7 +11,12 @@
                        @change="handleUpload($event)">
                 <span class="file-cta">
                     <span class="file-icon">
-                        <i class="fa fa-upload"></i>
+                        <i v-if="pass"
+                           class="fa fa-check"></i>
+                        <i v-else-if="warning"
+                           class="fa fa-times"></i>
+                        <i v-else
+                           class="fa fa-upload"></i>
                     </span>
                     <span class="file-label">
                         {{captions.fileLabel}}
@@ -25,15 +31,10 @@
                     <span class="select is-multiple is-fullwidth">
                         <select multiple
                                 size="(secondaryPhotos.length<=5)?secondaryPhotos.length:5">
-                            <option v-for="index in secondaryPhotos.length"
-                                    :key="secondaryPhotos[index-1].name"
+                            <option v-for="index in captions.fileNames.length"
+                                    :key="index"
                                     @click="secondaryPhotoSelection(index-1)">
-                                <template v-if="ignoredPhotos[index-1]">
-                                    ({{index}}) {{secondaryPhotos[index-1].name}} (取消)
-                                </template>
-                                <template v-else>
-                                    ({{index}}) {{secondaryPhotos[index-1].name}}
-                                </template>
+                                {{captions.fileNames[index-1]}}
                             </option>
                         </select>
                     </span>
@@ -57,7 +58,10 @@
             ...mapGetters({
                 secondaryPhotos: 'productData/form/secondaryPhotos',
                 ignoredPhotos: 'productData/form/ignoredPhotos',
-                includedCount: 'productData/form/includedCount'
+                includedCount: 'productData/form/includedCount',
+                newEntry: 'productData/newEntry',
+                validated: 'productData/form/validation/input',
+                validating: 'productData/form/validation/state'
             }),
             captions: function () {
                 if (this.secondaryPhotos === null) {
@@ -66,9 +70,50 @@
                         fileName: '尚未選定'
                     }
                 } else {
-                    return {
-                        fileLabel: '重新選擇次要相片'
+                    let captions = {
+                        fileLabel: '重新選擇次要相片',
+                        fileNames: []
                     }
+                    if (this.newEntry) {
+                        for (let counter = 0; counter < this.secondaryPhotos.length; counter++) {
+                            if (this.ignoredPhotos[counter]) {
+                                captions.fileNames.push(`(${counter + 1}) ${this.secondaryPhotos[counter].name} (取消)`)
+                            } else {
+                                captions.fileNames.push(`(${counter + 1}) ${this.secondaryPhotos[counter].name}`)
+                            }
+                        }
+                    } else {
+                        if (this.secondaryPhotos[0].id) {
+                            this.secondaryPhotos.forEach((secondaryPhoto, counter) => {
+                                if (this.ignoredPhotos[counter]) {
+                                    captions.fileNames.push(`(${counter + 1}) ${this.secondaryPhotos[counter].originalName} (取消)`)
+                                } else {
+                                    captions.fileNames.push(`(${counter + 1}) ${this.secondaryPhotos[counter].originalName}`)
+                                }
+                            })
+                        } else {
+                            for (let counter = 0; counter < this.secondaryPhotos.length; counter++) {
+                                if (this.ignoredPhotos[counter]) {
+                                    captions.fileNames.push(`(${counter + 1}) ${this.secondaryPhotos[counter].name} (取消)`)
+                                } else {
+                                    captions.fileNames.push(`(${counter + 1}) ${this.secondaryPhotos[counter].name}`)
+                                }
+                            }
+                        }
+                    }
+                    return captions
+                }
+            },
+            pass: function () {
+                return this.validated('secondaryPhotos') && this.validating
+            },
+            warning: function () {
+                return !this.validated('secondaryPhotos') && this.validating
+            },
+            dynamicClasses: function () {
+                return {
+                    'is-danger': this.warning,
+                    'is-success': this.pass
                 }
             }
         },
@@ -95,9 +140,15 @@
             },
             secondaryPhotoSelection: function (photoIndex) {
                 if (this.ignoredPhotos[photoIndex]) {
-                    this.includePhoto(photoIndex)
+                    if (confirm('點選確認將復原已移除項目')) {
+                        this.includePhoto(photoIndex)
+                    }
                 } else {
-                    this.ignorePhoto(photoIndex)
+                    if (this.includedCount === 2) {
+                        alert('至少必須保留兩張產品次要相片')
+                    } else if (confirm('點選確認將移除選取項目')) {
+                        this.ignorePhoto(photoIndex)
+                    }
                 }
             }
         },

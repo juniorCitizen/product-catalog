@@ -8,9 +8,33 @@
             <product-series></product-series>
             <product-type></product-type>
         </div>
-        <product-code></product-code>
-        <product-name></product-name>
-        <product-description></product-description>
+        <text-input :inputReference="'code'">
+            <input class="input"
+                   :class="dynamicClasses('code')"
+                   type="text"
+                   placeholder="輸入產品編號 (必填)"
+                   :disabled="flowControl"
+                   :value="code"
+                   @change="updateValue('code',$event)">
+        </text-input>
+        <text-input :inputReference="'name'">
+            <input class="input"
+                   :class="dynamicClasses('name')"
+                   type="text"
+                   placeholder="輸入產品名稱 (必填)"
+                   :disabled="flowControl"
+                   :value="name"
+                   @change="updateValue('name',$event)">
+        </text-input>
+        <text-input :inputReference="'description'">
+            <textarea class="textarea"
+                      :class="dynamicClasses('description')"
+                      placeholder="輸入產品敘述 (必填)"
+                      :disabled="flowControl"
+                      :value="description"
+                      @change="updateValue('description',$event)">
+            </textarea>
+        </text-input>
         <primary-photo></primary-photo>
         <primary-photo-display v-if="primaryPhoto!==null">
         </primary-photo-display>
@@ -26,9 +50,7 @@
     import Submission from './Submission/Submission.vue'
     import ProductSeries from './ProductSeries.vue'
     import ProductType from './ProductType.vue'
-    import ProductCode from './ProductCode.vue'
-    import ProductName from './ProductName.vue'
-    import ProductDescription from './ProductDescription.vue'
+    import TextInput from './TextInput.vue'
     import PrimaryPhoto from './PhotoUploads/PrimaryPhoto.vue'
     import PrimaryPhotoDisplay from './PhotoUploads/PrimaryPhotoDisplay.vue'
     import SecondaryPhotos from './PhotoUploads/SecondaryPhotos.vue'
@@ -40,9 +62,7 @@
             Submission,
             ProductSeries,
             ProductType,
-            ProductCode,
-            ProductName,
-            ProductDescription,
+            TextInput,
             PrimaryPhoto,
             PrimaryPhotoDisplay,
             SecondaryPhotos,
@@ -54,14 +74,34 @@
         },
         computed: {
             ...mapGetters({
+                code: 'productData/form/code',
+                name: 'productData/form/name',
+                description: 'productData/form/description',
                 primaryPhoto: 'productData/form/primaryPhoto',
-                secondaryPhotos: 'productData/form/secondaryPhotos'
+                secondaryPhotos: 'productData/form/secondaryPhotos',
+                flowControl: 'flowControl/activated',
+                validated: 'productData/form/validation/input',
+                validating: 'productData/form/validation/state'
             })
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
-            ...mapActions({})
+            ...mapMutations({
+                register: 'productData/form/register'
+            }),
+            ...mapActions({}),
+            updateValue: function (inputReference, event) {
+                this.register({
+                    name: inputReference,
+                    value: event.target.value.trim()
+                })
+            },
+            dynamicClasses: function (inputReference) {
+                return {
+                    'is-danger': !this.validated(inputReference) && this.validating,
+                    'is-success': this.validated(inputReference) && this.validating
+                }
+            }
         },
         beforeCreate: function () { },
         created: function () { },

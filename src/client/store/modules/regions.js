@@ -8,8 +8,8 @@ export default {
         apiUrl: `${eVars.API_URL}/countries/regions`
     },
     mutations: {
-        register: (state, regions) => {
-            state.data = regions
+        register: (state, regionsData) => {
+            state.data = regionsData
         },
         reset: (state) => {
             state.data = []

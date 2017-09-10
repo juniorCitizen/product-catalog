@@ -52,20 +52,23 @@ function insertProductRecord(req, res) {
                             data: fs.readFileSync(secondaryPhoto.path)
                         }, trxObj))
                     })
-                    return Promise.all(photoQueries)
-                })
-                .then(() => {
-                    return del(['./dist/server/upload/**', '!./dist/server/upload'])
+                    return Promise
+                        .all(photoQueries)
+                        .then(() => {
+                            return del(['./dist/server/upload/**', '!./dist/server/upload'])
+                        })
+                        .then(() => {
+                            return Promise.resolve(newDescriptionRecord.productId)
+                        })
                 })
         })
-        .then(() => {
-            return db.Products.findOne({
+        .then((productId) => {
+            return db.Products.findById(productId, {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'deletedAt']
                 },
                 where: {
-                    seriesId: req.body.seriesId,
-                    code: req.body.code
+                    deletedAt: null
                 },
                 include: [{
                     model: db.Descriptions,
@@ -75,6 +78,9 @@ function insertProductRecord(req, res) {
                             'updatedAt',
                             'deletedAt'
                         ]
+                    },
+                    where: {
+                        deletedAt: null
                     }
                 }, {
                     model: db.Photos,
@@ -85,8 +91,14 @@ function insertProductRecord(req, res) {
                             'updatedAt',
                             'deletedAt'
                         ]
+                    },
+                    where: {
+                        deletedAt: null
                     }
-                }]
+                }],
+                order: [
+                    [db.Photos, 'primary', 'DESC']
+                ]
             })
         })
         .then((productRecord) => {

@@ -4,18 +4,18 @@
             <a @click="logout">登出</a>
         </p>
         <p class="menu-label">
-            <a @click="toggleSeriesMenu">產品系列</a>
+            <a>產品系列</a>
         </p>
-        <ul v-if="seriesMenu.length>0"
+        <ul v-if="series.length>0"
             class="menu-list">
-            <li v-for="(seriesMenuItem,seriesIndex) in seriesMenu"
-                :key="seriesMenuItem.id">
-                <a @click="toggleProductMenu(seriesIndex)">
-                    {{seriesMenuItem.reference}}
+            <li v-for="(seriesItem,seriesIndex) in series"
+                :key="seriesIndex">
+                <a @click="toggleMenu(seriesItem.id)">
+                    {{seriesItem.reference}}
                 </a>
-                <ul v-if="seriesMenuItem.visible && seriesMenuItem.products.length>0"
+                <ul v-if="(seriesItem.products.length>0)&&(seriesItem.id===activeSeriesIndex)"
                     class="menu-list">
-                    <li v-for="product in seriesMenuItem.products"
+                    <li v-for="product in seriesItem.products"
                         :key="product.code">
                         <a @click="updateRecord(product)">
                             {{product.code}}
@@ -35,19 +35,20 @@
         components: {},
         props: [],
         data: function () {
-            return {
-                seriesMenu: []
-            }
+            return {}
         },
         computed: {
             ...mapGetters({
                 series: 'series/data',
+                activeSeriesIndex: 'series/activeSeriesIndex',
                 flowControl: 'flowControl/activated'
             })
         },
         watch: {},
         methods: {
-            ...mapMutations({}),
+            ...mapMutations({
+                toggleMenu: 'series/toggleMenu'
+            }),
             ...mapActions({}),
             updateRecord: function (productData) {
                 if (!this.flowControl) {
@@ -57,33 +58,6 @@
             logout: function () {
                 if (!this.flowControl) {
                     this.$store.commit('credentials/logout')
-                }
-            },
-            toggleSeriesMenu: function () {
-                if (!this.flowControl) {
-                    if (this.seriesMenu.length === 0) {
-                        this.series.forEach((seriesItem) => {
-                            this.seriesMenu.push({
-                                reference: seriesItem.reference,
-                                products: seriesItem.products,
-                                visible: false
-                            })
-                        })
-                    } else {
-                        this.seriesMenu = []
-                    }
-                }
-            },
-            toggleProductMenu: function (seriesIndex) {
-                if (!this.flowControl) {
-                    if (this.seriesMenu[seriesIndex].visible === true) {
-                        this.seriesMenu[seriesIndex].visible = !this.seriesMenu[seriesIndex].visible
-                    } else {
-                        for (let counter = 0; counter < this.seriesMenu.length; counter++) {
-                            this.seriesMenu[counter].visible = false
-                        }
-                        this.seriesMenu[seriesIndex].visible = true
-                    }
                 }
             }
         },

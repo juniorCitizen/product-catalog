@@ -32,17 +32,20 @@
         },
         computed: {
             ...mapGetters({
-                flowControl: 'flowControl/activated',
-                newEntry: 'productData/newEntry'
+                flowControl: 'flowControl/activated'
             })
         },
         watch: {
             photo: function (updatedPhotoFile) {
-                let fileReader = new FileReader()
-                fileReader.onload = (event) => {
-                    this.src = event.target.result
+                if (updatedPhotoFile.id !== undefined) {
+                    this.src = `${this.$eVars.API_URL}/photos?photoId=${this.photo.id}`
+                } else {
+                    let fileReader = new FileReader()
+                    fileReader.onload = (event) => {
+                        this.src = event.target.result
+                    }
+                    fileReader.readAsDataURL(updatedPhotoFile)
                 }
-                fileReader.readAsDataURL(updatedPhotoFile)
             }
         },
         methods: {
@@ -58,7 +61,7 @@
         created: function () { },
         beforeMount: function () { },
         mounted: function () {
-            if (!this.newEntry) {
+            if (this.photo.id !== undefined) {
                 this.src = `${this.$eVars.API_URL}/photos?photoId=${this.photo.id}`
             } else {
                 let fileReader = new FileReader()
@@ -69,7 +72,17 @@
             }
         },
         beforeUpdate: function () { },
-        updated: function () { },
+        updated: function () {
+            if (this.photo.id !== undefined) {
+                this.src = `${this.$eVars.API_URL}/photos?photoId=${this.photo.id}`
+            } else {
+                let fileReader = new FileReader()
+                fileReader.onload = (event) => {
+                    this.src = event.target.result
+                }
+                fileReader.readAsDataURL(this.photo)
+            }
+        },
         beforeDestroy: function () { },
         destroyed: function () { }
     }

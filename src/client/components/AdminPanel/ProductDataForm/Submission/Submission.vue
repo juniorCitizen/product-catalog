@@ -1,7 +1,10 @@
 <template>
     <div class="field is-grouped">
         <insert-button v-if="newEntry"></insert-button>
-        <delete-button v-if="!newEntry"></delete-button>
+        <template v-else>
+            <update-button></update-button>
+            <delete-button></delete-button>
+        </template>
         <reset-button></reset-button>
     </div>
 </template>
@@ -12,13 +15,15 @@
     import InsertButton from './InsertButton.vue'
     import ResetButton from './ResetButton.vue'
     import DeleteButton from './DeleteButton.vue'
+    import UpdateButton from './UpdateButton.vue'
 
     export default {
         name: 'submission',
         components: {
             InsertButton,
             ResetButton,
-            DeleteButton
+            DeleteButton,
+            UpdateButton
         },
         props: [],
         data: function () {

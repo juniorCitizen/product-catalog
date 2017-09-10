@@ -1,16 +1,17 @@
 <template>
     <p class="control">
-        <button class="button is-danger"
-                @click="deleteProductRecord"
+        <button class="button is-primary"
+                @click="submit"
                 :disabled="flowControl">
             <template v-if="!flowControl">
-                <span>刪除資料</span>
+                <span v-if="validated">更新資料</span>
+                <span v-else>產品資料不完整</span>
             </template>
             <template v-else>
                 <span class="icon">
                     <i class="fa fa-spinner fa-pulse"></i>
                 </span>
-                <span>刪除產品資料...</span>
+                <span>修改產品資料中...</span>
             </template>
         </button>
     </p>
@@ -20,7 +21,7 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'delete-button',
+        name: 'update-button',
         components: {},
         props: [],
         data: function () {
@@ -29,23 +30,31 @@
         computed: {
             ...mapGetters({
                 flowControl: 'flowControl/activated',
-                updateTargetRecordId: 'productData/updateTargetRecordId'
+                validated: 'productData/form/validation/form',
+                validating: 'productData/form/validation/state',
+                formData: 'productData/form/formData'
             })
         },
         watch: {},
         methods: {
             ...mapMutations({
+                activateValidation: 'productData/form/validation/activate',
                 reset: 'productData/reset'
             }),
-            ...mapActions({}),
-            deleteProductRecord: function () {
-                if (confirm('確認刪除產品資料')) {
-                    this.$store.dispatch('deleteProductRecord', this.updateTargetRecordId)
+            ...mapActions({
+                updateExistingProduct: 'updateExistingProduct'
+            }),
+            submit: function () {
+                if (!this.validating) {
+                    this.activateValidation()
+                }
+                if (this.validated) {
+                    this.updateExistingProduct()
                         .then(() => {
-                            alert('產品資料刪除成功')
+                            alert('產品資料修改成功')
                         })
                         .catch((error) => {
-                            alert('產品資料刪除失敗')
+                            alert('產品資料修改失敗')
                             console.log(error.name)
                             console.log(error.message)
                             console.log(error.stack)

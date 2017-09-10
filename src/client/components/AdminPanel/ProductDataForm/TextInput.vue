@@ -1,11 +1,17 @@
 <template>
     <div class="field">
-        <div class="control">
-            <textarea class="textarea"
-                      placeholder="輸入產品敘述 (必填)"
-                      :value="description"
-                      @input="updateValue">
-            </textarea>
+        <div class="control has-icons-right">
+            <slot>
+                placeholder for {{ inputReference }}
+            </slot>
+            <span v-if="pass"
+                  class="icon is-right">
+                <i class="fa fa-check"></i>
+            </span>
+            <span v-if="warning"
+                  class="icon is-right">
+                <i class="fa fa-times"></i>
+            </span>
         </div>
     </div>
 </template>
@@ -14,35 +20,31 @@
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
-        name: 'product-description',
+        name: 'text-input',
         components: {},
-        props: [],
+        props: [
+            'inputReference'
+        ],
         data: function () {
             return {}
         },
         computed: {
             ...mapGetters({
-                description: 'productData/form/description',
                 flowControl: 'flowControl/activated',
                 validated: 'productData/form/validation/input',
                 validating: 'productData/form/validation/state'
             }),
+            pass: function () {
+                return this.validated(this.inputReference) && this.validating
+            },
             warning: function () {
-                return !this.validated('description') && this.validating
+                return !this.validated(this.inputReference) && this.validating
             }
         },
         watch: {},
         methods: {
-            ...mapMutations({
-                register: 'productData/form/register'
-            }),
-            ...mapActions({}),
-            updateValue: function (event) {
-                this.register({
-                    name: 'description',
-                    value: event.target.value.trim()
-                })
-            }
+            ...mapMutations({}),
+            ...mapActions({})
         },
         beforeCreate: function () { },
         created: function () { },

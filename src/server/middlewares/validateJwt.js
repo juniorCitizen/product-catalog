@@ -31,7 +31,7 @@ module.exports = (request, response, next) => {
                 db.Users
                     .findOne({
                         where: {
-                            email: decodedToken.email,
+                            email: decodedToken.email.toLowerCase(),
                             loginId: decodedToken.loginId
                         }
                     })

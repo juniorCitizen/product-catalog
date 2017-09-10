@@ -1,6 +1,8 @@
 <template>
-    <div class="control">
-        <div class="select">
+    <div class="control"
+         :class="{'has-icons-left':warning}">
+        <div class="select"
+             :class="{'is-danger':warning}">
             <select :value="type"
                     @change="updateValue"
                     :disabled="!newEntry">
@@ -12,6 +14,10 @@
                 <option value="product">產品</option>
                 <option value="accessory">配件</option>
             </select>
+            <div v-if="warning"
+                 class="icon is-left">
+                <i class="fa fa-times"></i>
+            </div>
         </div>
     </div>
 </template>

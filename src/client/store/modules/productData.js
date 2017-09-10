@@ -1,7 +1,7 @@
 import Promise from 'bluebird'
 import Vue from 'vue'
 
-const DEFAULT_FORM_STATE = {
+const EMPTY_FORM_STATE = {
     seriesId: 0,
     type: 'unselected',
     code: '',
@@ -25,17 +25,17 @@ let validation = {
         state: state => state.state,
         input: (state, getters, rootState) => {
             return (field) => {
-                return rootState.productData.form.validation[field] !== DEFAULT_FORM_STATE[field]
+                return rootState.productData.form[field] !== EMPTY_FORM_STATE[field]
             }
         },
         form: (state, getters, rootState) => {
-            return rootState.productData.form.seriesId !== DEFAULT_FORM_STATE.seriesId &&
-                rootState.productData.form.type !== DEFAULT_FORM_STATE.type &&
-                rootState.productData.form.code !== DEFAULT_FORM_STATE.code &&
-                rootState.productData.form.name !== DEFAULT_FORM_STATE.name &&
-                rootState.productData.form.description !== DEFAULT_FORM_STATE.description &&
-                rootState.productData.form.primaryPhoto !== DEFAULT_FORM_STATE.primaryPhoto &&
-                rootState.productData.form.secondaryPhotos !== DEFAULT_FORM_STATE.secondaryPhotos
+            return rootState.productData.form.seriesId !== EMPTY_FORM_STATE.seriesId &&
+                rootState.productData.form.type !== EMPTY_FORM_STATE.type &&
+                rootState.productData.form.code !== EMPTY_FORM_STATE.code &&
+                rootState.productData.form.name !== EMPTY_FORM_STATE.name &&
+                rootState.productData.form.description !== EMPTY_FORM_STATE.description &&
+                rootState.productData.form.primaryPhoto !== EMPTY_FORM_STATE.primaryPhoto &&
+                rootState.productData.form.secondaryPhotos !== EMPTY_FORM_STATE.secondaryPhotos
         }
     }
 }
@@ -80,6 +80,7 @@ let form = {
             state.primaryPhoto = null
             state.secondaryPhotos = null
             state.ignoredPhotos = []
+            state.appendedPhotos = null
         }
     },
     getters: {
@@ -96,21 +97,60 @@ let form = {
                 return ignoredPhoto === false
             }).length
         },
-        formData: (state, getters) => {
+        formData: (state, getters, rootState) => {
             if (!getters['validation/form']) {
                 return false
             } else {
                 let formData = new FormData()
-                formData.append('primaryPhoto', state.primaryPhoto[0])
-                for (let counter = 0; counter < state.secondaryPhotos.length; counter++) {
-                    formData.append('secondaryPhotos', state.secondaryPhotos[counter])
+                if (rootState.productData.newEntry) {
+                    formData.append('seriesId', state.seriesId)
+                    formData.append('type', state.type)
+                    formData.append('code', state.code.toUpperCase())
+                    formData.append('name', state.name)
+                    formData.append('text', state.description)
+                    formData.append('primaryPhoto', state.primaryPhoto[0])
+                    for (let counter = 0; counter < state.secondaryPhotos.length; counter++) {
+                        if (!state.ignoredPhotos[counter]) {
+                            formData.append('secondaryPhotos', state.secondaryPhotos[counter])
+                        }
+                    }
+                    return formData
+                } else {
+                    let prestine = true
+                    let updateTargetRecord = rootState.products.data.filter((product) => {
+                        return product.id === rootState.productData.updateTargetRecordId
+                    })[0]
+                    formData.append('code', state.code.toUpperCase())
+                    if (state.code.toUpperCase() !== updateTargetRecord.code) {
+                        prestine = false
+                    }
+                    formData.append('name', state.name)
+                    if (state.name !== updateTargetRecord.name) {
+                        prestine = false
+                    }
+                    formData.append('text', state.description)
+                    if (state.description !== updateTargetRecord.description.text) {
+                        prestine = false
+                    }
+                    if (state.primaryPhoto[0].id === undefined) {
+                        formData.append('primaryPhoto', state.primaryPhoto[0])
+                        prestine = false
+                    }
+                    if (state.secondaryPhotos[0].id === undefined) {
+                        for (let counter = 0; counter < state.secondaryPhotos.length; counter++) {
+                            if (!state.ignoredPhotos[counter]) {
+                                formData.append('secondaryPhotos', state.secondaryPhotos[counter])
+                            }
+                        }
+                        prestine = false
+                    }
+                    if (prestine === false) {
+                        formData.append('id', rootState.productData.updateTargetRecordId)
+                        return formData
+                    } else {
+                        return false
+                    }
                 }
-                formData.append('seriesId', state.seriesId)
-                formData.append('type', state.type)
-                formData.append('code', state.code)
-                formData.append('name', state.name)
-                formData.append('text', state.description)
-                return formData
             }
         }
     },
@@ -139,14 +179,13 @@ export default {
     namespaced: true,
     state: {
         newEntry: true,
-        updateProductId: null
+        updateTargetRecordId: null
     },
     mutations: {
         newEntry: (state) => { state.newEntry = true },
         updateRecord: (state, productData) => {
             state.form.validation.state = false
             state.newEntry = false
-            state.form.ignoredPhotos = []
             state.form.seriesId = productData.seriesId
             state.form.type = productData.type
             state.form.code = productData.code
@@ -154,7 +193,11 @@ export default {
             state.form.description = productData.description.text
             state.form.primaryPhoto = productData.photos.slice(0, 1)
             state.form.secondaryPhotos = productData.photos.slice(1, productData.photos.length)
-            state.updateProductId = productData.id
+            state.form.ignoredPhotos = []
+            for (let counter = 0; counter < state.form.secondaryPhotos.length; counter++) {
+                state.form.ignoredPhotos.push(false)
+            }
+            state.updateTargetRecordId = productData.id
         },
         reset: (state) => {
             state.form.validation.state = false
@@ -167,12 +210,12 @@ export default {
             state.form.secondaryPhotos = null
             state.form.ignoredPhotos = []
             state.newEntry = true
-            state.updateProductId = null
+            state.updateTargetRecordId = null
         }
     },
     getters: {
         newEntry: state => state.newEntry,
-        updateProductId: state => state.updateProductId
+        updateTargetRecordId: state => state.updateTargetRecordId
     },
     actions: {},
     modules: {
