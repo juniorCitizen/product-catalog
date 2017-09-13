@@ -35,13 +35,13 @@ export const ROUTES = [{
     name: 'register',
     component: Registration,
     caption: 'REGISTER',
-    vCentered: false
+    vCentered: true
 }, {
     path: '/productCatalog/contacts',
     name: 'contacts',
     component: ContactPage,
     caption: 'CONTACT US',
-    vCentered: false
+    vCentered: true
 }, {
     path: '/productCatalog/admin',
     name: 'admin',

@@ -53,12 +53,12 @@ export default {
                 return initProcedure
             })
             .then((initProcedureResults) => {
-                initProcedureResults.forEach((initProcedureResult) => {
+                return initProcedureResults.forEach((initProcedureResult) => {
                     initProcedureResult
                         .dispatch
                         .then((fetchedApiData) => {
                             context.commit(initProcedureResult.commit, fetchedApiData.data.data)
-                            initProcedureResult.additionalCommits.forEach((commit) => {
+                            return initProcedureResult.additionalCommits.forEach((commit) => {
                                 context.commit(commit)
                             })
                         })
@@ -80,6 +80,7 @@ export default {
             data: context.getters['loginForm/state']
         }).then((token) => {
             context.commit('loginForm/reset')
+            context.commit('credentials/forgetUser')
             context.commit('credentials/register', token.data.data.token)
             context.commit('flowControl/stop')
             return Promise.resolve()
@@ -133,12 +134,12 @@ export default {
                 'x-access-token': context.getters['credentials/jwt']
             }
         }).then(() => {
+            context.commit('productData/reset')
             context.commit('series/removeProduct', {
                 seriesId: seriesId,
                 productId: productId
             })
             context.commit('products/removeProduct', productId)
-            context.commit('productData/reset')
             context.commit('flowControl/stop')
             return Promise.resolve()
         }).catch((error) => {
@@ -169,7 +170,9 @@ export default {
                     context.commit('flowControl/stop')
                     return Promise.resolve()
                 }).catch((error) => {
-                    console.log(error)
+                    console.log(error.name)
+                    console.log(error.message)
+                    console.log(error.stack)
                     context.commit('productData/form/validation/deactivate')
                     context.commit('flowControl/stop')
                     return Promise.reject(error)
@@ -180,5 +183,25 @@ export default {
                 return Promise.reject(error)
             }
         }
+    },
+    userRegistration: (context, payload) => {
+        context.commit('flowControl/start')
+        return axios({
+            method: 'post',
+            url: `${eVars.API_URL}/registrations`,
+            data: payload
+        }).then((apiResponse) => {
+            context.commit('credentials/rememberUser', {
+                company: apiResponse.data.data.company,
+                name: apiResponse.data.data.name,
+                email: apiResponse.data.data.email,
+                countryId: apiResponse.data.data.countryId
+            })
+            context.commit('flowControl/stop')
+            return Promise.resolve(apiResponse.data.data)
+        }).catch((error) => {
+            context.commit('flowControl/stop')
+            return Promise.reject(error)
+        })
     }
 }

@@ -41,7 +41,7 @@ function tokenRequest(req, res) {
                     email: req.body.email,
                     loginId: req.body.loginId
                 }
-                routerResponse.json({
+                return routerResponse.json({
                     pendingResponse: res,
                     originalRequest: req,
                     statusCode: 200,

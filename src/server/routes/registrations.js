@@ -21,7 +21,9 @@ router
                 })
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error.name)
+                console.log(error.message)
+                console.log(error.stack)
                 return routerResponse.json({
                     pendingResponse: res,
                     originalRequest: req,
@@ -33,7 +35,7 @@ router
     })
     .get('/byCountryId', (req, res) => {
         let queryFilter = {
-            where: { alpha3Code: req.query.countryId },
+            where: { id: req.query.countryId },
             include: [{
                 model: db.Registrations
             }],
@@ -53,7 +55,9 @@ router
                 })
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error.name)
+                console.log(error.message)
+                console.log(error.stack)
                 return routerResponse.json({
                     pendingResponse: res,
                     originalRequest: req,
@@ -63,44 +67,48 @@ router
                 })
             })
     })
-    .post('/', (req, res) => {
-        if (req.body.botPrevention !== '') {
-            return routerResponse.json({
-                pendingResponse: res,
-                originalRequest: req,
-                statusCode: 404,
-                success: false
-            })
-        }
-        db.Registrations
-            .create({
-                company: req.body.company,
-                name: req.body.name,
-                email: req.body.email,
-                country: req.body.country,
-                comments: req.body.comments,
-                noticeIssued: false,
-                thankYouSent: false
-            })
-            .then((newRegistrationRecord) => {
+    .post('/',
+        require('../middlewares/botPrevention'),
+        (req, res) => {
+            if (req.body.botPrevention !== '') {
                 return routerResponse.json({
                     pendingResponse: res,
                     originalRequest: req,
-                    statusCode: 200,
-                    success: true,
-                    data: newRegistrationRecord
+                    statusCode: 404,
+                    success: false
                 })
-            })
-            .catch((error) => {
-                console.log(error)
-                return routerResponse.json({
-                    pendingResponse: res,
-                    originalRequest: req,
-                    statusCode: 500,
-                    success: false,
-                    error: error
+            }
+            db.Registrations
+                .create({
+                    company: req.body.company,
+                    name: req.body.name,
+                    email: req.body.email,
+                    countryId: req.body.countryId,
+                    comments: req.body.comments,
+                    notified: false,
+                    contacted: false
                 })
-            })
-    })
+                .then((newRegistrationRecord) => {
+                    return routerResponse.json({
+                        pendingResponse: res,
+                        originalRequest: req,
+                        statusCode: 200,
+                        success: true,
+                        data: newRegistrationRecord
+                    })
+                })
+                .catch((error) => {
+                    console.log(error.name)
+                    console.log(error.message)
+                    console.log(error.stack)
+                    return routerResponse.json({
+                        pendingResponse: res,
+                        originalRequest: req,
+                        statusCode: 500,
+                        success: false,
+                        error: error
+                    })
+                })
+        })
 
 module.exports = router

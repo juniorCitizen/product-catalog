@@ -1,3 +1,5 @@
+import Promise from 'bluebird'
+
 import db from '../../controllers/database'
 
 import contactByEmail from './contactByEmail'
@@ -30,9 +32,13 @@ module.exports = () => {
             })
             .then((message) => {
                 console.log(message)
+                return Promise.resolve()
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error.name)
+                console.log(error.message)
+                console.log(error.stack)
+                return Promise.reject(error)
             })
     })
 }

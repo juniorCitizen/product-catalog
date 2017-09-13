@@ -71,4 +71,15 @@ function products(req, res) {
                 data: productRecords
             })
         })
+        .catch((error) => {
+            return routerResponse.json({
+                pendingResponse: res,
+                originalRequest: req,
+                statusCode: 500,
+                success: false,
+                error: error.name,
+                message: error.message,
+                data: error.stack
+            })
+        })
 }

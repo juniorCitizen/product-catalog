@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
             originalRequest: req,
             statusCode: 500,
             success: false,
-            error: error.name,
+            error: error,
             message: error.message
         })
     }

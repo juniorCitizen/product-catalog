@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import Promise from 'bluebird'
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
@@ -43,6 +44,7 @@
                     this.$store.dispatch('deleteProductRecord', this.updateTargetRecordId)
                         .then(() => {
                             alert('產品資料刪除成功')
+                            return Promise.resolve()
                         })
                         .catch((error) => {
                             alert('產品資料刪除失敗')

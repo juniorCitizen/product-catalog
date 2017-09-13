@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import Promise from 'bluebird'
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
@@ -52,6 +53,7 @@
                     this.updateExistingProduct()
                         .then(() => {
                             alert('產品資料修改成功')
+                            return Promise.resolve()
                         })
                         .catch((error) => {
                             alert('產品資料修改失敗')

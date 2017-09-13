@@ -8,8 +8,7 @@ import routerResponse from '../../controllers/routerResponse'
 function updateProductRecord(req, res) {
     // console.log(req.files)
     // console.log(req.body)
-    return db
-        .sequelize
+    return db.sequelize
         .transaction((trx) => {
             let trxObj = { transaction: trx }
             return db.Products
@@ -63,7 +62,15 @@ function updateProductRecord(req, res) {
                     }
                 })
                 .then(() => {
-                    if ('secondaryPhotos' in req.files) {
+                    if ('photoRemovalList' in req.body) {
+                        console.log(req.body.photoRemovalList)
+                        let conditions = {
+                            where: {
+                                id: { $in: req.body.photoRemovalList }
+                            }
+                        }
+                        return db.Photos.destroy(conditions, trxObj)
+                    } else if ('secondaryPhotos' in req.files) {
                         let conditions = {
                             where: {
                                 productId: req.body.id,

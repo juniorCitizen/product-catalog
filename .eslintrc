@@ -16,7 +16,8 @@
         "html",
         "import",
         "node",
-        "standard"
+        "standard",
+        "promise"
     ],
     "root": true,
     "parser": "babel-eslint",
@@ -105,6 +106,7 @@
         "import/unambiguous": "off",
         "node/exports-style": "off",
         "node/no-unpublished-require": "off",
-        "node/no-unsupported-features": "off"
+        "node/no-unsupported-features": "off",
+        "promise/always-return": "error"
     }
 }

@@ -138,7 +138,7 @@ function countriesDefaultData() {
     }
     worldCountries.forEach((worldCountry) => {
         countries.records.push({
-            alpha3Code: worldCountry.cca3,
+            id: worldCountry.cca3,
             name: worldCountry.name.common,
             region: worldCountry.region === '' ? 'Other' : worldCountry.region
         })
@@ -155,7 +155,7 @@ function officeLocationsData() {
             countryId: 'TWN',
             telephone: '+886-(0)6-6529052',
             fax: '+886-(0)6-6527093',
-            website: `${eVars.PROD_HOST}/${eVars.SYS_REF}`
+            website: `${eVars.HOST}/${eVars.SYS_REF}`
         }, {
             title: 'Gentry Hardware Products Co., Ltd.',
             address: 'No. 158, Dongcheng Rd., Dongsheng Town, Zhongshan, Guangdong, China',

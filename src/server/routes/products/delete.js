@@ -1,23 +1,25 @@
-import Promise from 'bluebird'
-
 import db from '../../controllers/database'
 import routerResponse from '../../controllers/routerResponse'
 
-function deleteProductRecord(req, res) {
+module.exports = (req, res) => {
     return db.sequelize
         .transaction((trx) => {
-            let filterCondition = {
-                where: { productId: req.query.productId }
-            }
             let trxObj = { transaction: trx }
-            let deletePhotos = db.Photos.destroy(filterCondition, trxObj)
-            let deleteDescriptions = db.Descriptions.destroy(filterCondition, trxObj)
-            return Promise.all([deletePhotos, deleteDescriptions])
+            return db.Photos
+                .destroy({
+                    where: { productId: req.query.productId }
+                }, trxObj)
                 .then(() => {
-                    filterCondition = {
-                        where: { id: req.query.productId }
-                    }
-                    return db.Products.destroy(filterCondition, trxObj)
+                    return db.Descriptions
+                        .destroy({
+                            where: { productId: req.query.productId }
+                        }, trxObj)
+                })
+                .then(() => {
+                    return db.Products
+                        .destroy({
+                            where: { id: req.query.productId }
+                        }, trxObj)
                 })
         })
         .then(() => {
@@ -34,10 +36,9 @@ function deleteProductRecord(req, res) {
                 originalRequest: req,
                 statusCode: 500,
                 success: false,
-                error: error,
-                message: `failed to delete product record ${req.query.productId}`
+                error: error.name,
+                message: error.message,
+                data: error.stack
             })
         })
 }
-
-module.exports = deleteProductRecord

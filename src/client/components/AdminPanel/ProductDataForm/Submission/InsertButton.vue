@@ -50,7 +50,7 @@
                 if (this.validated) {
                     this.registerNewProduct()
                         .then(() => {
-                            alert('新產品資料建立成功')
+                            return alert('新產品資料建立成功')
                         })
                         .catch((error) => {
                             alert('產品資料建立失敗')

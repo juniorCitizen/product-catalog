@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import Promise from 'bluebird'
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
     export default {
@@ -50,6 +51,7 @@
                     this.login()
                         .then(() => {
                             this.$router.replace('/productCatalog/admin')
+                            return Promise.resolve()
                         })
                         .catch((error) => {
                             alert('登入失敗')

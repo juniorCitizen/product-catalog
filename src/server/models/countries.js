@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const Countries = sequelize.define('countries', {
-        alpha3Code: {
+        id: {
             type: DataTypes.STRING,
             primaryKey: true
         },

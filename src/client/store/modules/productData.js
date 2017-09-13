@@ -80,7 +80,6 @@ let form = {
             state.primaryPhoto = null
             state.secondaryPhotos = null
             state.ignoredPhotos = []
-            state.appendedPhotos = null
         }
     },
     getters: {
@@ -143,6 +142,19 @@ let form = {
                             }
                         }
                         prestine = false
+                    } else {
+                        let photoRemovalList = []
+                        state.ignoredPhotos.forEach((ignoredPhoto, photoIndex) => {
+                            if (ignoredPhoto) {
+                                photoRemovalList.push(state.secondaryPhotos[photoIndex].id)
+                            }
+                        })
+                        if (photoRemovalList.length > 0) {
+                            photoRemovalList.forEach((photoRemovalItem) => {
+                                formData.append('photoRemovalList[]', photoRemovalItem)
+                            })
+                            prestine = false
+                        }
                     }
                     if (prestine === false) {
                         formData.append('id', rootState.productData.updateTargetRecordId)

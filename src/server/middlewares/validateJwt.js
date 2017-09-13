@@ -28,7 +28,7 @@ module.exports = (request, response, next) => {
                         data: error.stack
                     })
                 }
-                db.Users
+                return db.Users
                     .findOne({
                         where: {
                             email: decodedToken.email.toLowerCase(),
@@ -37,7 +37,7 @@ module.exports = (request, response, next) => {
                     })
                     .then((user) => {
                         if (user) {
-                            next()
+                            return next()
                         } else {
                             let error = new Error('401 Forbidden (unrecognized user)')
                             error.name = 'userNotExist'
