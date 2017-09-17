@@ -21,7 +21,7 @@ export default {
             state.email = sessionStorage.email || ''
             state.countryId = sessionStorage.countryId || ''
         },
-        logout(state) {
+        logout: (state) => {
             sessionStorage.removeItem('jwt')
             state.jwt = null
         },
@@ -47,7 +47,7 @@ export default {
         }
     },
     getters: {
-        jwt: state => state.jwt,
+        jwt: (state) => { return state.jwt },
         email: (state) => {
             return state.jwt !== null ? extractPayload(state.jwt, 'email') : null
         },

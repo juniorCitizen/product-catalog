@@ -35,37 +35,37 @@ function seriesDefaultData() {
     return {
         modelName: 'Series',
         records: [{
-            reference: 'Crutch',
+            reference: 'Crutches',
             displaySequence: 0
         }, {
-            reference: 'Cane',
+            reference: 'Canes',
             displaySequence: 1
         }, {
-            reference: 'Forearm Crutch',
+            reference: 'Forearm Crutchs',
             displaySequence: 2
         }, {
-            reference: 'Quad Cane',
+            reference: 'Quad Canes',
             displaySequence: 3
         }, {
-            reference: 'Bath Bench',
+            reference: 'Bath Seats',
             displaySequence: 4
         }, {
-            reference: 'Aluminium Walker',
+            reference: 'Walkers',
             displaySequence: 5
         }, {
-            reference: 'Commode Chair',
+            reference: 'Commode Chairs',
             displaySequence: 6
         }, {
             reference: 'Bathroom Safety',
             displaySequence: 7
         }, {
-            reference: 'Patient Aid',
+            reference: 'Patient\'s Aid',
             displaySequence: 8
         }, {
-            reference: 'Rollator',
+            reference: 'Rollators',
             displaySequence: 9
         }, {
-            reference: 'Accessory',
+            reference: 'Accessories',
             displaySequence: 10
         }]
     }

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import VueTouch from 'vue-touch'
 
 import Axios from './plugins/axios'
 import EVars from './plugins/eVars'
@@ -63,6 +64,11 @@ export const ROUTES = [{
     vCentered: null
 }]
 
+VueTouch.config.swipe = {
+    direction: 'horizontal'
+}
+
+Vue.use(VueTouch)
 Vue.use(mediaQueries)
 Vue.mixin(ResponsiveBands.mixin)
 Vue.use(VueRouter)

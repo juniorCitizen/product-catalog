@@ -22,7 +22,7 @@ let validation = {
         deactivate: (state) => { state.state = false }
     },
     getters: {
-        state: state => state.state,
+        state: (state) => { return state.state },
         input: (state, getters, rootState) => {
             return (field) => {
                 return rootState.productData.form[field] !== EMPTY_FORM_STATE[field]
@@ -83,14 +83,14 @@ let form = {
         }
     },
     getters: {
-        seriesId: state => state.seriesId,
-        type: state => state.type,
-        code: state => state.code,
-        name: state => state.name,
-        description: state => state.description,
-        primaryPhoto: state => state.primaryPhoto,
-        secondaryPhotos: state => state.secondaryPhotos,
-        ignoredPhotos: state => state.ignoredPhotos,
+        seriesId: (state) => { return state.seriesId },
+        type: (state) => { return state.type },
+        code: (state) => { return state.code },
+        name: (state) => { return state.name },
+        description: (state) => { return state.description },
+        primaryPhoto: (state) => { return state.primaryPhoto },
+        secondaryPhotos: (state) => { return state.secondaryPhotos },
+        ignoredPhotos: (state) => { return state.ignoredPhotos },
         includedCount: (state) => {
             return state.ignoredPhotos.filter((ignoredPhoto) => {
                 return ignoredPhoto === false
@@ -226,8 +226,8 @@ export default {
         }
     },
     getters: {
-        newEntry: state => state.newEntry,
-        updateTargetRecordId: state => state.updateTargetRecordId
+        newEntry: (state) => { return state.newEntry },
+        updateTargetRecordId: (state) => { return state.updateTargetRecordId }
     },
     actions: {},
     modules: {

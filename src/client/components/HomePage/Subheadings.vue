@@ -21,7 +21,7 @@
         data: function () {
             return {
                 mottoText: [
-                    'Quality aluminium extrusion articles',
+                    'Quality aluminium extrusion products',
                     'for medical, rehabilitation and recreation industries',
                     'at competitive prices !!!'
                 ]

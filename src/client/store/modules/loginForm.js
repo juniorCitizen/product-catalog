@@ -21,11 +21,11 @@ export default {
         }
     },
     getters: {
-        email: state => state.email,
-        loginId: state => state.loginId,
-        password: state => state.password,
-        botPrevention: state => state.botPrevention,
-        state: state => state
+        email: (state) => { return state.email },
+        loginId: (state) => { return state.loginId },
+        password: (state) => { return state.password },
+        botPrevention: (state) => { return state.botPrevention },
+        state: (state) => { return state }
     },
     actions: {},
     modules: {
@@ -40,7 +40,7 @@ export default {
                 deactivate: (state) => { state.state = false }
             },
             getters: {
-                state: state => state.state,
+                state: (state) => { return state.state },
                 input: (state, getters, rootState) => {
                     return (field) => {
                         let validationConditions = {

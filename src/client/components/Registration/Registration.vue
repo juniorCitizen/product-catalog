@@ -26,13 +26,15 @@
                     <template v-else>
                         <div class="notification has-text-centered">
                             <div class="columns is-centered">
-                                <span class="title is-spaced">
+                                <span class="title is-spaced"
+                                      :class="{'is-6':isOnMobileDevice}">
                                     REGISTER
                                 </span>
                             </div>
                             <div class="columns is-centered">
-                                <span class="subtitle">
-                                    TO RECEIVE A COPY OF OUR PDF CATALOG
+                                <span class="subtitle"
+                                      :class="{'is-6':isOnMobileDevice}">
+                                    FOR OUR PDF CATALOG
                                 </span>
                             </div>
                         </div>
@@ -254,7 +256,7 @@
                         <div class="field is-grouped">
                             <div class="control">
                                 <button class="button is-primary"
-                                        :class="{'is-large':!isOnMobileDevice,'is-loading':flowControl}"
+                                        :class="{'is-large':!isOnMobileDevice,'is-small':isOnMobileDevice,'is-loading':flowControl}"
                                         :disabled="flowControl"
                                         @click="userRegistration">
                                     REGISTER
@@ -262,7 +264,7 @@
                             </div>
                             <div class="control">
                                 <button class="button is-danger"
-                                        :class="{'is-large':!isOnMobileDevice}"
+                                        :class="{'is-large':!isOnMobileDevice,'is-small':isOnMobileDevice}"
                                         :disabled="flowControl"
                                         @click="clearForm">
                                     CLEAR FORM

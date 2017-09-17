@@ -55,8 +55,8 @@ export default {
         }
     },
     getters: {
-        data: state => state.data,
-        apiUrl: state => state.apiUrl
+        data: (state) => { return state.data },
+        apiUrl: (state) => { return state.apiUrl }
     },
     actions: {
         fetch: (context) => {

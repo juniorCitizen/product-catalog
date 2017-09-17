@@ -12,7 +12,7 @@ export default {
         }
     },
     getters: {
-        activated: state => state.ajaxInProgress
+        activated: (state) => { return state.ajaxInProgress }
     },
     actions: {}
 }

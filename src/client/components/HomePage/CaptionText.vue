@@ -15,7 +15,7 @@
         props: [],
         data: function () {
             return {
-                captionText: 'Products available from Taiwan or China'
+                captionText: 'Available from Taiwan or China'
             }
         },
         computed: {

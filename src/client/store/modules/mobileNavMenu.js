@@ -9,7 +9,7 @@ export default {
         deactivate: (state) => { state.mobileNavMenu = false }
     },
     getters: {
-        activated: state => state.mobileNavMenu
+        activated: (state) => { return state.mobileNavMenu }
     },
     actions: {}
 }

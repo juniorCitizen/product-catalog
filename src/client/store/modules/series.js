@@ -62,9 +62,9 @@ export default {
         }
     },
     getters: {
-        data: state => state.data,
-        activeSeriesIndex: state => state.activeSeriesIndex,
-        apiUrl: state => state.apiUrl
+        data: (state) => { return state.data },
+        activeSeriesIndex: (state) => { return state.activeSeriesIndex },
+        apiUrl: (state) => { return state.apiUrl }
     },
     actions: {
         fetch: (context) => {
