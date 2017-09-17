@@ -195,31 +195,31 @@
             isFullhd: function (state) {
                 if (state) {
                     this.productsPerRow = 4
-                    this.height = 350
+                    this.accordianAnimation(this.height, 350)
                 }
             },
             isWidescreenOnly: function (state) {
                 if (state) {
                     this.productsPerRow = 3
-                    this.height = 300
+                    this.accordianAnimation(this.height, 300)
                 }
             },
             isDesktopOnly: function (state) {
                 if (state) {
                     this.productsPerRow = 4
-                    this.height = 250
+                    this.accordianAnimation(this.height, 250)
                 }
             },
             isTabletOnly: function (state) {
                 if (state) {
                     this.productsPerRow = 3
-                    this.height = 200
+                    this.accordianAnimation(this.height, 200)
                 }
             },
             isMobile: function (state) {
                 if (state) {
                     this.productsPerRow = 1
-                    this.height = 350
+                    this.accordianAnimation(this.height, 200)
                 }
             },
             enterFromLeft: function (activationState) {
@@ -287,6 +287,26 @@
             registerProductSetFrameWidth: function () {
                 this.productSetFrameWidth = document.getElementById('product-set-frame').clientWidth
                 this.photoSetLeftPosition = this.productSetFrameWidth * -1
+            },
+            accordianAnimation: function (initialHeight, targetHeight) {
+                if (initialHeight !== targetHeight) {
+                    this.height = initialHeight
+                    if (initialHeight < targetHeight) {
+                        let animationTimer = setInterval(() => {
+                            this.height = this.height + 10
+                            if (this.height >= targetHeight) {
+                                clearInterval(animationTimer)
+                            }
+                        }, 10)
+                    } else {
+                        let animationTimer = setInterval(() => {
+                            this.height = this.height - 10
+                            if (this.height <= targetHeight) {
+                                clearInterval(animationTimer)
+                            }
+                        }, 10)
+                    }
+                }
             }
         },
         beforeCreate: function () { },
@@ -298,19 +318,19 @@
                 this.registerProductSetFrameWidth()
                 if (this.isFullhd) {
                     this.productsPerRow = 4
-                    this.height = 350
+                    this.accordianAnimation(0, 350)
                 } else if (this.isWidescreenOnly) {
                     this.productsPerRow = 3
-                    this.height = 300
+                    this.accordianAnimation(0, 300)
                 } else if (this.isDesktopOnly) {
                     this.productsPerRow = 4
-                    this.height = 250
+                    this.accordianAnimation(0, 250)
                 } else if (this.isTabletOnly) {
                     this.productsPerRow = 3
-                    this.height = 200
+                    this.accordianAnimation(0, 200)
                 } else {
                     this.productsPerRow = 1
-                    this.height = 350
+                    this.accordianAnimation(0, 200)
                 }
             })
         },
@@ -331,6 +351,7 @@
     div.content {
         margin: 0px;
         padding: 0px;
+        overflow-y: hidden;
     }
 
     div#product-set-frame {
