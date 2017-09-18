@@ -9,16 +9,10 @@
                      :style="{width:(photoFrameWidth)+'px'}">
                     <div class="image-wrapper"
                          :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${products[previousProductIndex].photos[0].id}`)">
-                        <div class="product-code">
+                        <div class="product-code-label">
                             ({{previousProductIndex+1}}) {{products[previousProductIndex].code}}
                         </div>
-                        <div class="selection-marker"
-                             :style="isProductOfInterest(products[previousProductIndex].id)"
-                             @click="$emit('selectProductEvent',products[previousProductIndex].id)">
-                            <span class="icon is-medium">
-                                <i class="fa fa-check-circle"></i>
-                            </span>
-                        </div>
+                        <interest-marker :productId="products[previousProductIndex].id"></interest-marker>
                     </div>
                 </div>
                 <v-touch @swiperight="enterFromLeft=true"
@@ -27,16 +21,10 @@
                          :style="{width:(photoFrameWidth)+'px'}">
                         <div class="image-wrapper"
                              :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${products[visibleProductIndex].photos[0].id}`)">
-                            <div class="product-code">
+                            <div class="product-code-label">
                                 ({{visibleProductIndex+1}}) {{products[visibleProductIndex].code}}
                             </div>
-                            <div class="selection-marker"
-                                 :style="isProductOfInterest(products[visibleProductIndex].id)"
-                                 @click="$emit('selectProductEvent',products[visibleProductIndex].id)">
-                                <span class="icon is-medium">
-                                    <i class="fa fa-check-circle"></i>
-                                </span>
-                            </div>
+                            <interest-marker :productId="products[visibleProductIndex].id"></interest-marker>
                         </div>
                     </div>
                 </v-touch>
@@ -44,16 +32,10 @@
                      :style="{width:(photoFrameWidth)+'px'}">
                     <div class="image-wrapper"
                          :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${products[nextProductIndex].photos[0].id}`)">
-                        <div class="product-code">
+                        <div class="product-code-label">
                             ({{nextProductIndex+1}}) {{products[nextProductIndex].code}}
                         </div>
-                        <div class="selection-marker"
-                             :style="isProductOfInterest(products[nextProductIndex].id)"
-                             @click="$emit('selectProductEvent',products[nextProductIndex].id)">
-                            <span class="icon is-medium">
-                                <i class="fa fa-check-circle"></i>
-                            </span>
-                        </div>
+                        <interest-marker :productId="products[nextProductIndex].id"></interest-marker>
                     </div>
                 </div>
             </div>
@@ -64,12 +46,15 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import InterestMarker from './InterestMarker.vue'
+
     export default {
         name: 'mobile-product-viewer',
-        components: {},
+        components: {
+            InterestMarker
+        },
         props: [
-            'products',
-            'interestedProducts'
+            'products'
         ],
         data: function () {
             return {
@@ -138,21 +123,6 @@
                     'background-position': 'center'
                 }
             },
-            isProductOfInterest: function (productId) {
-                if (this.interestedProducts.findIndex((interestedProduct) => {
-                    return interestedProduct === productId
-                }) !== -1) {
-                    return {
-                        'background-color': 'rgba(255,255,255,0.4)',
-                        color: 'darkorange'
-                    }
-                } else {
-                    return {
-                        'background-color': 'rgba(0,0,0,0.2)',
-                        color: 'rgba(255,255,255,0.6)'
-                    }
-                }
-            },
             registerPhotoFrameWidth: function () {
                 this.photoFrameWidth = document.getElementById('photo-frame').clientWidth
                 this.photoSlideLeftPosition = this.photoFrameWidth * -1
@@ -211,18 +181,11 @@
         display: flex;
     }
 
-    div.product-code {
+    div.product-code-label {
         font-size: 75%;
         color: white;
         background-color: rgba(0, 0, 0, 0.5);
         padding: 0px 5px 0px 5px;
         align-self: flex-end;
-    }
-
-    div.selection-marker {
-        font-weight: bolder;
-        padding: 0px;
-        align-self: flex-start;
-        margin-left: auto;
     }
 </style>

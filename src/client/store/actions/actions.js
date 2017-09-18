@@ -5,6 +5,7 @@ import eVars from '../../../server/config/environment'
 
 export default {
     reset: (context) => {
+        context.commit('interestedProducts/reset')
         context.commit('viewport/reset')
         context.commit('mobileNavMenu/deactivate')
         context.commit('regions/reset')
@@ -186,6 +187,9 @@ export default {
     },
     userRegistration: (context, payload) => {
         context.commit('flowControl/start')
+        if (payload.authorized) {
+            payload.interestedProducts = context.getters['interestedProducts/productIds']
+        }
         return axios({
             method: 'post',
             url: `${eVars.API_URL}/registrations`,

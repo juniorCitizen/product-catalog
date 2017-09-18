@@ -171,7 +171,11 @@
                                     </div>
                                     <div class="icon is-left"
                                          :class="{'is-large':!isOnMobileDevice}">
-                                        <i class="fa fa-globe"></i>
+                                        <i v-if="flagUrl===''"
+                                           class="fa fa-globe"></i>
+                                        <img v-else
+                                             :src="flagUrl"
+                                             width="40px">
                                     </div>
                                     <p v-if="invalidCountry"
                                        class="help is-danger">please tell us where you are from</p>
@@ -225,7 +229,12 @@
                                     </div>
                                     <div class="icon is-left"
                                          :class="{'is-large':!isOnMobileDevice}">
-                                        <i class="fa fa-globe"></i>
+                                        <i v-if="flagUrl===''"
+                                           class="fa fa-globe">
+                                        </i>
+                                        <img v-else
+                                             :src="flagUrl"
+                                             width="20">
                                     </div>
                                     <p v-if="invalidCountry"
                                        class="help is-danger">please tell us where you are from</p>
@@ -243,6 +252,15 @@
                                           v-model.trim="comments">
                                 </textarea>
                             </div>
+                        </div>
+                        <!-- checkbox -->
+                        <div class="field"
+                             v-if="itemCount>0">
+                            <label class="checkbox">
+                                <input type="checkbox"
+                                       v-model="authorized">
+                                <span style="font-weight:bolder;">I WISH TO BE CONTACTED ABOUT THE {{itemCount}} PRODUCT(S) THAT I'VE SELECTED</span>
+                            </label>
                         </div>
                         <!-- botPrevention -->
                         <div class="field"
@@ -293,6 +311,7 @@
                 region: '',
                 countryId: '',
                 comments: '',
+                authorized: true,
                 botPrevention: '',
                 validationSwitch: false
             }
@@ -303,7 +322,8 @@
                 countries: 'countries/data',
                 flowControl: 'flowControl/activated',
                 registered: 'credentials/registered',
-                user: 'credentials/user'
+                user: 'credentials/user',
+                itemCount: 'interestedProducts/itemCount'
             }),
             filteredCountryList: function () {
                 if (this.region === '') {
@@ -328,6 +348,12 @@
             },
             readyToSubmit: function () {
                 return !(this.invalidCompany || this.invalidCountry || this.invalidEmail || this.invalidName)
+            },
+            flagUrl: function () {
+                return this.countryId === '' ? '' : `${this.$eVars.API_URL}/countries/flags?countryId=${this.countryId.toLowerCase()}`
+            },
+            flagSize: function () {
+                return this.isOnMobileDevice ? '20px' : '30px'
             }
         },
         watch: {},
@@ -341,6 +367,7 @@
                 this.region = ''
                 this.countryId = ''
                 this.comments = ''
+                this.authorized = false
                 this.botPrevention = ''
                 this.validationSwitch = false
             },
@@ -362,6 +389,7 @@
                             region: this.region,
                             countryId: this.countryId,
                             comments: this.comments,
+                            authorized: this.authorized,
                             botPrevention: this.botPrevention
                         })
                         .then((userData) => {

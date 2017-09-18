@@ -22,16 +22,10 @@
                                      v-if="product.id"
                                      :key="productIndex"
                                      :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
-                                    <div class="product-code">
+                                    <div class="product-code-label">
                                         ({{(previousColumnIndex*productsPerRow)+productIndex+1}}) {{product.code}}
                                     </div>
-                                    <div class="selection-marker"
-                                         :style="isProductOfInterest(product.id)"
-                                         @click="$emit('selectProductEvent',product.id)">
-                                        <span class="icon is-medium">
-                                            <i class="fa fa-check-circle"></i>
-                                        </span>
-                                    </div>
+                                    <interest-marker :productId="product.id"></interest-marker>
                                 </div>
                                 <div v-else
                                      class="product-wrapper placeholder"
@@ -47,16 +41,10 @@
                                      v-if="product.id"
                                      :key="productIndex"
                                      :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
-                                    <div class="product-code">
+                                    <div class="product-code-label">
                                         ({{(visibleColumnIndex*productsPerRow)+productIndex+1}}) {{product.code}}
                                     </div>
-                                    <div class="selection-marker"
-                                         :style="isProductOfInterest(product.id)"
-                                         @click="$emit('selectProductEvent',product.id)">
-                                        <span class="icon is-medium">
-                                            <i class="fa fa-check-circle"></i>
-                                        </span>
-                                    </div>
+                                    <interest-marker :productId="product.id"></interest-marker>
                                 </div>
                                 <div v-else
                                      class="product-wrapper placeholder"
@@ -72,16 +60,10 @@
                                      v-if="product.id"
                                      :key="productIndex"
                                      :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
-                                    <div class="product-code">
+                                    <div class="product-code-label">
                                         ({{(visibleColumnIndex*productsPerRow)+productIndex+1}}) {{product.code}}
                                     </div>
-                                    <div class="selection-marker"
-                                         :style="isProductOfInterest(product.id)"
-                                         @click="$emit('selectProductEvent',product.id)">
-                                        <span class="icon is-medium">
-                                            <i class="fa fa-check-circle"></i>
-                                        </span>
-                                    </div>
+                                    <interest-marker :productId="product.id"></interest-marker>
                                 </div>
                                 <div v-else
                                      class="product-wrapper placeholder"
@@ -106,12 +88,15 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+    import InterestMarker from './InterestMarker.vue'
+
     export default {
         name: 'desktop-product-viewer',
-        components: {},
+        components: {
+            InterestMarker
+        },
         props: [
-            'products',
-            'interestedProducts'
+            'products'
         ],
         data: function () {
             return {
@@ -269,21 +254,6 @@
                     'background-position': 'center'
                 }
             },
-            isProductOfInterest: function (productId) {
-                if (this.interestedProducts.findIndex((interestedProduct) => {
-                    return interestedProduct === productId
-                }) !== -1) {
-                    return {
-                        'background-color': 'rgba(255,255,255,0.4)',
-                        color: 'darkorange'
-                    }
-                } else {
-                    return {
-                        'background-color': 'rgba(0,0,0,0.2)',
-                        color: 'rgba(255,255,255,0.6)'
-                    }
-                }
-            },
             registerProductSetFrameWidth: function () {
                 this.productSetFrameWidth = document.getElementById('product-set-frame').clientWidth
                 this.photoSetLeftPosition = this.productSetFrameWidth * -1
@@ -387,18 +357,11 @@
         display: flex;
     }
 
-    div.product-code {
+    div.product-code-label {
         color: white;
         background-color: rgba(0, 0, 0, 0.5);
         padding: 0px 5px 0px 5px;
         align-self: flex-end;
-    }
-
-    div.selection-marker {
-        font-weight: bolder;
-        padding: 0px;
-        align-self: flex-start;
-        margin-left: auto;
     }
 
     div.cycle-control {

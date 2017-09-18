@@ -41,7 +41,7 @@ function seriesDefaultData() {
             reference: 'Canes',
             displaySequence: 1
         }, {
-            reference: 'Forearm Crutchs',
+            reference: 'Forearm Crutches',
             displaySequence: 2
         }, {
             reference: 'Quad Canes',
@@ -59,7 +59,7 @@ function seriesDefaultData() {
             reference: 'Bathroom Safety',
             displaySequence: 7
         }, {
-            reference: 'Patient\'s Aid',
+            reference: 'Patient-Aids',
             displaySequence: 8
         }, {
             reference: 'Rollators',

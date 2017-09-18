@@ -15,6 +15,7 @@ import loginFormModule from './modules/loginForm'
 import flowControlModule from './modules/flowControl'
 import credentialsModule from './modules/credentials'
 import productDataModule from './modules/productData'
+import interestedProductsModule from './modules/interestedProducts'
 
 Vue.use(Vuex)
 
@@ -31,7 +32,8 @@ const store = new Vuex.Store({
         loginForm: loginFormModule,
         flowControl: flowControlModule,
         credentials: credentialsModule,
-        productData: productDataModule
+        productData: productDataModule,
+        interestedProducts: interestedProductsModule
     },
     actions: actions,
     getters: {},
@@ -55,6 +57,7 @@ if (module.hot) {
         './modules/flowControl',
         './modules/credentials',
         './modules/productData',
+        './modules/interestedProducts',
         './actions/actions'
     ], () => {
         const newViewportModule = require('./modules/viewport').default
@@ -68,6 +71,7 @@ if (module.hot) {
         const newFlowControlModule = require('./modules/flowControl').default
         const newCredentialsModule = require('./modules/credentials').default
         const newProductDataModule = require('./modules/productData').default
+        const newInterestedProductsModule = require('./modules/interestedProducts').default
         const newActions = require('./actions/actions').default
         store.hotUpdate({
             actions: newActions,
@@ -82,7 +86,8 @@ if (module.hot) {
                 loginForm: newLoginFormModule,
                 flowControl: newFlowControlModule,
                 credentials: newCredentialsModule,
-                productData: newProductDataModule
+                productData: newProductDataModule,
+                interestedProducts: newInterestedProductsModule
             }
         })
     })

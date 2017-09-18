@@ -7,6 +7,6 @@ module.exports = (req, res) => {
         pendingResponse: res,
         statusCode: 200,
         mimeType: 'image/svg+xml',
-        filePath: path.join(__dirname, `../../client/assets/${req.query.country}.svg`)
+        filePath: path.join(__dirname, `../../client/assets/${req.query.countryId}.svg`)
     })
 }

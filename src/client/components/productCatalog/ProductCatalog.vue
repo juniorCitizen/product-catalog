@@ -1,24 +1,6 @@
 <template>
     <div class="hero-body">
-        <div class="control">
-            <div class="tags has-addons">
-                <span v-if="!interestedProducts.length"
-                      class="tag is-info"
-                      :class="{'is-small':isMobile,'is-large':!isMobile}">
-                    select items of interest
-                </span>
-                <span v-else
-                      class="tag is-warning"
-                      :class="{'is-small':isMobile,'is-large':!isMobile}">
-                    <b>items of interest</b>
-                </span>
-                <span v-if="interestedProducts.length"
-                      class="tag is-dark"
-                      :class="{'is-small':isMobile,'is-large':!isMobile}">
-                    <b>{{interestedProducts.length}}</b>
-                </span>
-            </div>
-        </div>
+        <interest-cart></interest-cart>
         <div class="container is-fluid">
             <div class="columns is-centered">
                 <div class="column box">
@@ -46,15 +28,11 @@
                         </header>
                         <template v-if="(activeSeriesId===seriesItem.id)&&(seriesItem.products.length)">
                             <template v-if="!isMobile">
-                                <desktop-product-viewer :products="seriesItem.products"
-                                                        :interestedProducts="interestedProducts"
-                                                        @selectProductEvent="selectProduct($event)">
+                                <desktop-product-viewer :products="seriesItem.products">
                                 </desktop-product-viewer>
                             </template>
                             <template v-else>
-                                <mobile-product-viewer :products="seriesItem.products"
-                                                       :interestedProducts="interestedProducts"
-                                                       @selectProductEvent="selectProduct($event)">
+                                <mobile-product-viewer :products="seriesItem.products">
                                 </mobile-product-viewer>
                             </template>
                         </template>
@@ -63,6 +41,8 @@
             </div>
         </div>
         <br>
+        <br>
+        <br v-if="!isMobile">
     </div>
 </template>
 
@@ -71,18 +51,19 @@
 
     import DesktopProductViewer from './DesktopProductViewer.vue'
     import MobileProductViewer from './MobileProductViewer.vue'
+    import InterestCart from './InterestCart.vue'
 
     export default {
         name: 'product-catalog',
         components: {
             DesktopProductViewer,
-            MobileProductViewer
+            MobileProductViewer,
+            InterestCart
         },
         props: [],
         data: function () {
             return {
-                activeSeriesId: 1,
-                interestedProducts: []
+                activeSeriesId: 1
             }
         },
         computed: {
@@ -109,16 +90,6 @@
                 if (this.series[seriesId - 1].products.length > 0) {
                     this.visibleColumnIndex = 1
                     this.activeSeriesId = this.activeSeriesId === seriesId ? 0 : seriesId
-                }
-            },
-            selectProduct: function (productId) {
-                let interestedProductIndex = this.interestedProducts.findIndex((interestedProduct) => {
-                    return interestedProduct === productId
-                })
-                if (interestedProductIndex === -1) {
-                    this.interestedProducts.push(productId)
-                } else {
-                    this.interestedProducts.splice(interestedProductIndex, 1)
                 }
             }
         },
@@ -147,13 +118,5 @@
 
     header.card-header:hover .card-header-title {
         transform: scale(1.005);
-    }
-
-    div.control {
-        position: fixed;
-        bottom: 5%;
-        right: 3%;
-        cursor: pointer;
-        z-index: 1000;
     }
 </style>
