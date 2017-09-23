@@ -122,7 +122,7 @@ function productRequest(req, res) {
                     company: req.body.company,
                     name: req.body.name,
                     email: req.body.email,
-                    countryId: req.body.countryId,
+                    countryId: req.body.countryId.toUpperCase(),
                     comments: req.body.comments,
                     notified: false,
                     contacted: false
@@ -142,6 +142,18 @@ function productRequest(req, res) {
                         .then(() => {
                             return db.Registrations.findById(newRegistrationRecord.id, trxObj)
                         })
+                        .catch((error) => {
+                            console.log(error.name)
+                            console.log(error.message)
+                            console.log(error.stack)
+                            return Promise.reject(error)
+                        })
+                })
+                .catch((error) => {
+                    console.log(error.name)
+                    console.log(error.message)
+                    console.log(error.stack)
+                    return Promise.reject(error)
                 })
         })
         .then((newRegistrationRecord) => {

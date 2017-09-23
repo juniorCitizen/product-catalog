@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         comments: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         },
         notified: {
             type: DataTypes.BOOLEAN,

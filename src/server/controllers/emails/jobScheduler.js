@@ -11,30 +11,58 @@ module.exports = () => {
     let jobList = [{
         searchCriteria: {
             attributes: {
-                exclude: ['createdAt', 'updatedAt', 'deletedAt']
+                exclude: ['updatedAt', 'deletedAt']
             },
             where: {
                 notified: false
-            }
-            // ,
-            // include: [{
-            //     model: db.Products,
-            //     through: {
-            //         attributes: {
-            //             exclude: ['createdAt', 'updatedAt', 'deletedAt']
-            //         }
-            //     }
-            // }, {
-            //     model: db.Countries,
-            //     attributes: {
-            //         exclude: ['createdAt', 'updatedAt', 'deletedAt']
-            //     }
-            // }]
+            },
+            include: [{
+                model: db.Products,
+                through: {
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'deletedAt']
+                    }
+                }
+            }, {
+                model: db.Countries,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'deletedAt']
+                }
+            }]
         },
         processor: registrationAlerts,
         updateAction: { notified: true }
     }, {
-        searchCriteria: { where: { contacted: false } },
+        searchCriteria: {
+            attributes: {
+                exclude: ['updatedAt', 'deletedAt']
+            },
+            where: {
+                contacted: false
+            },
+            include: [{
+                model: db.Products,
+                through: {
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'deletedAt']
+                    }
+                },
+                include: [{
+                    model: db.Photos,
+                    attributes: {
+                        exclude: [
+                            'data',
+                            'createdAt',
+                            'updatedAt',
+                            'deletedAt'
+                        ]
+                    }
+                }]
+            }],
+            order: [
+                [db.Products, 'code']
+            ]
+        },
         processor: contactByEmail,
         updateAction: { contacted: true }
     }]
@@ -44,7 +72,6 @@ module.exports = () => {
             .then((pendingRecords) => {
                 let pendingEmails = []
                 pendingRecords.forEach((pendingRecord) => {
-                    console.log(pendingRecord.dataValues)
                     pendingEmails.push(
                         job.processor(pendingRecord)
                     )

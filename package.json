@@ -38,6 +38,7 @@
     "multer": "^1.3.0",
     "node-cron": "^1.2.1",
     "nodemailer": "^4.1.0",
+    "nodemailer-express-handlebars": "^2.0.0",
     "random-paragraph": "^1.0.4",
     "random-sentence": "^1.0.4",
     "sequelize": "^4.10.0",

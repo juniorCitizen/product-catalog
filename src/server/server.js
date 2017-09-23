@@ -8,7 +8,7 @@ import Promise from 'bluebird'
 
 // load custom modules
 import db from './controllers/database/database'
-// import emailSystem from './controllers/emails/emails'
+import emailSystem from './controllers/emails/emails'
 import proxyRegistration from './controllers/proxyRegistration'
 import eVars from './config/environment'
 
@@ -64,7 +64,7 @@ app.use('*', require(path.join(__dirname, 'routes/clientAccess')))
 console.log('initializing system components...')
 let systemInitSequence = []
 systemInitSequence.push(db.initialize()) // initialize system database
-// systemInitSequence.push(emailSystem.initialize()) // initialize email system
+systemInitSequence.push(emailSystem.initialize()) // initialize email system
 Promise
     .each(systemInitSequence, () => {
         return Promise.resolve()

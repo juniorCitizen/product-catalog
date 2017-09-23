@@ -66,8 +66,8 @@ function initialize() {
             db.Products.belongsToMany(db.Registrations, {
                 through: db.InterestedProducts,
                 constrains: true,
-                foreignKey: 'registrationId',
-                otherKey: 'registrationId',
+                foreignKey: 'productId',
+                // otherKey: 'registrationId',
                 targetKey: 'id',
                 onUpdate: 'CASCADE',
                 onDelete: 'RESTRICT'
@@ -110,8 +110,8 @@ function initialize() {
             db.Registrations.belongsToMany(db.Products, {
                 through: db.InterestedProducts,
                 constrains: true,
-                foreignKey: 'productId',
-                otherKey: 'productId',
+                foreignKey: 'registrationId',
+                // otherKey: 'productId',
                 targetKey: 'id',
                 onUpdate: 'CASCADE',
                 onDelete: 'RESTRICT'

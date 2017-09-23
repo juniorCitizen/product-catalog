@@ -5,7 +5,7 @@
             <div class="cycle-control column is-narrow"
                  @click="triggerEnterFromLeft()">
                 <span class="icon is-large">
-                    <i class="fa fa-chevron-circle-left"></i>
+                    <i class="fa fa-chevron-left"></i>
                 </span>
             </div>
             <v-touch :style="swiperStyles"
@@ -75,7 +75,7 @@
             <div class="cycle-control column is-narrow"
                  @click="triggerEnterFromRight()">
                 <span class="icon is-large">
-                    <i class="fa fa-chevron-circle-right"></i>
+                    <i class="fa fa-chevron-right"></i>
                 </span>
             </div>
         </div>
@@ -171,7 +171,7 @@
                 return Math.ceil(this.productViewportWidth / 120)
             },
             accordianSpeed: function () {
-                return 20
+                return 15
             }
         },
         watch: {
@@ -249,7 +249,7 @@
             ...mapMutations({}),
             ...mapActions({}),
             productWrapperStyle: function (src) {
-                let width = (1 / this.productsPerRow * 100 - 0.5) + '%'
+                let width = (((1 / this.productsPerRow) * 100) - 2) + '%'
                 if (src) {
                     return {
                         width: width,
@@ -396,5 +396,37 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    i.fa-chevron-right:hover {
+        animation: shift-to-right 1.5s infinite ease-in-out;
+    }
+
+    @keyframes shift-to-right {
+        0% {
+            transform: scale(1) translateX(0);
+        }
+        50% {
+            transform: scale(1.1) translateX(5px);
+        }
+        100% {
+            transform: scale(1) translateX(0);
+        }
+    }
+
+    i.fa-chevron-left:hover {
+        animation: shift-to-left 1.5s infinite ease-in-out;
+    }
+
+    @keyframes shift-to-left {
+        0% {
+            transform: scale(1) translateX(0);
+        }
+        50% {
+            transform: scale(1.1) translateX(-5px);
+        }
+        100% {
+            transform: scale(1) translateX(0);
+        }
     }
 </style>
