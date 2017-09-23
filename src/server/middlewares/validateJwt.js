@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import jwt from 'jsonwebtoken'
 
-import db from '../controllers/database'
+import db from '../controllers/database/database'
 import eVars from '../config/environment'
 import routerResponse from '../controllers/routerResponse'
 

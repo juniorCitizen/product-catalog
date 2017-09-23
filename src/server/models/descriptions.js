@@ -8,12 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         productId: {
             type: DataTypes.UUID,
-            allowNull: true,
+            allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         text: {
             type: DataTypes.TEXT,
-            allowNull: true
+            allowNull: false
         },
         createdAt: {
             type: DataTypes.DATE,

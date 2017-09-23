@@ -2,8 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const OfficeLocations = sequelize.define('officeLocations', {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+            primaryKey: true
         },
         title: {
             type: DataTypes.STRING,

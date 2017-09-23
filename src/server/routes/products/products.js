@@ -2,7 +2,7 @@ import express from 'express'
 import multer from 'multer'
 import path from 'path'
 
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 import routerResponse from '../../controllers/routerResponse'
 import validateJwt from '../../middlewares/validateJwt'
 

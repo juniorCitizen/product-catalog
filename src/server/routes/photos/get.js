@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
 
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 import routerResponse from '../../controllers/routerResponse'
 
 module.exports = (req, res) => {

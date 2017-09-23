@@ -1,11 +1,11 @@
-import fs from 'fs'
+import fs from 'fs-extra'
 import path from 'path'
 import Promise from 'bluebird'
-import Sequelize from 'sequelize' // requires the sequalize library
+import Sequelize from 'sequelize' // requires the sequalize libraryc
 
-import sqliteDbConfig from '../config/sqliteDb'
+import dbConfig from '../../config/sqliteDb'
 
-const sequelize = new Sequelize(sqliteDbConfig)
+const sequelize = new Sequelize(dbConfig)
 
 const db = {
     Sequelize: Sequelize,
@@ -13,29 +13,28 @@ const db = {
     initialize: initialize // project model initialization function
 }
 
-const modelsPath = path.join(__dirname, '../models')
+const modelsPath = path.join(__dirname, '../../models')
 
 function initialize() {
+    let modelSyncOperations = []
     return sequelize
         .authenticate() // verify database connection
         .then(() => {
-            fs.readdirSync(modelsPath)
+            return fs.readdir(modelsPath)
+        })
+        .then((files) => {
+            files
                 .filter((fileName) => {
                     return ((fileName.indexOf('.') !== 0) && (fileName.slice(-3) === '.js'))
                 })
                 .forEach((fileName) => {
                     let modelName = fileName.slice(0, -3).charAt(0).toUpperCase() + fileName.slice(0, -3).slice(1)
                     db[modelName] = require(path.join(modelsPath, fileName))(sequelize, Sequelize)
-                    if (sqliteDbConfig.resetDatabase) {
-                        db[modelName].sync({ force: true })
-                    } else {
-                        db[modelName].sync()
-                    }
+                    modelSyncOperations.push(db[modelName].sync())
                 })
-            return Promise.resolve()
+            return Promise.all(modelSyncOperations)
         })
         .then(() => {
-            // db relations and constraints are activated after default records are written
             db.Series.hasMany(db.Products, {
                 constraints: true,
                 foreignKey: 'seriesId',
@@ -65,7 +64,6 @@ function initialize() {
                 onDelete: 'RESTRICT'
             })
             db.Products.belongsToMany(db.Registrations, {
-                as: 'ProductInquiries',
                 through: db.InterestedProducts,
                 constrains: true,
                 foreignKey: 'registrationId',
@@ -110,7 +108,6 @@ function initialize() {
                 onDelete: 'RESTRICT'
             })
             db.Registrations.belongsToMany(db.Products, {
-                as: 'PotentialClients',
                 through: db.InterestedProducts,
                 constrains: true,
                 foreignKey: 'productId',
@@ -143,43 +140,19 @@ function initialize() {
             return Promise.resolve()
         })
         .then(() => {
-            fs.readdirSync(modelsPath)
+            return fs.readdir(modelsPath)
+        })
+        .then((dirContents) => {
+            let modelSyncOperations = []
+            dirContents
                 .filter((fileName) => {
                     return ((fileName.indexOf('.') !== 0) && (fileName.slice(-3) === '.js'))
                 })
                 .forEach((fileName) => {
                     let modelName = fileName.slice(0, -3).charAt(0).toUpperCase() + fileName.slice(0, -3).slice(1)
-                    db[modelName].sync()
+                    modelSyncOperations.push(db[modelName].sync())
                 })
-            return Promise.resolve()
-        })
-        .then(() => {
-            if (sqliteDbConfig.resetDatabase) {
-                let insertQueries = []
-                fs.readdirSync(modelsPath)
-                    .filter((fileName) => {
-                        return ((fileName.indexOf('.') !== 0) && (fileName.slice(-3) === '.js'))
-                    })
-                    .forEach((fileName) => {
-                        let modelName = fileName.slice(0, -3).charAt(0).toUpperCase() + fileName.slice(0, -3).slice(1)
-                        let defaultDbRecords = null
-                        defaultDbRecords = sqliteDbConfig.defaultRecords().filter((recordset) => {
-                            return recordset.modelName === modelName
-                        })
-                        if (defaultDbRecords.length > 0) {
-                            defaultDbRecords[0].records.forEach((record) => {
-                                insertQueries.push(db[modelName].create(record))
-                            })
-                        }
-                    })
-                return Promise
-                    .all(insertQueries)
-                    .then(() => {
-                        return Promise.resolve()
-                    })
-            } else {
-                return Promise.resolve()
-            }
+            return Promise.all(modelSyncOperations)
         })
         .catch((error) => {
             console.log(error.name)

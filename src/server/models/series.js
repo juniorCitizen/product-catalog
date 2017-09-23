@@ -2,16 +2,15 @@ module.exports = (sequelize, DataTypes) => {
     const Series = sequelize.define('series', {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+            primaryKey: true
         },
         reference: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         displaySequence: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         createdAt: {
             type: DataTypes.DATE,

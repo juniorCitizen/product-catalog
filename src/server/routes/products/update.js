@@ -1,8 +1,9 @@
-import del from 'del'
-import fs from 'fs'
+// import del from 'del'
+// import fs from 'fs'
+import fs from 'fs-extra'
 import Promise from 'bluebird'
 
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 import routerResponse from '../../controllers/routerResponse'
 
 function updateProductRecord(req, res) {
@@ -31,8 +32,8 @@ function updateProductRecord(req, res) {
                         })
                 })
                 .then((description) => {
-                    if ('description' in req.body) {
-                        description.text = req.body.description
+                    if ('text' in req.body) {
+                        description.text = req.body.text
                     }
                     return description.save(trxObj)
                 })
@@ -100,7 +101,8 @@ function updateProductRecord(req, res) {
                 })
         })
         .then(() => {
-            return del(['./dist/server/upload/**', '!./dist/server/upload'])
+            return fs.remove('./dist/server/upload')
+            // return del(['./dist/server/upload/**', '!./dist/server/upload'])
         })
         .then(() => {
             return db.Products.findById(req.body.id, {

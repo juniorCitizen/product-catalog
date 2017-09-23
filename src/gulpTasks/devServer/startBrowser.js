@@ -7,6 +7,6 @@ module.exports = (gulp, plugins) => {
         setTimeout(() => {
             open(`${process.env.REMOTE_DEV_HOST}/${process.env.SYS_REF}`)
             return done()
-        }, process.env.RESET_DB ? 20000 : 10000)
+        }, process.env.RESET_DB === 'true' ? 60000 : 10000)
     }
 }

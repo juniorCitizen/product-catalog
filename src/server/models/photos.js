@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         productId: {
             type: DataTypes.UUID,
-            allowNull: true,
+            allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         primary: {
@@ -18,23 +19,23 @@ module.exports = (sequelize, DataTypes) => {
         },
         originalName: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         encoding: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         mimeType: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         size: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         data: {
             type: DataTypes.BLOB,
-            allowNull: true
+            allowNull: false
         },
         createdAt: {
             type: DataTypes.DATE,

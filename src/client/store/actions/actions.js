@@ -201,6 +201,7 @@ export default {
                 email: apiResponse.data.data.email,
                 countryId: apiResponse.data.data.countryId
             })
+            context.commit('interestedProducts/reset')
             context.commit('flowControl/stop')
             return Promise.resolve(apiResponse.data.data)
         }).catch((error) => {

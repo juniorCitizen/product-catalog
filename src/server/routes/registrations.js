@@ -1,6 +1,6 @@
 import express from 'express'
 
-import db from '../controllers/database'
+import db from '../controllers/database/database'
 import routerResponse from '../controllers/routerResponse'
 
 const router = express.Router()

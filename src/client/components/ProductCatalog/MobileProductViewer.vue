@@ -1,6 +1,6 @@
 <template>
     <div class="card-content">
-        <div id="photo-frame"
+        <div id="product-viewport"
              class="content"
              :style="{height:height+'px'}">
             <div id="photo-slide-wrapper"
@@ -8,7 +8,7 @@
                 <div class="photo-slide"
                      :style="{width:(photoFrameWidth)+'px'}">
                     <div class="image-wrapper"
-                         :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${products[previousProductIndex].photos[0].id}`)">
+                         :style="productWrapperStyle(`${$eVars.API_URL}/photos?photoId=${products[previousProductIndex].photos[0].id}`)">
                         <div class="product-code-label">
                             ({{previousProductIndex+1}}) {{products[previousProductIndex].code}}
                         </div>
@@ -20,7 +20,7 @@
                     <div class="photo-slide"
                          :style="{width:(photoFrameWidth)+'px'}">
                         <div class="image-wrapper"
-                             :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${products[visibleProductIndex].photos[0].id}`)">
+                             :style="productWrapperStyle(`${$eVars.API_URL}/photos?photoId=${products[visibleProductIndex].photos[0].id}`)">
                             <div class="product-code-label">
                                 ({{visibleProductIndex+1}}) {{products[visibleProductIndex].code}}
                             </div>
@@ -31,7 +31,7 @@
                 <div class="photo-slide"
                      :style="{width:(photoFrameWidth)+'px'}">
                     <div class="image-wrapper"
-                         :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${products[nextProductIndex].photos[0].id}`)">
+                         :style="productWrapperStyle(`${$eVars.API_URL}/photos?photoId=${products[nextProductIndex].photos[0].id}`)">
                         <div class="product-code-label">
                             ({{nextProductIndex+1}}) {{products[nextProductIndex].code}}
                         </div>
@@ -114,9 +114,9 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({}),
-            backgroundImage: function (src) {
+            productWrapperStyle: function (src) {
                 return {
-                    height: '90%',
+                    height: '95%',
                     'background-image': `url(${src})`,
                     'background-size': 'contain',
                     'background-repeat': 'no-repeat',
@@ -124,7 +124,7 @@
                 }
             },
             registerPhotoFrameWidth: function () {
-                this.photoFrameWidth = document.getElementById('photo-frame').clientWidth
+                this.photoFrameWidth = document.getElementById('product-viewport').clientWidth
                 this.photoSlideLeftPosition = this.photoFrameWidth * -1
             }
         },
@@ -151,7 +151,7 @@
         padding: 0px;
     }
 
-    div#photo-frame.content {
+    div#product-viewport {
         margin: 0px;
         padding: 0px;
         display: flex;

@@ -259,7 +259,9 @@
                             <label class="checkbox">
                                 <input type="checkbox"
                                        v-model="authorized">
-                                <span style="font-weight:bolder;">I WISH TO BE CONTACTED ABOUT THE {{itemCount}} PRODUCT(S) THAT I'VE SELECTED</span>
+                                <span :style="noticeTextSize">
+                                    I WISH TO BE CONTACTED ABOUT THE {{itemCount}} PRODUCT(S) THAT I'VE SELECTED
+                                </span>
                             </label>
                         </div>
                         <!-- botPrevention -->
@@ -354,6 +356,18 @@
             },
             flagSize: function () {
                 return this.isOnMobileDevice ? '20px' : '30px'
+            },
+            noticeTextSize: function () {
+                if (this.isMobile) {
+                    return {
+                        'font-weight': 'bold',
+                        'font-size': '75%'
+                    }
+                } else {
+                    return {
+                        'font-weight': 'bolder'
+                    }
+                }
             }
         },
         watch: {},

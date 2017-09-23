@@ -12,7 +12,7 @@ function requireTaskPath(pathString) {
 }
 
 // backup tasks
-gulp.task('backupDatabase', requireTaskPath('/backup/backupDatabase'))
+gulp.task('backupDatabase', requireTaskPath('/database/backupDatabase'))
 gulp.task('backupEnvConfig', requireTaskPath('/backup/backupEnvConfig'))
 gulp.task('backup', gulp.parallel(
     'backupDatabase',
@@ -32,7 +32,7 @@ gulp.task('realignDistStructure', gulp.parallel(
 ))
 
 // asset preparations
-gulp.task('restoreDatabase', requireTaskPath('/backup/restoreDatabase'))
+gulp.task('restoreDatabase', requireTaskPath('/database/restoreDatabase'))
 gulp.task('commonAssets', requireTaskPath('/assets/commonAssets'))
 gulp.task('hbsTemplates', requireTaskPath('/assets/hbsTemplates'))
 gulp.task('prepAssets', gulp.parallel(
@@ -40,6 +40,9 @@ gulp.task('prepAssets', gulp.parallel(
     'commonAssets',
     'hbsTemplates'
 ))
+
+// database related tasks
+gulp.task('resetDatabase', requireTaskPath('/database/resetDatabase'))
 
 // linting related tasks
 gulp.task('lintClientSideCode', requireTaskPath('/eslint/lintClientSideCode'))

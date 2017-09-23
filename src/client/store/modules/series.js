@@ -23,7 +23,7 @@ export default {
             state.activeSeriesIndex = state.activeSeriesIndex === seriesIndex ? 0 : seriesIndex
         },
         addProduct: (state, product) => {
-            let products = state.data[product.seriesId - 1].products
+            let products = state.data[product.seriesId].products
             products.push(product)
             products.sort((a, b) => {
                 if (a.code.toUpperCase() > b.code.toUpperCase()) {
@@ -36,13 +36,13 @@ export default {
             })
         },
         updateProduct: (state, payload) => {
-            let productIndex = state.data[payload.seriesId - 1].products.findIndex((product) => {
+            let productIndex = state.data[payload.seriesId].products.findIndex((product) => {
                 return (
                     product.id === payload.id
                 )
             })
-            Vue.set(state.data[payload.seriesId - 1].products, productIndex, payload)
-            state.data[payload.seriesId - 1].products.sort((a, b) => {
+            Vue.set(state.data[payload.seriesId].products, productIndex, payload)
+            state.data[payload.seriesId].products.sort((a, b) => {
                 if (a.code.toUpperCase() > b.code.toUpperCase()) {
                     return 1
                 } else if (a.code.toUpperCase() < b.code.toUpperCase()) {
@@ -53,12 +53,12 @@ export default {
             })
         },
         removeProduct: function (state, payload) {
-            let productIndex = state.data[payload.seriesId - 1].products.findIndex((product) => {
+            let productIndex = state.data[payload.seriesId].products.findIndex((product) => {
                 return (
                     product.id === payload.productId
                 )
             })
-            state.data[payload.seriesId - 1].products.splice(productIndex, 1)
+            state.data[payload.seriesId].products.splice(productIndex, 1)
         }
     },
     getters: {

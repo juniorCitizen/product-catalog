@@ -8,24 +8,24 @@ module.exports = (sequelize, DataTypes) => {
         },
         company: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
             validate: { isEmail: true }
         },
         countryId: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         comments: {
             type: DataTypes.TEXT,
-            allowNull: true
+            allowNull: false
         },
         notified: {
             type: DataTypes.BOOLEAN,

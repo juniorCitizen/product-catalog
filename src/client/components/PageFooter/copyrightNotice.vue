@@ -42,6 +42,7 @@
 
 <style scoped>
     div {
+        padding-right: 0;
         font-size: 75%;
         color: darkgreen;
         cursor: default;

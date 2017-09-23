@@ -7,17 +7,10 @@ import path from 'path'
 import Promise from 'bluebird'
 
 // load custom modules
-import db from './controllers/database'
-import emailSystem from './controllers/emails/emails'
+import db from './controllers/database/database'
+// import emailSystem from './controllers/emails/emails'
 import proxyRegistration from './controllers/proxyRegistration'
 import eVars from './config/environment'
-
-// initializing system components
-console.log('initializing system components...')
-let systemInitSequence = []
-systemInitSequence.push(db.initialize()) // initialize system database
-systemInitSequence.push(emailSystem.initialize()) // initialize email system
-let initRun = Promise.all(systemInitSequence)
 
 // instantiating Express Framework
 console.log('instantiating Express Framework...')
@@ -60,15 +53,22 @@ clientAccessRouter.use('/', require(path.join(__dirname, 'routes/clientAccess'))
 apiAccessRouter.use('/products', require(path.join(__dirname, 'routes/products/products')))
 apiAccessRouter.use('/photos', require(path.join(__dirname, 'routes/photos/photos')))
 apiAccessRouter.use('/countries', require(path.join(__dirname, 'routes/countries/countries')))
-apiAccessRouter.use('/registrations', require(path.join(__dirname, 'routes/registrations')))
+apiAccessRouter.use('/registrations', require(path.join(__dirname, 'routes/registrations/registrations')))
 apiAccessRouter.use('/users', require(path.join(__dirname, 'routes/users/users')))
 apiAccessRouter.use('/token', require(path.join(__dirname, 'routes/token/token')))
 
 // serve index.html from hbs template engin for any mismatched route requests
 app.use('*', require(path.join(__dirname, 'routes/clientAccess')))
 
-// check system initialization state
-initRun
+// initializing system components
+console.log('initializing system components...')
+let systemInitSequence = []
+systemInitSequence.push(db.initialize()) // initialize system database
+// systemInitSequence.push(emailSystem.initialize()) // initialize email system
+Promise
+    .each(systemInitSequence, () => {
+        return Promise.resolve()
+    })
     .then(() => {
         // start node express server if successful
         console.log('spin up Node Express web server...')

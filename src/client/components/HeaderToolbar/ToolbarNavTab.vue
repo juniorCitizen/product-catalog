@@ -2,8 +2,8 @@
     <li class="navbar-item"
         :class="{'has-text-right':isOnMobileDevice}"
         :style="liDynamicStyle"
-        @mouseenter="hover=true"
-        @mouseleave="hover=false"
+        @mouseenter="hoverState=true"
+        @mouseleave="hoverState=false"
         @click="deactivateMobileNavMenu">
         <router-link :class="{'is-active':isActiveRoute}"
                      :style="routerLinkDynamicStyle"
@@ -24,7 +24,7 @@
         ],
         data: function () {
             return {
-                hover: false
+                hoverState: false
             }
         },
         computed: {
@@ -45,13 +45,13 @@
                         'pointer-event': 'none',
                         'cursor': 'default'
                     }
-                } else if (!this.isOnMobileDevice && !this.isActiveRoute && this.hover) {
+                } else if (!this.isOnMobileDevice && !this.isActiveRoute && this.hoverState) {
                     return {
                         'color': '#00d1b2',
                         'border-bottom-color': '#00d1b2',
                         'border-bottom-width': '2px'
                     }
-                } else if (this.isOnMobileDevice && !this.isActiveRoute && this.hover) {
+                } else if (this.isOnMobileDevice && !this.isActiveRoute && this.hoverState) {
                     return {
                         'color': '#00d1b2'
                     }

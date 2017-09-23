@@ -9,11 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         registrationId: {
             type: DataTypes.UUID,
             allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         productId: {
             type: DataTypes.UUID,
             allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
             validate: { isUUID: 4 }
         },
         createdAt: {
@@ -28,8 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         deletedAt: {
             type: DataTypes.DATE,
-            allowNull: true,
-            unique: 'uniqueCodeIndex'
+            allowNull: true
         }
     }, {
         name: {

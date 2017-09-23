@@ -6,7 +6,7 @@
             <select :value="seriesId"
                     @change="updateValue"
                     :disabled="!newEntry">
-                <option value="0"
+                <option value="-1"
                         disabled
                         selected>
                     產品系列 (必選)

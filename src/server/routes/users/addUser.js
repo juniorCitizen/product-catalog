@@ -1,4 +1,4 @@
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 import encryption from '../../controllers/encryption'
 import routerResponse from '../../controllers/routerResponse'
 

@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
 
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 
 import contactByEmail from './contactByEmail'
 import processEmailsOnQueue from './processEmailsOnQueue'
@@ -9,7 +9,28 @@ import registrationAlerts from './registrationAlerts'
 module.exports = () => {
     console.log('Email broadcast system job triggered...')
     let jobList = [{
-        searchCriteria: { where: { notified: false } },
+        searchCriteria: {
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'deletedAt']
+            },
+            where: {
+                notified: false
+            }
+            // ,
+            // include: [{
+            //     model: db.Products,
+            //     through: {
+            //         attributes: {
+            //             exclude: ['createdAt', 'updatedAt', 'deletedAt']
+            //         }
+            //     }
+            // }, {
+            //     model: db.Countries,
+            //     attributes: {
+            //         exclude: ['createdAt', 'updatedAt', 'deletedAt']
+            //     }
+            // }]
+        },
         processor: registrationAlerts,
         updateAction: { notified: true }
     }, {
@@ -31,8 +52,7 @@ module.exports = () => {
                 return processEmailsOnQueue(pendingEmails, job.updateAction, pendingRecords)
             })
             .then((message) => {
-                console.log(message)
-                return Promise.resolve()
+                return Promise.resolve(message)
             })
             .catch((error) => {
                 console.log(error.name)

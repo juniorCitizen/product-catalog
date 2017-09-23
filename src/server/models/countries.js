@@ -5,26 +5,21 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true
         },
         name: {
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         region: {
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         createdAt: {
             type: DataTypes.DATE,
-            allowNull: false,
             defaultValue: DataTypes.NOW
         },
         updatedAt: {
             type: DataTypes.DATE,
-            allowNull: false,
             defaultValue: DataTypes.NOW
         },
         deletedAt: {
-            type: DataTypes.DATE,
-            allowNull: true
+            type: DataTypes.DATE
         }
     }, {
         name: {

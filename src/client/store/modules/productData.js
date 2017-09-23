@@ -2,7 +2,7 @@ import Promise from 'bluebird'
 import Vue from 'vue'
 
 const EMPTY_FORM_STATE = {
-    seriesId: 0,
+    seriesId: -1,
     type: 'unselected',
     code: '',
     name: '',
@@ -43,7 +43,7 @@ let validation = {
 let form = {
     namespaced: true,
     state: {
-        seriesId: 0,
+        seriesId: -1,
         type: 'unselected',
         code: '',
         name: '',
@@ -72,7 +72,7 @@ let form = {
         },
         reset: (state) => {
             state.validation.state = false
-            state.seriesId = 0
+            state.seriesId = -1
             state.type = 'unselected'
             state.code = ''
             state.name = ''
@@ -213,7 +213,7 @@ export default {
         },
         reset: (state) => {
             state.form.validation.state = false
-            state.form.seriesId = 0
+            state.form.seriesId = -1
             state.form.type = 'unselected'
             state.form.code = ''
             state.form.name = ''

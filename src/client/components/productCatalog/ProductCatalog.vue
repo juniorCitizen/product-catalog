@@ -8,13 +8,13 @@
                         <div class="columns is-centered">
                             <span class="title"
                                   :class="{'is-6':isOnMobileDevice,'is-1':!isOnMobileDevice}">
-                                PRODUCT CATALOG
+                                PRODUCT SERIES
                             </span>
                         </div>
                     </div>
                     <div class="card"
-                         v-for="(seriesItem,seriesItemIndex) in series"
-                         :key="seriesItemIndex">
+                         v-for="seriesItem in series"
+                         :key="seriesItem.id">
                         <header class="card-header"
                                 :class="{'is-active':seriesItem.id===activeSeriesId}"
                                 @click="selectSeries(seriesItem.id)">
@@ -27,14 +27,12 @@
                             </p>
                         </header>
                         <template v-if="(activeSeriesId===seriesItem.id)&&(seriesItem.products.length)">
-                            <template v-if="!isMobile">
-                                <desktop-product-viewer :products="seriesItem.products">
-                                </desktop-product-viewer>
-                            </template>
-                            <template v-else>
-                                <mobile-product-viewer :products="seriesItem.products">
-                                </mobile-product-viewer>
-                            </template>
+                            <desktop-product-viewer v-if="!isMobile"
+                                                    :products="seriesItem.products">
+                            </desktop-product-viewer>
+                            <mobile-product-viewer v-else
+                                                   :products="seriesItem.products">
+                            </mobile-product-viewer>
                         </template>
                     </div>
                 </div>
@@ -63,7 +61,7 @@
         props: [],
         data: function () {
             return {
-                activeSeriesId: 1
+                activeSeriesId: 0
             }
         },
         computed: {
@@ -87,9 +85,9 @@
             ...mapMutations({}),
             ...mapActions({}),
             selectSeries: function (seriesId) {
-                if (this.series[seriesId - 1].products.length > 0) {
+                if ((this.series[seriesId].products.length > 0) && (this.activeSeriesId !== seriesId)) {
                     this.visibleColumnIndex = 1
-                    this.activeSeriesId = this.activeSeriesId === seriesId ? 0 : seriesId
+                    this.activeSeriesId = seriesId
                 }
             }
         },

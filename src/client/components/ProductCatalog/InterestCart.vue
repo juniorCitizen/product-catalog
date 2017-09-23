@@ -6,7 +6,11 @@
             <span v-if="itemCount===0"
                   class="tag is-info"
                   :class="sizeClass">
-                select items of interest
+                select&nbsp;
+                <span class="icon is-large">
+                    <i class="fa fa-check-circle"></i>
+                </span>
+                &nbsp;items that interests you
             </span>
             <span v-else
                   class="tag is-warning"
@@ -52,7 +56,7 @@
             ...mapActions({}),
             handleClick: function () {
                 if (this.itemCount > 0) {
-                    if (confirm('\'CONFIRM\' to register and authorize Gentry to contact you about these Items of Interest, or \'CANCEL\'')) {
+                    if (confirm('Authorize Gentry staff to contact you about these items of interest')) {
                         this.$router.push('register')
                     }
                 }
@@ -70,6 +74,10 @@
 </script>
 
 <style scoped>
+    span.icon {
+        color: darkorange;
+    }
+
     div.control {
         position: fixed;
         bottom: 5%;

@@ -1,7 +1,7 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 import encryption from '../../controllers/encryption'
 import eVars from '../../config/environment'
 import routerResponse from '../../controllers/routerResponse'

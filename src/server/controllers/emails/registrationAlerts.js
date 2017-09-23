@@ -1,14 +1,18 @@
 import Promise from 'bluebird'
 
-import db from '../../controllers/database'
+import db from '../../controllers/database/database'
 import emailTransporter from '../../config/email'
 import eVars from '../../config/environment'
 
 module.exports = (record) => {
+    console.log('===================================================')
+    console.log('===================================================')
+    console.log(record)
+    console.log('===================================================')
+    console.log('===================================================')
     return db.Countries
         .findById(record.countryId)
         .then((country) => {
-            console.log(country)
             let emailOptions = {
                 from: `"${eVars.ADMIN}" <${eVars.ADMIN_EMAIL}>`,
                 to: [eVars.ADMIN_EMAIL],

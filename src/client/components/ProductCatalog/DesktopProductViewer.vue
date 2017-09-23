@@ -3,25 +3,24 @@
         <div class="content columns"
              :style="{height:height+'px'}">
             <div class="cycle-control column is-narrow"
-                 @click="enterFromRight=true">
+                 @click="triggerEnterFromLeft()">
                 <span class="icon is-large">
                     <i class="fa fa-chevron-circle-left"></i>
                 </span>
             </div>
             <v-touch :style="swiperStyles"
-                     @swipeleft.capture="enterFromRight=true"
-                     @swiperight.capture="enterFromLeft=true">
-                <div id="product-set-frame"
+                     @swipeleft.capture="triggerEnterFromRight()"
+                     @swiperight.capture="triggerEnterFromLeft()">
+                <div id="product-viewport"
                      class="column">
-                    <div id="product-set-wrapper"
+                    <div id="slide-wrapper"
                          :style="{left:photoSetLeftPosition+'px'}">
-                        <div class="product-set"
-                             :style="{width:(productSetFrameWidth)+'px'}">
+                        <div class="multi-product-slide">
                             <template v-for="(product,productIndex) in previousProductSet">
-                                <div class="product-wrapper"
-                                     v-if="product.id"
+                                <div v-if="product.id"
+                                     class="product-wrapper"
                                      :key="productIndex"
-                                     :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
+                                     :style="productWrapperStyle(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
                                     <div class="product-code-label">
                                         ({{(previousColumnIndex*productsPerRow)+productIndex+1}}) {{product.code}}
                                     </div>
@@ -29,18 +28,17 @@
                                 </div>
                                 <div v-else
                                      class="product-wrapper placeholder"
-                                     :style="{width:(1/productsPerRow*100-0.5)+'%'}"
+                                     :style="productWrapperStyle()"
                                      :key="productIndex">
                                 </div>
                             </template>
                         </div>
-                        <div class="product-set"
-                             :style="{width:(productSetFrameWidth)+'px'}">
+                        <div class="multi-product-slide">
                             <template v-for="(product,productIndex) in visibleProductSet">
-                                <div class="product-wrapper"
-                                     v-if="product.id"
+                                <div v-if="product.id"
+                                     class="product-wrapper"
                                      :key="productIndex"
-                                     :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
+                                     :style="productWrapperStyle(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
                                     <div class="product-code-label">
                                         ({{(visibleColumnIndex*productsPerRow)+productIndex+1}}) {{product.code}}
                                     </div>
@@ -48,18 +46,17 @@
                                 </div>
                                 <div v-else
                                      class="product-wrapper placeholder"
-                                     :style="{width:(1/productsPerRow*100-0.5)+'%'}"
+                                     :style="productWrapperStyle()"
                                      :key="productIndex">
                                 </div>
                             </template>
                         </div>
-                        <div class="product-set"
-                             :style="{width:(productSetFrameWidth)+'px'}">
+                        <div class="multi-product-slide">
                             <template v-for="(product,productIndex) in nextProductSet">
-                                <div class="product-wrapper"
-                                     v-if="product.id"
+                                <div v-if="product.id"
+                                     class="product-wrapper"
                                      :key="productIndex"
-                                     :style="backgroundImage(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
+                                     :style="productWrapperStyle(`${$eVars.API_URL}/photos?photoId=${product.photos[0].id}`)">
                                     <div class="product-code-label">
                                         ({{(visibleColumnIndex*productsPerRow)+productIndex+1}}) {{product.code}}
                                     </div>
@@ -67,7 +64,7 @@
                                 </div>
                                 <div v-else
                                      class="product-wrapper placeholder"
-                                     :style="{width:(1/productsPerRow*100-0.5)+'%'}"
+                                     :style="productWrapperStyle()"
                                      :key="productIndex">
                                 </div>
                             </template>
@@ -76,7 +73,7 @@
                 </div>
             </v-touch>
             <div class="cycle-control column is-narrow"
-                 @click="enterFromLeft=true">
+                 @click="triggerEnterFromRight()">
                 <span class="icon is-large">
                     <i class="fa fa-chevron-circle-right"></i>
                 </span>
@@ -105,7 +102,7 @@
                 visibleColumnIndex: 0,
                 enterFromLeft: false,
                 enterFromRight: false,
-                productSetFrameWidth: 0,
+                productViewportWidth: 0,
                 photoSetLeftPosition: 0
             }
         },
@@ -169,6 +166,12 @@
                     height: '100%',
                     width: '100%'
                 }
+            },
+            sliderSpeed: function () {
+                return Math.ceil(this.productViewportWidth / 120)
+            },
+            accordianSpeed: function () {
+                return 20
             }
         },
         watch: {
@@ -210,7 +213,7 @@
             enterFromLeft: function (activationState) {
                 if (activationState && (this.columnCount > 1)) {
                     let animateCounter = setInterval(() => {
-                        this.photoSetLeftPosition = this.photoSetLeftPosition + 18
+                        this.photoSetLeftPosition = this.photoSetLeftPosition + this.sliderSpeed
                         if (this.photoSetLeftPosition >= 0) {
                             clearInterval(animateCounter)
                             this.enterFromLeft = false
@@ -219,7 +222,7 @@
                             } else {
                                 this.visibleColumnIndex--
                             }
-                            this.photoSetLeftPosition = this.productSetFrameWidth * -1
+                            this.photoSetLeftPosition = this.productViewportWidth * -1
                         }
                     }, 1)
                 }
@@ -227,8 +230,8 @@
             enterFromRight: function (activationState) {
                 if (activationState && (this.columnCount > 1)) {
                     let animateCounter = setInterval(() => {
-                        this.photoSetLeftPosition = this.photoSetLeftPosition - 18
-                        if (this.photoSetLeftPosition <= this.productSetFrameWidth * -2) {
+                        this.photoSetLeftPosition = this.photoSetLeftPosition - this.sliderSpeed
+                        if (this.photoSetLeftPosition <= this.productViewportWidth * -2) {
                             clearInterval(animateCounter)
                             this.enterFromRight = false
                             if (this.visibleColumnIndex === this.columnCount - 1) {
@@ -236,7 +239,7 @@
                             } else {
                                 this.visibleColumnIndex++
                             }
-                            this.photoSetLeftPosition = this.productSetFrameWidth * -1
+                            this.photoSetLeftPosition = this.productViewportWidth * -1
                         }
                     }, 1)
                 }
@@ -245,37 +248,54 @@
         methods: {
             ...mapMutations({}),
             ...mapActions({}),
-            backgroundImage: function (src) {
-                return {
-                    width: (1 / this.productsPerRow * 100 - 0.5) + '%',
-                    'background-image': `url(${src})`,
-                    'background-size': 'contain',
-                    'background-repeat': 'no-repeat',
-                    'background-position': 'center'
+            productWrapperStyle: function (src) {
+                let width = (1 / this.productsPerRow * 100 - 0.5) + '%'
+                if (src) {
+                    return {
+                        width: width,
+                        'background-image': `url(${src})`,
+                        'background-size': 'contain',
+                        'background-repeat': 'no-repeat',
+                        'background-position': 'center'
+                    }
+                } else {
+                    return {
+                        width: width
+                    }
                 }
             },
-            registerProductSetFrameWidth: function () {
-                this.productSetFrameWidth = document.getElementById('product-set-frame').clientWidth
-                this.photoSetLeftPosition = this.productSetFrameWidth * -1
+            registerProductViewportWidth: function () {
+                this.productViewportWidth = document.getElementById('product-viewport').clientWidth
+                this.photoSetLeftPosition = this.productViewportWidth * -1
             },
             accordianAnimation: function (initialHeight, targetHeight) {
                 if (initialHeight !== targetHeight) {
                     this.height = initialHeight
                     if (initialHeight < targetHeight) {
                         let animationTimer = setInterval(() => {
-                            this.height = this.height + 10
+                            this.height = this.height + this.accordianSpeed
                             if (this.height >= targetHeight) {
                                 clearInterval(animationTimer)
                             }
                         }, 10)
                     } else {
                         let animationTimer = setInterval(() => {
-                            this.height = this.height - 10
+                            this.height = this.height - this.accordianSpeed
                             if (this.height <= targetHeight) {
                                 clearInterval(animationTimer)
                             }
                         }, 10)
                     }
+                }
+            },
+            triggerEnterFromLeft: function () {
+                if (!this.enterFromLeft && !this.enterFromRight) {
+                    this.enterFromLeft = true
+                }
+            },
+            triggerEnterFromRight: function () {
+                if (!this.enterFromLeft && !this.enterFromRight) {
+                    this.enterFromRight = true
                 }
             }
         },
@@ -284,8 +304,8 @@
         beforeMount: function () { },
         mounted: function () {
             this.$nextTick(() => {
-                window.addEventListener('resize', this.registerProductSetFrameWidth)
-                this.registerProductSetFrameWidth()
+                window.addEventListener('resize', this.registerProductViewportWidth)
+                this.registerProductViewportWidth()
                 if (this.isFullhd) {
                     this.productsPerRow = 4
                     this.accordianAnimation(0, 350)
@@ -307,7 +327,7 @@
         beforeUpdate: function () { },
         updated: function () { },
         beforeDestroy: function () {
-            window.removeEventListener('resize', this.registerProductSetFrameWidth)
+            window.removeEventListener('resize', this.registerProductViewportWidth)
         },
         destroyed: function () { }
     }
@@ -315,37 +335,38 @@
 
 <style scoped>
     div.card-content {
-        padding: 0px;
+        padding: 0;
     }
 
     div.content {
-        margin: 0px;
-        padding: 0px;
-        overflow-y: hidden;
+        margin: 0;
+        padding: 0;
     }
 
-    div#product-set-frame {
+    div#product-viewport {
         /* border: 1px solid red; */
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         display: flex;
         align-items: center;
         position: relative;
         overflow-x: hidden;
     }
 
-    div#product-set-wrapper {
+    div#slide-wrapper {
         /* border: 1px solid blue; */
         height: 100%;
+        width: 300%;
         position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    div.product-set {
+    div.multi-product-slide {
         /* border: 1px solid green; */
         height: 100%;
+        width: 33.33%;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -353,8 +374,12 @@
 
     div.product-wrapper {
         /* border: 1px solid red; */
-        height: 90%;
+        height: 85%;
         display: flex;
+    }
+
+    div.product-wrapper:not(.placeholder):hover {
+        box-shadow: inset 0px 0px 5px 5px orange;
     }
 
     div.product-code-label {

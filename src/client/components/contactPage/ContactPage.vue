@@ -27,7 +27,7 @@
                                 <div class="columns">
                                     <div class="column">
                                         <span class="subtitle">
-                                            {{officeLocations[activeOfficeId-1].title}}
+                                            {{officeLocations[activeOfficeId].title}}
                                         </span>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                         <span class="icon is-small">
                                             <i class="fa fa-home"></i>
                                         </span>
-                                        {{officeLocations[activeOfficeId-1].address}}, {{officeLocations[activeOfficeId-1].country.name}}
+                                        {{officeLocations[activeOfficeId].address}}, {{officeLocations[activeOfficeId].country.name}}
                                     </div>
                                 </div>
                                 <div class="columns">
@@ -46,7 +46,7 @@
                                         <span class="icon is-small">
                                             <i class="fa fa-phone"></i>
                                         </span>
-                                        {{officeLocations[activeOfficeId-1].telephone}}
+                                        {{officeLocations[activeOfficeId].telephone}}
                                     </div>
                                 </div>
                                 <div class="columns">
@@ -55,7 +55,7 @@
                                         <span class="icon is-small">
                                             <i class="fa fa-fax"></i>
                                         </span>
-                                        {{officeLocations[activeOfficeId-1].fax}}
+                                        {{officeLocations[activeOfficeId].fax}}
                                     </div>
                                 </div>
                                 <div class="columns">
@@ -64,7 +64,7 @@
                                         <span class="icon is-small">
                                             <i class="fa fa-globe"></i>
                                         </span>
-                                        <a :href="officeLocations[activeOfficeId-1].website">http://gentry-way.com.tw</a>
+                                        <a :href="officeLocations[activeOfficeId].website">http://gentry-way.com.tw</a>
                                     </div>
                                 </div>
                                 <div class="columns">
@@ -74,7 +74,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div v-for="staff in officeLocations[activeOfficeId-1].users"
+                                <div v-for="staff in officeLocations[activeOfficeId].users"
                                      :key="staff.name"
                                      class="columns">
                                     <div class="column is-narrow"
@@ -109,7 +109,7 @@
         props: [],
         data: function () {
             return {
-                activeOfficeId: 1
+                activeOfficeId: 0
             }
         },
         computed: {

@@ -1,5 +1,4 @@
-import del from 'del'
-import fileExists from 'file-exists-promise'
+import fs from 'fs-extra'
 import Promise from 'bluebird'
 
 require('dotenv').config()
@@ -14,23 +13,25 @@ module.exports = (gulp, plugins) => {
     let backupDbPath = `${backupDbDir}/${backupDb}`
 
     return (done) => {
-        return fileExists(backupDbPath)
-            .then((stat) => {
-                // delete working database
-                return del(workingDbPath)
+        return fs
+            .pathExists(backupDbPath)
+            .then((exists) => {
+                if (exists) {
+                    return fs.remove(workingDbPath)
+                } else {
+                    let error = new Error('backup database does not exist')
+                    error.name = 'backupDatabaseNotExist'
+                    return Promise.reject(error)
+                }
             })
             .then(() => {
-                // restore from the backup database
                 return gulp
                     .src(backupDbPath)
                     .pipe(plugins.rename(workingDb))
                     .pipe(gulp.dest(workingDbDir))
             })
-            .catch(() => {
-                // backup db does not exist
-                let error = new Error('backup database does not exist')
-                error.name = 'backupDatabaseNotExist'
-                return Promise.reject(error)
+            .catch((error) => {
+                return done(error)
             })
     }
 }
