@@ -52,7 +52,7 @@
 
 <style scoped>
     .title {
-        color: darkgreen;
+        color: white;
         font-weight: bold;
         font-style: italic;
         transform: rotate(-4deg)

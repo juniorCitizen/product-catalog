@@ -54,7 +54,7 @@
 
 <style scoped>
     .subtitle {
-        color: darkgreen;
+        color: white;
         font-weight: bold;
         font-style: italic;
         transform: rotate(-4deg)

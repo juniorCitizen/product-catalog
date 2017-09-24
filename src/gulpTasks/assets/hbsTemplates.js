@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 module.exports = (gulp, plugins) => {
     return () => {
         return gulp

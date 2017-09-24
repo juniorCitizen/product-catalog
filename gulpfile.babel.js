@@ -34,9 +34,11 @@ gulp.task('realignDistStructure', gulp.parallel(
 // asset preparations
 gulp.task('restoreDatabase', requireTaskPath('/database/restoreDatabase'))
 gulp.task('commonAssets', requireTaskPath('/assets/commonAssets'))
+gulp.task('carouselPhotos', requireTaskPath('/assets/carouselPhotos'))
 gulp.task('hbsTemplates', requireTaskPath('/assets/hbsTemplates'))
 gulp.task('prepAssets', gulp.parallel(
     'restoreDatabase',
+    'carouselPhotos',
     'commonAssets',
     'hbsTemplates'
 ))

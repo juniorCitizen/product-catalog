@@ -23,7 +23,7 @@
         <tr>
             <td>{{ this.code }}</td>
             <td>
-                <div style="width:100px;background-image:{{apiUrl}}/photos?photoId={{this.photos.[0].id}};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+                <div style="width:100px;background-image:url({{apiUrl}}/photos?photoId={{this.photos.[0].id}});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
             </td>
         </tr>
         {{/each}}

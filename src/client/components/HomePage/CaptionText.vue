@@ -45,13 +45,13 @@
 
 <style scoped>
     p {
+        color: white;
         margin-top: 100px;
         cursor: pointer;
     }
 
     p:hover {
         text-decoration: underline;
-        color: green;
         font-weight: bold;
     }
 </style>

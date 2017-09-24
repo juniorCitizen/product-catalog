@@ -1,4 +1,5 @@
 import express from 'express'
+import fs from 'fs-extra'
 import path from 'path'
 
 import eVars from '../config/environment'
@@ -65,6 +66,41 @@ router
             statusCode: 200,
             mimeType: 'image/png',
             filePath: path.join(__dirname, '../client/assets/gentryLogo.png')
+        })
+    })
+    .get('/assets/carousel/list', (req, res) => {
+        let carouselPhotoPath = path.join(__dirname, '../client/assets/carousel')
+        fs.readdir(carouselPhotoPath)
+            .then((dirContents) => {
+                return routerResponse.json({
+                    pendingResponse: res,
+                    originalRequest: req,
+                    statusCode: 200,
+                    success: true,
+                    data: dirContents
+                })
+            })
+            .catch((error) => {
+                console.log(error.name)
+                console.log(error.message)
+                console.log(error.stack)
+                return routerResponse.json({
+                    pendingResponse: res,
+                    originalRequest: req,
+                    statusCode: 200,
+                    success: false,
+                    error: error,
+                    message: error.message
+                })
+            })
+    })
+    .get('/assets/carousel', (req, res) => {
+        let carouselPhotoPath = path.join(__dirname, '../client/assets/carousel')
+        return routerResponse.image({
+            pendingResponse: res,
+            statusCode: 200,
+            mimeType: 'image/jpg',
+            filePath: path.join(carouselPhotoPath, req.query.photoFileName)
         })
     })
 
