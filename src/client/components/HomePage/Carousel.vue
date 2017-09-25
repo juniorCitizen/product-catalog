@@ -33,12 +33,14 @@
             currentSlideStyle: function () {
                 return {
                     left: this.currentSlideLeftPosition + '%',
+                    // 'background-image': !this.photoFileList ? '' : `url(${this.apiUrl}?photoFileName=photo 1.jpg`
                     'background-image': !this.photoFileList ? '' : `url(${this.apiUrl}?photoFileName=${this.photoFileList[this.currentSlideIndex]})`
                 }
             },
             nextSlideStyle: function () {
                 return {
                     left: this.nextSlideLeftPosition + '%',
+                    // 'background-image': !this.photoFileList ? '' : `url(${this.apiUrl}?photoFileName=photo 2.jpg`
                     'background-image': !this.photoFileList ? '' : `url(${this.apiUrl}?photoFileName=${this.photoFileList[this.nextSlideIndex]})`
                 }
             },
@@ -48,6 +50,9 @@
                 } else {
                     return (this.currentSlideIndex + 1)
                 }
+            },
+            carouselSlideSpeed: function () {
+                return this.isMobile ? 3 : 0.5
             }
         },
         watch: {},
@@ -56,8 +61,8 @@
             ...mapActions({}),
             slideAnimation: function () {
                 let animationHandle = setInterval(() => {
-                    this.currentSlideLeftPosition--
-                    this.nextSlideLeftPosition--
+                    this.currentSlideLeftPosition = this.currentSlideLeftPosition - this.carouselSlideSpeed
+                    this.nextSlideLeftPosition = this.nextSlideLeftPosition - this.carouselSlideSpeed
                     if (this.currentSlideLeftPosition <= -100) {
                         clearInterval(animationHandle)
                         setTimeout(() => {
@@ -107,7 +112,7 @@
         /* border: 1px solid red; */
         position: fixed;
         align-self: center;
-        height: 90%;
+        height: 85%;
         width: 99%;
         padding: 0px;
         display: flex;
@@ -122,6 +127,7 @@
         height: 100%;
         width: 100%;
         overflow-x: hidden;
+        /* overflow-x: visible; */
         position: relative;
     }
 
