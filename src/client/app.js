@@ -11,7 +11,7 @@ import store from './store/store'
 
 import App from './components/App.vue'
 import HomePage from './components/HomePage/HomePage.vue'
-import ProductCatalog from './components/ProductCatalog/ProductCatalog.vue'
+// import ProductCatalog from './components/ProductCatalog/ProductCatalog.vue'
 import ProductDetails from './components/ProductDetails/ProductDetails.vue'
 import Registration from './components/Registration/Registration.vue'
 import ContactPage from './components/ContactPage/ContactPage.vue'
@@ -29,7 +29,7 @@ export const ROUTES = [{
 }, {
     path: '/productCatalog/products',
     name: 'products',
-    component: ProductCatalog,
+    // component: ProductCatalog,
     caption: 'CATALOG',
     vCentered: false
 }, {
