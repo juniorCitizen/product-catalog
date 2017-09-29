@@ -12,6 +12,7 @@ import store from './store/store'
 import App from './components/App.vue'
 import HomePage from './components/HomePage/HomePage.vue'
 import ProductCatalog from './components/ProductCatalog/ProductCatalog.vue'
+import ProductDetails from './components/ProductDetails/ProductDetails.vue'
 import Registration from './components/Registration/Registration.vue'
 import ContactPage from './components/ContactPage/ContactPage.vue'
 import AdminPanel from './components/AdminPanel/AdminPanel.vue'
@@ -31,6 +32,12 @@ export const ROUTES = [{
     component: ProductCatalog,
     caption: 'CATALOG',
     vCentered: false
+}, {
+    path: '/productCatalog/specs',
+    name: 'specs',
+    component: ProductDetails,
+    caption: 'PRODUCT',
+    vCentered: true
 }, {
     path: '/productCatalog/register',
     name: 'register',

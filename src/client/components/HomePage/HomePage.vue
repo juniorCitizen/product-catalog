@@ -75,6 +75,6 @@
     }
 
     div.title-background {
-        background-color: rgba(0%, 0%, 0%, 0.7);
+        background-color: rgba(0%, 0%, 0%, 0.3);
     }
 </style>

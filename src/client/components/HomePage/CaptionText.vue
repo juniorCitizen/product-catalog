@@ -1,6 +1,7 @@
 <template>
     <p class="subtitle"
        :class="dynamicClass"
+       :style="marginStyle"
        @click="$router.push('/productCatalog/products')">
         {{ captionText }}
     </p>
@@ -25,6 +26,17 @@
                     'is-5': !this.isOnMobileDevice,
                     'is-6': this.isOnMobileDevice
                 }
+            },
+            marginStyle: function () {
+                if (this.isMobile) {
+                    return {
+                        'margin-top': '30px'
+                    }
+                } else {
+                    return {
+                        'margin-top': '100px'
+                    }
+                }
             }
         },
         watch: {},
@@ -46,7 +58,6 @@
 <style scoped>
     p {
         color: white;
-        margin-top: 100px;
         cursor: pointer;
     }
 

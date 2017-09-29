@@ -30,7 +30,8 @@
             dynamicClass: function () {
                 return {
                     'is-1': !this.isOnMobileDevice,
-                    'is-3': this.isOnMobileDevice
+                    'is-3': this.isOnMobileDevice && !this.isMobile,
+                    'is-6': this.isMobile
                 }
             }
         },

@@ -52,7 +52,8 @@
                 }
             },
             carouselSlideSpeed: function () {
-                return this.isMobile ? 3 : 0.5
+                // return this.isMobile ? 3 : 0.5
+                return 0.5
             }
         },
         watch: {},
