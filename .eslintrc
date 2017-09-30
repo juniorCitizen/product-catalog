@@ -26,6 +26,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "import/no-unresolved": "off",
         // "array-bracket-spacing": [
         //     "error",
         //     "never",
