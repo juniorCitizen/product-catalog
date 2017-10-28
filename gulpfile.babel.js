@@ -3,20 +3,20 @@ import gulpLoadPlugins from 'gulp-load-plugins'
 import path from 'path'
 
 const plugins = gulpLoadPlugins({
-    lazy: true,
-    camelize: true
+  lazy: true,
+  camelize: true
 })
 
-function requireTaskPath(pathString) {
-    return require(path.resolve(path.join('./src/gulpTasks', pathString)))(gulp, plugins)
+function requireTaskPath (pathString) {
+  return require(path.resolve(path.join('./src/workflow/gulp', pathString)))(gulp, plugins)
 }
 
 // backup tasks
 gulp.task('backupDatabase', requireTaskPath('/database/backupDatabase'))
 gulp.task('backupEnvConfig', requireTaskPath('/backup/backupEnvConfig'))
 gulp.task('backup', gulp.parallel(
-    'backupDatabase',
-    'backupEnvConfig'
+  'backupDatabase',
+  'backupEnvConfig'
 ))
 
 // clean up related tasks
@@ -24,11 +24,11 @@ gulp.task('removeLogs', requireTaskPath('/cleanup/removeLogs'))
 gulp.task('removeDistFolder', requireTaskPath('/cleanup/removeDistFolder'))
 gulp.task('generateClientFolders', requireTaskPath('/cleanup/generateClientFolders'))
 gulp.task('realignDistStructure', gulp.parallel(
-    'removeLogs',
-    gulp.series(
-        'removeDistFolder',
-        'generateClientFolders'
-    )
+  'removeLogs',
+  gulp.series(
+    'removeDistFolder',
+    'generateClientFolders'
+  )
 ))
 
 // asset preparations
@@ -37,10 +37,10 @@ gulp.task('commonAssets', requireTaskPath('/assets/commonAssets'))
 gulp.task('carouselPhotos', requireTaskPath('/assets/carouselPhotos'))
 gulp.task('hbsTemplates', requireTaskPath('/assets/hbsTemplates'))
 gulp.task('prepAssets', gulp.parallel(
-    'restoreDatabase',
-    'carouselPhotos',
-    'commonAssets',
-    'hbsTemplates'
+  'restoreDatabase',
+  'carouselPhotos',
+  'commonAssets',
+  'hbsTemplates'
 ))
 
 // database related tasks
@@ -53,12 +53,12 @@ gulp.task('lintFullSource', requireTaskPath('/eslint/lintFullSource'))
 
 // server preperation task routines
 gulp.task('prepServer', gulp.series(
-    'backup',
-    'realignDistStructure',
-    gulp.parallel(
-        'lintFullSource',
-        'prepAssets'
-    )
+  'backup',
+  'realignDistStructure',
+  gulp.parallel(
+    'lintFullSource',
+    'prepAssets'
+  )
 ))
 
 // development server task routines
