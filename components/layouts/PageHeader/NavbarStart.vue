@@ -6,7 +6,7 @@
       class="navbar-item"
       to="/"
       tag="a"
-      @click.native="startInProgressAnimation">
+      @click.native="activateInProgressOverlay">
       <span>HOME</span>
     </nuxt-link>
     <nuxt-link v-if="$route.name!=='catalog'"
@@ -14,7 +14,7 @@
                class="navbar-item"
                to="/catalog"
                tag="a"
-               @click.native="startInProgressAnimation">
+               @click.native="activateInProgressOverlay">
       <span>CATALOG</span>
     </nuxt-link>
     <nuxt-link v-else
@@ -22,7 +22,7 @@
                class="navbar-item has-dropdown"
                to="/catalog"
                tag="a"
-               @click.native="startInProgressAnimation">
+               @click.native="activateInProgressOverlay">
       <a class="navbar-link">CATALOG</a>
       <div class="navbar-dropdown">
         <div class="navbar-item">
@@ -35,7 +35,7 @@
       class="navbar-item"
       to="/contact"
       tag="a"
-      @click.native="startInProgressAnimation">
+      @click.native="activateInProgressOverlay">
       <span>CONTACT</span>
     </nuxt-link>
   </div>
@@ -48,7 +48,7 @@ export default {
   name: 'NavbarStart',
   methods: {
     ...vuexMappers.mapMutations('inProgress', {
-      startInProgressAnimation: 'startInProgressAnimation',
+      activateInProgressOverlay: 'activateInProgressOverlay',
     }),
   },
 }

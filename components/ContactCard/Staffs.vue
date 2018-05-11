@@ -3,36 +3,47 @@
     <div v-for="staff in staffs"
          :key="staff._uid"
          class="staff-card">
-      <div
-        class="staff-name-text">
-        <span class="icon">
+      <icon-info>
+        <template slot="fa-icon">
           <i class="fas fa-user-circle"/>
-        </span>
-        {{ staff.name }}
-      </div>
-      <div
-        class="staff-email-text">
-        <span class="icon">
+        </template>
+        <template slot="text">
+          <span class="name-text">
+            {{ staff.name }}
+          </span>
+        </template>
+      </icon-info>
+      <icon-info>
+        <template slot="fa-icon">
           <i class="fas fa-envelope"/>
-        </span>
-        <a :href="`mailto:${staff.email}`">
-          {{ staff.email }}
-        </a>
-      </div>
-      <div v-if="staff.mobile"
-           class="staff-mobile-text">
-        <span class="icon">
+        </template>
+        <template slot="text">
+          <a :href="`mailto:${staff.email}`"
+             class="email-text">
+            {{ staff.email }}
+          </a>
+        </template>
+      </icon-info>
+      <icon-info v-if="staff.mobile">
+        <template slot="fa-icon">
           <i class="fas fa-mobile"/>
-        </span>
-        {{ staff.mobile }}
-      </div>
+        </template>
+        <template slot="text">
+          <span class="mobile-text">
+            {{ staff.mobile }}
+          </span>
+        </template>
+      </icon-info>
     </div>
   </div>
 </template>
 
 <script>
+import IconInfo from './IconInfo'
+
 export default {
   name: 'Staff',
+  components: {IconInfo},
   props: {
     staffs: {
       type: Array,
@@ -47,22 +58,27 @@ export default {
 <style scoped>
 .staff-container {
   display: grid;
-  grid-gap: 30px 15px;
-  grid-template-columns: repeat(auto-fill, minmax(min-content, 1fr));
+  grid-gap: 10px 10px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   margin-top: 15px;
-  padding: 15px;
+  padding: 5px;
 }
 
 .staff-card {
-  border-left: 2px solid rgb(36, 145, 145);
-  border-radius: 5px;
+  max-width: max-content;
+  border-left: 3px solid rgb(36, 145, 145);
   padding-top: 5px;
   padding-left: 10px;
   padding-bottom: 5px;
 }
 
-.staff-name-text {
+.name-text {
   font-weight: bold;
   font-style: italic;
+}
+
+.email-text,
+.mobile-text {
+  font-size: 80%;
 }
 </style>

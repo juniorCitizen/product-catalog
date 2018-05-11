@@ -22,11 +22,11 @@ export default {
   name: 'CatalogPage',
   components: {},
   mounted() {
-    this.endInProgressAnimation()
+    this.deactivateInProgressOverlay()
   },
   methods: {
     ...vuexMappers.mapMutations('inProgress', {
-      endInProgressAnimation: 'endInProgressAnimation',
+      deactivateInProgressOverlay: 'deactivateInProgressOverlay',
     }),
   },
 }

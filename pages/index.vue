@@ -77,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    this.endInProgressAnimation()
+    this.deactivateInProgressOverlay()
     this.$storyblok.init()
     this.$storyblok.on('change', () => {
       location.reload(true)
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     ...vuexMappers.mapMutations('inProgress', {
-      endInProgressAnimation: 'endInProgressAnimation',
+      deactivateInProgressOverlay: 'deactivateInProgressOverlay',
     }),
     nextSlide() {
       this.overlayContents.push(this.overlayContents.shift())

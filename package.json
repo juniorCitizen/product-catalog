@@ -29,6 +29,7 @@
     "prettier": "^1.12.1",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
+    "request-promise-retry": "^1.0.0",
     "sass-loader": "^7.0.1",
     "slugify": "^1.2.9"
   },

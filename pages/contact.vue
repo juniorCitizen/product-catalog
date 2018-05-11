@@ -3,10 +3,9 @@
            id="contact-page"
            class="page-view">
     <div class="content">
-      <contact-card v-for="(company,index) in companies"
+      <contact-card v-for="company in companies"
                     :key="company._uid"
-                    :company="company"
-                    :certifications="certificationList[index]"/>
+                    :company="company"/>
     </div>
   </section>
 </template>
@@ -19,32 +18,6 @@ export default {
   name: 'ContactPage',
   components: {
     ContactCard,
-  },
-  data() {
-    return {
-      certificationList: [
-        [
-          {
-            type: 'ISO 9001 Compliance',
-            logoUrl: require('~/assets/iso9001.jpg'),
-          },
-        ],
-        [
-          {
-            type: 'ISO 9001 Compliance',
-            logoUrl: require('~/assets/iso9001.jpg'),
-          },
-          {
-            type: 'ISO 13485 Compliance',
-            logoUrl: require('~/assets/iso13485.jpg'),
-          },
-          {
-            type: 'European Conformity',
-            logoUrl: require('~/assets/ce.png'),
-          },
-        ],
-      ],
-    }
   },
   asyncData(context) {
     return context.app.$storyapi
@@ -62,7 +35,7 @@ export default {
       })
   },
   mounted() {
-    this.endInProgressAnimation()
+    this.deactivateInProgressOverlay()
     this.$storyblok.init()
     this.$storyblok.on('change', () => {
       location.reload(true)
@@ -70,7 +43,7 @@ export default {
   },
   methods: {
     ...vuexMappers.mapMutations('inProgress', {
-      endInProgressAnimation: 'endInProgressAnimation',
+      deactivateInProgressOverlay: 'deactivateInProgressOverlay',
     }),
   },
 }
@@ -83,33 +56,13 @@ export default {
 }
 
 .content {
+  height: 85vh;
   -ms-overflow-style: none;
   overflow-y: -moz-scrollbars-none;
   overflow-x: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
 }
 
 .content::-webkit-scrollbar {
   width: 0 !important;
-}
-
-@media screen and (min-height: 800px) {
-  .content {
-    height: 90vh;
-  }
-}
-
-@media screen and (min-height: 768px) and (max-height: 800px) {
-  .content {
-    height: 88vh;
-  }
-}
-
-@media screen and (max-height: 768px) {
-  .content {
-    height: 85vh;
-  }
 }
 </style>

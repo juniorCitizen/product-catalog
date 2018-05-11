@@ -7,21 +7,21 @@
           :class="{'is-active':$route.name==='index'}"
           to="/"
           tag="li"
-          @click.native="startInProgressAnimation">
+          @click.native="activateInProgressOverlay">
           <a>HOME</a>
         </nuxt-link>
         <nuxt-link
           :class="{'is-active':$route.name==='catalog'}"
           to="/catalog"
           tag="li"
-          @click.native="startInProgressAnimation">
+          @click.native="activateInProgressOverlay">
           <a>CATALOG</a>
         </nuxt-link>
         <nuxt-link
           :class="{'is-active':$route.name==='contact'}"
           to="/contact"
           tag="li"
-          @click.native="startInProgressAnimation">
+          @click.native="activateInProgressOverlay">
           <a>CONTACT</a>
         </nuxt-link>
       </ul>
@@ -36,7 +36,7 @@ export default {
   name: 'NavbarEnd',
   methods: {
     ...vuexMappers.mapMutations('inProgress', {
-      startInProgressAnimation: 'startInProgressAnimation',
+      activateInProgressOverlay: 'activateInProgressOverlay',
     }),
   },
 }

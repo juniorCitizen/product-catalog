@@ -8,8 +8,6 @@
                           @clicked="mobileMenuIsActive=!mobileMenuIsActive"/>
       </div>
       <navbar-menu :mobile-menu-is-active="mobileMenuIsActive"/>
-    <!-- <nav-menu :is-active="mobileMenuIsActive"/> -->
-    <!-- @routeChange="mobileMenuIsActive=false" -->
     </nav>
   </header>
 </template>

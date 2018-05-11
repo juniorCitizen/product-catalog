@@ -6,10 +6,10 @@ export default {
     }
   },
   mutations: {
-    startInProgressAnimation(state) {
+    activateInProgressOverlay(state) {
       state.inProgress = true
     },
-    endInProgressAnimation(state) {
+    deactivateInProgressOverlay(state) {
       state.inProgress = false
     },
   },
