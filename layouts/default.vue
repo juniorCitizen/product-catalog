@@ -11,9 +11,9 @@
 
 <script>
 import vuexMappers from 'vuex'
-import PageHeader from '~/components/layouts/PageHeader'
-import PageFooter from '~/components/layouts/PageFooter'
-import InProgress from '~/components/layouts/InProgress'
+import PageHeader from '~/components/PageHeader'
+import PageFooter from '~/components/PageFooter'
+import InProgress from '~/components/InProgress'
 
 export default {
   name: 'DefaultLayout',

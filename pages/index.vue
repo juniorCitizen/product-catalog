@@ -34,10 +34,11 @@ export default {
     }
   },
   asyncData(context) {
+    let prodMode = process.env.NODE_ENV === 'production'
     let storyapi = context.app.$storyapi
     return storyapi
       .get('cdn/stories/home-page', {
-        version: process.env.NODE_ENV === 'production' ? 'published' : 'draft',
+        version: prodMode ? 'published' : 'draft',
       })
       .then(res => {
         let slides = res.data.story.content.carouselSlides

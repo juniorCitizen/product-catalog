@@ -1,31 +1,37 @@
 import axios from 'axios'
 
-const productsPerPage = process.env.PRODUCTS_PER_PAGE
-const storiesPerQuery = process.env.STORIES_PER_QUERY
-const apiToken =
-  process.env.NODE_ENV === 'production'
-    ? process.env.STORYBLOK_API_PUBLIC_TOKEN
-    : process.env.STORYBLOK_API_PREVIEW_TOKEN
-const apiUrl = process.env.STORYBLOK_API_URL
-
 const state = () => {
   return {
-    catalog: {},
+    apiToken:
+      process.env.NODE_ENV === 'production'
+        ? process.env.STORYBLOK_API_PUBLIC_TOKEN
+        : process.env.STORYBLOK_API_PREVIEW_TOKEN,
+    apiUrl: process.env.STORYBLOK_API_URL,
+    catalog: {
+      name: null,
+      description: null,
+      photo: null,
+      accessUrl: null,
+      slug: 'product-catalog-page/',
+      subcategories: [],
+      isActive: false,
+      isLoading: false,
+    },
     products: {
       data: [],
       activeProductIndex: null,
       currentPage: 1,
-      perPage: productsPerPage,
-      total: 0,
+      perPage: process.env.PRODUCTS_PER_PAGE,
+      totalProducts: 0,
     },
   }
 }
 
 const getters = {
   activeRootCategoryIndex(state) {
-    if (!state.catalog.subcategories) return null
-    let index = state.catalog.subcategories.findIndex(category => {
-      return category.isActive === true
+    if (state.catalog.subcategories.length === 0) return null
+    let index = state.catalog.subcategories.findIndex(subcategory => {
+      return subcategory.isActive === true
     })
     return index === -1 ? null : index
   },
@@ -47,20 +53,20 @@ const getters = {
   products(state) {
     return state.products.data
   },
-  activeProductIndex(state) {
-    return state.products.activeProductIndex
-  },
   activeProduct(state) {
     if (state.products.activeProductIndex === null) return null
     else return state.products.data[state.products.activeProductIndex]
+  },
+  activeProductIndex(state) {
+    return state.products.activeProductIndex
   },
   paginationInfo(state) {
     let products = state.products
     return {
       currentPage: products.currentPage,
-      totalPages: Math.ceil(products.total / products.perPage),
+      totalPages: Math.ceil(products.totalProducts / products.perPage),
       perPage: products.perPage,
-      totalProducts: products.total,
+      totalProducts: products.totalProducts,
     }
   },
 }
@@ -74,7 +80,7 @@ const actions = {
       params: {
         version: process.env.NODE_ENV === 'production' ? 'published' : 'draft',
         is_startpage: true,
-        token: apiToken,
+        token: context.state.apiToken,
       },
     })
       .then(res => {
@@ -90,14 +96,14 @@ const actions = {
   getProductData(context, {node = context.state.catalog, page = 1}) {
     return axios({
       method: 'get',
-      url: `${apiUrl}/stories`,
+      url: `${context.state.apiUrl}/stories`,
       params: {
         version: process.env.NODE_ENV === 'production' ? 'published' : 'draft',
         is_startpage: false,
         starts_with: node.slug,
         sort_by: 'content.code:asc',
-        per_page: productsPerPage,
-        token: apiToken,
+        per_page: context.state.products.perPage,
+        token: context.state.apiToken,
         page,
       },
     })
@@ -119,7 +125,7 @@ const actions = {
       params: {
         version: process.env.NODE_ENV === 'production' ? 'published' : 'draft',
         is_startpage: true,
-        token: apiToken,
+        token: context.state.apiToken,
       },
     })
       .then(res => {
@@ -138,7 +144,7 @@ const actions = {
 const mutations = {
   deactivateCategory(state, node) {
     node.isActive = false
-    node.subCategories = []
+    node.subcategories = []
   },
   activateCategory(state, node) {
     node.isActive = true
@@ -152,7 +158,7 @@ const mutations = {
       content.description ||
       `Category description placeholder for '${content.name}'`
     node.photo = content.photo || null
-    node.accessUrl = `${apiUrl}/stories/${slug}`
+    node.accessUrl = `${state.apiUrl}/stories/${slug}`
     node.slug = slug
     node.subcategories = subcategoryInfo.map(infoEntry => {
       return {
@@ -175,8 +181,8 @@ const mutations = {
       data: [],
       activeProductIndex: null,
       currentPage: 1,
-      perPage: productsPerPage,
-      total: 0,
+      // perPage: state.products.perPage,
+      totalProducts: 0,
     }
   },
   registerProducts(state, payload) {
@@ -184,7 +190,7 @@ const mutations = {
     state.products.activeProductIndex = null
     state.products.currentPage = payload.config.params.page
     state.products.perPage = parseInt(payload.headers['per-page'])
-    state.products.total = parseInt(payload.headers.total)
+    state.products.totalProducts = parseInt(payload.headers.total)
     // deal with product data retrieval
     state.products.data = payload.data.stories.map(story => {
       let data = story.content

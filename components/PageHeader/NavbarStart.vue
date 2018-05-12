@@ -17,9 +17,8 @@
                @click.native="activateInProgressOverlay">
       <span>CATALOG</span>
     </nuxt-link>
-    <nuxt-link v-else
-               :class="{'is-active':$route.name==='catalog'}"
-               class="navbar-item has-dropdown"
+    <!-- <nuxt-link v-else
+               class="navbar-item has-dropdown is-active"
                to="/catalog"
                tag="a"
                @click.native="activateInProgressOverlay">
@@ -29,7 +28,7 @@
           Version 0.7.1
         </div>
       </div>
-    </nuxt-link>
+    </nuxt-link> -->
     <nuxt-link
       :class="{'is-active':$route.name==='contact'}"
       class="navbar-item"

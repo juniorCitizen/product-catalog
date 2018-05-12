@@ -43,7 +43,7 @@ module.exports = {
   css: [
     {src: '@/assets/scss/bulmaCustom.scss'},
     {src: '@/assets/css/global.css'},
-    {src: '@/assets/css/transition.css'},
+    {src: '@/assets/css/pageTransition.css'},
     {src: '@/static/css/fontawesome-all.min.css'},
   ],
 
