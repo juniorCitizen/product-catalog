@@ -2,50 +2,15 @@
   <div id="product-details"
        class="product-modal"
        @click.self="setActiveProductIndex(null)">
+    <span class="icon is-medium has-text-white"
+          style="position:absolute;right:0;">
+      <i class="fas fa-times-circle"
+         @click="setActiveProductIndex(null)"/>
+    </span>
     <div class="product-modal-content">
-      <header class="product-modal-heading">
-        <span>{{ product.code }}</span>
-        <span> - </span>
-        <span>{{ product.name }}</span>
-        <span class="icon is-small has-text-dark is-pulled-right">
-          <i style="font-size: 70%;"
-             class="fas fa-times-circle"
-             @click="setActiveProductIndex(null)"/>
-        </span>
-      </header>
       <showcase :url="photoOnDisplay"/>
-      <div :class="applyTabSize"
-           class="tabs is-centered is-boxed">
-        <ul>
-          <li :class="{'is-active':infoOnDisplay==='photos'}"
-              @click="infoOnDisplay='photos'">
-            <a>Photos</a>
-          </li>
-          <li :class="{'is-active':infoOnDisplay==='description'}"
-              @click="infoOnDisplay='description'">
-            <a>Desc</a>
-          </li>
-          <li :class="{'is-active':infoOnDisplay==='features'}"
-              @click="infoOnDisplay='features'">
-            <a>Features</a>
-          </li>
-          <li :class="{'is-active':infoOnDisplay==='specification'}"
-              @click="infoOnDisplay='specification'">
-            <a>Specs</a>
-          </li>
-        </ul>
-      </div>
-      <gallery v-if="infoOnDisplay==='photos'"
-               :primary-photo-url="product.primaryPhoto"
-               :secondary-photo-urls="product.secondaryPhotos"
-               :photo-on-display="photoOnDisplay"
-               @clicked="photoOnDisplay=$event"/>
-      <description v-if="infoOnDisplay==='description'"
-                   :text="product.description"/>
-      <features v-if="infoOnDisplay==='features'"
-                :text="product.specification.text"/>
-      <Specification v-if="infoOnDisplay==='specification'"
-                     :text="product.specification.details"/>
+      <info-display :photo-on-display="photoOnDisplay"
+                    @gallerySelection="photoOnDisplay=$event"/>
     </div>
   </div>
 </template>
@@ -53,36 +18,30 @@
 <script>
 import vuexMappers from 'vuex'
 
-import Description from './Description'
-import Features from './Features'
-import Gallery from './Gallery'
 import Showcase from './Showcase'
+import InfoDisplay from './InfoDisplay'
+import Gallery from './Gallery'
+import Features from './Features'
 import Specification from './Specification'
 
 export default {
   name: 'ProductDetails',
   components: {
-    Description,
-    Features,
-    Gallery,
     Showcase,
+    InfoDisplay,
+    Gallery,
+    Features,
     Specification,
   },
   data() {
     return {
       photoOnDisplay: null,
-      infoOnDisplay: 'photos',
     }
   },
   computed: {
     ...vuexMappers.mapGetters('catalog', {
       product: 'activeProduct',
     }),
-    applyTabSize() {
-      return {
-        'is-small': this.$mq === 'tiny' || this.$mq === 'smallerMobile',
-      }
-    },
   },
   mounted() {
     this.photoOnDisplay = this.product.primaryPhoto
@@ -97,10 +56,6 @@ export default {
 
 
 <style scoped>
-div.tabs {
-  font-weight: 100;
-  font-size: 70%;
-}
 .product-modal {
   position: fixed;
   z-index: 1000;
@@ -108,50 +63,53 @@ div.tabs {
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   overflow: hide;
   display: flex;
 }
+
 .product-modal-content {
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
   overflow-y: scroll;
   align-self: center;
-  padding: 15px;
-  max-height: 95%;
-  width: 95%;
+  max-height: 90%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
+  padding: 15px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   border-radius: 5px;
   background-color: whitesmoke;
-  overflow: auto;
+  overflow: scroll;
   animation-name: modal-open;
   animation-duration: 1s;
+  display: grid;
 }
 ::-webkit-scrollbar {
   width: 0;
 }
 
-header {
-  text-align: center;
-  font-weight: 800;
-  font-size: 36px;
-}
-@media all and (max-width: 768px) {
+@media all and (min-width: 769px) {
   .product-modal-content {
     align-self: center;
     padding: 15px;
-    height: 85%;
-    width: 80%;
-    overflow: auto;
-    animation-name: modal-open;
-    animation-duration: 1s;
+    height: 90%;
+    width: 90%;
+    grid-column-gap: 10px;
+    grid-template-columns: auto max-content;
   }
-  header {
-    text-align: start;
-    font-weight: 600;
-    font-size: 3vw;
+}
+
+@media all and (max-width: 768px) {
+  .product-modal-content {
+    align-self: center;
+    padding: 5px;
+    height: 80%;
+    max-height: 80%;
+    width: 95%;
+    grid-row-gap: 10px;
+    grid-template-rows: min-content auto;
   }
 }
 
@@ -162,5 +120,10 @@ header {
   to {
     opacity: 1;
   }
+}
+
+div.tabs {
+  font-weight: 100;
+  font-size: 70%;
 }
 </style>
