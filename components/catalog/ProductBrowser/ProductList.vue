@@ -74,13 +74,14 @@ export default {
 
 .product-card {
   border: 1px solid darkgray;
+  border-radius: 5px;
   padding: 5px;
   background-color: lightgray;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .product-card:hover {
-  border: 1px solid white;
+  border: 3px solid white;
 }
 
 .primary-photo-frame {
