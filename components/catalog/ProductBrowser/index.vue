@@ -26,12 +26,12 @@ export default {
   width: 0;
 }
 
-@media all and (min-width: 1087px) {
+@media all and (min-width: 1215px) {
   .product-list-container {
     height: calc(100vh-195px);
   }
 }
-@media all and (max-width: 1087px) {
+@media all and (max-width: 1214px) {
   .product-list-container {
     height: calc(100vh-160px);
   }
