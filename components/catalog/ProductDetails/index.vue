@@ -109,6 +109,9 @@ export default {
   display: flex;
 }
 .product-modal-content {
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  overflow-y: scroll;
   align-self: center;
   padding: 15px;
   max-height: 95%;
@@ -122,6 +125,10 @@ export default {
   animation-name: modal-open;
   animation-duration: 1s;
 }
+::-webkit-scrollbar {
+  width: 0;
+}
+
 header {
   text-align: center;
   font-weight: 800;
