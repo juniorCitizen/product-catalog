@@ -56,9 +56,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-aside.menu {
-  padding-top: 50px;
-}
-</style>
