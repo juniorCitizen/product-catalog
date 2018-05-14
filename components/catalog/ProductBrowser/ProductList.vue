@@ -69,7 +69,7 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-auto-rows: 300px;
   padding: 5px;
-  height: 75vh;
+  height: 100%;
 }
 
 .product-card {
@@ -81,7 +81,7 @@ export default {
 }
 
 .product-card:hover {
-  border: 3px solid white;
+  border: 1px solid white;
 }
 
 .primary-photo-frame {

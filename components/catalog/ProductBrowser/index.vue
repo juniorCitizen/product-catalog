@@ -20,15 +20,20 @@ export default {
   overflow: -moz-scrollbars-none;
   overflow-y: scroll;
   background-color: whitesmoke;
-  height: 100%;
+  height: calc(100vh-195px);
 }
 ::-webkit-scrollbar {
   width: 0;
 }
 
-@media all and (max-height: 768px) {
+@media all and (min-width: 1087px) {
   .product-list-container {
-    height: 65vh;
+    height: calc(100vh-195px);
+  }
+}
+@media all and (max-width: 1087px) {
+  .product-list-container {
+    height: calc(100vh-160px);
   }
 }
 </style>
