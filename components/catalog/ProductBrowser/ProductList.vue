@@ -48,6 +48,8 @@ export default {
         return {
           background: `url(${require('~/assets/placeholder.svg')})`,
           'background-size': 'contain',
+          'background-position': 'center',
+          'background-repeat': 'no-repeat',
         }
       }
     },
