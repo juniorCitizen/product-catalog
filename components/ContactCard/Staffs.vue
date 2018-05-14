@@ -1,5 +1,5 @@
 <template>
-  <div class="staff-container">
+  <div class="staff-list-container">
     <div v-for="staff in staffs"
          :key="staff._uid"
          class="staff-card">
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style scoped>
-.staff-container {
+.staff-list-container {
   display: grid;
   grid-gap: 10px 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -65,7 +65,9 @@ export default {
 }
 
 .staff-card {
+  background-color: whitesmoke;
   max-width: max-content;
+  min-width: 250px;
   border-left: 3px solid rgb(36, 145, 145);
   padding-top: 5px;
   padding-left: 10px;
@@ -73,7 +75,7 @@ export default {
 }
 
 .name-text {
-  font-weight: bold;
+  font-weight: 900;
   font-style: italic;
 }
 
