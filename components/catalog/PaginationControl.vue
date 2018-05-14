@@ -2,10 +2,12 @@
   <nav :class="dynamicSizeClass"
        class="pagination is-centered"
        role="navigation">
-    <a :disabled="currentPage===1"
+    <a v-if="$mq!=='mobile'"
+       :disabled="currentPage===1"
        class="pagination-previous"
        @click="previousPage">Previous</a>
-    <a :disabled="currentPage===totalPages||totalPages===0"
+    <a v-if="$mq!=='mobile'"
+       :disabled="currentPage===totalPages||totalPages===0"
        class="pagination-next"
        @click="nextPage">Next page</a>
     <ul class="pagination-list">
