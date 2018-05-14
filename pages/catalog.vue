@@ -115,4 +115,9 @@ export default {
   grid-row: 3/4;
   justify-self: end;
 }
+@media all and (max-width: 1087px) {
+  .pagination-container {
+    justify-self: center;
+  }
+}
 </style>
