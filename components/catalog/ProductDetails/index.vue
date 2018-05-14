@@ -7,8 +7,9 @@
         <span>{{ product.code }}</span>
         <span> - </span>
         <span>{{ product.name }}</span>
-        <span>
-          <a class="delete is-pulled-right"
+        <span class="icon is-small has-text-dark is-pulled-right">
+          <i style="font-size: 70%;"
+             class="fas fa-times-circle"
              @click="setActiveProductIndex(null)"/>
         </span>
       </header>
