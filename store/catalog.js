@@ -181,7 +181,7 @@ const mutations = {
       data: [],
       activeProductIndex: null,
       currentPage: 1,
-      // perPage: state.products.perPage,
+      perPage: state.products.perPage,
       totalProducts: 0,
     }
   },
