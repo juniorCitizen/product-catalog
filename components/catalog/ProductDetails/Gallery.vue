@@ -1,7 +1,9 @@
 <template>
   <div class="gallery">
     <template v-if="urls.length===0">
-      <p class="placeholder-text">Product images unavailable</p>
+      <p class="placeholder-text">
+        Product images unavailable
+      </p>
     </template>
     <template v-else>
       <div v-for="(processedUrl,index) in processedUrls"
@@ -86,5 +88,6 @@ export default {
 }
 .placeholder-text {
   width: max-content;
+  font-weight: 900;
 }
 </style>

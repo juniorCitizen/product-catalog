@@ -97,6 +97,10 @@ export default {
 
 
 <style scoped>
+div.tabs {
+  font-weight: 100;
+  font-size: 70%;
+}
 .product-modal {
   position: fixed;
   z-index: 1000;

@@ -34,5 +34,6 @@ p {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 900;
 }
 </style>
