@@ -44,6 +44,7 @@ span {
 
 @media all and (max-width: 1087px) {
   span.root-menu-label {
+    color: black;
     font-size: 70%;
     font-weight: 300;
   }
