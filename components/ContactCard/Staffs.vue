@@ -60,6 +60,7 @@ export default {
   display: grid;
   grid-gap: 10px 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 1fr;
   margin-top: 15px;
   padding: 5px;
 }
@@ -72,6 +73,8 @@ export default {
   padding-top: 5px;
   padding-left: 10px;
   padding-bottom: 5px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .name-text {
