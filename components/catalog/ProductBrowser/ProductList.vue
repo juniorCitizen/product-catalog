@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+    <div class="spacer"/>
   </div>
 </template>
 
@@ -55,6 +56,11 @@ export default {
 </script>
 
 <style scoped>
+.spacer {
+  height: 1px;
+  grid-column: 1/-1;
+}
+
 .product-list {
   display: grid;
   grid-gap: 25px;
@@ -69,6 +75,10 @@ export default {
   padding: 5px;
   background-color: lightgray;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.product-card:hover {
+  border: 1px solid white;
 }
 
 .primary-photo-frame {
@@ -103,9 +113,5 @@ export default {
 
 .product-name {
   font-size: 70%;
-}
-
-.product-card:hover {
-  border: 1px solid white;
 }
 </style>
