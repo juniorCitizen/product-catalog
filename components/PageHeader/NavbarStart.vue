@@ -17,18 +17,17 @@
                @click.native="activateInProgressOverlay">
       <span>CATALOG</span>
     </nuxt-link>
-    <!-- <nuxt-link v-else
-               class="navbar-item has-dropdown is-active"
-               to="/catalog"
-               tag="a"
-               @click.native="activateInProgressOverlay">
-      <a class="navbar-link">CATALOG</a>
+    <div v-else
+         class="navbar-item has-dropdown is-active">
+      <a class="navbar-link">
+        CATALOG
+      </a>
       <div class="navbar-dropdown">
-        <div class="navbar-item">
-          Version 0.7.1
+        <div class="navbar-item dropdown-catalog-frame">
+          <category-menu/>
         </div>
       </div>
-    </nuxt-link> -->
+    </div>
     <nuxt-link
       :class="{'is-active':$route.name==='contact'}"
       class="navbar-item"
@@ -43,8 +42,13 @@
 <script>
 import vuexMappers from 'vuex'
 
+import CategoryMenu from '~/components/catalog/CategoryMenu'
+
 export default {
   name: 'NavbarStart',
+  components: {
+    CategoryMenu,
+  },
   methods: {
     ...vuexMappers.mapMutations('inProgress', {
       activateInProgressOverlay: 'activateInProgressOverlay',
@@ -54,6 +58,13 @@ export default {
 </script>
 
 <style scoped>
+.dropdown-catalog-frame {
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 0px;
+  padding: 5px;
+}
+
 @media all and (min-width: 1088px) {
   #navbar-start {
     display: none;
