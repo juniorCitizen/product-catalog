@@ -2,8 +2,8 @@
   <div id="product-details"
        class="product-modal"
        @click.self="setActiveProductIndex(null)">
-    <span class="icon is-medium has-text-white"
-          style="position:absolute;right:0;">
+    <span :class="closeButtonSize"
+          class="icon has-text-danger">
       <i class="fas fa-times-circle"
          @click="setActiveProductIndex(null)"/>
     </span>
@@ -42,6 +42,12 @@ export default {
     ...vuexMappers.mapGetters('catalog', {
       product: 'activeProduct',
     }),
+    closeButtonSize() {
+      return {
+        'is-large': this.$mq !== 'mobile',
+        'is-small': this.$mq === 'mobile',
+      }
+    },
   },
   mounted() {
     this.photoOnDisplay = this.product.primaryPhoto
@@ -56,6 +62,13 @@ export default {
 
 
 <style scoped>
+span.icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1001;
+}
+
 .product-modal {
   position: fixed;
   z-index: 1000;
@@ -105,8 +118,9 @@ export default {
   .product-modal-content {
     align-self: center;
     padding: 5px;
-    height: 80%;
-    max-height: 80%;
+    height: 95vh;
+    margin-top: auto;
+    margin-bottom: 5px;
     width: 95%;
     grid-row-gap: 10px;
     grid-template-rows: min-content auto;
@@ -120,10 +134,5 @@ export default {
   to {
     opacity: 1;
   }
-}
-
-div.tabs {
-  font-weight: 100;
-  font-size: 70%;
 }
 </style>

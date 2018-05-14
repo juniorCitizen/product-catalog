@@ -93,7 +93,8 @@ export default {
     min-height: 50vw;
   }
   .product-title-text {
-    font-weight: 900;
+    font-size: 80%;
+    font-weight: 700;
   }
   .product-description-text {
     font-size: 75%;
