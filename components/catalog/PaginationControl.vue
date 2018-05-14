@@ -1,15 +1,7 @@
 <template>
   <nav :class="dynamicSizeClass"
-       class="pagination is-centered"
+       class="pagination"
        role="navigation">
-    <a v-if="$mq!=='mobile'"
-       :disabled="currentPage===1"
-       class="pagination-previous"
-       @click="previousPage">Previous</a>
-    <a v-if="$mq!=='mobile'"
-       :disabled="currentPage===totalPages||totalPages===0"
-       class="pagination-next"
-       @click="nextPage">Next page</a>
     <ul class="pagination-list">
       <li v-if="currentPage>2">
         <a :class="{'is-current':currentPage===1}"
@@ -77,18 +69,6 @@ export default {
     ...vuexMappers.mapActions('catalog', {
       getProductData: 'getProductData',
     }),
-    nextPage() {
-      return this.getProductData({
-        node: this.activeCategory,
-        page: this.currentPage + 1,
-      })
-    },
-    previousPage() {
-      return this.getProductData({
-        node: this.activeCategory,
-        page: this.currentPage - 1,
-      })
-    },
     toPage(pageNumber) {
       if (pageNumber !== this.currentPage) {
         return this.getProductData({
