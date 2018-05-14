@@ -37,21 +37,16 @@ export default {
 </script>
 
 <style scoped>
-.root-menu-label {
-  font-size: 0.7vw;
-  white-space: nowrap;
-}
-
-@media all and (max-width: 768px) {
-  .root-menu-label {
-    font-size: 100%;
-    white-space: nowrap;
-  }
-}
-
-p,
 span {
+  white-space: nowrap;
   cursor: default;
+}
+
+@media all and (max-width: 1087px) {
+  span.root-menu-label {
+    font-size: 70%;
+    font-weight: 300;
+  }
 }
 
 p.is-active > span:not(.icon),

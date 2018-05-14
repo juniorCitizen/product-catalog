@@ -97,9 +97,10 @@ span.submenu-label {
   white-space: nowrap;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 1087px) {
   span.submenu-label {
-    font-size: 100%;
+    font-size: 70%;
+    font-weight: 100;
   }
 }
 
