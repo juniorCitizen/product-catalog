@@ -97,7 +97,7 @@ export default {
   }
   .product-description-text {
     font-size: 75%;
-    font-weight: 100;
+    font-weight: 400;
   }
   .product-title-text,
   .product-description-text {

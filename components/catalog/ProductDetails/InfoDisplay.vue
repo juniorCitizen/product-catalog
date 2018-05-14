@@ -5,15 +5,15 @@
       <ul>
         <li :class="{'is-active':infoOnDisplay==='photos'}"
             @click="infoOnDisplay='photos'">
-          <a>Photos</a>
+          <a>PHOTOS</a>
         </li>
         <li :class="{'is-active':infoOnDisplay==='features'}"
             @click="infoOnDisplay='features'">
-          <a>Features</a>
+          <a>FEATURES</a>
         </li>
         <li :class="{'is-active':infoOnDisplay==='specification'}"
             @click="infoOnDisplay='specification'">
-          <a>Specs</a>
+          <a>SPECS</a>
         </li>
       </ul>
     </div>
