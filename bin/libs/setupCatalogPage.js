@@ -22,9 +22,9 @@ module.exports = () => {
   return parseNode(catalog, 0, dataset)
     .then(() => {
       // check if orphan category or product data exists
-      console.log('catalog data')
+      console.log(`[${dataset.categories.length}] orphan catalog data entries`)
       console.log(dataset.categories)
-      console.log('product data')
+      console.log(`[${dataset.products.length}] orphan product data entries`)
       console.log(dataset.products)
       return Promise.resolve()
     })
