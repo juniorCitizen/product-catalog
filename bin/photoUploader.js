@@ -64,11 +64,11 @@ Promise.each(photoMappingData, (dataEntry, index) => {
   }
 })
   .then(() => {
-    console.dir(
-      photoMappingData.filter(dataEntry => {
-        return dataEntry.uploaded === false
-      })
-    )
+    let orphans = photoMappingData.filter(dataEntry => {
+      return dataEntry.uploaded === false
+    })
+    console.log(`${orphans.length} orphan data entry/entries`)
+    console.dir(orphans)
     console.log('photo uploader task completed')
     return Promise.resolve()
   })
