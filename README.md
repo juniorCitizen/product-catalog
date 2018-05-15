@@ -11,7 +11,7 @@
 
 3. setup a new space
 
-4. from the space settings page, generate new 'preview' and 'public' token.  Record the tokens and the space id in the .env file, under the following keys:
+4. from the space settings page, generate new 'preview' and 'public' tokens.  Record the tokens and the space id in the .env file, under the following keys:
 
   * 'STORYBLOK_SPACE_ID'
   * 'STORYBLOK_API_PREVIEW_TOKEN'
