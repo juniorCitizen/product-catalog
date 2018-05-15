@@ -28,7 +28,7 @@ teardown
   .then(components.createSpecificationDetailsComponent)
   .then(components.createPhotoComponent)
   .then(components.createProductPageComponent)
-  .then(() => setupCatalogPage())
+  .then(setupCatalogPage)
   /**
    * setup carousel information
    */
