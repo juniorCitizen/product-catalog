@@ -35,7 +35,7 @@
 
 ## BEWARE - this script starts by removing all existing stories, components and assets from the specified content space, do not run this command on a required space
 
-6. run 'npm run upload', this will upload all product photo as Storyblok assets.  Depending on the number of products and photos, this will take quite a while.
+6. run 'npm run uploader', this will upload all product photo as Storyblok assets.  Depending on the number of products and photos, this will take quite a while.
 
 7. at this point, the 'development' environment is ready to run.  Before 'production' deployment, be sure to run 'npm run publish'.  This will publish all contents for production build.
 ```
