@@ -224,6 +224,7 @@ const mutations = {
             weightCap: data.specification[0].details[0].weightCap || 'n/a',
             maxHeight: data.specification[0].details[0].maxHeight || 'n/a',
             minHeight: data.specification[0].details[0].minHeight || 'n/a',
+            weight: data.specification[0].details[0].weight || 'n/a',
           },
         },
         primaryPhoto: data.primaryPhoto,

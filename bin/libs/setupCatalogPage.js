@@ -152,6 +152,7 @@ function parseNode(
                           weightCap: data.weightCap || null,
                           minHeight: data.minHeight || null,
                           maxHeight: data.maxHeight || null,
+                          weight: data.weight || null,
                         },
                       ],
                     },
@@ -171,7 +172,6 @@ function parseNode(
           // deal with product photos (sequentially, by each product)
           return Promise.each(node.productInfo, (entry, index) => {
             let currProd = node.productInfo[index]
-            // let content = node.productInfo[index].pageInfo.content
             // read photos from directory
             return fs
               .readdir(entry.path)
@@ -198,28 +198,6 @@ function parseNode(
                     return path.join(entry.path, file)
                   })
                   currProd.secondaryPhotoPaths = secondaryPhotoPaths
-                  // upload photos and update product page object
-                  // return api
-                  //   .uploadAsset(currProd.primaryPhotoPath)
-                  //   .then(prettyUrl => {
-                  //     content.primaryPhoto = prettyUrl
-                  //     return Promise.each(
-                  //       currProd.secondaryPhotoPaths,
-                  //       pathString => {
-                  //         return api
-                  //           .uploadAsset(pathString)
-                  //           .then(prettyUrl => {
-                  //             content.secondaryPhotos.push({
-                  //               component: 'Photo',
-                  //               url: prettyUrl,
-                  //             })
-                  //             return Promise.resolve()
-                  //           })
-                  //           .catch(error => Promise.reject(error))
-                  //       }
-                  //     )
-                  //   })
-                  //   .catch(error => Promise.reject(error))
                 }
               })
               .catch(error => Promise.reject(error))

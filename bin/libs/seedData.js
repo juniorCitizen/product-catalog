@@ -92,6 +92,7 @@ function getProducts() {
       F: 'weightCap',
       G: 'minHeight',
       H: 'maxHeight',
+      I: 'weight',
     },
     sheets: ['products'],
   })['products']

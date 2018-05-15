@@ -127,6 +127,7 @@ module.exports = {
             weightCap: {type: 'text'},
             minHeight: {type: 'text'},
             maxHeight: {type: 'text'},
+            weight: {type: 'text'},
           },
           is_root: false,
           is_nestable: true,
