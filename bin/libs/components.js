@@ -12,6 +12,7 @@ module.exports = {
             mobile: {type: 'text'},
           },
           is_root: true,
+          is_nestable: true,
         },
       })
       .then(() => Promise.resolve())
@@ -27,6 +28,7 @@ module.exports = {
             logo: {type: 'image'},
           },
           is_root: true,
+          is_nestable: true,
         },
       })
       .then(() => Promise.resolve())
@@ -55,6 +57,7 @@ module.exports = {
             },
           },
           is_root: true,
+          is_nestable: true,
         },
       })
       .then(() => Promise.resolve())
@@ -102,7 +105,6 @@ module.exports = {
           name: 'Category Page',
           schema: {
             name: {type: 'text'},
-            // sulg: {type: 'text'},
             description: {type: 'text'},
             photo: {type: 'image'},
             subcategories: {
@@ -129,7 +131,7 @@ module.exports = {
             maxHeight: {type: 'text'},
             weight: {type: 'text'},
           },
-          is_root: false,
+          is_root: true,
           is_nestable: true,
         },
       })
@@ -209,6 +211,7 @@ module.exports = {
             imageUrl: {type: 'image'},
           },
           is_root: true,
+          is_nestable: true,
         },
       })
       .then(() => Promise.resolve())
