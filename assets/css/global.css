@@ -1,4 +1,4 @@
-html {
+html,body {
   text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -16,12 +16,4 @@ html {
 
 html::-webkit-scrollbar {
   width: 0 !important;
-}
-
-body {
-  box-sizing: border-box;
-  height: 100vh;
-  width: 100vw;
-  padding: 0px;
-  margin: 0px;
 }
