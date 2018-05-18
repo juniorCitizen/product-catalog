@@ -1,0 +1,14 @@
+[build]
+publish = "dist"
+command = "npm run generate"
+
+[context.production]
+  command = "npm run generate"
+  [context.production.environment]
+  HOST = "127.0.0.1"
+  PORT = "80"
+  STORYBLOK_SPACE_ID = "44812"
+  STORYBLOK_API_PUBLIC_TOKEN = "yLg5C6P4QNPkiPbIFAiCMAtt"
+  STORYBLOK_API_URL = "https://api.storyblok.com/v1/cdn"
+  PRODUCTS_PER_PAGE = "30"
+  STORIES_PER_QUERY = "500"
