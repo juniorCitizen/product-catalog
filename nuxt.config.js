@@ -1,6 +1,8 @@
-require('dotenv-safe').config()
+const prodMode = process.env.NODE_ENV === 'production'
 
-const pkg = require('./package')
+if (!prodMode) require('dotenv-safe').config()
+
+// const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
@@ -63,10 +65,9 @@ module.exports = {
     [
       'storyblok-nuxt',
       {
-        accessToken:
-          process.env.NODE_ENV === 'production'
-            ? process.env.STORYBLOK_API_PUBLIC_TOKEN
-            : process.env.STORYBLOK_API_PREVIEW_TOKEN,
+        accessToken: prodMode
+          ? process.env.STORYBLOK_API_PUBLIC_TOKEN
+          : process.env.STORYBLOK_API_PREVIEW_TOKEN,
         cacheProvider: 'memory',
       },
     ],

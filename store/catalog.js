@@ -21,7 +21,7 @@ const state = () => {
       data: [],
       activeProductIndex: null,
       currentPage: 1,
-      perPage: process.env.PRODUCTS_PER_PAGE,
+      perPage: parseInt(process.env.PRODUCTS_PER_PAGE),
       totalProducts: 0,
     },
   }

@@ -1,4 +1,6 @@
-require('dotenv-safe').config()
+const prodMode = process.env.NODE_ENV === 'production'
+
+if (!prodMode) require('dotenv-safe').config()
 
 const express = require('express')
 const {Nuxt, Builder} = require('nuxt')
@@ -10,7 +12,7 @@ app.set('port', port)
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
+config.dev = !prodMode
 
 async function start() {
   // Init Nuxt.js
