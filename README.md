@@ -1,4 +1,4 @@
-# Project: product-catalog (Branch: nuxt-storyblok)
+# Project: product-catalog (Branch: seeder-storyblok)
 
 > SSR product catalog website using NUXT and Storyblok headless CMS
 
