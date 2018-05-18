@@ -7,7 +7,7 @@ const rp = require('request-promise')
 const rpr = require('request-promise-retry')(rp)
 
 const apiUrl = process.env.STORYBLOK_MANAGEMENT_API_URL
-const spaceId = process.env.STORYBLOK_SPACE_ID
+const spaceId = parseInt(process.env.STORYBLOK_SPACE_ID)
 const token = process.env.STORYBLOK_MANAGEMENT_API_TOKEN
 
 const axiosInst = axios.create({
